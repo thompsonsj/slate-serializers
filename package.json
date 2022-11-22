@@ -1,0 +1,39 @@
+{
+  "name": "slate-serializers",
+  "version": "0.0.1",
+  "description": "Serialize Slate JSON objects to HTML and vice versa. Define rules to modify the end result.",
+  "main": "index.js",
+  "scripts": {
+    "cz": "commitizen",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thompsonsj/slate-serializers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thompsonsj/slate-serializers/issues"
+  },
+  "homepage": "https://github.com/thompsonsj/slate-serializers#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+    "@commitlint/config-conventional"
+    ]
+  }
+}
