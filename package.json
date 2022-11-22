@@ -4,6 +4,7 @@
   "description": "Serialize Slate JSON objects to HTML and vice versa. Define rules to modify the end result.",
   "main": "index.js",
   "scripts": {
+    "build" : "tsc",
     "cz": "commitizen",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,13 +19,15 @@
   },
   "homepage": "https://github.com/thompsonsj/slate-serializers#readme",
   "dependencies": {
+    
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.2"
+    "husky": "^8.0.2",
+    "typescript": "^4.9.3"
   },
   "config": {
     "commitizen": {
@@ -33,7 +36,7 @@
   },
   "commitlint": {
     "extends": [
-    "@commitlint/config-conventional"
+      "@commitlint/config-conventional"
     ]
   }
 }
