@@ -1,7 +1,7 @@
 import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
-import { ChildNode, DomHandler, Element } from 'domhandler'
-import { getAttributeValue, getName, textContent } from 'domutils'
+import { ChildNode, DomHandler, Element, Text } from 'domhandler'
+import { getAttributeValue, getChildren, getName, textContent } from 'domutils'
 import { removeLineBreaks } from '../../utilities'
 
 interface ItagMap {
@@ -38,43 +38,47 @@ const TEXT_TAGS: ItagMap = {
   u: () => ({ underline: true }),
 }
 
-const deserialize = (el: ChildNode): any => {
-  if (el.type === ElementType.Text) {
-    const text = textContent(el)
-    return text.trim() ? text : null
-  }
-  if (el.type !== ElementType.Tag) {
+const deserialize = (el: ChildNode, index?: number): any => {
+  if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
-  if (getName(el) === 'br') {
+  let parent = el as Element
+  if (getName(parent) === 'br') {
     return '\n'
   }
 
-  const nodeName = getName(el)
-  let parent = el as Element
+  const nodeName = getName(parent)
+  const nodeFirstChildName = parent.childNodes && parent.childNodes[0] && getName(parent.childNodes[0] as Element)
+  const nodeFirstParentName = parent.parent && getName(parent.parent as Element)
 
-  if (nodeName === 'pre' && el.childNodes[0] && getName(el.childNodes[0] as Element) === 'code') {
-    ;[parent] = el.childNodes as Element[]
-  }
+  let children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
 
-  let children = Array.from(parent.childNodes).map(deserialize).flat()
-
-  if (children.length === 0) {
-    children = [{ text: '' }]
-  }
-
-  if (getName(el) === 'body') {
+  if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
   }
 
+  if (
+    (nodeName === 'pre' && nodeFirstChildName === 'code') ||
+    (nodeName === 'code' && nodeFirstChildName === 'pre')
+  ) {
+    const attrs = TEXT_TAGS['code'](parent)
+    return [jsx('text', attrs, textContent(getChildren(parent.childNodes[0])))]
+  }
+
   if (ELEMENT_TAGS[nodeName]) {
-    const attrs = ELEMENT_TAGS[nodeName](el)
+    const attrs = ELEMENT_TAGS[nodeName](parent)
     return jsx('element', attrs, children)
   }
 
-  if (TEXT_TAGS[nodeName]) {
-    const attrs = TEXT_TAGS[nodeName](el)
-    return children.map((child) => jsx('text', attrs, child))
+  if (el.type === ElementType.Text) {
+    const name = nodeName || nodeFirstParentName || ''
+    if (TEXT_TAGS[name]) {
+      const attrs = TEXT_TAGS[name](parent)
+      return [jsx('text', {...attrs, text: textContent(el)}, children)]
+    } else {
+      const text = textContent(el)
+      return text.trim() ? text : null
+    }
   }
 
   return children
@@ -87,7 +91,17 @@ export const htmlToSlate = (html: string) => {
       // Handle error
     } else {
       // Parsing completed, do something
-      slateContent = dom.map((node) => deserialize(node)).filter((element) => element)
+      slateContent = dom
+        .map((node) => deserialize(node)) // run the deserializer
+        .filter((element) => element) // filter out null elements
+        .map((element) => { // ensure all top level elements have a children property
+          if (!element.children) {
+            return {
+              children: element
+            }
+          }
+          return element
+        })
     }
   })
   const parser = new Parser(handler)

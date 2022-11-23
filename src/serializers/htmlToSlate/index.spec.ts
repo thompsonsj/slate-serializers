@@ -1,4 +1,6 @@
 import { htmlToSlate } from '.'
+import { fixtures as elementFixtures } from '../../__tests__/fixtures/elementTags'
+import { fixtures as textFixtures } from '../../__tests__/fixtures/textTags'
 
 describe('Housekeeping', () => {
   it('ignores non-HTML line breaks and extra spaces', () => {
@@ -44,71 +46,20 @@ describe('Housekeeping', () => {
 })
 
 describe('HTML to Slate JSON transforms', () => {
-  it('converts a sequence of basic text elements', () => {
-    const fixture = `<h1>Heading 1</h1><p>Paragraph 1</p>`
-    const expected = [
-      {
-        children: [
-          {
-            text: 'Heading 1',
-          },
-        ],
-        type: 'h1',
-      },
-      {
-        children: [
-          {
-            text: 'Paragraph 1',
-          },
-        ],
-        type: 'p',
-      },
-    ]
-    expect(htmlToSlate(fixture)).toEqual(expected)
+  describe('Element tags', () => {
+    const fixtures = elementFixtures
+    for (let i = 0; i < fixtures.length; i++) {
+      it(`${fixtures[i].name}`, () => {
+        expect(htmlToSlate(fixtures[i].html)).toEqual(fixtures[i].slate)
+      })
+    }
   })
-
-  it('handles links', () => {
-    const fixture = `<a href="https://github.com/thompsonsj/slate-serializers">Slate Serializers | GitHub</a>`
-    const expected = [
-      {
-        children: [
-          {
-            text: 'Slate Serializers | GitHub',
-          },
-        ],
-        newTab: false,
-        type: 'link',
-        url: 'https://github.com/thompsonsj/slate-serializers',
-      },
-    ]
-    expect(htmlToSlate(fixture)).toEqual(expected)
-  })
-
-  it('handles unordered lists', () => {
-    const fixture = `<ul><li>Item 1</li><li>Item 2</li></ul>`
-    const expected = [
-      {
-        children: [
-          {
-            children: [
-              {
-                text: 'Item 1',
-              },
-            ],
-            type: 'li',
-          },
-          {
-            children: [
-              {
-                text: 'Item 2',
-              },
-            ],
-            type: 'li',
-          },
-        ],
-        type: 'ul',
-      },
-    ]
-    expect(htmlToSlate(fixture)).toEqual(expected)
+  describe('Text tags', () => {
+    const fixtures = textFixtures
+    for (let i = 0; i < fixtures.length; i++) {
+      it(`${fixtures[i].name}`, () => {
+        expect(htmlToSlate(fixtures[i].html)).toEqual(fixtures[i].slate)
+      })
+    }
   })
 })
