@@ -84,15 +84,16 @@ const deserialize = (el: ChildNode, index?: number): any => {
 }
 
 const gatherTextMarkAttributes = (el: Element) => {
-  let allAttrs = {}  
-  el.childNodes && [el, ...getChildren(el).flat()].map(child => {
+  let allAttrs = {}
+  // tslint:disable-next-line no-unused-expression
+  el.childNodes && [el, ...getChildren(el).flat()].forEach(child => {
     const name = getName(child as Element)
     const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](child as Element) : {}
     const text = textContent(el)
     allAttrs = {
       ...allAttrs,
       ...attrs,
-      text: text
+      text
     }
   })
   return allAttrs
