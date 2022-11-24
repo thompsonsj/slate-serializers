@@ -9,11 +9,20 @@ export const slateToHtml = (node: any[]) => {
 const slateNodeToHtml = (node: any) => {
   if (Text.isText(node)) {
     let str = escape(node.text)
+    if ((node as any).code) {
+      str = `<pre><code>${str}</code></pre>`
+    }
+    if ((node as any).italic) {
+      str = `<i>${str}</i>`
+    }
+    if ((node as any).underline) {
+      str = `<u>${str}</u>`
+    }
     if ((node as any).bold) {
       str = `<strong>${str}</strong>`
     }
-    if ((node as any).code) {
-      str = `<pre><code>${str}</code></pre>`
+    if ((node as any).strikethrough) {
+      str = `<s>${str}</s>`
     }
     return str
   }

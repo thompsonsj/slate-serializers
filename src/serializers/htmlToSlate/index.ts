@@ -1,6 +1,6 @@
 import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
-import { ChildNode, DomHandler, Element, Text } from 'domhandler'
+import { ChildNode, DomHandler, Element } from 'domhandler'
 import { getAttributeValue, getChildren, getName, textContent } from 'domutils'
 import { removeLineBreaks } from '../../utilities'
 
@@ -49,7 +49,6 @@ const deserialize = (el: ChildNode, index?: number): any => {
 
   const nodeName = getName(parent)
   const nodeFirstChildName = parent.childNodes && parent.childNodes[0] && getName(parent.childNodes[0] as Element)
-  const nodeFirstParentName = parent.parent && getName(parent.parent as Element)
 
   const children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
 
@@ -70,16 +69,34 @@ const deserialize = (el: ChildNode, index?: number): any => {
     return jsx('element', attrs, children)
   }
 
-  if (el.type === ElementType.Text) {
+  if (TEXT_TAGS[nodeName]) {
+    return [jsx('text', gatherTextMarkAttributes(parent), [])]
+  }
+
+  else if (el.type === ElementType.Text) {
     if (textContent(el).trim() === '') {
       return null
     }
-    const name = nodeName || nodeFirstParentName || ''
-    const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](parent) : {}
-    return [jsx('text', {...attrs, text: textContent(el)}, children)]
+    return [jsx('text', {text: textContent(el)}, children)]
   }
 
   return children
+}
+
+const gatherTextMarkAttributes = (el: Element) => {
+  let allAttrs = {}
+  // tslint:disable-next-line no-unused-expression
+  el.childNodes && [el, ...getChildren(el).flat()].forEach(child => {
+    const name = getName(child as Element)
+    const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](child as Element) : {}
+    const text = textContent(el)
+    allAttrs = {
+      ...allAttrs,
+      ...attrs,
+      text
+    }
+  })
+  return allAttrs
 }
 
 export const htmlToSlate = (html: string) => {
