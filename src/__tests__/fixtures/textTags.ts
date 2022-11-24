@@ -20,6 +20,34 @@ export const fixtures: Ifixture[] = [
     ],
   },
   {
+    name: "unarticulated annotation",
+    html: "<u>Unarticulated Annotation</u>",
+    slate: [
+      {
+        children: [
+          {
+            underline: true,
+            text: "Unarticulated Annotation"
+          }
+        ],
+      },
+    ],
+  },
+  {
+    name: "idiomatic text",
+    html: "<i>Idiomatic Text</i>",
+    slate: [
+      {
+        children: [
+          {
+            italic: true,
+            text: "Idiomatic Text"
+          }
+        ],
+      },
+    ],
+  },
+  {
     name: "strong in paragraph",
     html: "<p><strong>Bold</strong></p>",
     slate: [

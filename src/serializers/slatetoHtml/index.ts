@@ -15,6 +15,12 @@ const slateNodeToHtml = (node: any) => {
     if ((node as any).code) {
       str = `<pre><code>${str}</code></pre>`
     }
+    if ((node as any).underline) {
+      str = `<u>${str}</u>`
+    }
+    if ((node as any).italic) {
+      str = `<i>${str}</i>`
+    }
     return str
   }
 
