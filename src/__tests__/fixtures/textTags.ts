@@ -35,6 +35,47 @@ export const fixtures: Ifixture[] = [
     ],
   },
   {
+    name: "strong mid-sentence",
+    html: "Some <strong>bold text</strong> in a sentence.",
+    /*
+    Expected but not received:
+    {
+        "text": "Some "
+    },
+    {
+        "text": "bold text",
+        "bold": true
+    },
+    {
+        "text": " in a sentence."
+    }
+    */
+    slate: [
+      {
+        "children": [
+          {
+            "text": "Some ",
+          },
+        ],
+      },
+      {
+        "children": [
+          {
+            "bold": true,
+            "text": "bold text",
+          },
+        ],
+      },
+      {
+        "children": [
+          {
+            "text": " in a sentence.",
+          },
+        ],
+      }
+    ]
+  },
+  {
     name: "pre",
     html: "<pre><code>Pre</code></pre>",
     slate: [

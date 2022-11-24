@@ -71,14 +71,12 @@ const deserialize = (el: ChildNode, index?: number): any => {
   }
 
   if (el.type === ElementType.Text) {
-    const name = nodeName || nodeFirstParentName || ''
-    if (TEXT_TAGS[name]) {
-      const attrs = TEXT_TAGS[name](parent)
-      return [jsx('text', {...attrs, text: textContent(el)}, children)]
-    } else {
-      const text = textContent(el)
-      return text.trim() ? text : null
+    if (textContent(el).trim() === '') {
+      return null
     }
+    const name = nodeName || nodeFirstParentName || ''
+    const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](parent) : {}
+    return [jsx('text', {...attrs, text: textContent(el)}, children)]
   }
 
   return children
