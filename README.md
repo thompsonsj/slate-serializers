@@ -1,6 +1,6 @@
 # slate-serializers
 
-A collection of serializers to convert Slate JSON objects to various formats and vice versa.
+A collection of serializers to convert [Slate](https://www.npmjs.com/package/slate) JSON objects to various formats and vice versa. Designed to work in both Node.js and browser environments.
 
 Serializers included so far:
 
@@ -46,6 +46,22 @@ const serializedToHtml = slateToHtml(slate)
 // ...and convert back to Slate
 const serializedToSlate = htmlToSlate(serializedToHtml)
 ```
+
+## Details
+
+### slateToHtml
+
+Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
+
+[htmlparser2](https://www.npmjs.com/package/htmlparser2) is used to parse HTML instead of the `DOMHandler` object. Rationale:
+
+- Works in all environments, including Node.js.
+- Speed - `htmlparser2` is the fastest HTML parser.
+- Forgiving regarding HTML spec compliance.
+
+### htmlToSlate
+
+Based on logic in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
 
 ## Development
 
