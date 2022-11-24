@@ -48,17 +48,17 @@ describe('Housekeeping', () => {
 describe('HTML to Slate JSON transforms', () => {
   describe('Element tags', () => {
     const fixtures = elementFixtures
-    for (let i = 0; i < fixtures.length; i++) {
-      it(`${fixtures[i].name}`, () => {
-        expect(htmlToSlate(fixtures[i].html)).toEqual(fixtures[i].slate)
+    for (const fixture of fixtures) {
+      it(`${fixture.name}`, () => {
+        expect(htmlToSlate(fixture.html)).toEqual(fixture.slate)
       })
     }
   })
   describe('Text tags', () => {
     const fixtures = textFixtures
-    for (let i = 0; i < fixtures.length; i++) {
-      it(`${fixtures[i].name}`, () => {
-        expect(htmlToSlate(fixtures[i].html)).toEqual(fixtures[i].slate)
+    for (const fixture of fixtures) {
+      it(`${fixture.name}`, () => {
+        expect(htmlToSlate(fixture.html)).toEqual(fixture.slate)
       })
     }
   })

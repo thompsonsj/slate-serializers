@@ -42,7 +42,7 @@ const deserialize = (el: ChildNode, index?: number): any => {
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
-  let parent = el as Element
+  const parent = el as Element
   if (getName(parent) === 'br') {
     return '\n'
   }
@@ -51,7 +51,7 @@ const deserialize = (el: ChildNode, index?: number): any => {
   const nodeFirstChildName = parent.childNodes && parent.childNodes[0] && getName(parent.childNodes[0] as Element)
   const nodeFirstParentName = parent.parent && getName(parent.parent as Element)
 
-  let children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
+  const children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
 
   if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
@@ -61,7 +61,7 @@ const deserialize = (el: ChildNode, index?: number): any => {
     (nodeName === 'pre' && nodeFirstChildName === 'code') ||
     (nodeName === 'code' && nodeFirstChildName === 'pre')
   ) {
-    const attrs = TEXT_TAGS['code'](parent)
+    const attrs = TEXT_TAGS[`code`](parent)
     return [jsx('text', attrs, textContent(getChildren(parent.childNodes[0])))]
   }
 
