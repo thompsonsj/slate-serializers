@@ -1,6 +1,6 @@
 {
   "name": "slate-serializers",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Serialize Slate JSON objects to HTML and vice versa. Define rules to modify the end result.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,6 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "release": "standard-version",
-    "publish": "git push --follow-tags origin main && npm run prepare && npm publish",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "test": "jest"
