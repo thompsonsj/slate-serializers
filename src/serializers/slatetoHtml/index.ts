@@ -2,7 +2,26 @@ import { escape } from 'html-escaper'
 import { Text } from 'slate'
 
 export const slateToHtml = (node: any[]) => {
-  const slateNode = { children: node }
+  // slate in payload 1.1.21 does not add p tags at the top level
+  // this makes it difficult to serialize back into Slate, as it
+  // requires scanning siblings. It also means we need to consider
+  // line breaks in the resulting HTML. Add p tags when we convert to
+  // HTML to avoid this complexity.
+  const nodeWithTopLevelPElements = node.map((el) => {
+    if (!el.type) {
+      return {
+        ...el,
+        type: 'p',
+      }
+    } else if (['a', 'pre', 'code'].includes(el.type)) {
+      return {
+        children: [el],
+        type: 'p',
+      }
+    }
+    return el
+  })
+  const slateNode = { children: nodeWithTopLevelPElements }
   return slateNodeToHtml(slateNode)
 }
 
