@@ -1,7 +1,7 @@
 import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element } from 'domhandler'
-import { getAttributeValue, getChildren, getInnerHTML, getName, textContent } from 'domutils'
+import { getAttributeValue, getChildren, getName, textContent } from 'domutils'
 import { hasLineBreak } from '../../utilities'
 
 interface ItagMap {
