@@ -2,8 +2,7 @@ import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element } from 'domhandler'
 import { getAttributeValue, getChildren, getInnerHTML, getName, textContent } from 'domutils'
-import render from "dom-serializer"
-import { removeLineBreaks } from '../../utilities'
+import { hasLineBreak } from '../../utilities'
 
 interface ItagMap {
   [key: string]: (a?: Element) => object
@@ -63,7 +62,7 @@ const deserialize = (el: ChildNode, index?: number): any => {
 
   if (TEXT_TAGS[nodeName] || el.type === ElementType.Text) {
     const text = textContent(el)
-    if (text.match(/[\r\n]+/) === null && text.trim() === '') {
+    if (!hasLineBreak(text) && text.trim() === '') {
       return null
     }
     return [jsx('text', gatherTextMarkAttributes(parent), [])]
@@ -120,7 +119,6 @@ export const htmlToSlate = (html: string) => {
     }
   })
   const parser = new Parser(handler)
-  //parser.write(removeLineBreaks(html))
   parser.write(html)
   parser.end()
   return slateContent

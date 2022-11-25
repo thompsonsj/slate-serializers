@@ -1,1 +1,1 @@
-export const removeLineBreaks = (str: string) => str.replace(/(\r\n|\n|\r)/gm, '')
+export const hasLineBreak = (str: string) => str.match(/[\r\n]+/) !== null

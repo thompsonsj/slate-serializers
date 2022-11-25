@@ -183,7 +183,7 @@ export const fixtures: Ifixture[] = [
                 ],
               },
               {
-                text: "\n",
+                text: '\n',
               },
             ],
           },
