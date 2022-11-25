@@ -2,6 +2,11 @@ import { escape } from 'html-escaper'
 import { Text } from 'slate'
 import { prependSpace } from '../../utilities'
 
+interface IpropertyMap {
+  slateAttr: string
+  htmlAttr: string
+}
+
 export const slateToHtml = (
   node: any[],
   {
@@ -9,7 +14,7 @@ export const slateToHtml = (
     attributePropertyMap = []
   }: {
     enforceTopLevelPTags?: boolean,
-    attributePropertyMap?: any[]
+    attributePropertyMap?: IpropertyMap[]
   } = {},
 ) => {
   const nodeWithTopLevelPElements = node.map((el) => {
