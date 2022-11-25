@@ -1,9 +1,12 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
 
-export const slateToHtml = (node: any[], options = {
-  enforceTopLevelPTags: false
-}) => {
+export const slateToHtml = (
+  node: any[],
+  options = {
+    enforceTopLevelPTags: false,
+  },
+) => {
   const nodeWithTopLevelPElements = node.map((el) => {
     if (!el.type && options?.enforceTopLevelPTags) {
       return {

@@ -5,7 +5,7 @@
  * * serializing the same HTML back to Slate
  * * serialize our generated Slate object back to HTML
  *
- * Our Slate object can differ from the original (using 
+ * Our Slate object can differ from the original (using
  * slate in payload 1.1.21). We have to add p tags to the
  * top level to get a result that we can convert back and
  * forth. Without this, logic gets too complex - we need
