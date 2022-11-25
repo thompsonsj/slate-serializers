@@ -42,11 +42,20 @@ describe('attribute mapping', () => {
   const html = '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a>.</p>'
 
   it('slateToHtml adds a custom data attribute', () => {
-    expect(slateToHtml(slate, {attributePropertyMap: [
+    expect(slateToHtml(slate, {attributeMap: [
       {
         slateAttr: 'linkType',
         htmlAttr: 'data-link-type'
       } 
     ]})).toEqual(html)
+  })
+
+  it('htmlToSlate adds a custom data attribute', () => {
+    expect(htmlToSlate(html, {attributeMap: [
+      {
+        slateAttr: 'linkType',
+        htmlAttr: 'data-link-type'
+      } 
+    ]})).toEqual(slate)
   })
 })

@@ -1,20 +1,16 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
 import { prependSpace } from '../../utilities'
-
-interface IpropertyMap {
-  slateAttr: string
-  htmlAttr: string
-}
+import { IattributeMap } from '../../types'
 
 export const slateToHtml = (
   node: any[],
   {
     enforceTopLevelPTags = false,
-    attributePropertyMap = []
+    attributeMap = []
   }: {
     enforceTopLevelPTags?: boolean,
-    attributePropertyMap?: IpropertyMap[]
+    attributeMap?: IattributeMap[]
   } = {},
 ) => {
   const nodeWithTopLevelPElements = node.map((el) => {
@@ -27,13 +23,13 @@ export const slateToHtml = (
     return el
   })
   const slateNode = { children: nodeWithTopLevelPElements }
-  return slateNodeToHtml(slateNode, { attributePropertyMap })
+  return slateNodeToHtml(slateNode, { attributeMap })
 }
 
 const slateNodeToHtml = (node: any, {
-  attributePropertyMap = []
+  attributeMap = []
 }: {
-  attributePropertyMap?: any[]
+  attributeMap?: IattributeMap[]
 } = {}) => {
   if (Text.isText(node)) {
     let str = escape(node.text)
@@ -55,9 +51,9 @@ const slateNodeToHtml = (node: any, {
     return str
   }
 
-  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributePropertyMap })).join('') : []
+  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })).join('') : []
 
-  let attrs = attributePropertyMap.map(map => {
+  let attrs = attributeMap.map(map => {
     if (node[map.slateAttr]) {
       return `${map.htmlAttr}="${node[map.slateAttr]}"`
     }
