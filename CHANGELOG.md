@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/thompsonsj/slate-serializers/compare/v0.0.5...v0.0.7) (2022-11-25)
+
+
+### Features
+
+* **slatetohtml:** improve text tag support ([#3](https://github.com/thompsonsj/slate-serializers/issues/3)) ([44d45b6](https://github.com/thompsonsj/slate-serializers/commit/44d45b682ef34bd7ff87a1c6605565fe897f0afd))
+
 ### [0.0.6](https://github.com/thompsonsj/slate-serializers/compare/v0.0.5...v0.0.6) (2022-11-24)
 
 ### [0.0.5](https://github.com/thompsonsj/slate-serializers/compare/v0.0.3...v0.0.5) (2022-11-24)
