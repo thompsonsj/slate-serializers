@@ -69,7 +69,8 @@ const slateNodeToHtml = (node: any) => {
     case 'li':
       return `<li>${children}</li>`
     case 'link':
-      return `<a href="${escape(node.url)}">${children}</a>`
+      const newTabAttr = node.newTab ? ' target="_blank"' : ''
+      return `<a href="${escape(node.url)}"${newTabAttr}>${children}</a>`
     case 'blockquote':
       return `<blockquote>${children}</blockquote>`
     default:
