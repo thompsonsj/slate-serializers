@@ -29,6 +29,57 @@ interface Ifixture {
 
 export const fixtures: Ifixture[] = [
   {
+    name: 'text with inline link',
+    html: '<p>Some text before an inline link <a href="https://status.teamtailor.com" target="_blank">status.teamtailor.com</a>.</p>',
+    slateOriginal: [
+      {
+        children: [
+          {
+            text: 'Some text before an inline link ',
+          },
+          {
+            type: 'link',
+            linkType: 'custom',
+            url: 'https://status.teamtailor.com',
+            newTab: true,
+            children: [
+              {
+                text: 'status.teamtailor.com',
+              },
+            ],
+          },
+          {
+            text: '.',
+          },
+        ],
+      },
+    ],
+    slateReserialized: [
+      {
+        children: [
+          {
+            text: 'Some text before an inline link ',
+          },
+          {
+            type: 'link',
+            //"linkType": "custom", // this is payload specific?
+            url: 'https://status.teamtailor.com',
+            newTab: true,
+            children: [
+              {
+                text: 'status.teamtailor.com',
+              },
+            ],
+          },
+          {
+            text: '.',
+          },
+        ],
+        type: 'p',
+      },
+    ],
+  },
+  {
     name: 'larger document 1',
     html: '<h2>Heading 2</h2><p>A regular paragraph.</p><p>A <strong>paragraph</strong> with <strong><i>various</i></strong> text <s>marks</s>.</p><h3>Heading 3</h3><ul><li><strong>Item 1</strong>: From a list</li><li><strong>Item 2</strong>: From a list</li></ul><p><a href="https://docs.slatejs.org/">Find out more about Slate</a>.</p><h4>Heading 4</h4>',
     slateOriginal: [
