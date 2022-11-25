@@ -47,6 +47,55 @@ const serializedToHtml = slateToHtml(slate)
 const serializedToSlate = htmlToSlate(serializedToHtml)
 ```
 
+Both serializers support an `attributeMap` option, which maps Slate attributes to HTML attributes and vice versa. This is supported for element tags only.
+
+```ts
+const slate = [
+  {
+    children: [
+      {
+        type: 'link',
+        "linkType": "custom",
+        url: 'https://github.com/thompsonsj/slate-serializers',
+        newTab: true,
+        children: [
+          {
+            text: 'slate-serializers | GitHub',
+          },
+        ],
+      },
+    ],
+    type: 'p',
+  }
+]
+
+const html = slateToHtml(slate,
+  {
+    attributeMap: [
+      {
+        slateAttr: 'linkType',
+        htmlAttr: 'data-link-type'
+      } 
+    ]
+  }
+)
+
+// output
+// <p><a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a></p>
+
+// using the same attributeMap for htmlToSlate will ensure the linkType attribute is preserved in the Slate JSON object.
+const slateReserialized = htmlToSlate(html,
+  {
+    attributeMap: [
+      {
+        slateAttr: 'linkType',
+        htmlAttr: 'data-link-type'
+      } 
+    ]
+  }
+)
+```
+
 ## Details
 
 ### slateToHtml
