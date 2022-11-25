@@ -55,7 +55,7 @@ const slate = [
     children: [
       {
         type: 'link',
-        "linkType": "custom",
+        linkType: "custom",
         url: 'https://github.com/thompsonsj/slate-serializers',
         newTab: true,
         children: [
