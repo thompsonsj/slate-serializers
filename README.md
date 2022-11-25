@@ -59,6 +59,18 @@ Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org
 - Speed - `htmlparser2` is the fastest HTML parser.
 - Forgiving regarding HTML spec compliance.
 
+#### Options
+
+You may get better results passing the `enforceTopLevelPTags` option.
+
+```js
+slateToHtml(slate, {enforceTopLevelPTags: true})
+```
+
+Objects in the Slate JSON can have no type (e.g. `p`) and contain a number of children. This causes issues for the serializer, which renders each child at the top of the DOM. Example: `Paragraph 1.Paragraph 2.`. Complexity is increased when text marks are involved such as `u`, `strong` and `i`.
+
+To avoid this, `enforceTopLevelPTags` ensures any top level objects without a type are assigned as a `p` tag. Example: `<p>Paragraph 1.</p><p>Paragraph 2.</p>`.
+
 ### htmlToSlate
 
 Based on logic in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).

@@ -61,7 +61,10 @@ const deserialize = (el: ChildNode, index?: number): any => {
   }
 
   if (TEXT_TAGS[nodeName] || el.type === ElementType.Text) {
-    return jsx('text', gatherTextMarkAttributes(parent), [])
+    if (textContent(el).trim() === '') {
+      return null
+    }
+    return [jsx('text', gatherTextMarkAttributes(parent), [])]
   }
 
   return children
