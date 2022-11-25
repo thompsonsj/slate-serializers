@@ -3,12 +3,13 @@ import { Text } from 'slate'
 
 export const slateToHtml = (
   node: any[],
-  options = {
-    enforceTopLevelPTags: false,
-  },
+  {
+    enforceTopLevelPTags =false,
+    attributePropertyMap = []
+  } = {},
 ) => {
   const nodeWithTopLevelPElements = node.map((el) => {
-    if (!el.type && options?.enforceTopLevelPTags) {
+    if (!el.type && enforceTopLevelPTags) {
       return {
         ...el,
         type: 'p',

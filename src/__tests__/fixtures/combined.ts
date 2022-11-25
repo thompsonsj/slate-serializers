@@ -30,7 +30,7 @@ interface Ifixture {
 export const fixtures: Ifixture[] = [
   {
     name: 'text with inline link',
-    html: '<p>Some text before an inline link <a href="https://status.teamtailor.com" target="_blank">status.teamtailor.com</a>.</p>',
+    html: '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a>.</p>',
     slateOriginal: [
       {
         children: [
@@ -40,11 +40,11 @@ export const fixtures: Ifixture[] = [
           {
             type: 'link',
             linkType: 'custom',
-            url: 'https://status.teamtailor.com',
+            url: 'https://github.com/thompsonsj/slate-serializers',
             newTab: true,
             children: [
               {
-                text: 'status.teamtailor.com',
+                text: 'slate-serializers | GitHub',
               },
             ],
           },
@@ -63,11 +63,11 @@ export const fixtures: Ifixture[] = [
           {
             type: 'link',
             //"linkType": "custom", // this is payload specific?
-            url: 'https://status.teamtailor.com',
+            url: 'https://github.com/thompsonsj/slate-serializers',
             newTab: true,
             children: [
               {
-                text: 'status.teamtailor.com',
+                text: 'slate-serializers | GitHub',
               },
             ],
           },
@@ -86,7 +86,7 @@ export const fixtures: Ifixture[] = [
    *  */
   {
     name: 'links nested in an unordered list',
-    html: `<ul><li><a href="https://support.teamtailor.com/en/articles/1908751-gdpr-features" target="_blank">GDPR features | Teamtailor Support</a></li><li><a href="https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature" target="_blank">Candidate Data and Privacy feature | Teamtailor Support</a>
+    html: `<ul><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a></li><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a>
 </li></ul>`,
     slateOriginal: [
       {
@@ -100,11 +100,11 @@ export const fixtures: Ifixture[] = [
               {
                 type: 'link',
                 linkType: 'custom',
-                url: 'https://support.teamtailor.com/en/articles/1908751-gdpr-features',
+                url: 'https://github.com/thompsonsj/slate-serializers',
                 newTab: true,
                 children: [
                   {
-                    text: 'GDPR features | Teamtailor Support',
+                    text: 'slate-serializers | GitHub',
                   },
                 ],
               },
@@ -123,11 +123,11 @@ export const fixtures: Ifixture[] = [
               {
                 type: 'link',
                 linkType: 'custom',
-                url: 'https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature',
+                url: 'https://github.com/thompsonsj/slate-serializers',
                 newTab: true,
                 children: [
                   {
-                    text: 'Candidate Data and Privacy feature | Teamtailor Support',
+                    text: 'slate-serializers | GitHub',
                   },
                 ],
               },
@@ -151,11 +151,11 @@ export const fixtures: Ifixture[] = [
               {
                 type: 'link',
                 //linkType: 'custom',
-                url: 'https://support.teamtailor.com/en/articles/1908751-gdpr-features',
+                url: 'https://github.com/thompsonsj/slate-serializers',
                 newTab: true,
                 children: [
                   {
-                    text: 'GDPR features | Teamtailor Support',
+                    text: 'slate-serializers | GitHub',
                   },
                 ],
               },
@@ -174,11 +174,11 @@ export const fixtures: Ifixture[] = [
               {
                 type: 'link',
                 //linkType: 'custom',
-                url: 'https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature',
+                url: 'https://github.com/thompsonsj/slate-serializers',
                 newTab: true,
                 children: [
                   {
-                    text: 'Candidate Data and Privacy feature | Teamtailor Support',
+                    text: 'slate-serializers | GitHub',
                   },
                 ],
               },
