@@ -39,11 +39,14 @@ const TEXT_TAGS: ItagMap = {
   u: () => ({ underline: true }),
 }
 
-const deserialize = (el: ChildNode, {
-  attributeMap = []
-}: {
-  attributeMap?: IattributeMap[]
-} = {}): any => {
+const deserialize = (
+  el: ChildNode,
+  {
+    attributeMap = [],
+  }: {
+    attributeMap?: IattributeMap[]
+  } = {},
+): any => {
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
@@ -54,7 +57,7 @@ const deserialize = (el: ChildNode, {
 
   const nodeName = getName(parent)
 
-  const children = parent.childNodes ? parent.childNodes.map(node => deserialize(node, { attributeMap })).flat() : []
+  const children = parent.childNodes ? parent.childNodes.map((node) => deserialize(node, { attributeMap })).flat() : []
 
   if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
@@ -63,12 +66,12 @@ const deserialize = (el: ChildNode, {
   if (ELEMENT_TAGS[nodeName]) {
     let attrs = ELEMENT_TAGS[nodeName](parent)
     // tslint:disable-next-line no-unused-expression
-    attributeMap.map(map => {
+    attributeMap.map((map) => {
       const value = getAttributeValue(parent, map.htmlAttr)
       if (value) {
         attrs = {
           [map.slateAttr]: value,
-          ...attrs
+          ...attrs,
         }
       }
     })
@@ -112,11 +115,14 @@ const gatherTextMarkAttributes = (el: Element) => {
   return allAttrs
 }
 
-export const htmlToSlate = (html: string, {
-  attributeMap = []
-}: {
-  attributeMap?: IattributeMap[]
-} = {}) => {
+export const htmlToSlate = (
+  html: string,
+  {
+    attributeMap = [],
+  }: {
+    attributeMap?: IattributeMap[]
+  } = {},
+) => {
   let slateContent
   const handler = new DomHandler((error, dom) => {
     if (error) {

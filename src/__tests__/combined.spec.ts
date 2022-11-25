@@ -23,7 +23,7 @@ describe('attribute mapping', () => {
         },
         {
           type: 'link',
-          "linkType": "custom",
+          linkType: 'custom',
           url: 'https://github.com/thompsonsj/slate-serializers',
           newTab: true,
           children: [
@@ -37,25 +37,34 @@ describe('attribute mapping', () => {
         },
       ],
       type: 'p',
-    }
+    },
   ]
-  const html = '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a>.</p>'
+  const html =
+    '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a>.</p>'
 
   it('slateToHtml adds a custom data attribute', () => {
-    expect(slateToHtml(slate, {attributeMap: [
-      {
-        slateAttr: 'linkType',
-        htmlAttr: 'data-link-type'
-      } 
-    ]})).toEqual(html)
+    expect(
+      slateToHtml(slate, {
+        attributeMap: [
+          {
+            slateAttr: 'linkType',
+            htmlAttr: 'data-link-type',
+          },
+        ],
+      }),
+    ).toEqual(html)
   })
 
   it('htmlToSlate adds a custom data attribute', () => {
-    expect(htmlToSlate(html, {attributeMap: [
-      {
-        slateAttr: 'linkType',
-        htmlAttr: 'data-link-type'
-      } 
-    ]})).toEqual(slate)
+    expect(
+      htmlToSlate(html, {
+        attributeMap: [
+          {
+            slateAttr: 'linkType',
+            htmlAttr: 'data-link-type',
+          },
+        ],
+      }),
+    ).toEqual(slate)
   })
 })

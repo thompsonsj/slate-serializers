@@ -7,9 +7,9 @@ export const slateToHtml = (
   node: any[],
   {
     enforceTopLevelPTags = false,
-    attributeMap = []
+    attributeMap = [],
   }: {
-    enforceTopLevelPTags?: boolean,
+    enforceTopLevelPTags?: boolean
     attributeMap?: IattributeMap[]
   } = {},
 ) => {
@@ -26,11 +26,14 @@ export const slateToHtml = (
   return slateNodeToHtml(slateNode, { attributeMap })
 }
 
-const slateNodeToHtml = (node: any, {
-  attributeMap = []
-}: {
-  attributeMap?: IattributeMap[]
-} = {}) => {
+const slateNodeToHtml = (
+  node: any,
+  {
+    attributeMap = [],
+  }: {
+    attributeMap?: IattributeMap[]
+  } = {},
+) => {
   if (Text.isText(node)) {
     let str = escape(node.text)
     if ((node as any).code) {
@@ -51,15 +54,18 @@ const slateNodeToHtml = (node: any, {
     return str
   }
 
-  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })).join('') : []
+  const children: any[] = node.children
+    ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })).join('')
+    : []
 
-  let attrs = attributeMap.map(map => {
-    if (node[map.slateAttr]) {
-      return `${map.htmlAttr}="${node[map.slateAttr]}"`
-    }
-    return null
-  })
-  .filter(map => map)
+  let attrs = attributeMap
+    .map((map) => {
+      if (node[map.slateAttr]) {
+        return `${map.htmlAttr}="${node[map.slateAttr]}"`
+      }
+      return null
+    })
+    .filter((map) => map)
 
   switch (node.type) {
     case 'p':
