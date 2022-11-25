@@ -18,6 +18,13 @@ describe('Housekeeping', () => {
       {
         children: [
           {
+            text: '\n    ',
+          },
+        ],
+      },
+      {
+        children: [
+          {
             text: 'Paragraph 1',
           },
         ],

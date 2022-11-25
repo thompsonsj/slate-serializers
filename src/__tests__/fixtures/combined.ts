@@ -79,6 +79,118 @@ export const fixtures: Ifixture[] = [
       },
     ],
   },
+  /**
+   * this is an interesting test - note the line break
+   * included by Slate. We need to support this in
+   * reserialized Slate in order to get matching HTML
+   *  */
+  {
+    name: 'links nested in an unordered list',
+    html: `<ul><li><a href="https://support.teamtailor.com/en/articles/1908751-gdpr-features" target="_blank">GDPR features | Teamtailor Support</a></li><li><a href="https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature" target="_blank">Candidate Data and Privacy feature | Teamtailor Support</a>
+</li></ul>`,
+    slateOriginal: [
+      {
+        type: 'ul',
+        children: [
+          {
+            children: [
+              {
+                text: '',
+              },
+              {
+                type: 'link',
+                linkType: 'custom',
+                url: 'https://support.teamtailor.com/en/articles/1908751-gdpr-features',
+                newTab: true,
+                children: [
+                  {
+                    text: 'GDPR features | Teamtailor Support',
+                  },
+                ],
+              },
+              {
+                text: '',
+              },
+            ],
+            type: 'li',
+          },
+          {
+            type: 'li',
+            children: [
+              {
+                text: '',
+              },
+              {
+                type: 'link',
+                linkType: 'custom',
+                url: 'https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature',
+                newTab: true,
+                children: [
+                  {
+                    text: 'Candidate Data and Privacy feature | Teamtailor Support',
+                  },
+                ],
+              },
+              {
+                text: '\n',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    slateReserialized: [
+      {
+        type: 'ul',
+        children: [
+          {
+            children: [
+              /*{
+                text: '',
+              },*/
+              {
+                type: 'link',
+                //linkType: 'custom',
+                url: 'https://support.teamtailor.com/en/articles/1908751-gdpr-features',
+                newTab: true,
+                children: [
+                  {
+                    text: 'GDPR features | Teamtailor Support',
+                  },
+                ],
+              },
+              /*{
+                text: '',
+              },*/
+            ],
+            type: 'li',
+          },
+          {
+            type: 'li',
+            children: [
+              /*{
+                text: '',
+              },*/
+              {
+                type: 'link',
+                //linkType: 'custom',
+                url: 'https://support.teamtailor.com/en/articles/2834603-candidate-data-and-privacy-feature',
+                newTab: true,
+                children: [
+                  {
+                    text: 'Candidate Data and Privacy feature | Teamtailor Support',
+                  },
+                ],
+              },
+              {
+                text: "\n",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   {
     name: 'larger document 1',
     html: '<h2>Heading 2</h2><p>A regular paragraph.</p><p>A <strong>paragraph</strong> with <strong><i>various</i></strong> text <s>marks</s>.</p><h3>Heading 3</h3><ul><li><strong>Item 1</strong>: From a list</li><li><strong>Item 2</strong>: From a list</li></ul><p><a href="https://docs.slatejs.org/">Find out more about Slate</a>.</p><h4>Heading 4</h4>',
