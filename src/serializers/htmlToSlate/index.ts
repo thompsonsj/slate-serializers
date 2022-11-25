@@ -24,12 +24,12 @@ const ELEMENT_TAGS: ItagMap = {
   li: () => ({ type: 'li' }),
   ol: () => ({ type: 'ol' }),
   p: () => ({ type: 'p' }),
-  pre: () => ({ type: 'code' }),
   ul: () => ({ type: 'ul' }),
 }
 
 const TEXT_TAGS: ItagMap = {
   code: () => ({ code: true }),
+  pre: () => ({ code: true }),
   del: () => ({ strikethrough: true }),
   em: () => ({ italic: true }),
   i: () => ({ italic: true }),
@@ -48,7 +48,6 @@ const deserialize = (el: ChildNode, index?: number): any => {
   }
 
   const nodeName = getName(parent)
-  const nodeFirstChildName = parent.childNodes && parent.childNodes[0] && getName(parent.childNodes[0] as Element)
 
   const children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
 
@@ -56,28 +55,16 @@ const deserialize = (el: ChildNode, index?: number): any => {
     return jsx('fragment', {}, children)
   }
 
-  if (
-    (nodeName === 'pre' && nodeFirstChildName === 'code') ||
-    (nodeName === 'code' && nodeFirstChildName === 'pre')
-  ) {
-    const attrs = TEXT_TAGS[`code`](parent)
-    return [jsx('text', attrs, textContent(getChildren(parent.childNodes[0])))]
-  }
-
   if (ELEMENT_TAGS[nodeName]) {
     const attrs = ELEMENT_TAGS[nodeName](parent)
     return jsx('element', attrs, children)
   }
 
-  if (TEXT_TAGS[nodeName]) {
-    return [jsx('text', gatherTextMarkAttributes(parent), [])]
-  }
-
-  else if (el.type === ElementType.Text) {
+  if (TEXT_TAGS[nodeName] || el.type === ElementType.Text) {
     if (textContent(el).trim() === '') {
       return null
     }
-    return [jsx('text', {text: textContent(el)}, children)]
+    return [jsx('text', gatherTextMarkAttributes(parent), [])]
   }
 
   return children
@@ -86,16 +73,26 @@ const deserialize = (el: ChildNode, index?: number): any => {
 const gatherTextMarkAttributes = (el: Element) => {
   let allAttrs = {}
   // tslint:disable-next-line no-unused-expression
-  el.childNodes && [el, ...getChildren(el).flat()].forEach(child => {
-    const name = getName(child as Element)
-    const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](child as Element) : {}
+  if (el.childNodes) {
+    ;[el, ...getChildren(el).flat()].forEach((child) => {
+      const name = getName(child as Element)
+      const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](child as Element) : {}
+      const text = textContent(child)
+      allAttrs = {
+        ...allAttrs,
+        ...attrs,
+        text,
+      }
+    })
+  } else {
+    const name = getName(el)
+    const attrs = TEXT_TAGS[name] ? TEXT_TAGS[name](el) : {}
     const text = textContent(el)
     allAttrs = {
-      ...allAttrs,
       ...attrs,
-      text
+      text,
     }
-  })
+  }
   return allAttrs
 }
 
@@ -109,10 +106,11 @@ export const htmlToSlate = (html: string) => {
       slateContent = dom
         .map((node) => deserialize(node)) // run the deserializer
         .filter((element) => element) // filter out null elements
-        .map((element) => { // ensure all top level elements have a children property
+        .map((element) => {
+          // ensure all top level elements have a children property
           if (!element.children) {
             return {
-              children: element
+              children: element,
             }
           }
           return element

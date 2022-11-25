@@ -1,8 +1,22 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
 
-export const slateToHtml = (node: any[]) => {
-  const slateNode = { children: node }
+export const slateToHtml = (
+  node: any[],
+  options = {
+    enforceTopLevelPTags: false,
+  },
+) => {
+  const nodeWithTopLevelPElements = node.map((el) => {
+    if (!el.type && options?.enforceTopLevelPTags) {
+      return {
+        ...el,
+        type: 'p',
+      }
+    }
+    return el
+  })
+  const slateNode = { children: nodeWithTopLevelPElements }
   return slateNodeToHtml(slateNode)
 }
 

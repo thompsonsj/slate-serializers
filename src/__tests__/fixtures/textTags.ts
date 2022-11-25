@@ -6,87 +6,87 @@ interface Ifixture {
 
 export const fixtures: Ifixture[] = [
   {
-    name: "strong",
-    html: "<strong>Bold</strong>",
+    name: 'strong',
+    html: '<strong>Bold</strong>',
     slate: [
       {
         children: [
           {
             bold: true,
-            text: "Bold"
-          }
+            text: 'Bold',
+          },
         ],
       },
     ],
   },
   {
-    name: "unarticulated annotation",
-    html: "<u>Unarticulated Annotation</u>",
+    name: 'unarticulated annotation',
+    html: '<u>Unarticulated Annotation</u>',
     slate: [
       {
         children: [
           {
             underline: true,
-            text: "Unarticulated Annotation"
-          }
+            text: 'Unarticulated Annotation',
+          },
         ],
       },
     ],
   },
   {
-    name: "idiomatic text",
-    html: "<i>Idiomatic Text</i>",
+    name: 'idiomatic text',
+    html: '<i>Idiomatic Text</i>',
     slate: [
       {
         children: [
           {
             italic: true,
-            text: "Idiomatic Text"
-          }
+            text: 'Idiomatic Text',
+          },
         ],
       },
     ],
   },
   {
-    name: "strikethrough",
-    html: "<s>Strikethrough</s>",
+    name: 'strikethrough',
+    html: '<s>Strikethrough</s>',
     slate: [
       {
         children: [
           {
             strikethrough: true,
-            text: "Strikethrough"
-          }
+            text: 'Strikethrough',
+          },
         ],
       },
     ],
   },
   {
-    name: "strong and idiomatic text",
-    html: "<strong><i>Strong and Idiomatic Text</i></strong>",
+    name: 'strong and idiomatic text',
+    html: '<strong><i>Strong and Idiomatic Text</i></strong>',
     slate: [
       {
         children: [
           {
             bold: true,
             italic: true,
-            text: "Strong and Idiomatic Text"
-          }
+            text: 'Strong and Idiomatic Text',
+          },
         ],
       },
     ],
   },
   {
-    name: "strong and unarticulated annotation",
-    html: "<strong><u>Strong and Unarticulated Annotation</u></strong>",
+    name: 'strong and unarticulated annotation',
+    html: '<strong><u>Strong and Unarticulated Annotation</u></strong>',
     slate: [
       {
         children: [
           {
             bold: true,
             underline: true,
-            text: "Strong and Unarticulated Annotation"
-          }
+            text: 'Strong and Unarticulated Annotation',
+          },
         ],
       },
     ],
@@ -109,14 +109,14 @@ export const fixtures: Ifixture[] = [
     ],
   },*/
   {
-    name: "strong in paragraph",
-    html: "<p><strong>Bold</strong></p>",
+    name: 'strong in paragraph',
+    html: '<p><strong>Bold</strong></p>',
     slate: [
       {
         children: [
           {
             bold: true,
-            text: "Bold"
+            text: 'Bold',
           },
         ],
         type: 'p',
@@ -124,8 +124,8 @@ export const fixtures: Ifixture[] = [
     ],
   },
   {
-    name: "strong mid-sentence",
-    html: "Some <strong>bold text</strong> in a sentence.",
+    name: 'strong mid-sentence',
+    html: 'Some <strong>bold text</strong> in a sentence.',
     /*
     Expected but not received:
     {
@@ -141,38 +141,38 @@ export const fixtures: Ifixture[] = [
     */
     slate: [
       {
-        "children": [
+        children: [
           {
-            "text": "Some ",
+            text: 'Some ',
           },
         ],
       },
       {
-        "children": [
+        children: [
           {
-            "bold": true,
-            "text": "bold text",
+            bold: true,
+            text: 'bold text',
           },
         ],
       },
       {
-        "children": [
+        children: [
           {
-            "text": " in a sentence.",
+            text: ' in a sentence.',
           },
         ],
-      }
-    ]
+      },
+    ],
   },
   {
-    name: "pre",
-    html: "<pre><code>Pre</code></pre>",
+    name: 'pre',
+    html: '<pre><code>Pre</code></pre>',
     slate: [
       {
         children: [
           {
             code: true,
-            text: "Pre",
+            text: 'Pre',
           },
         ],
       },

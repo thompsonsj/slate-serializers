@@ -6,8 +6,8 @@ interface Ifixture {
 
 export const fixtures: Ifixture[] = [
   {
-    name: "blockquote",
-    html: "<blockquote>Blockquote</blockquote>",
+    name: 'blockquote',
+    html: '<blockquote>Blockquote</blockquote>',
     slate: [
       {
         children: [
@@ -17,11 +17,11 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'blockquote',
       },
-    ]
+    ],
   },
   {
-    name: "headings",
-    html: "<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><h5>Heading 5</h5><h6>Heading 6</h6>",
+    name: 'headings',
+    html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><h5>Heading 5</h5><h6>Heading 6</h6>',
     slate: [
       {
         children: [
@@ -71,11 +71,11 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'h6',
       },
-    ]
+    ],
   },
   {
-    name: "paragraph",
-    html: "<p>Paragraph 1</p>",
+    name: 'paragraph',
+    html: '<p>Paragraph 1</p>',
     slate: [
       {
         children: [
@@ -85,10 +85,10 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'p',
       },
-    ]
+    ],
   },
   {
-    name: "link",
+    name: 'link',
     html: '<a href="https://github.com/thompsonsj/slate-serializers">Slate Serializers | GitHub</a>',
     slate: [
       {
@@ -101,10 +101,10 @@ export const fixtures: Ifixture[] = [
         type: 'link',
         url: 'https://github.com/thompsonsj/slate-serializers',
       },
-    ]
+    ],
   },
   {
-    name: "unordered list",
+    name: 'unordered list',
     html: '<ul><li>Item 1</li><li>Item 2</li></ul>',
     slate: [
       {
@@ -128,10 +128,10 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'ul',
       },
-    ]
+    ],
   },
   {
-    name: "nested unordered list",
+    name: 'nested unordered list',
     html: '<ul><li>Item 1<ul><li>Nested item 1</li><li>Nested item 2</li></ul></li><li>Item 2</li></ul>',
     slate: [
       {
@@ -149,7 +149,7 @@ export const fixtures: Ifixture[] = [
                         text: 'Nested item 1',
                       },
                     ],
-                    type: "li"
+                    type: 'li',
                   },
                   {
                     children: [
@@ -157,10 +157,10 @@ export const fixtures: Ifixture[] = [
                         text: 'Nested item 2',
                       },
                     ],
-                    type: "li"
-                  }
+                    type: 'li',
+                  },
                 ],
-                type: 'ul'
+                type: 'ul',
               },
             ],
             type: 'li',
@@ -176,10 +176,10 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'ul',
       },
-    ]
+    ],
   },
   {
-    name: "ordered list",
+    name: 'ordered list',
     html: '<ol><li>Item 1</li><li>Item 2</li></ol>',
     slate: [
       {
@@ -203,6 +203,6 @@ export const fixtures: Ifixture[] = [
         ],
         type: 'ol',
       },
-    ]
+    ],
   },
 ]
