@@ -3,6 +3,7 @@ import { Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element } from 'domhandler'
 import { getAttributeValue, getChildren, getName, textContent } from 'domutils'
 import { hasLineBreak } from '../../utilities'
+import { IattributeMap } from '../../types'
 
 interface ItagMap {
   [key: string]: (a?: Element) => object
@@ -38,7 +39,14 @@ const TEXT_TAGS: ItagMap = {
   u: () => ({ underline: true }),
 }
 
-const deserialize = (el: ChildNode, index?: number): any => {
+const deserialize = (
+  el: ChildNode,
+  {
+    attributeMap = [],
+  }: {
+    attributeMap?: IattributeMap[]
+  } = {},
+): any => {
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
@@ -49,14 +57,24 @@ const deserialize = (el: ChildNode, index?: number): any => {
 
   const nodeName = getName(parent)
 
-  const children = parent.childNodes ? Array.from(parent.childNodes).map(deserialize).flat() : []
+  const children = parent.childNodes ? parent.childNodes.map((node) => deserialize(node, { attributeMap })).flat() : []
 
   if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
   }
 
   if (ELEMENT_TAGS[nodeName]) {
-    const attrs = ELEMENT_TAGS[nodeName](parent)
+    let attrs = ELEMENT_TAGS[nodeName](parent)
+    // tslint:disable-next-line no-unused-expression
+    attributeMap.map((map) => {
+      const value = getAttributeValue(parent, map.htmlAttr)
+      if (value) {
+        attrs = {
+          [map.slateAttr]: value,
+          ...attrs,
+        }
+      }
+    })
     return jsx('element', attrs, children)
   }
 
@@ -97,7 +115,14 @@ const gatherTextMarkAttributes = (el: Element) => {
   return allAttrs
 }
 
-export const htmlToSlate = (html: string) => {
+export const htmlToSlate = (
+  html: string,
+  {
+    attributeMap = [],
+  }: {
+    attributeMap?: IattributeMap[]
+  } = {},
+) => {
   let slateContent
   const handler = new DomHandler((error, dom) => {
     if (error) {
@@ -105,7 +130,7 @@ export const htmlToSlate = (html: string) => {
     } else {
       // Parsing completed, do something
       slateContent = dom
-        .map((node) => deserialize(node)) // run the deserializer
+        .map((node) => deserialize(node, { attributeMap })) // run the deserializer
         .filter((element) => element) // filter out null elements
         .map((element) => {
           // ensure all top level elements have a children property
