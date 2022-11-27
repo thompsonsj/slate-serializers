@@ -40,7 +40,7 @@ describe('attribute mapping', () => {
     },
   ]
   const html =
-    '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a>.</p>'
+    '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" data-link-type="custom" target="_blank">slate-serializers | GitHub</a>.</p>'
 
   it('slateToHtml adds a custom data attribute', () => {
     expect(
