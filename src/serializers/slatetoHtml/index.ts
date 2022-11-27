@@ -36,6 +36,20 @@ export const slateToHtml = (
     attributeMap?: IattributeMap[]
   } = {},
 ) => {
+  const document = slateToDom(node, { attributeMap, enforceTopLevelPTags })
+  return serializer(document)
+}
+
+export const slateToDom = (
+  node: any[],
+  {
+    enforceTopLevelPTags = false,
+    attributeMap = [],
+  }: {
+    enforceTopLevelPTags?: boolean
+    attributeMap?: IattributeMap[]
+  } = {},
+) => {
   const nodeWithTopLevelPElements = node.map((el) => {
     if (!el.type && enforceTopLevelPTags) {
       return {
@@ -47,7 +61,7 @@ export const slateToHtml = (
   })
   const slateNode = { children: nodeWithTopLevelPElements }
   const document = slateNodeToHtml(slateNode, { attributeMap })
-  return serializer(document)
+  return document
 }
 
 const slateNodeToHtml = (
