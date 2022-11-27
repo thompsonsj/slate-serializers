@@ -3,7 +3,7 @@ import serializer from 'dom-serializer'
 
 /**
  * Generate nested mark elements
- * 
+ *
  * nestedMarkElements should be recursive, but it works
  * so leaving it for now. Can handle a maximum of 5
  * elements. Really shouldn't be any more than that!

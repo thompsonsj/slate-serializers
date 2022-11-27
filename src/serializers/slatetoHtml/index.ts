@@ -1,12 +1,12 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
-import { Document, Element} from 'domhandler'
+import { Document, Element } from 'domhandler'
 import { IattributeMap } from '../../types'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
 
-interface stringKeyObject {
-  [name: string]: string;
+interface StringKeyObject {
+  [name: string]: string
 }
 
 // Map Slate element names to HTML tag names
@@ -23,7 +23,7 @@ const ELEMENT_NAME_TAG_MAP = new Map([
   ['ul', 'ul'],
   ['ol', 'ol'],
   ['li', 'li'],
-  ['blockquote', 'blockquote']
+  ['blockquote', 'blockquote'],
 ])
 
 export const slateToHtml = (
@@ -73,8 +73,8 @@ const slateNodeToHtml = (
   } = {},
 ) => {
   if (Text.isText(node)) {
-    let str = escape(node.text)
-    let markElements = []
+    const str = escape(node.text)
+    const markElements = []
     if ((node as any).strikethrough) {
       markElements.push('s')
     }
@@ -93,44 +93,35 @@ const slateNodeToHtml = (
     return nestedMarkElements(markElements, str)
   }
 
-  const children: any[] = node.children
-    ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap }))
-    : []
+  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })) : []
 
-  let attrs: stringKeyObject = {}
+  const attrs: StringKeyObject = {}
   // tslint:disable-next-line no-unused-expression
-  attributeMap
-    .forEach((map) => {
-      if (node[map.slateAttr]) {
-        attrs[map.htmlAttr] = node[map.slateAttr]
-      }
-    })
+  attributeMap.forEach((map) => {
+    if (node[map.slateAttr]) {
+      attrs[map.htmlAttr] = node[map.slateAttr]
+    }
+  })
 
   if (ELEMENT_NAME_TAG_MAP.has(node.type)) {
-    return new Element(
-      ELEMENT_NAME_TAG_MAP.get(node.type) || '',
-      attrs,
-      children
-    )
+    return new Element(ELEMENT_NAME_TAG_MAP.get(node.type) || '', attrs, children)
   }
 
   switch (node.type) {
     case 'quote':
       const p = [new Element('p', {}, children)]
-      return new Element(
-        'blockquote',
-        attrs,
-        p
-      )
+      return new Element('blockquote', attrs, p)
     case 'link':
-      if (node.newTab) { attrs.target = "_blank"}
+      if (node.newTab) {
+        attrs.target = '_blank'
+      }
       return new Element(
         'a',
         {
           href: escape(node.url),
           ...attrs,
         },
-        children
+        children,
       )
     default:
       return new Document(children)
