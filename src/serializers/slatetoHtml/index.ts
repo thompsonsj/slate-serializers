@@ -1,9 +1,46 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
-import { prependSpace } from '../../utilities'
+import { Document, Element} from 'domhandler'
 import { IattributeMap } from '../../types'
+import { nestedMarkElements } from '../../utilities/domhandler'
+import serializer from 'dom-serializer'
+
+interface stringKeyObject {
+  [name: string]: string;
+}
+
+// Map Slate element names to HTML tag names
+// Only to be used for standard 'wrapper' elements
+const ELEMENT_NAME_TAG_MAP = new Map([
+  ['p', 'p'],
+  ['paragraph', 'p'],
+  ['h1', 'h1'],
+  ['h2', 'h2'],
+  ['h3', 'h3'],
+  ['h4', 'h4'],
+  ['h5', 'h5'],
+  ['h6', 'h6'],
+  ['ul', 'ul'],
+  ['ol', 'ol'],
+  ['li', 'li'],
+  ['blockquote', 'blockquote']
+])
 
 export const slateToHtml = (
+  node: any[],
+  {
+    enforceTopLevelPTags = false,
+    attributeMap = [],
+  }: {
+    enforceTopLevelPTags?: boolean
+    attributeMap?: IattributeMap[]
+  } = {},
+) => {
+  const document = slateToDom(node, { attributeMap, enforceTopLevelPTags })
+  return serializer(document)
+}
+
+export const slateToDom = (
   node: any[],
   {
     enforceTopLevelPTags = false,
@@ -23,7 +60,8 @@ export const slateToHtml = (
     return el
   })
   const slateNode = { children: nodeWithTopLevelPElements }
-  return slateNodeToHtml(slateNode, { attributeMap })
+  const document = slateNodeToHtml(slateNode, { attributeMap })
+  return document
 }
 
 const slateNodeToHtml = (
@@ -36,71 +74,65 @@ const slateNodeToHtml = (
 ) => {
   if (Text.isText(node)) {
     let str = escape(node.text)
-    if ((node as any).code) {
-      str = `<pre><code>${str}</code></pre>`
-    }
-    if ((node as any).italic) {
-      str = `<i>${str}</i>`
-    }
-    if ((node as any).underline) {
-      str = `<u>${str}</u>`
+    let markElements = []
+    if ((node as any).strikethrough) {
+      markElements.push('s')
     }
     if ((node as any).bold) {
-      str = `<strong>${str}</strong>`
+      markElements.push('strong')
     }
-    if ((node as any).strikethrough) {
-      str = `<s>${str}</s>`
+    if ((node as any).underline) {
+      markElements.push('u')
     }
-    return str
+    if ((node as any).italic) {
+      markElements.push('i')
+    }
+    if ((node as any).code) {
+      markElements.push('pre', 'code')
+    }
+    return nestedMarkElements(markElements, str)
   }
 
   const children: any[] = node.children
-    ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })).join('')
+    ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap }))
     : []
 
-  let attrs = attributeMap
-    .map((map) => {
+  let attrs: stringKeyObject = {}
+  // tslint:disable-next-line no-unused-expression
+  attributeMap
+    .forEach((map) => {
       if (node[map.slateAttr]) {
-        return `${map.htmlAttr}="${node[map.slateAttr]}"`
+        attrs[map.htmlAttr] = node[map.slateAttr]
       }
-      return null
     })
-    .filter((map) => map)
+
+  if (ELEMENT_NAME_TAG_MAP.has(node.type)) {
+    return new Element(
+      ELEMENT_NAME_TAG_MAP.get(node.type) || '',
+      attrs,
+      children
+    )
+  }
 
   switch (node.type) {
-    case 'p':
-      return `<p${prependSpace(attrs.join(' '))}>${children}</p>`
-    case 'h1':
-      return `<h1${prependSpace(attrs.join(' '))}>${children}</h1>`
-    case 'h2':
-      return `<h2${prependSpace(attrs.join(' '))}>${children}</h2>`
-    case 'h3':
-      return `<h3${prependSpace(attrs.join(' '))}>${children}</h3>`
-    case 'h4':
-      return `<h4${prependSpace(attrs.join(' '))}>${children}</h4>`
-    case 'h5':
-      return `<h5${prependSpace(attrs.join(' '))}>${children}</h5>`
-    case 'h6':
-      return `<h6${prependSpace(attrs.join(' '))}>${children}</h6>`
     case 'quote':
-      return `<blockquote${prependSpace(attrs.join(' '))}><p>${children}</p></blockquote>`
-    case 'paragraph':
-      return `<p${prependSpace(attrs.join(' '))}>${children}</p>`
-    case 'ul':
-      return `<ul${prependSpace(attrs.join(' '))}>${children}</ul>`
-    case 'ol':
-      return `<ol${prependSpace(attrs.join(' '))}>${children}</ol>`
-    case 'li':
-      return `<li${prependSpace(attrs.join(' '))}>${children}</li>`
+      const p = [new Element('p', {}, children)]
+      return new Element(
+        'blockquote',
+        attrs,
+        p
+      )
     case 'link':
-      const newTabAttr = node.newTab ? 'target="_blank"' : ''
-      if (newTabAttr) {
-        attrs = [newTabAttr, ...attrs]
-      }
-      return `<a href="${escape(node.url)}"${prependSpace(attrs.join(' '))}>${children}</a>`
-    case 'blockquote':
-      return `<blockquote${prependSpace(attrs.join(' '))}>${children}</blockquote>`
+      if (node.newTab) { attrs.target = "_blank"}
+      return new Element(
+        'a',
+        {
+          href: escape(node.url),
+          ...attrs,
+        },
+        children
+      )
     default:
-      return children
+      return new Document(children)
   }
 }
