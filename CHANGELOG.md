@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/thompsonsj/slate-serializers/compare/v0.0.7...v0.0.9) (2022-11-27)
+
+
+### Features
+
+* **htmltoslate:** support line breaks ([#6](https://github.com/thompsonsj/slate-serializers/issues/6)) ([fe98bfb](https://github.com/thompsonsj/slate-serializers/commit/fe98bfbc24bd4ff9025f70b08f16f8994ac9247f))
+* **slatetohtml:** support newtab links ([#5](https://github.com/thompsonsj/slate-serializers/issues/5)) ([ef8d004](https://github.com/thompsonsj/slate-serializers/commit/ef8d004a101f69e7999c59dab4f5f68b3dd5435d))
+* support custom attributes ([#7](https://github.com/thompsonsj/slate-serializers/issues/7)) ([2192b0e](https://github.com/thompsonsj/slate-serializers/commit/2192b0ea5c972d12901ac2ebfc4e35120408f46e))
+
 ### [0.0.8](https://github.com/thompsonsj/slate-serializers/compare/v0.0.7...v0.0.8) (2022-11-25)
 
 
