@@ -1,57 +1,32 @@
 import { escape } from 'html-escaper'
 import { Text } from 'slate'
-import { Document, Element } from 'domhandler'
-import { IattributeMap } from '../../types'
+import { AnyNode, Document, Element } from 'domhandler'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
+import { config as defaultConfig, Config } from '../../slateToDom.config'
 
-interface StringKeyObject {
-  [name: string]: string
+interface SlateToHtml {
+  (node: any[], config?: Config): string
 }
 
-// Map Slate element names to HTML tag names
-// Only to be used for standard 'wrapper' elements
-const ELEMENT_NAME_TAG_MAP = new Map([
-  ['p', 'p'],
-  ['paragraph', 'p'],
-  ['h1', 'h1'],
-  ['h2', 'h2'],
-  ['h3', 'h3'],
-  ['h4', 'h4'],
-  ['h5', 'h5'],
-  ['h6', 'h6'],
-  ['ul', 'ul'],
-  ['ol', 'ol'],
-  ['li', 'li'],
-  ['blockquote', 'blockquote'],
-])
+interface SlateToDom {
+  (node: any[], config?: Config): AnyNode | ArrayLike<AnyNode>
+}
 
-export const slateToHtml = (
+export const slateToHtml: SlateToHtml = (
   node: any[],
-  {
-    enforceTopLevelPTags = false,
-    attributeMap = [],
-  }: {
-    enforceTopLevelPTags?: boolean
-    attributeMap?: IattributeMap[]
-  } = {},
+  config = defaultConfig,
 ) => {
-  const document = slateToDom(node, { attributeMap, enforceTopLevelPTags })
+  const document = slateToDom(node, config)
   return serializer(document)
 }
 
-export const slateToDom = (
+export const slateToDom: SlateToDom = (
   node: any[],
-  {
-    enforceTopLevelPTags = false,
-    attributeMap = [],
-  }: {
-    enforceTopLevelPTags?: boolean
-    attributeMap?: IattributeMap[]
-  } = {},
+  config = defaultConfig,
 ) => {
   const nodeWithTopLevelPElements = node.map((el) => {
-    if (!el.type && enforceTopLevelPTags) {
+    if (!el.type && config.enforceTopLevelPTags) {
       return {
         ...el,
         type: 'p',
@@ -60,21 +35,17 @@ export const slateToDom = (
     return el
   })
   const slateNode = { children: nodeWithTopLevelPElements }
-  const document = slateNodeToHtml(slateNode, { attributeMap })
+  const document = slateNodeToHtml(slateNode, config)
   return document
 }
 
 const slateNodeToHtml = (
   node: any,
-  {
-    attributeMap = [],
-  }: {
-    attributeMap?: IattributeMap[]
-  } = {},
+  config = defaultConfig
 ) => {
   if (Text.isText(node)) {
     const str = escape(node.text)
-    const markElements = []
+    let markElements = []
     if ((node as any).strikethrough) {
       markElements.push('s')
     }
@@ -93,37 +64,17 @@ const slateNodeToHtml = (
     return nestedMarkElements(markElements, str)
   }
 
-  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, { attributeMap })) : []
+  const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []
 
-  const attrs: StringKeyObject = {}
-  // tslint:disable-next-line no-unused-expression
-  attributeMap.forEach((map) => {
-    if (node[map.slateAttr]) {
-      attrs[map.htmlAttr] = node[map.slateAttr]
-    }
-  })
-
-  if (ELEMENT_NAME_TAG_MAP.has(node.type)) {
-    return new Element(ELEMENT_NAME_TAG_MAP.get(node.type) || '', attrs, children)
+  // straightforward node to element
+  if (config.elementMap.has(node.type)) {
+    return new Element(config.elementMap.get(node.type) || '', {}, children)
   }
 
-  switch (node.type) {
-    case 'quote':
-      const p = [new Element('p', {}, children)]
-      return new Element('blockquote', attrs, p)
-    case 'link':
-      if (node.newTab) {
-        attrs.target = '_blank'
-      }
-      return new Element(
-        'a',
-        {
-          href: escape(node.url),
-          ...attrs,
-        },
-        children,
-      )
-    default:
-      return new Document(children)
+  // more complex transforms
+  if (config.elementTransforms[node.type]) {
+    return config.elementTransforms[node.type](node, children)
   }
+
+  return new Document(children)
 }

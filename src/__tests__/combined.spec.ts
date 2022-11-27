@@ -1,12 +1,14 @@
 import { htmlToSlate, slateToHtml } from '../'
 import { fixtures as combinedFixtures } from './fixtures/combined'
+import { Element } from 'domhandler'
+import { config, Config } from '../slateToDom.config'
 
 describe('HTML to Slate JSON transforms', () => {
   describe('Combined', () => {
     const fixtures = combinedFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        expect(slateToHtml(fixture.slateOriginal, { enforceTopLevelPTags: true })).toEqual(fixture.html)
+        expect(slateToHtml(fixture.slateOriginal, {...config, enforceTopLevelPTags: true })).toEqual(fixture.html)
         expect(htmlToSlate(fixture.html)).toEqual(fixture.slateReserialized)
         expect(slateToHtml(fixture.slateReserialized)).toEqual(fixture.html)
       })
@@ -15,6 +17,29 @@ describe('HTML to Slate JSON transforms', () => {
 })
 
 describe('attribute mapping', () => {
+  const configWithLinkType: Config = {
+    ...config,
+    elementTransforms: {
+      ...config.elementTransforms,
+      link: (node, children= []) => {
+        let attrs: any = {}
+        if (node.linkType) {
+          attrs['data-link-type'] = node.linkType
+        }
+        if (node.newTab) {
+          attrs.target = '_blank'
+        }
+        return new Element(
+          'a',
+          {
+            href: node.url,
+            ...attrs,
+          },
+          children,
+        )
+      }
+    }
+  }
   const slate = [
     {
       children: [
@@ -44,27 +69,13 @@ describe('attribute mapping', () => {
 
   it('slateToHtml adds a custom data attribute', () => {
     expect(
-      slateToHtml(slate, {
-        attributeMap: [
-          {
-            slateAttr: 'linkType',
-            htmlAttr: 'data-link-type',
-          },
-        ],
-      }),
+      slateToHtml(slate, configWithLinkType),
     ).toEqual(html)
   })
 
   it('htmlToSlate adds a custom data attribute', () => {
     expect(
-      htmlToSlate(html, {
-        attributeMap: [
-          {
-            slateAttr: 'linkType',
-            htmlAttr: 'data-link-type',
-          },
-        ],
-      }),
+      htmlToSlate(html),
     ).toEqual(slate)
   })
 })
