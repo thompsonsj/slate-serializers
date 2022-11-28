@@ -14,17 +14,7 @@ export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) =>
 }
 
 export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
-  const nodeWithTopLevelPElements = node.map((el) => {
-    if (!el.type && config.enforceTopLevelPTags) {
-      return {
-        ...el,
-        type: 'p',
-      }
-    }
-    return el
-  })
-  const slateNode = { children: nodeWithTopLevelPElements }
-  const document = slateNodeToHtml(slateNode, config)
+  const document = node.map(n => slateNodeToHtml(n, config))
   return document
 }
 
@@ -52,5 +42,8 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
     return config.elementTransforms[node.type](node, children)
   }
 
+  if (config.defaultTag && !node.type) {
+    return new Element(config.defaultTag, {}, children)
+  }
   return new Document(children)
 }

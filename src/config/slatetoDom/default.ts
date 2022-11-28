@@ -8,7 +8,7 @@ export interface Config {
   markMap: { [key: string]: string[] }
   elementMap: { [key: string]: string }
   elementTransforms: ElementTagTransform
-  enforceTopLevelPTags?: boolean
+  defaultTag?: string
 }
 
 // Map Slate element names to HTML tag names
@@ -60,5 +60,4 @@ export const config: Config = {
       )
     },
   },
-  enforceTopLevelPTags: false,
 }
