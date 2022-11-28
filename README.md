@@ -91,6 +91,8 @@ const serializedToHtml = slateToHtml(slate, payloadSlateToDomConfig)
 
 You can create your own configuration file that implements your schema. See [src/config/slatetoDom/payload.ts](src/config/slatetoDom/payload.ts) for an example of how to extend the default configuration or copy [src/config/slatetoDom/default.ts](src/config/slatetoDom/default.ts) and rewrite it as appropriate.
 
+Note the `defaultTag` option that is passed in the Payload CMS configuration. This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. See https://github.com/payloadcms/payload/discussions/1141#discussioncomment-4255845.
+
 #### Implementation details
 
 Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
