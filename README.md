@@ -8,6 +8,12 @@ Serializers included so far:
 - `slateToHtml`
 - `htmlToSlate`
 
+## Compatibility
+
+Serializers are only compatible with Slate >=0.50.0. Earlier versions used a different data model.
+
+Note that compatibility has only been tested with Slate v0.72.8. These serializers are still in active development/testing.
+
 ## Installation
 
 ```bash
@@ -15,6 +21,7 @@ yarn add slate-serializers
 # or
 npm install slate-serializers
 ```
+
 
 ## Usage
 
