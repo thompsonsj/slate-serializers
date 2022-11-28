@@ -67,8 +67,8 @@ const slateNodeToHtml = (
   const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []
 
   // straightforward node to element
-  if (config.elementMap.has(node.type)) {
-    return new Element(config.elementMap.get(node.type) || '', {}, children)
+  if (config.elementMap[node.type]) {
+    return new Element(config.elementMap[node.type], {}, children)
   }
 
   // more complex transforms
