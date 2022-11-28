@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/thompsonsj/slate-serializers/compare/v0.0.10...v0.0.11) (2022-11-28)
+
+
+### Features
+
+* **defaulttag:** replace enforceTopLevelPTags ([#13](https://github.com/thompsonsj/slate-serializers/issues/13)) ([e144e03](https://github.com/thompsonsj/slate-serializers/commit/e144e03e02001f90454deb76a0b71acf2261ac66))
+
+
+### Bug Fixes
+
+* **readme.md:** apply corrections ([#11](https://github.com/thompsonsj/slate-serializers/issues/11)) ([e12d933](https://github.com/thompsonsj/slate-serializers/commit/e12d9339c2bac12cb781109ea61372c73b2d962b))
+
 ### [0.0.10](https://github.com/thompsonsj/slate-serializers/compare/v0.0.9...v0.0.10) (2022-11-28)
 
 
