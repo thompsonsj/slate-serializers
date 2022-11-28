@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/thompsonsj/slate-serializers/compare/v0.0.9...v0.0.10) (2022-11-28)
+
+
+### Features
+
+* **config:** extract and make customizable ([#10](https://github.com/thompsonsj/slate-serializers/issues/10)) ([2ea995e](https://github.com/thompsonsj/slate-serializers/commit/2ea995e2ccee3b98ae9b4b98c06ccef71594bab8))
+
 ### [0.0.9](https://github.com/thompsonsj/slate-serializers/compare/v0.0.7...v0.0.9) (2022-11-27)
 
 
