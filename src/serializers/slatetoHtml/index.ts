@@ -1,4 +1,3 @@
-import { escape } from 'html-escaper'
 import { Text } from 'slate'
 import { AnyNode, Document, Element } from 'domhandler'
 import { nestedMarkElements } from '../../utilities/domhandler'
@@ -20,7 +19,7 @@ export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
 
 const slateNodeToHtml = (node: any, config = defaultConfig) => {
   if (Text.isText(node)) {
-    const str = escape(node.text)
+    const str = node.text
     const markElements: string[] = []
     Object.keys(config.markMap).forEach((key) => {
       if ((node as any)[key]) {
