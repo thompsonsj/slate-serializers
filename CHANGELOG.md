@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/thompsonsj/slate-serializers/compare/v0.0.11...v0.0.12) (2022-11-28)
+
+
+### Bug Fixes
+
+* **slatetohtml:** do not escape html entities ([#16](https://github.com/thompsonsj/slate-serializers/issues/16)) ([4d25706](https://github.com/thompsonsj/slate-serializers/commit/4d2570634eeff3b04629c49e65009385249a99a7))
+
 ### [0.0.11](https://github.com/thompsonsj/slate-serializers/compare/v0.0.10...v0.0.11) (2022-11-28)
 
 
