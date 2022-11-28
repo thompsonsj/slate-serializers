@@ -3,7 +3,7 @@ import { Text } from 'slate'
 import { AnyNode, Document, Element } from 'domhandler'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
-import { config as defaultConfig, Config } from '../../slateToDom.config'
+import { config as defaultConfig, Config } from '../../config/slatetoDom/default'
 
 interface SlateToHtml {
   (node: any[], config?: Config): string

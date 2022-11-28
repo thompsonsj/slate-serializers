@@ -1,7 +1,7 @@
 import { htmlToSlate, slateToHtml } from '../'
 import { fixtures as combinedFixtures } from './fixtures/combined'
 import { Element } from 'domhandler'
-import { config, Config } from '../slateToDom.config'
+import { config, Config } from '../config/slateToDom/default'
 
 describe('HTML to Slate JSON transforms', () => {
   describe('Combined', () => {
