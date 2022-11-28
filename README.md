@@ -66,7 +66,7 @@ It accepts the same configuration object as [slateToHtml](#slatetohtml).
 
 ### slateToHtml
 
-### Configuration
+#### Configuration
 
 By default, `slateToHtml` incorporates transformation rules based on the example in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
 
@@ -103,7 +103,7 @@ Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org
 
 ### htmlToSlate
 
-### Configuration
+#### Configuration
 
 By default, `htmlToSlate` incorporates transformation rules based on the example in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
 
