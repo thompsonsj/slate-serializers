@@ -1,9 +1,9 @@
-import { htmlToSlate, slateToHtml } from '../'
+import { htmlToSlate, slateToHtml } from '../../../src'
 import { fixtures as combinedFixtures } from './fixtures/combined'
 
-import { config as slateToDomConfig } from '../config/slateToDom/default'
-import { config as slateToDomPayloadConfig } from '../config/slateToDom/payload'
-import { config as htmlToSlatePayloadConfig } from '../config/htmlToSlate/payload'
+import { config as slateToDomConfig } from '../../../src/config/slateToDom/default'
+import { config as slateToDomPayloadConfig } from '../../../src/config/slateToDom/payload'
+import { config as htmlToSlatePayloadConfig } from '../../../src/config/htmlToSlate/payload'
 
 describe('HTML to Slate JSON transforms', () => {
   describe('Combined', () => {
