@@ -16,7 +16,13 @@ yarn add slate-serializers
 npm install slate-serializers
 ```
 
-Example usage:
+## Usage
+
+The following examples use a default configuration, which may not transform your data effectively.
+
+One of the principles of Slate is its [**schema-less core**](https://docs.slatejs.org/#principles).
+
+Refer to the [Details](#details) section to learn how to modify the configuration to include your schema/rules.
 
 ```ts
 import { slateToHtml, htmlToSlate } from 'slate-serializers'
@@ -48,55 +54,6 @@ const serializedToHtml = slateToHtml(slate)
 const serializedToSlate = htmlToSlate(serializedToHtml)
 ```
 
-Both serializers support an `attributeMap` option, which maps Slate attributes to HTML attributes and vice versa. This is supported for element tags only.
-
-```ts
-const slate = [
-  {
-    children: [
-      {
-        type: 'link',
-        linkType: "custom",
-        url: 'https://github.com/thompsonsj/slate-serializers',
-        newTab: true,
-        children: [
-          {
-            text: 'slate-serializers | GitHub',
-          },
-        ],
-      },
-    ],
-    type: 'p',
-  }
-]
-
-const html = slateToHtml(slate,
-  {
-    attributeMap: [
-      {
-        slateAttr: 'linkType',
-        htmlAttr: 'data-link-type'
-      } 
-    ]
-  }
-)
-
-// output
-// <p><a href="https://github.com/thompsonsj/slate-serializers" target="_blank" data-link-type="custom">slate-serializers | GitHub</a></p>
-
-// using the same attributeMap for htmlToSlate will ensure the linkType attribute is preserved in the Slate JSON object.
-const slateReserialized = htmlToSlate(html,
-  {
-    attributeMap: [
-      {
-        slateAttr: 'linkType',
-        htmlAttr: 'data-link-type'
-      } 
-    ]
-  }
-)
-```
-
 ## Details
 
 ### slateToDom
@@ -105,7 +62,36 @@ const slateReserialized = htmlToSlate(html,
 
 `slateToDom` is made available in case you wish to work woth the DOM output yourself or run `dom-serializer` using any of the available options.
 
+It accepts the same configuration object as [slateToHtml](#slatetohtml).
+
 ### slateToHtml
+
+### Configuration
+
+By default, `slateToHtml` incorporates transformation rules based on the example in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
+
+If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
+
+```ts
+import { payloadSlateToDomConfig } from 'slate-serializers'
+
+const slate = [
+  {
+    children: [
+      {
+        text: 'Heading 1',
+      },
+    ],
+    type: 'h1',
+  },
+]
+
+const serializedToHtml = slateToHtml(slate, payloadSlateToDomConfig)
+```
+
+You can create your own configuration file that implements your schema. See [src/config/slatetoDom/payload.ts](src/config/slatetoDom/payload.ts) for an example of how to extend the default configuration or copy [src/config/slatetoDom/default.ts](src/config/slatetoDom/default.ts) and rewrite it as appropriate.
+
+#### Implementation details
 
 Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
 
@@ -116,6 +102,33 @@ Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org
 - Forgiving regarding HTML spec compliance.
 
 ### htmlToSlate
+
+### Configuration
+
+By default, `htmlToSlate` incorporates transformation rules based on the example in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
+
+If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
+
+```ts
+import { payloadHtmlToSlateConfig } from 'slate-serializers'
+
+const slate = [
+  {
+    children: [
+      {
+        text: 'Heading 1',
+      },
+    ],
+    type: 'h1',
+  },
+]
+
+const serializedToHtml = slateToHtml(slate, payloadHtmlToSlateConfig)
+```
+
+You can create your own configuration file that implements your schema. See [src/config/htmlToSlate/payload.ts](src/config/htmlToSlate/payload.ts) for an example of how to extend the default configuration or copy [src/config/htmlToSlate/default.ts](src/config/htmlToSlate/default.ts) and rewrite it as appropriate.
+
+#### Implementation details
 
 Based on logic in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
 
