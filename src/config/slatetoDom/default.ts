@@ -5,6 +5,7 @@ interface ElementTagTransform {
 }
 
 export interface Config {
+  markMap: {[key: string]: string[]}
   elementMap: {[key: string]: string},
   elementTransforms: ElementTagTransform,
   enforceTopLevelPTags?: boolean
@@ -28,7 +29,16 @@ const ELEMENT_NAME_TAG_MAP = {
   blockquote: 'blockquote',
 }
 
+const MARK_ELEMENT_TAG_MAP = {
+  strikethrough: ['s'],
+  bold: ['strong'],
+  underline: ['u'],
+  italic: ['i'],
+  code: ['pre', 'code']
+}
+
 export const config: Config = {
+  markMap: MARK_ELEMENT_TAG_MAP,
   elementMap: ELEMENT_NAME_TAG_MAP,
   elementTransforms: {
     quote: (node, children = []) => {

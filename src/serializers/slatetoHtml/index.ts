@@ -45,22 +45,12 @@ const slateNodeToHtml = (
 ) => {
   if (Text.isText(node)) {
     const str = escape(node.text)
-    let markElements = []
-    if ((node as any).strikethrough) {
-      markElements.push('s')
-    }
-    if ((node as any).bold) {
-      markElements.push('strong')
-    }
-    if ((node as any).underline) {
-      markElements.push('u')
-    }
-    if ((node as any).italic) {
-      markElements.push('i')
-    }
-    if ((node as any).code) {
-      markElements.push('pre', 'code')
-    }
+    let markElements: string[] = []
+    Object.keys(config.markMap).forEach(key => {
+      if ((node as any)[key]) {
+        markElements.push(...config.markMap[key])
+      }
+    })
     return nestedMarkElements(markElements, str)
   }
 
