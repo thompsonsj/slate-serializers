@@ -1,4 +1,4 @@
-import { nestedMarkElementsString } from './domhandler'
+import { nestedMarkElementsString } from '../../src/utilities/domhandler'
 
 /**
  * Helper functions for domhandler

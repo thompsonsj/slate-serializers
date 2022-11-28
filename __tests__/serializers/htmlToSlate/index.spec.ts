@@ -1,8 +1,6 @@
-import { htmlToSlate } from '.'
-import { fixtures as elementFixtures } from '../../__tests__/fixtures/elementTags'
-import { fixtures as textFixtures } from '../../__tests__/fixtures/textTags'
+import { htmlToSlate } from '../../../src/serializers/htmlToSlate'
 
-describe('Housekeeping', () => {
+describe('htmlToSlate expected behaviour', () => {
   it('ignores non-HTML line breaks and extra spaces', () => {
     const fixture = `<h1>Heading 1</h1>
     <p>Paragraph 1</p>`
@@ -49,24 +47,5 @@ describe('Housekeeping', () => {
       },
     ]
     expect(htmlToSlate(fixture)).toEqual(expected)
-  })
-})
-
-describe('HTML to Slate JSON transforms', () => {
-  describe('Element tags', () => {
-    const fixtures = elementFixtures
-    for (const fixture of fixtures) {
-      it(`${fixture.name}`, () => {
-        expect(htmlToSlate(fixture.html)).toEqual(fixture.slate)
-      })
-    }
-  })
-  describe('Text tags', () => {
-    const fixtures = textFixtures
-    for (const fixture of fixtures) {
-      it(`${fixture.name}`, () => {
-        expect(htmlToSlate(fixture.html)).toEqual(fixture.slate)
-      })
-    }
   })
 })
