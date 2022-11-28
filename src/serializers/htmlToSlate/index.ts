@@ -7,10 +7,7 @@ import { IattributeMap } from '../../types'
 
 import { config as defaultConfig, Config } from '../../config/htmlToSlate/default'
 
-const deserialize = (
-  el: ChildNode,
-  config: Config = defaultConfig,
-): any => {
+const deserialize = (el: ChildNode, config: Config = defaultConfig): any => {
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
@@ -28,7 +25,7 @@ const deserialize = (
   }
 
   if (config.elementTags[nodeName]) {
-    let attrs = config.elementTags[nodeName](parent)
+    const attrs = config.elementTags[nodeName](parent)
     return jsx('element', attrs, children)
   }
 
@@ -43,10 +40,7 @@ const deserialize = (
   return children
 }
 
-const gatherTextMarkAttributes = (
-  el: Element,
-  config: Config = defaultConfig
-  ) => {
+const gatherTextMarkAttributes = (el: Element, config: Config = defaultConfig) => {
   let allAttrs = {}
   // tslint:disable-next-line no-unused-expression
   if (el.childNodes) {
@@ -72,10 +66,7 @@ const gatherTextMarkAttributes = (
   return allAttrs
 }
 
-export const htmlToSlate = (
-  html: string,
-  config: Config = defaultConfig,
-) => {
+export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
   let slateContent
   const handler = new DomHandler((error, dom) => {
     if (error) {

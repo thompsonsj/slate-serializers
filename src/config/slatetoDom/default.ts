@@ -5,9 +5,9 @@ interface ElementTagTransform {
 }
 
 export interface Config {
-  markMap: {[key: string]: string[]}
-  elementMap: {[key: string]: string},
-  elementTransforms: ElementTagTransform,
+  markMap: { [key: string]: string[] }
+  elementMap: { [key: string]: string }
+  elementTransforms: ElementTagTransform
   enforceTopLevelPTags?: boolean
 }
 
@@ -34,7 +34,7 @@ const MARK_ELEMENT_TAG_MAP = {
   bold: ['strong'],
   underline: ['u'],
   italic: ['i'],
-  code: ['pre', 'code']
+  code: ['pre', 'code'],
 }
 
 export const config: Config = {
@@ -45,8 +45,8 @@ export const config: Config = {
       const p = [new Element('p', {}, children)]
       return new Element('blockquote', {}, p)
     },
-    link: (node, children= []) => {
-      let attrs: any = {}
+    link: (node, children = []) => {
+      const attrs: any = {}
       if (node.newTab) {
         attrs.target = '_blank'
       }
@@ -58,7 +58,7 @@ export const config: Config = {
         },
         children,
       )
-    }
+    },
   },
-  enforceTopLevelPTags: false
+  enforceTopLevelPTags: false,
 }

@@ -5,26 +5,15 @@ import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
 import { config as defaultConfig, Config } from '../../config/slatetoDom/default'
 
-interface SlateToHtml {
-  (node: any[], config?: Config): string
-}
+type SlateToHtml = (node: any[], config?: Config) => string
+type SlateToDom = (node: any[], config?: Config) => AnyNode | ArrayLike<AnyNode>
 
-interface SlateToDom {
-  (node: any[], config?: Config): AnyNode | ArrayLike<AnyNode>
-}
-
-export const slateToHtml: SlateToHtml = (
-  node: any[],
-  config = defaultConfig,
-) => {
+export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) => {
   const document = slateToDom(node, config)
   return serializer(document)
 }
 
-export const slateToDom: SlateToDom = (
-  node: any[],
-  config = defaultConfig,
-) => {
+export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
   const nodeWithTopLevelPElements = node.map((el) => {
     if (!el.type && config.enforceTopLevelPTags) {
       return {
@@ -39,14 +28,11 @@ export const slateToDom: SlateToDom = (
   return document
 }
 
-const slateNodeToHtml = (
-  node: any,
-  config = defaultConfig
-) => {
+const slateNodeToHtml = (node: any, config = defaultConfig) => {
   if (Text.isText(node)) {
     const str = escape(node.text)
-    let markElements: string[] = []
-    Object.keys(config.markMap).forEach(key => {
+    const markElements: string[] = []
+    Object.keys(config.markMap).forEach((key) => {
       if ((node as any)[key]) {
         markElements.push(...config.markMap[key])
       }

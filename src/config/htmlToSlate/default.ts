@@ -38,5 +38,5 @@ export const config: Config = {
     s: () => ({ strikethrough: true }),
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
-  }
+  },
 }

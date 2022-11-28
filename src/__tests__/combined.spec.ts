@@ -10,7 +10,9 @@ describe('HTML to Slate JSON transforms', () => {
     const fixtures = combinedFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        expect(slateToHtml(fixture.slateOriginal, {...slateToDomConfig, enforceTopLevelPTags: true })).toEqual(fixture.html)
+        expect(slateToHtml(fixture.slateOriginal, { ...slateToDomConfig, enforceTopLevelPTags: true })).toEqual(
+          fixture.html,
+        )
         expect(htmlToSlate(fixture.html)).toEqual(fixture.slateReserialized)
         expect(slateToHtml(fixture.slateReserialized)).toEqual(fixture.html)
       })
@@ -19,7 +21,6 @@ describe('HTML to Slate JSON transforms', () => {
 })
 
 describe('attribute mapping', () => {
-  
   const slate = [
     {
       children: [
@@ -48,14 +49,10 @@ describe('attribute mapping', () => {
     '<p>Some text before an inline link <a href="https://github.com/thompsonsj/slate-serializers" data-link-type="custom" target="_blank">slate-serializers | GitHub</a>.</p>'
 
   it('slateToHtml adds a custom data attribute', () => {
-    expect(
-      slateToHtml(slate, slateToDomPayloadConfig),
-    ).toEqual(html)
+    expect(slateToHtml(slate, slateToDomPayloadConfig)).toEqual(html)
   })
 
   it('htmlToSlate adds a custom data attribute', () => {
-    expect(
-      htmlToSlate(html, htmlToSlatePayloadConfig),
-    ).toEqual(slate)
+    expect(htmlToSlate(html, htmlToSlatePayloadConfig)).toEqual(slate)
   })
 })

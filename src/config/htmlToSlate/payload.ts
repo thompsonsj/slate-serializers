@@ -4,7 +4,7 @@ import { Element } from 'domhandler'
 
 /**
  * Configuration for Payload CMS
- * 
+ *
  * Tested for v1.1.21
  */
 
@@ -18,5 +18,5 @@ export const config: Config = {
       newTab: el && getAttributeValue(el, 'target') === '_blank',
       url: el && getAttributeValue(el, 'href'),
     }),
-  }
+  },
 }
