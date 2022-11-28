@@ -1,9 +1,9 @@
 import { htmlToSlate, slateToHtml } from '../'
 import { fixtures as combinedFixtures } from './fixtures/combined'
-import { Element } from 'domhandler'
-import { getAttributeValue } from 'domutils'
-import { config as slateToDomConfig, Config as SlateToDomConfig } from '../config/slateToDom/default'
-import { config as htmlToSlateConfig, Config as HtmlToSlateConfig } from '../config/htmlToSlate/default'
+
+import { config as slateToDomConfig } from '../config/slateToDom/default'
+import { config as slateToDomPayloadConfig } from '../config/slateToDom/payload'
+import { config as htmlToSlatePayloadConfig } from '../config/htmlToSlate/payload'
 
 describe('HTML to Slate JSON transforms', () => {
   describe('Combined', () => {
@@ -19,41 +19,7 @@ describe('HTML to Slate JSON transforms', () => {
 })
 
 describe('attribute mapping', () => {
-  const customSlatetoDomConfig: SlateToDomConfig = {
-    ...slateToDomConfig,
-    elementTransforms: {
-      ...slateToDomConfig.elementTransforms,
-      link: (node, children= []) => {
-        let attrs: any = {}
-        if (node.linkType) {
-          attrs['data-link-type'] = node.linkType
-        }
-        if (node.newTab) {
-          attrs.target = '_blank'
-        }
-        return new Element(
-          'a',
-          {
-            href: node.url,
-            ...attrs,
-          },
-          children,
-        )
-      }
-    }
-  }
-  const customHtmlToSlateConfig: HtmlToSlateConfig = {
-    ...htmlToSlateConfig,
-    elementTags: {
-      ...htmlToSlateConfig.elementTags,
-      a: (el) => ({
-        type: 'link',
-        linkType: el && getAttributeValue(el, 'data-link-type'),
-        newTab: el && getAttributeValue(el, 'target') === '_blank',
-        url: el && getAttributeValue(el, 'href'),
-      }),
-    }
-  }
+  
   const slate = [
     {
       children: [
@@ -83,13 +49,13 @@ describe('attribute mapping', () => {
 
   it('slateToHtml adds a custom data attribute', () => {
     expect(
-      slateToHtml(slate, customSlatetoDomConfig),
+      slateToHtml(slate, slateToDomPayloadConfig),
     ).toEqual(html)
   })
 
   it('htmlToSlate adds a custom data attribute', () => {
     expect(
-      htmlToSlate(html, customHtmlToSlateConfig),
+      htmlToSlate(html, htmlToSlatePayloadConfig),
     ).toEqual(slate)
   })
 })
