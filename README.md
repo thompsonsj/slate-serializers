@@ -73,7 +73,7 @@ By default, `slateToHtml` incorporates transformation rules based on the example
 If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
 
 ```ts
-import { payloadSlateToDomConfig } from 'slate-serializers'
+import { slateToHtml, payloadSlateToDomConfig } from 'slate-serializers'
 
 const slate = [
   {
@@ -110,20 +110,11 @@ By default, `htmlToSlate` incorporates transformation rules based on the example
 If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
 
 ```ts
-import { payloadHtmlToSlateConfig } from 'slate-serializers'
+import { htmlToSlate, payloadHtmlToSlateConfig } from 'slate-serializers'
 
-const slate = [
-  {
-    children: [
-      {
-        text: 'Heading 1',
-      },
-    ],
-    type: 'h1',
-  },
-]
+const html = `<h1>Heading 1</h1><p>Paragraph 1</p>`
 
-const serializedToHtml = slateToHtml(slate, payloadHtmlToSlateConfig)
+const serializedToSlate = htmlToSlate(html, payloadHtmlToSlateConfig)
 ```
 
 You can create your own configuration file that implements your schema. See [src/config/htmlToSlate/payload.ts](src/config/htmlToSlate/payload.ts) for an example of how to extend the default configuration or copy [src/config/htmlToSlate/default.ts](src/config/htmlToSlate/default.ts) and rewrite it as appropriate.
