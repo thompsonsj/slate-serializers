@@ -29,5 +29,5 @@ export const config: Config = {
       )
     },
   },
-  defaultTag: 'p'
+  defaultTag: 'p',
 }

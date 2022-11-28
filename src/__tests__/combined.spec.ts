@@ -10,9 +10,7 @@ describe('HTML to Slate JSON transforms', () => {
     const fixtures = combinedFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        expect(slateToHtml(fixture.slateOriginal, { ...slateToDomConfig, defaultTag: 'p' })).toEqual(
-          fixture.html,
-        )
+        expect(slateToHtml(fixture.slateOriginal, { ...slateToDomConfig, defaultTag: 'p' })).toEqual(fixture.html)
         expect(htmlToSlate(fixture.html)).toEqual(fixture.slateReserialized)
         expect(slateToHtml(fixture.slateReserialized)).toEqual(fixture.html)
       })

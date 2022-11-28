@@ -14,7 +14,7 @@ export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) =>
 }
 
 export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
-  const document = node.map(n => slateNodeToHtml(n, config))
+  const document = node.map((n) => slateNodeToHtml(n, config))
   return document
 }
 
