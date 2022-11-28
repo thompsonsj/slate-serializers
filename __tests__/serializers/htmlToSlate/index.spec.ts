@@ -1,4 +1,4 @@
-import { htmlToSlate } from '../../../src/serializers/htmlToSlate'
+import { htmlToSlate } from '../../../src'
 
 describe('htmlToSlate expected behaviour', () => {
   it('ignores non-HTML line breaks and extra spaces', () => {

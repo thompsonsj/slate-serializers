@@ -56,7 +56,6 @@
     "dom-serializer": "^2.0.0",
     "domhandler": "^5.0.3",
     "domutils": "^3.0.1",
-    "html-escaper": "^3.0.3",
     "htmlparser2": "^8.0.1",
     "slate": "^0.86.0",
     "slate-hyperscript": "^0.77.0"
