@@ -29,16 +29,6 @@ const deserialize = (
 
   if (config.elementTags[nodeName]) {
     let attrs = config.elementTags[nodeName](parent)
-    // tslint:disable-next-line no-unused-expression
-    /*attributeMap.map((map) => {
-      const value = getAttributeValue(parent, map.htmlAttr)
-      if (value) {
-        attrs = {
-          [map.slateAttr]: value,
-          ...attrs,
-        }
-      }
-    })*/
     return jsx('element', attrs, children)
   }
 
