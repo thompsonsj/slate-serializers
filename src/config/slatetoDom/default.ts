@@ -9,6 +9,7 @@ export interface Config {
   elementMap: { [key: string]: string }
   elementTransforms: ElementTagTransform
   defaultTag?: string
+  encodeEntities?: boolean
 }
 
 // Map Slate element names to HTML tag names
@@ -60,4 +61,5 @@ export const config: Config = {
       )
     },
   },
+  encodeEntities: true,
 }
