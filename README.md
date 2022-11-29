@@ -4,17 +4,19 @@ A collection of serializers to convert [Slate](https://www.npmjs.com/package/sla
 
 Serializers included so far:
 
-- `slateToDom`
-- `slateToHtml`
-- `htmlToSlate`
+- [`slateToHtml`](#slatetohtml)
+- [`htmlToSlate`](#htmltoslate)
+- [`slateToDom`](#slatetodom)
 
-## Compatibility
+## Setup
+
+### Compatibility
 
 Serializers are only compatible with Slate >=0.50.0. Earlier versions used a different data model.
 
 Note that compatibility has only been tested with Slate v0.72.8. These serializers are still in active development/testing.
 
-## Installation
+### Install
 
 ```bash
 yarn add slate-serializers
@@ -22,17 +24,20 @@ yarn add slate-serializers
 npm install slate-serializers
 ```
 
+### Configuration
 
-## Usage
-
-The following examples use a default configuration, which may not transform your data effectively.
+Each serializer uses a default configuration, which may not transform your data effectively.
 
 One of the principles of Slate is its [**schema-less core**](https://docs.slatejs.org/#principles).
 
-Refer to the [Details](#details) section to learn how to modify the configuration to include your schema/rules.
+Check configuration objects in [src/config/](src/config/). Extend the default configuration or write your own in order to apply your schema/transformation rules.
+
+## Serializers
+
+### slateToHtml
 
 ```ts
-import { slateToHtml, htmlToSlate } from 'slate-serializers'
+import { slateToHtml } from 'slate-serializers'
 
 const slate = [
   {
@@ -56,28 +61,13 @@ const slate = [
 const serializedToHtml = slateToHtml(slate)
 // output
 // <h1>Heading 1</h1><p>Paragraph 1</p>
-
-// ...and convert back to Slate
-const serializedToSlate = htmlToSlate(serializedToHtml)
 ```
-
-## Details
-
-### slateToDom
-
-`slateToHtml` is a simple wrapper that runs [`dom-serializer`](https://www.npmjs.com/package/dom-serializer) on the output from `slateToDom`.
-
-`slateToDom` is made available in case you wish to work woth the DOM output yourself or run `dom-serializer` using any of the available options.
-
-It accepts the same configuration object as [slateToHtml](#slatetohtml).
-
-### slateToHtml
 
 #### Configuration
 
 By default, `slateToHtml` incorporates transformation rules based on the example in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
 
-If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
+If you are using [Payload CMS](https://payloadcms.com/), import the Payload configuration file and pass it as a parameter to the serializer.
 
 ```ts
 import { slateToHtml, payloadSlateToDomConfig } from 'slate-serializers'
@@ -98,25 +88,42 @@ const serializedToHtml = slateToHtml(slate, payloadSlateToDomConfig)
 
 You can create your own configuration file that implements your schema. See [src/config/slatetoDom/payload.ts](src/config/slatetoDom/payload.ts) for an example of how to extend the default configuration or copy [src/config/slatetoDom/default.ts](src/config/slatetoDom/default.ts) and rewrite it as appropriate.
 
-Note the `defaultTag` option that is passed in the Payload CMS configuration. This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. See https://github.com/payloadcms/payload/discussions/1141#discussioncomment-4255845.
-
-#### Implementation details
-
-Based on logic in [Deserializing | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#deserializing).
-
-[htmlparser2](https://www.npmjs.com/package/htmlparser2) is used to parse HTML instead of the `DOMHandler` object. Rationale:
-
-- Works in all environments, including Node.js.
-- Speed - `htmlparser2` is the fastest HTML parser.
-- Forgiving regarding HTML spec compliance.
-
 ### htmlToSlate
+
+```ts
+import { htmlToSlate } from 'slate-serializers'
+
+const html = `<h1>Heading 1</h1><p>Paragraph 1</p>`
+
+const serializedToSlate = htmlToSlate(html)
+// output
+/*
+[
+  {
+    children: [
+      {
+        text: 'Heading 1',
+      },
+    ],
+    type: 'h1',
+  },
+  {
+    children: [
+      {
+        text: 'Paragraph 1',
+      },
+    ],
+    type: 'p',
+  },
+]
+/*
+```
 
 #### Configuration
 
 By default, `htmlToSlate` incorporates transformation rules based on the example in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
 
-If you are using [Payload CMS](https://payloadcms.com/), you are in luck. Import the Payload configuration file and pass it as a parameter to the serializer.
+If you are using [Payload CMS](https://payloadcms.com/), import the Payload configuration file and pass it as a parameter to the serializer.
 
 ```ts
 import { htmlToSlate, payloadHtmlToSlateConfig } from 'slate-serializers'
@@ -128,11 +135,13 @@ const serializedToSlate = htmlToSlate(html, payloadHtmlToSlateConfig)
 
 You can create your own configuration file that implements your schema. See [src/config/htmlToSlate/payload.ts](src/config/htmlToSlate/payload.ts) for an example of how to extend the default configuration or copy [src/config/htmlToSlate/default.ts](src/config/htmlToSlate/default.ts) and rewrite it as appropriate.
 
-#### Implementation details
+### slateToDom
 
-Based on logic in [HTML | Serializing | Slate](https://docs.slatejs.org/concepts/10-serializing#html).
+`slateToHtml` is a simple wrapper that runs [`dom-serializer`](https://www.npmjs.com/package/dom-serializer) on the output from `slateToDom`.
 
-## Development
+`slateToDom` is made available in case you wish to work woth the DOM output yourself or run `dom-serializer` using any of the available options.
+
+It accepts the same configuration object as [slateToHtml](#slatetohtml).
 
 ### Commits
 
