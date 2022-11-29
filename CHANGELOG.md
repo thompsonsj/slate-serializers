@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/thompsonsj/slate-serializers/compare/v0.0.12...v0.0.13) (2022-11-29)
+
+
+### Features
+
+* **slatetohtml:** control html entity encoding ([#17](https://github.com/thompsonsj/slate-serializers/issues/17)) ([1f660b3](https://github.com/thompsonsj/slate-serializers/commit/1f660b3bf172bab29168fe52ff103f3b0d00d70c))
+
 ### [0.0.12](https://github.com/thompsonsj/slate-serializers/compare/v0.0.11...v0.0.12) (2022-11-28)
 
 
