@@ -10,7 +10,7 @@ type SlateToDom = (node: any[], config?: Config) => AnyNode | ArrayLike<AnyNode>
 export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) => {
   const document = slateToDom(node, config)
   return serializer(document, {
-    encodeEntities: 'encodeEntities' in config ? config.encodeEntities : false
+    encodeEntities: 'encodeEntities' in config ? config.encodeEntities : false,
   })
 }
 
