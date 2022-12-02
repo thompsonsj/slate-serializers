@@ -30,10 +30,6 @@ const deserialize = (el: ChildNode, config: Config = defaultConfig): any => {
   }
 
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
-    const text = textContent(el)
-    if (!hasLineBreak(text) && text.trim() === '') {
-      return null
-    }
     return [jsx('text', gatherTextMarkAttributes(parent), [])]
   }
 

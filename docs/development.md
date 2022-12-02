@@ -20,3 +20,12 @@ Note the `defaultTag` option that is passed in the [Payload CMS configuration fo
 At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload conifguration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
 
 May be able to resolve the above by simply removing `p` tag conversion? Could possibly specify that.
+
+## Whitespace
+
+https://github.com/rehypejs/rehype-minify/tree/main/packages/rehype-minify-whitespace
+
+whitespace research
+
+- https://github.com/fb55/htmlparser2/issues/90
+- https://github.com/aknuds1/html-to-react/issues/79
