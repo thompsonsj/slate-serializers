@@ -14,7 +14,13 @@ interface Ideserialize {
   context?: string
 }
 
-const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0, context = ''}: Ideserialize): any => {
+const deserialize = ({
+  el,
+  config = defaultConfig,
+  index = 0,
+  childrenLength = 0,
+  context = '',
+}: Ideserialize): any => {
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
@@ -27,13 +33,21 @@ const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0,
 
   const childrenContext = getContext(nodeName) || context
 
-  const children = parent.childNodes ? parent.childNodes.map((node, i) => deserialize({
-    el: node,
-    config,
-    index: i,
-    childrenLength: parent.childNodes.length,
-    context: childrenContext
-  })).filter((element) => element).filter((element) => !isSlateDeadEnd(element)).flat() : []
+  const children = parent.childNodes
+    ? parent.childNodes
+        .map((node, i) =>
+          deserialize({
+            el: node,
+            config,
+            index: i,
+            childrenLength: parent.childNodes.length,
+            context: childrenContext,
+          }),
+        )
+        .filter((element) => element)
+        .filter((element) => !isSlateDeadEnd(element))
+        .flat()
+    : []
 
   if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
@@ -45,10 +59,10 @@ const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0,
   }
 
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
-    const attrs = gatherTextMarkAttributes({el: parent, context: childrenContext})
-    let text = (attrs as { text: string}).text
+    const attrs = gatherTextMarkAttributes({ el: parent, context: childrenContext })
+    let text = (attrs as { text: string }).text
     const isInlineStart = index === 0
-    const isInlineEnd = Number.isInteger(childrenLength) && index === (childrenLength - 1)
+    const isInlineEnd = Number.isInteger(childrenLength) && index === childrenLength - 1
     if (context === 'block') {
       // is this the start of inline content after a block element?
       if (isInlineStart) {
@@ -62,7 +76,7 @@ const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0,
     if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
       return null
     }
-    return [jsx('text', {...attrs, text}, [])]
+    return [jsx('text', { ...attrs, text }, [])]
   }
 
   return children
@@ -74,11 +88,7 @@ interface IgatherTextMarkAttributes {
   context?: string
 }
 
-const gatherTextMarkAttributes = ({
-  el,
-  config = defaultConfig,
-  context = ''
-}: IgatherTextMarkAttributes) => {
+const gatherTextMarkAttributes = ({ el, config = defaultConfig, context = '' }: IgatherTextMarkAttributes) => {
   let allAttrs = {}
   // tslint:disable-next-line no-unused-expression
   if (el.childNodes) {
@@ -100,7 +110,7 @@ const gatherTextMarkAttributes = ({
       ...attrs,
       text,
     }
-  } 
+  }
   return allAttrs
 }
 
@@ -112,8 +122,8 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
     } else {
       // Parsing completed, do something
       slateContent = dom
-        .map((node) => deserialize({el: node, config})) // run the deserializer
-        .filter(element => element) // filter out null elements
+        .map((node) => deserialize({ el: node, config })) // run the deserializer
+        .filter((element) => element) // filter out null elements
         .map((element) => {
           // ensure all top level elements have a children property
           if (!element.children) {
@@ -126,7 +136,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         .filter((element) => !isSlateDeadEnd(element))
     }
   })
-  const parser = new Parser(handler, {decodeEntities: false})
+  const parser = new Parser(handler, { decodeEntities: false })
   parser.write(html)
   parser.end()
   return slateContent

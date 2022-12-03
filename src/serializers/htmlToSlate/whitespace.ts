@@ -11,7 +11,7 @@ const reduceToSingleSpaces = (str: string) => {
 }
 
 export const isAllWhitespace = (str: string) => {
-  return !(/[^\t\n\r ]/.test(str))
+  return !/[^\t\n\r ]/.test(str)
 }
 
 export const getContext = (tagName: string): 'preserve' | 'block' | 'inline' | '' => {
@@ -95,5 +95,5 @@ const blocks = [
   'tr', // Similar to block.
   'ul', // Lists.
   'wbr', // Contribute whitespace intrinsically.
-  'xmp' // Flow content, legacy
+  'xmp', // Flow content, legacy
 ]

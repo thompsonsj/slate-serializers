@@ -40,5 +40,5 @@ export const config: Config = {
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
-  filterWhitespaceNodes: true // remove whitespace nodes that do not contribute meaning
+  filterWhitespaceNodes: true, // remove whitespace nodes that do not contribute meaning
 }
