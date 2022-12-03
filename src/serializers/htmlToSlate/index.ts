@@ -126,7 +126,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         .filter((element) => !isSlateDeadEnd(element))
     }
   })
-  const parser = new Parser(handler)
+  const parser = new Parser(handler, {decodeEntities: false})
   parser.write(html)
   parser.end()
   return slateContent

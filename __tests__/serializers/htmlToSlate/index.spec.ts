@@ -132,12 +132,40 @@ describe('htmlToSlate whitespace handling', () => {
     })
 
     it('removes non-mapped block elements containing whitespace only', () => {
+      const fixture = "<div>Für Ihre Sicherheit&nbsp;</div>\n<div>  </div>\n<div>Bitte beachten Sie die Ansagen der Besatzung</div>"
+      const expected: any[] = [
+        {
+          children: [
+            {
+              text: "Für Ihre Sicherheit&nbsp;",
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: "Bitte beachten Sie die Ansagen der Besatzung",
+            },
+          ],
+        },
+      ]
+      expect(htmlToSlate(fixture, payloadHtmlToSlateConfig)).toEqual(expected)
+    })
+
+    it('does not remove non-mapped block elements with text contents consisting of a non-breaking line space', () => {
       const fixture = "<div>Für Ihre Sicherheit&nbsp;</div>\n<div>&nbsp;</div>\n<div>Bitte beachten Sie die Ansagen der Besatzung</div>"
       const expected: any[] = [
         {
           children: [
             {
-              text: "Für Ihre Sicherheit",
+              text: "Für Ihre Sicherheit&nbsp;",
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: "&nbsp;",
             },
           ],
         },
