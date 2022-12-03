@@ -135,11 +135,15 @@ const serializedToSlate = htmlToSlate(html, payloadHtmlToSlateConfig)
 
 You can create your own configuration file that implements your schema. See [src/config/htmlToSlate/payload.ts](src/config/htmlToSlate/payload.ts) for an example of how to extend the default configuration or copy [src/config/htmlToSlate/default.ts](src/config/htmlToSlate/default.ts) and rewrite it as appropriate.
 
+#### Whitespace
+
+`htmlToSlate` processes whitespace in a similar way to browsers. It minifies whitespace while trying to preserve meaning. For details, see [docs/engineering.md#whitespace](docs/engineering.md#whitespace).
+
 ### slateToDom
 
 `slateToHtml` is a simple wrapper that runs [`dom-serializer`](https://www.npmjs.com/package/dom-serializer) on the output from `slateToDom`.
 
-`slateToDom` is made available in case you wish to work woth the DOM output yourself or run `dom-serializer` using any of the available options.
+`slateToDom` is made available in case you wish to work with the DOM output yourself or run `dom-serializer` using any of the available options.
 
 It accepts the same configuration object as [slateToHtml](#slatetohtml).
 

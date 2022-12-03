@@ -10,6 +10,10 @@ const reduceToSingleSpaces = (str: string) => {
   return str.replace(/ +(?= )/g, '')
 }
 
+export const isAllWhitespace = (str: string) => {
+  return !(/[^\t\n\r ]/.test(str))
+}
+
 export const getContext = (tagName: string): 'preserve' | 'block' | 'inline' | '' => {
   if (!tagName || tagName.trim() === '') {
     return ''

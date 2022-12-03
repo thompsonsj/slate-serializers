@@ -8,6 +8,7 @@ interface ItagMap {
 export interface Config {
   elementTags: ItagMap
   textTags: ItagMap
+  filterWhitespaceNodes: boolean
 }
 
 export const config: Config = {
@@ -39,4 +40,5 @@ export const config: Config = {
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
+  filterWhitespaceNodes: true // remove whitespace nodes that do not contribute meaning
 }

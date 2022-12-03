@@ -28,17 +28,42 @@ It may be helpful to minify HTML before passing it to `htmlToSlate`. This might 
 
 ### `htmlToSlate`
 
-Whitespace formatting can be customised. Default behaviour is as follows.
+Whitespace in text nodes is processed depending on context.
 
 Content for text marks follow an [inline formatting context](https://developer.mozilla.org/en-US/docs/Web/CSS/Inline_formatting_context).
 
 - reduce line breaks and surrounding space to a single space;
 - replace tabs with spaces;
 - reduce multiple spaces to a single space; and
-- remove space from the beginning and end of a block element (e.g. `h1`, `p`...etc).
+- remove space from the beginning and end of the contents of a block element (e.g. `h1`, `p`...etc).
+
+Before:
+
+```
+<p>
+  <b>
+    <i>bar</i></b>
+</p>
+```
+
+After:
+
+```
+<p>foo<b> <i>bar</i></b></p>
+```
+
+Block elements follow a [block formatting context](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context).
+
+By default, the `filterWhitespaceNodes` is set to `true`. This option removes nodes from the Slate JSON object that:
+
+- contain only whitespace; and
+- have no context.
+
+This helps when passing a HTML string that uses line breaks/tabs/spaces to make the document more readable. These spaces do not add any meaning to the document, and so it isn't helpful to represent them in the Slate JSON. Furthermore, depending on the schema, these nodes may be interpreted as elements or part of the content.
+
+For text nodes inside `<code>` and/or `<pre>` HTML elements, whitespace is preserved.
 
 ### References
-
 
 - https://github.com/fb55/htmlparser2/issues/90
 - https://github.com/aknuds1/html-to-react/issues/79

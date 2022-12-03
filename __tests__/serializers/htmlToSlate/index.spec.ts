@@ -1,4 +1,4 @@
-import { htmlToSlate, htmlToSlateConfig } from '../../../src'
+import { htmlToSlate, htmlToSlateConfig, payloadHtmlToSlateConfig } from '../../../src'
 
 describe('htmlToSlate whitespace handling', () => {
   describe('inline formatting context', () => {
@@ -28,9 +28,6 @@ describe('htmlToSlate whitespace handling', () => {
                  ],
                  type: "span",
                },
-               {
-                "text": "",
-              },
             ],
             "type": "h1",
           },
@@ -55,13 +52,6 @@ describe('htmlToSlate whitespace handling', () => {
 `
       const expected: any[] = [
         {
-            children: [
-            {
-                text: " ",
-              },
-            ],
-          },
-        {
           children: [
           {
               text: "Hello",
@@ -69,13 +59,6 @@ describe('htmlToSlate whitespace handling', () => {
           ],
           type: "div",
         },
-        {
-            children: [
-            {
-                text: ` `,
-              },
-            ],
-          },
         {
           children: [
           {
@@ -146,6 +129,27 @@ describe('htmlToSlate whitespace handling', () => {
         },
       ]
       expect(htmlToSlate(fixture)).toEqual(expected)
+    })
+
+    it('removes non-mapped block elements containing whitespace only', () => {
+      const fixture = "<div>Für Ihre Sicherheit&nbsp;</div>\n<div>&nbsp;</div>\n<div>Bitte beachten Sie die Ansagen der Besatzung</div>"
+      const expected: any[] = [
+        {
+          children: [
+            {
+              text: "Für Ihre Sicherheit",
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: "Bitte beachten Sie die Ansagen der Besatzung",
+            },
+          ],
+        },
+      ]
+      expect(htmlToSlate(fixture, payloadHtmlToSlateConfig)).toEqual(expected)
     })
   })
 })

@@ -2,7 +2,7 @@ import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element } from 'domhandler'
 import { getChildren, getName, textContent } from 'domutils'
-import { getContext, minifyText } from './whitespace'
+import { getContext, isAllWhitespace, minifyText } from './whitespace'
 
 import { config as defaultConfig, Config } from '../../config/htmlToSlate/default'
 
@@ -33,7 +33,7 @@ const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0,
     index: i,
     childrenLength: parent.childNodes.length,
     context: childrenContext
-  })).flat() : []
+  })).filter((element) => element).filter((element) => !isSlateDeadEnd(element)).flat() : []
 
   if (getName(parent) === 'body') {
     return jsx('fragment', {}, children)
@@ -58,6 +58,9 @@ const deserialize = ({el, config = defaultConfig, index = 0, childrenLength = 0,
       if (isInlineEnd) {
         text = text.trimEnd()
       }
+    }
+    if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
+      return null
     }
     return [jsx('text', {...attrs, text}, [])]
   }
@@ -110,7 +113,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
       // Parsing completed, do something
       slateContent = dom
         .map((node) => deserialize({el: node, config})) // run the deserializer
-        .filter((element) => element) // filter out null elements
+        .filter(element => element) // filter out null elements
         .map((element) => {
           // ensure all top level elements have a children property
           if (!element.children) {
@@ -120,10 +123,17 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
           }
           return element
         })
+        .filter((element) => !isSlateDeadEnd(element))
     }
   })
   const parser = new Parser(handler)
   parser.write(html)
   parser.end()
   return slateContent
+}
+
+const isSlateDeadEnd = (element: { children: [] }) => {
+  const keys = Object.keys(element)
+  if (!('children' in element)) return false
+  return element.children.length === 0 && keys.length === 1
 }
