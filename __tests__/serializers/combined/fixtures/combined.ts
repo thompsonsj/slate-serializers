@@ -79,15 +79,9 @@ export const fixtures: Ifixture[] = [
       },
     ],
   },
-  /**
-   * this is an interesting test - note the line break
-   * included by Slate. We need to support this in
-   * reserialized Slate in order to get matching HTML
-   *  */
   {
     name: 'links nested in an unordered list',
-    html: `<ul><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a></li><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a>
-</li></ul>`,
+    html: `<ul><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a></li><li><a href="https://github.com/thompsonsj/slate-serializers" target="_blank">slate-serializers | GitHub</a></li></ul>`,
     slateOriginal: [
       {
         type: 'ul',
@@ -130,9 +124,6 @@ export const fixtures: Ifixture[] = [
                     text: 'slate-serializers | GitHub',
                   },
                 ],
-              },
-              {
-                text: '\n',
               },
             ],
           },
@@ -181,9 +172,6 @@ export const fixtures: Ifixture[] = [
                     text: 'slate-serializers | GitHub',
                   },
                 ],
-              },
-              {
-                text: '\n',
               },
             ],
           },

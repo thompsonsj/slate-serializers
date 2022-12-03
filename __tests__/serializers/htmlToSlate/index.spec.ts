@@ -18,8 +18,7 @@ describe('htmlToSlate whitespace handling', () => {
         {
           children: [
             {
-              text: `   Hello 
-        `,
+              text: `Hello `,
             },
         {
                 children: [
@@ -30,7 +29,7 @@ describe('htmlToSlate whitespace handling', () => {
                  type: "span",
                },
                {
-                "text": "   ",
+                "text": "",
               },
             ],
             "type": "h1",
@@ -58,40 +57,37 @@ describe('htmlToSlate whitespace handling', () => {
         {
             children: [
             {
-                text: "  ",
+                text: " ",
               },
             ],
           },
         {
-            children: [
-            {
-                text: "  Hello  ",
-              },
-            ],
-            type: "div",
-          },
+          children: [
+          {
+              text: "Hello",
+            },
+          ],
+          type: "div",
+        },
         {
             children: [
             {
-                text: `
-
-    `,
+                text: ` `,
               },
             ],
           },
         {
-            children: [
-            {
-                text: "  World!   ",
-              },
-            ],
-            type: "div",
-          },
+          children: [
+          {
+              text: "World!",
+            },
+          ],
+          type: "div",
+        },
         {
             children: [
             {
-                text: ` . 
-`,
+                text: ` . `,
               },
             ],
           },
