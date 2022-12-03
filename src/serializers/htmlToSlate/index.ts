@@ -64,7 +64,7 @@ const deserialize = ({
       text: textContent(el as Element),
       context: childrenContext as Context,
       isInlineStart: index === 0,
-      isInlineEnd: Number.isInteger(childrenLength) && index === childrenLength - 1
+      isInlineEnd: Number.isInteger(childrenLength) && index === childrenLength - 1,
     })
     if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
       return null
