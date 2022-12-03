@@ -1,3 +1,36 @@
+export type Context = 'preserve' | 'block' | 'inline' | ''
+
+interface IprocessTextValue {
+  text: string
+  context?: Context
+  isInlineStart?: boolean
+  isInlineEnd?: boolean
+}
+
+export const processTextValue = ({
+  text,
+  context = '',
+  isInlineStart = false,
+  isInlineEnd = false,
+}: IprocessTextValue): string => {
+  let parsed = text
+  if (context === 'preserve') {
+    return parsed
+  }
+  parsed = minifyText(parsed)
+  if (context === 'block') {
+    // is this the start of inline content after a block element?
+    if (isInlineStart) {
+      parsed = parsed.trimStart()
+    }
+    // is this the end of inline content in a block element?
+    if (isInlineEnd) {
+      parsed = parsed.trimEnd()
+    }
+  }
+  return parsed
+}
+
 export const minifyText = (str: string) => {
   return reduceToSingleSpaces(replaceNewlines(str))
 }
@@ -14,7 +47,7 @@ export const isAllWhitespace = (str: string) => {
   return !/[^\t\n\r ]/.test(str)
 }
 
-export const getContext = (tagName: string): 'preserve' | 'block' | 'inline' | '' => {
+export const getContext = (tagName: string): Context => {
   if (!tagName || tagName.trim() === '') {
     return ''
   }

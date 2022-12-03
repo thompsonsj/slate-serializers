@@ -2,7 +2,7 @@ import { jsx } from 'slate-hyperscript'
 import { Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element } from 'domhandler'
 import { getChildren, getName, textContent } from 'domutils'
-import { getContext, isAllWhitespace, minifyText } from './whitespace'
+import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
 
 import { config as defaultConfig, Config } from '../../config/htmlToSlate/default'
 
@@ -59,20 +59,13 @@ const deserialize = ({
   }
 
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
-    const attrs = gatherTextMarkAttributes({ el: parent, context: childrenContext })
-    let text = (attrs as { text: string }).text
-    const isInlineStart = index === 0
-    const isInlineEnd = Number.isInteger(childrenLength) && index === childrenLength - 1
-    if (context === 'block') {
-      // is this the start of inline content after a block element?
-      if (isInlineStart) {
-        text = text.trimStart()
-      }
-      // is this the end of inline content in a block element?
-      if (isInlineEnd) {
-        text = text.trimEnd()
-      }
-    }
+    const attrs = gatherTextMarkAttributes({ el: parent })
+    const text = processTextValue({
+      text: textContent(el as Element),
+      context: childrenContext as Context,
+      isInlineStart: index === 0,
+      isInlineEnd: Number.isInteger(childrenLength) && index === childrenLength - 1
+    })
     if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
       return null
     }
@@ -85,30 +78,25 @@ const deserialize = ({
 interface IgatherTextMarkAttributes {
   el: Element
   config?: Config
-  context?: string
 }
 
-const gatherTextMarkAttributes = ({ el, config = defaultConfig, context = '' }: IgatherTextMarkAttributes) => {
+const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMarkAttributes) => {
   let allAttrs = {}
   // tslint:disable-next-line no-unused-expression
   if (el.childNodes) {
     ;[el, ...getChildren(el).flat()].forEach((child) => {
       const name = getName(child as Element)
       const attrs = config.textTags[name] ? config.textTags[name](child as Element) : {}
-      const text = context === 'preserve' ? textContent(child) : minifyText(textContent(child))
       allAttrs = {
         ...allAttrs,
         ...attrs,
-        text,
       }
     })
   } else {
     const name = getName(el)
     const attrs = config.textTags[name] ? config.textTags[name](el) : {}
-    const text = context === 'preserve' ? textContent(el) : minifyText(textContent(el))
     allAttrs = {
       ...attrs,
-      text,
     }
   }
   return allAttrs
