@@ -1,5 +1,6 @@
 import { getAttributeValue } from 'domutils'
 import { HtmlToSlateConfig } from '../../'
+import { renameTag } from '../../utilities/update-html'
 
 export const config: HtmlToSlateConfig = {
   elementTags: {
@@ -8,17 +9,13 @@ export const config: HtmlToSlateConfig = {
       newTab: el && getAttributeValue(el, 'target') === '_blank',
       url: el && getAttributeValue(el, 'href'),
     }),
-    blockquote: () => ({ type: 'blockquote' }),
-    h1: () => ({ type: 'h1' }),
-    h2: () => ({ type: 'h2' }),
-    h3: () => ({ type: 'h3' }),
-    h4: () => ({ type: 'h4' }),
-    h5: () => ({ type: 'h5' }),
-    h6: () => ({ type: 'h6' }),
-    li: () => ({ type: 'li' }),
-    ol: () => ({ type: 'ol' }),
-    p: () => ({ type: 'p' }),
-    ul: () => ({ type: 'ul' }),
+    blockquote: () => ({ type: 'block-quote' }),
+    h1: () => ({ type: 'heading-one' }),
+    h2: () => ({ type: 'heading-two' }),
+    li: () => ({ type: 'list-item' }),
+    ol: () => ({ type: 'numbered-list' }),
+    p: () => ({ type: 'paragraph' }),
+    ul: () => ({ type: 'bulleted-list' }),
   },
   textTags: {
     code: () => ({ code: true }),
@@ -30,5 +27,10 @@ export const config: HtmlToSlateConfig = {
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
-  filterWhitespaceNodes: true, // remove whitespace nodes that do not contribute meaning
+  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g,'<code>').replace(/<\/pre>/g,'</code>'),
+  htmlUpdaterMap: {
+    ...renameTag('pre', 'code')
+  },
+  filterWhitespaceNodes: true,
 }
+

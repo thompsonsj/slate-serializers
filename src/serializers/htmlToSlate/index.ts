@@ -1,10 +1,14 @@
 import { jsx } from 'slate-hyperscript'
-import { Parser, ElementType } from 'htmlparser2'
-import { ChildNode, DomHandler, Element } from 'domhandler'
-import { getChildren, getName, textContent } from 'domutils'
+import { parseDocument, Parser, ElementType } from 'htmlparser2'
+import { ChildNode, DomHandler, Element, isTag, Node } from 'domhandler'
+import { getChildren, getName, replaceElement, textContent } from 'domutils'
 import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
 
-import { config as defaultConfig, Config } from '../../config/htmlToSlate/default'
+import { Config } from '../../types'
+import { config as defaultConfig } from '../../config/htmlToSlate/default'
+
+import { selectOne, selectAll } from 'css-select'
+import serializer from 'dom-serializer'
 
 interface Ideserialize {
   el: ChildNode
@@ -108,7 +112,21 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
     if (error) {
       // Handle error
     } else {
-      // Parsing completed, do something
+      const updaters = config.htmlUpdaterMap ? Object.entries(config.htmlUpdaterMap) : []
+      for (const [selector, updater] of updaters) {
+        selectAll<Node, Node>(selector, dom as any).forEach((element) => {
+          if (isTag(element)) {
+            const updated = updater(element)
+            if (updated != null && updated != element) {
+              if (typeof updated === 'string') {
+                replaceElement(element, parseDocument(updated) as any)
+              } else {
+                replaceElement(element, updated)
+              }
+            }
+          }
+        })
+      }
       slateContent = dom
         .map((node) => deserialize({ el: node, config })) // run the deserializer
         .filter((element) => element) // filter out null elements
@@ -125,7 +143,11 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
     }
   })
   const parser = new Parser(handler, { decodeEntities: false })
-  parser.write(html)
+  let updatedHtml = html
+  if (config.htmlPreProcessString instanceof Function) {
+    updatedHtml = config.htmlPreProcessString(html)
+  }
+  parser.write(updatedHtml)
   parser.end()
   return slateContent
 }

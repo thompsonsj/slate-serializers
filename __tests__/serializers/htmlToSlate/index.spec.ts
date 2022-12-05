@@ -219,6 +219,42 @@ describe('inline code and pre HTML elements', () => {
     expect(htmlToSlate(html)).toEqual(slate)
   })
 
+  it('can handle duplicate inline code tags', () => {
+    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code><code>&lt;textarea&gt;</code></code>!</p>'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'This is editable '
+          },
+          {
+            text: 'rich',
+            bold: true
+          },
+          {
+            text: ' text, '
+          },
+          {
+            text: 'much',
+            italic: true
+          },
+          {
+            text: ' better than a '
+          },
+          {
+            text: '&lt;textarea&gt;',
+            code: true
+          },
+          {
+            text: '!'
+          }
+        ]
+      }
+    ]
+    expect(htmlToSlate(html)).toEqual(slate)
+  })
+
   /**
    * Note that unlike <code> tags, <pre> tags get
    * separated out.
