@@ -81,4 +81,41 @@ describe('translates `text-align` style attributes', () => {
     ]
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
   })
+
+  it('adds justify align to blockquotes', () => {
+    const html = '<blockquote style="text-align: justify;">This is a justified blockquote.</blockquote>'
+    const slate = [
+      {
+        align: "justify",
+        children: [
+          {
+            text: "This is a justified blockquote.",
+          },
+        ],
+        type: "block-quote",
+      },
+    ]
+    expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
+  })
+
+  it('adds left align to a list item', () => {
+    const html = '<ul><li style="text-align: justify;">This is a left aligned list item.</li></ul>'
+    const slate = [
+      {
+        children: [
+          {
+            align: "justify",
+            children: [
+              {
+                text: "This is a left aligned list item."
+              }
+            ],
+            type: "list-item",
+          },
+        ],
+        type: "bulleted-list",
+      },
+    ]
+    expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
+  })
 })
