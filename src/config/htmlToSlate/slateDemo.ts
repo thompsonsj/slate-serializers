@@ -1,6 +1,7 @@
 import { getAttributeValue } from 'domutils'
 import { HtmlToSlateConfig } from '../../'
 import { renameTag } from '../../utilities/update-html'
+import { parseStyleCssText } from '../../utilities'
 
 export const config: HtmlToSlateConfig = {
   elementTags: {
@@ -14,7 +15,21 @@ export const config: HtmlToSlateConfig = {
     h2: () => ({ type: 'heading-two' }),
     li: () => ({ type: 'list-item' }),
     ol: () => ({ type: 'numbered-list' }),
-    p: () => ({ type: 'paragraph' }),
+    p: (el) => {
+      const cssText = el && getAttributeValue(el, 'style')
+      if (cssText) {
+        const css = parseStyleCssText(cssText)
+        if (css.textAlign) {
+          return {
+            type: 'paragraph',
+            align: css.textAlign
+          }
+        }
+      }
+      return { 
+        type: 'paragraph'
+      }
+    },
     ul: () => ({ type: 'bulleted-list' }),
   },
   textTags: {
