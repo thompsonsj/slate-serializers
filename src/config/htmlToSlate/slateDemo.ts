@@ -1,7 +1,8 @@
 import { getAttributeValue } from 'domutils'
 import { HtmlToSlateConfig } from '../../'
+import { removeEmpty } from '../../utilities'
 import { renameTag } from '../../utilities/update-html'
-import { parseStyleCssText } from '../../utilities'
+import { extractCssFromStyle } from '../../utilities/domhandler'
 
 export const config: HtmlToSlateConfig = {
   elementTags: {
@@ -15,21 +16,12 @@ export const config: HtmlToSlateConfig = {
     h2: () => ({ type: 'heading-two' }),
     li: () => ({ type: 'list-item' }),
     ol: () => ({ type: 'numbered-list' }),
-    p: (el) => {
-      const cssText = el && getAttributeValue(el, 'style')
-      if (cssText) {
-        const css = parseStyleCssText(cssText)
-        if (css.textAlign) {
-          return {
-            type: 'paragraph',
-            align: css.textAlign
-          }
-        }
-      }
-      return { 
-        type: 'paragraph'
-      }
-    },
+    p: (el) => (
+      removeEmpty({
+        align: el && extractCssFromStyle(el, 'textAlign'),
+        type: 'paragraph',
+      })
+    ),
     ul: () => ({ type: 'bulleted-list' }),
   },
   textTags: {
