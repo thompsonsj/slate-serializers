@@ -4,8 +4,9 @@ export { slateToDom, slateToHtml } from './serializers/slatetoHtml'
 
 // Configuration objects
 // slateToDom
-export { config as slateToDomConfig } from './config/slatetoDom/default'
-export { config as payloadSlateToDomConfig } from './config/slatetoDom/payload'
+export { Config as SlateToDomConfig } from './config/slateToDom/types'
+export { config as slateToDomConfig } from './config/slateToDom/default'
+export { config as payloadSlateToDomConfig } from './config/slateToDom/payload'
 
 // htmlToSlate
 export { Config as HtmlToSlateConfig } from './config/htmlToSlate/types'

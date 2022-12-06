@@ -2,10 +2,11 @@ import { Text } from 'slate'
 import { AnyNode, Document, Element } from 'domhandler'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
-import { config as defaultConfig, Config } from '../../config/slatetoDom/default'
+import { config as defaultConfig } from '../../config/slateToDom/default'
+import { SlateToDomConfig } from '../..'
 
-type SlateToHtml = (node: any[], config?: Config) => string
-type SlateToDom = (node: any[], config?: Config) => AnyNode | ArrayLike<AnyNode>
+type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
+type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
 
 export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) => {
   const document = slateToDom(node, config)
