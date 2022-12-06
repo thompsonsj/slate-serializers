@@ -1,6 +1,6 @@
 import { getChildren } from 'domutils'
 import { Element } from 'domhandler'
-import { HtmlUpdaterFunctionMap } from '../types'
+import { HtmlUpdaterFunctionMap } from '../config/htmlToSlate/types'
 
 export const renameTag = (tagName: string, replacementTagName: string): HtmlUpdaterFunctionMap => ({
   [tagName]: (element) => {
