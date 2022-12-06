@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.16](https://github.com/thompsonsj/slate-serializers/compare/v0.0.15...v0.0.16) (2022-12-06)
+
+
+### Bug Fixes
+
+* **update-html:** import ([2ae2af8](https://github.com/thompsonsj/slate-serializers/commit/2ae2af8503703661abaae5378b5d3ee01613e917))
+
 ### [0.0.15](https://github.com/thompsonsj/slate-serializers/compare/v0.0.14...v0.0.15) (2022-12-06)
 
 
