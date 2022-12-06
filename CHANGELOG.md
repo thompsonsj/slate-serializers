@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.17](https://github.com/thompsonsj/slate-serializers/compare/v0.0.16...v0.0.17) (2022-12-06)
+
+
+### Bug Fixes
+
+* **slatetohtml:** do not add an empty style attribute ([#20](https://github.com/thompsonsj/slate-serializers/issues/20)) ([a303806](https://github.com/thompsonsj/slate-serializers/commit/a303806e2baaf99536a716dca1763e2ba8270c49))
+
 ### [0.0.16](https://github.com/thompsonsj/slate-serializers/compare/v0.0.15...v0.0.16) (2022-12-06)
 
 
