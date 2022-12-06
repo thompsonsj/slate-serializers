@@ -5,18 +5,13 @@ import { Config } from "./types"
 // Staightforward transform - no attributes are considered
 // Use transforms instead for more complex operations
 const ELEMENT_NAME_TAG_MAP = {
-  p: 'p',
-  paragraph: 'p',
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  ul: 'ul',
-  ol: 'ol',
-  li: 'li',
-  blockquote: 'blockquote',
+  blockquote: 'block-quote',
+  h1: 'heading-one',
+  h2: 'heading-two',
+  li: 'list-item',
+  ol: 'numbered-list',
+  ul: 'bulleted-list',
+  p: 'paragraph'
 }
 
 const MARK_ELEMENT_TAG_MAP = {
@@ -30,6 +25,9 @@ const MARK_ELEMENT_TAG_MAP = {
 export const config: Config = {
   markMap: MARK_ELEMENT_TAG_MAP,
   elementMap: ELEMENT_NAME_TAG_MAP,
+  elementStyleMap: {
+    align: 'textAlign'
+  },
   elementTransforms: {
     quote: ({children = []}) => {
       const p = [new Element('p', {}, children)]

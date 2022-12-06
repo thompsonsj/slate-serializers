@@ -31,6 +31,12 @@ export const parseStyleCssText = (value: string): {[key: string]: string} => {
   return output
 }
 
+export const styleToString = (style: {[key: string]: string}) => {
+  return Object.keys(style).reduce((acc, key) => (
+      acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + style[key] + ';'
+  ), '')
+}
+
 export const removeEmpty = (obj: {}): {} => {
   return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));
 }

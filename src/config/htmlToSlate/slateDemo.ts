@@ -20,11 +20,11 @@ export const config: HtmlToSlateConfig = {
     ol: () => ({
       type: 'numbered-list',
     }),
-    p: () => ({
-      type: 'paragraph',
-    }),
     ul: () => ({
       type: 'bulleted-list',
+    }),
+    p: () => ({
+      type: 'paragraph',
     }),
   },
   textTags: {
