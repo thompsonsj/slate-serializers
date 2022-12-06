@@ -30,4 +30,40 @@ describe('slateToHtml expected behaviour', () => {
     ]
     expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false })).toEqual(html)
   })
+
+  it('can handle inline code tags', () => {
+    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'This is editable '
+          },
+          {
+            text: 'rich',
+            bold: true
+          },
+          {
+            text: ' text, '
+          },
+          {
+            text: 'much',
+            italic: true
+          },
+          {
+            text: ' better than a '
+          },
+          {
+            text: '<textarea>',
+            code: true
+          },
+          {
+            text: '!'
+          }
+        ]
+      }
+    ]
+    expect(slateToHtml(slate)).toEqual(html)
+  })
 })

@@ -1,5 +1,7 @@
+import { getAttributeValue } from 'domutils'
 import { Element, Text } from 'domhandler'
 import serializer from 'dom-serializer'
+import { parseStyleCssText } from '.'
 
 /**
  * Generate nested mark elements
@@ -44,4 +46,21 @@ export const nestedMarkElements = (els: string[], text: string) => {
     return element
   }
   return element
+}
+
+/**
+ * Extract css value from style attribute
+ * @param el domhandler Element
+ * @param attribute css attribute in camelCase 
+ * @returns css value or null
+ */
+export const extractCssFromStyle = (el: Element, attribute: string): string | null => {
+  const cssText = el && getAttributeValue(el, 'style')
+  if (cssText) {
+    const css = parseStyleCssText(cssText)
+    if (css[attribute]) {
+      return css[attribute]
+    }
+  }
+  return null
 }

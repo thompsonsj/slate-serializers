@@ -1,5 +1,6 @@
-import { config as defaultConfig, Config } from './default'
 import { Element } from 'domhandler'
+import { config as defaultConfig } from './default'
+import { SlateToDomConfig } from '../..'
 
 /**
  * Configuration for Payload CMS
@@ -7,11 +8,11 @@ import { Element } from 'domhandler'
  * Tested for v1.1.21
  */
 
-export const config: Config = {
+export const config: SlateToDomConfig = {
   ...defaultConfig,
   elementTransforms: {
     ...defaultConfig.elementTransforms,
-    link: (node, children = []) => {
+    link: ({node, children = []}) => {
       const attrs: any = {}
       if (node.linkType) {
         attrs['data-link-type'] = node.linkType

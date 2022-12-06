@@ -135,6 +135,8 @@ const serializedToSlate = htmlToSlate(html, payloadHtmlToSlateConfig)
 
 You can create your own configuration file that implements your schema. See [src/config/htmlToSlate/payload.ts](src/config/htmlToSlate/payload.ts) for an example of how to extend the default configuration or copy [src/config/htmlToSlate/default.ts](src/config/htmlToSlate/default.ts) and rewrite it as appropriate.
 
+For a breakdown of configuration options, see [docs/config/htmlToSlate.md](docs/config/htmlToSlate.md).
+
 #### Whitespace
 
 `htmlToSlate` processes whitespace in a similar way to browsers. It minifies whitespace while trying to preserve meaning. For details, see [docs/engineering.md#whitespace](docs/engineering.md#whitespace).

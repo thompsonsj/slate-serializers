@@ -1,6 +1,6 @@
-import { config as defaultConfig, Config } from './default'
+import { HtmlToSlateConfig } from '../../'
+import { config as defaultConfig } from './default'
 import { getAttributeValue } from 'domutils'
-import { Element } from 'domhandler'
 
 /**
  * Configuration for Payload CMS
@@ -8,7 +8,7 @@ import { Element } from 'domhandler'
  * Tested for v1.1.21
  */
 
-export const config: Config = {
+export const config: HtmlToSlateConfig = {
   ...defaultConfig,
   elementTags: {
     ...defaultConfig.elementTags,

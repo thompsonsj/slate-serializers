@@ -1,17 +1,7 @@
 import { getAttributeValue } from 'domutils'
-import { Element } from 'domhandler'
+import { HtmlToSlateConfig } from '../../'
 
-interface ItagMap {
-  [key: string]: (a?: Element) => object
-}
-
-export interface Config {
-  elementTags: ItagMap
-  textTags: ItagMap
-  filterWhitespaceNodes: boolean
-}
-
-export const config: Config = {
+export const config: HtmlToSlateConfig = {
   elementTags: {
     a: (el) => ({
       type: 'link',
