@@ -1,51 +1,31 @@
 import { HtmlToSlateConfig } from '../../'
-import { removeEmpty } from '../../utilities'
-import { extractCssFromStyle } from '../../utilities/domhandler'
 
 export const config: HtmlToSlateConfig = {
+  elementStyleMap: {
+    align: 'textAlign'
+  },
   elementTags: {
-    blockquote: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
-        type: 'block-quote',
-      })
-    ),
-    h1: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
-        type: 'heading-one',
-      })
-    ),
-    h2: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
+    blockquote: () => ({
+      type: 'block-quote',
+    }),
+    h1: () => ({
+      type: 'heading-one',
+    }),
+    h2: () => ({
         type: 'heading-two',
-      })
-    ),
-    li: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
+    }),
+    li: () => ({
         type: 'list-item',
-      })
-    ),
-    ol: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
-        type: 'numbered-list',
-      })
-    ),
-    p: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
-        type: 'paragraph',
-      })
-    ),
-    ul: (el) => (
-      removeEmpty({
-        align: el && extractCssFromStyle(el, 'textAlign'),
-        type: 'bulleted-list',
-      })
-    ),
+    }),
+    ol: () => ({
+      type: 'numbered-list',
+    }),
+    p: () => ({
+      type: 'paragraph',
+    }),
+    ul: () => ({
+      type: 'bulleted-list',
+    }),
   },
   textTags: {
     code: () => ({ code: true }),

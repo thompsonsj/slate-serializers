@@ -4,11 +4,13 @@ import { ChildNode, DomHandler, Element, isTag, Node } from 'domhandler'
 import { getChildren, getName, replaceElement, textContent } from 'domutils'
 import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
 
-import { Config } from '../../types'
+import { Config } from '../../config/htmlToSlate/types'
 import { config as defaultConfig } from '../../config/htmlToSlate/default'
 
 import { selectOne, selectAll } from 'css-select'
 import serializer from 'dom-serializer'
+import { extractCssFromStyle } from '../../utilities/domhandler'
+import { getNested } from '../../utilities'
 
 interface Ideserialize {
   el: ChildNode
@@ -58,7 +60,18 @@ const deserialize = ({
   }
 
   if (config.elementTags[nodeName]) {
-    const attrs = config.elementTags[nodeName](parent)
+    const attrs: any = config.elementTags[nodeName](parent)
+    // elementAttributeMap is a convenient config for making changes to all elements
+    const style = getNested(config, 'elementStyleMap')
+    if (style) {
+      Object.keys(style).forEach(slateKey => {
+        const cssProperty = style[slateKey]
+        const cssValue = extractCssFromStyle(parent, cssProperty)
+        if (cssValue) {
+          attrs[slateKey] = cssValue
+        }
+      })
+    }
     return jsx('element', attrs, children)
   }
 

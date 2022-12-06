@@ -34,3 +34,13 @@ export const parseStyleCssText = (value: string): {[key: string]: string} => {
 export const removeEmpty = (obj: {}): {} => {
   return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));
 }
+
+/**
+ * 
+ * @param obj an object of any dimension
+ * @param args property list to check
+ * @returns undefined or property value
+ */
+export const getNested = (obj: any, ...args: string[]) => {
+  return args.reduce((obj, level) => obj && obj[level], obj)
+}
