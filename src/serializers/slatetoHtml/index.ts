@@ -4,7 +4,7 @@ import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { SlateToDomConfig } from '../..'
-import { getNested } from '../../utilities'
+import { getNested, styleToString } from '../../utilities'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -35,6 +35,7 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
 
   const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []
 
+  let attribs: {[key: string]: string} = {}
   let styleAttrs: {[key: string]: string} = {}
   const style = getNested(config, 'elementStyleMap')
   if (style) {
@@ -45,16 +46,21 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
         styleAttrs[cssProperty] = cssValue
       }
     })
+    attribs = {
+      ...attribs,
+      style: styleToString(styleAttrs)
+    }
   }
+  
 
   // more complex transforms
   if (config.elementTransforms[node.type]) {
-    return config.elementTransforms[node.type]({node, children})
+    return config.elementTransforms[node.type]({node, attribs, children})
   }
 
   // straightforward node to element
   if (config.elementMap[node.type]) {
-    return new Element(config.elementMap[node.type], {}, children)
+    return new Element(config.elementMap[node.type], attribs, children)
   }
 
   if (config.defaultTag && !node.type) {

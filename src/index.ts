@@ -7,6 +7,7 @@ export { slateToDom, slateToHtml } from './serializers/slatetoHtml'
 export { Config as SlateToDomConfig } from './config/slateToDom/types'
 export { config as slateToDomConfig } from './config/slateToDom/default'
 export { config as payloadSlateToDomConfig } from './config/slateToDom/payload'
+export { config as slateDemoSlateToDomConfig } from './config/slateToDom/slateDemo'
 
 // htmlToSlate
 export { Config as HtmlToSlateConfig } from './config/htmlToSlate/types'
