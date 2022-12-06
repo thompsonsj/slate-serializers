@@ -1,8 +1,8 @@
 import { slateToDom } from '../../../src'
 import { selectAll } from 'css-select'
 import { parseDocument } from 'htmlparser2'
-import { replaceElement, textContent } from 'domutils'
-import { Document, Element, isTag, Node } from 'domhandler'
+import { replaceElement } from 'domutils'
+import { Element, Node } from 'domhandler'
 import serializer from 'dom-serializer'
 
 describe('slateToDom expected behaviour', () => {

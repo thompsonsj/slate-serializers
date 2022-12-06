@@ -46,6 +46,9 @@ export const styleToString = (style: { [key: string]: string }) => {
   )
 }
 
+export const isEmptyObject = (obj: any) =>
+  obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype
+
 export const removeEmpty = (obj: {}): {} => {
   return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
 }

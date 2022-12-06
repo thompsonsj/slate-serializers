@@ -4,7 +4,7 @@ import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { SlateToDomConfig } from '../..'
-import { getNested, styleToString } from '../../utilities'
+import { getNested, isEmptyObject, styleToString } from '../../utilities'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -46,9 +46,12 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
         styleAttrs[cssProperty] = cssValue
       }
     })
-    attribs = {
-      ...attribs,
-      style: styleToString(styleAttrs),
+
+    if (!isEmptyObject(styleAttrs)) {
+      attribs = {
+        ...attribs,
+        style: styleToString(styleAttrs),
+      }
     }
   }
 
