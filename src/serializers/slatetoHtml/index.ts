@@ -35,11 +35,11 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
 
   const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []
 
-  let attribs: {[key: string]: string} = {}
-  let styleAttrs: {[key: string]: string} = {}
+  let attribs: { [key: string]: string } = {}
+  const styleAttrs: { [key: string]: string } = {}
   const style = getNested(config, 'elementStyleMap')
   if (style) {
-    Object.keys(style).forEach(slateKey => {
+    Object.keys(style).forEach((slateKey) => {
       const cssProperty = style[slateKey]
       const cssValue = node[slateKey]
       if (cssValue) {
@@ -48,14 +48,13 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
     })
     attribs = {
       ...attribs,
-      style: styleToString(styleAttrs)
+      style: styleToString(styleAttrs),
     }
   }
-  
 
   // more complex transforms
   if (config.elementTransforms[node.type]) {
-    return config.elementTransforms[node.type]({node, attribs, children})
+    return config.elementTransforms[node.type]({ node, attribs, children })
   }
 
   // straightforward node to element

@@ -51,7 +51,7 @@ export const nestedMarkElements = (els: string[], text: string) => {
 /**
  * Extract css value from style attribute
  * @param el domhandler Element
- * @param attribute css attribute in camelCase 
+ * @param attribute css attribute in camelCase
  * @returns css value or null
  */
 export const extractCssFromStyle = (el: Element, attribute: string): string | null => {

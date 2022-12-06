@@ -1,4 +1,4 @@
-import { Element } from "domhandler"
+import { Element } from 'domhandler'
 
 export interface IattributeMap {
   slateAttr: string

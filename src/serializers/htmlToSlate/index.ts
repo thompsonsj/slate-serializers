@@ -64,7 +64,7 @@ const deserialize = ({
     // elementAttributeMap is a convenient config for making changes to all elements
     const style = getNested(config, 'elementStyleMap')
     if (style) {
-      Object.keys(style).forEach(slateKey => {
+      Object.keys(style).forEach((slateKey) => {
         const cssProperty = style[slateKey]
         const cssValue = extractCssFromStyle(parent, cssProperty)
         if (cssValue) {
@@ -130,7 +130,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         selectAll<Node, Node>(selector, dom as any).forEach((element) => {
           if (isTag(element)) {
             const updated = updater(element)
-            if (updated != null && updated != element) {
+            if (updated !== null && updated !== element) {
               if (typeof updated === 'string') {
                 replaceElement(element, parseDocument(updated) as any)
               } else {

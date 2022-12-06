@@ -2,7 +2,7 @@ import { HtmlToSlateConfig } from '../../'
 
 export const config: HtmlToSlateConfig = {
   elementStyleMap: {
-    align: 'textAlign'
+    align: 'textAlign',
   },
   elementTags: {
     blockquote: () => ({
@@ -12,10 +12,10 @@ export const config: HtmlToSlateConfig = {
       type: 'heading-one',
     }),
     h2: () => ({
-        type: 'heading-two',
+      type: 'heading-two',
     }),
     li: () => ({
-        type: 'list-item',
+      type: 'list-item',
     }),
     ol: () => ({
       type: 'numbered-list',
@@ -37,7 +37,6 @@ export const config: HtmlToSlateConfig = {
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
-  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g,'<code>').replace(/<\/pre>/g,'</code>'),
+  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>'),
   filterWhitespaceNodes: true,
 }
-

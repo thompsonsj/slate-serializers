@@ -1,7 +1,11 @@
 import { ChildNode, Element } from 'domhandler'
 
 interface ElementTagTransform {
-  [key: string]: ({ node, attribs, children }: {
+  [key: string]: ({
+    node,
+    attribs,
+    children,
+  }: {
     node?: any
     attribs?: { [key: string]: string }
     children?: ChildNode[]

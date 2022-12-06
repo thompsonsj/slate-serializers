@@ -12,7 +12,7 @@ export const config: SlateToDomConfig = {
   ...defaultConfig,
   elementTransforms: {
     ...defaultConfig.elementTransforms,
-    link: ({node, children = []}) => {
+    link: ({ node, children = [] }) => {
       const attrs: any = {}
       if (node.linkType) {
         attrs['data-link-type'] = node.linkType

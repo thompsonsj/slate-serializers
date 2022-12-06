@@ -1,5 +1,5 @@
-import { Element } from "domhandler"
-import { Config } from "./types"
+import { Element } from 'domhandler'
+import { Config } from './types'
 
 // Map Slate element names to HTML tag names
 // Staightforward transform - no attributes are considered
@@ -31,11 +31,11 @@ export const config: Config = {
   markMap: MARK_ELEMENT_TAG_MAP,
   elementMap: ELEMENT_NAME_TAG_MAP,
   elementTransforms: {
-    quote: ({children = []}) => {
+    quote: ({ children = [] }) => {
       const p = [new Element('p', {}, children)]
       return new Element('blockquote', {}, p)
     },
-    link: ({node, children = []}) => {
+    link: ({ node, children = [] }) => {
       const attrs: any = {}
       if (node.newTab) {
         attrs.target = '_blank'
