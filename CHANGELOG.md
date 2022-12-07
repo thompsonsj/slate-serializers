@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.18](https://github.com/thompsonsj/slate-serializers/compare/v0.0.17...v0.0.18) (2022-12-07)
+
+
+### Bug Fixes
+
+* **htmltoslate:** ensure empty children have a text node ([#21](https://github.com/thompsonsj/slate-serializers/issues/21)) ([59ac5b9](https://github.com/thompsonsj/slate-serializers/commit/59ac5b9e61a1ad3018c8013bbfbad4a20b86b43b))
+
 ### [0.0.17](https://github.com/thompsonsj/slate-serializers/compare/v0.0.16...v0.0.17) (2022-12-06)
 
 
