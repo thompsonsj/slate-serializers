@@ -52,7 +52,7 @@ const deserialize = ({
         )
         .filter((element) => element)
         .filter((element) => !isSlateDeadEnd(element))
-        .map(element => addTextNodeToEmptyChildren(element))
+        .map((element) => addTextNodeToEmptyChildren(element))
         .flat()
     : []
 
@@ -154,7 +154,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
           return element
         })
         .filter((element) => !isSlateDeadEnd(element))
-        .map(element => addTextNodeToEmptyChildren(element))
+        .map((element) => addTextNodeToEmptyChildren(element))
     }
   })
   const parser = new Parser(handler, { decodeEntities: false })
@@ -175,8 +175,8 @@ const isSlateDeadEnd = (element: { children: [] }) => {
 
 const addTextNodeToEmptyChildren = (element: { children: any[] }) => {
   if (!('children' in element)) return element
-  if ( element.children.length === 0 ) {
-    element.children.push({ text: "" })
+  if (element.children.length === 0) {
+    element.children.push({ text: '' })
   }
   return element
 }
