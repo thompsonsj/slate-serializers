@@ -305,10 +305,36 @@ describe('inline code and pre HTML elements', () => {
         ]
       },
       {
-        children: [],
+        children: [
+          {
+            text: ""
+          }
+        ],
         type: "p",
       },
     ]
     expect(htmlToSlate(html)).toEqual(slate)
+  })
+})
+
+describe('normalize slate JSON object', () => {
+  /**
+   * @see https://docs.slatejs.org/concepts/11-normalizing
+   */
+  describe('ensure empty children have an empty text node', () => {
+    it('adds an empty text node for an invalid paragrapf', () => {
+      const html = "<p>"
+      const slate: any[] = [
+          {
+            children: [
+              {
+                text: ""
+              }
+            ],
+            type: "p",
+          },
+        ]
+      expect(htmlToSlate(html)).toEqual(slate)
+    })
   })
 })
