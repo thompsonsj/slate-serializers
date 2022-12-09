@@ -8,6 +8,8 @@ Serializers included so far:
 - [`htmlToSlate`](#htmltoslate)
 - [`slateToDom`](#slatetodom)
 
+View the demo at [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+
 ## Setup
 
 ### Compatibility
