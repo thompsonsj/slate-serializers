@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.19](https://github.com/thompsonsj/slate-serializers/compare/v0.0.18...v0.0.19) (2022-12-09)
+
+
+### Features
+
+* ***to*:** handle html entities appropriately ([#22](https://github.com/thompsonsj/slate-serializers/issues/22)) ([2cd5ce1](https://github.com/thompsonsj/slate-serializers/commit/2cd5ce1b52c2c974c139dbb38a297ce31231283b))
+
 ### [0.0.18](https://github.com/thompsonsj/slate-serializers/compare/v0.0.17...v0.0.18) (2022-12-07)
 
 
