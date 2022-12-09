@@ -157,7 +157,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         .map((element) => addTextNodeToEmptyChildren(element))
     }
   })
-  const parser = new Parser(handler, { decodeEntities: false })
+  const parser = new Parser(handler, { decodeEntities: true })
   let updatedHtml = html
   if (config.htmlPreProcessString instanceof Function) {
     updatedHtml = config.htmlPreProcessString(html)

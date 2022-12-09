@@ -35,7 +35,7 @@ describe('inline code and pre HTML elements', () => {
           text: ' better than a '
         },
         {
-          text: '&lt;textarea&gt;',
+          text: '<textarea>',
           code: true
         },
         {
