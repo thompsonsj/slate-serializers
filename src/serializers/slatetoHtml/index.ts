@@ -33,9 +33,14 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
       }
     })
     // clone markElements (it gets modified)
-    const markElementsClone = [ ...markElements ]
+    const markElementsClone = [...markElements]
     const element = nestedMarkElements(markElements, str)
-    if (config.alwaysEncodeCodeEntities && config.encodeEntities === false && isTag(element) && getName(element) === 'pre') {
+    if (
+      config.alwaysEncodeCodeEntities &&
+      config.encodeEntities === false &&
+      isTag(element) &&
+      getName(element) === 'pre'
+    ) {
       return nestedMarkElements(markElementsClone, encode(str))
     }
     return element
