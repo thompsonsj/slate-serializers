@@ -88,7 +88,12 @@ Special considerations are made for `htmlToSlate` and `slatetoHtml`.
 
 This becomes an issue for `code` and `pre` tags, where you may want to encode HTML entities in order that they display correctly.
 
-To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities` which is `true` by default. If this option is`true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
+To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities`. If this option is`true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
+
+Note that in the default configuration, all HTML entities are encoded.
+
+- `alwaysEncodeCodeEntities` defaults to `false`.
+- `encodeEntities` defaults to `true`.
 
 ### `htmlToslate`
 
