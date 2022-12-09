@@ -21,4 +21,5 @@ export interface Config {
   elementTransforms: ElementTagTransform
   defaultTag?: string
   encodeEntities?: boolean
+  alwaysEncodeCodeEntities?: boolean
 }

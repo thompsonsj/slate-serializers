@@ -78,4 +78,23 @@ At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice ve
 
 May be able to resolve the above by simply removing `p` tag conversion? Could possibly specify that.
 
+## HTML entity encoding/decoding
 
+One of the tricker parts of serializing from between Slate and HTML is that Slate doesn't care about HTML entity encoding. This is expected - Slate is unaware of HTML, it offers a serializer friendly format.
+
+Special considerations are made for `htmlToSlate` and `slatetoHtml`.
+
+### `slateToHtml`
+
+This becomes an issue for `code` and `pre` tags, where you may want to encode HTML entities in order that they display correctly.
+
+To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities`. If this option is`true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
+
+Note that in the default configuration, all HTML entities are encoded.
+
+- `alwaysEncodeCodeEntities` defaults to `false`.
+- `encodeEntities` defaults to `true`.
+
+### `htmlToslate`
+
+`htmlToSlate` will always encode HTML entities. There is no option to disable this behaviour. This is because in a Slate editor, we do not expect to find any HTML entity codes. As mentioned in the introduction, Slate should be as unaware of HTML as possible.

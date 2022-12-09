@@ -1,10 +1,12 @@
 import { Text } from 'slate'
-import { AnyNode, Document, Element } from 'domhandler'
+import { AnyNode, Document, Element, isTag } from 'domhandler'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import serializer from 'dom-serializer'
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { SlateToDomConfig } from '../..'
 import { getNested, isEmptyObject, styleToString } from '../../utilities'
+import { getName } from 'domutils'
+import { encode } from 'html-entities'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -30,7 +32,13 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
         markElements.push(...config.markMap[key])
       }
     })
-    return nestedMarkElements(markElements, str)
+    // clone markElements (it gets modified)
+    const markElementsClone = [ ...markElements ]
+    const element = nestedMarkElements(markElements, str)
+    if (config.alwaysEncodeCodeEntities && config.encodeEntities === false && isTag(element) && getName(element) === 'pre') {
+      return nestedMarkElements(markElementsClone, encode(str))
+    }
+    return element
   }
 
   const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []

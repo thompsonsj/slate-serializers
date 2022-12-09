@@ -66,4 +66,26 @@ describe('slateToHtml expected behaviour', () => {
     ]
     expect(slateToHtml(slate)).toEqual(html)
   })
+
+  it('can respects the alwaysEncodeCodeEntities option if encodeEntities is false', () => {
+    const html = '<p>Regular text & <pre><code>&lt;textarea&gt;</code></pre>.</p>'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'Regular text & '
+          },
+          {
+            text: '<textarea>',
+            code: true
+          },
+          {
+            text: '.'
+          }
+        ]
+      }
+    ]
+    expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(html)
+  })
 })

@@ -137,7 +137,7 @@ describe('htmlToSlate whitespace handling', () => {
         {
           children: [
             {
-              text: "Für Ihre Sicherheit&nbsp;",
+              text: "Für Ihre Sicherheit",
             },
           ],
         },
@@ -158,14 +158,7 @@ describe('htmlToSlate whitespace handling', () => {
         {
           children: [
             {
-              text: "Für Ihre Sicherheit&nbsp;",
-            },
-          ],
-        },
-        {
-          children: [
-            {
-              text: "&nbsp;",
+              text: "Für Ihre Sicherheit",
             },
           ],
         },
@@ -207,7 +200,7 @@ describe('inline code and pre HTML elements', () => {
             text: ' better than a '
           },
           {
-            text: '&lt;textarea&gt;',
+            text: '<textarea>',
             code: true
           },
           {
@@ -243,7 +236,7 @@ describe('inline code and pre HTML elements', () => {
             text: ' better than a '
           },
           {
-            text: '&lt;textarea&gt;',
+            text: '<textarea>',
             code: true
           },
           {
@@ -292,7 +285,7 @@ describe('inline code and pre HTML elements', () => {
       {
         children: [
           {
-            text: '&lt;textarea&gt;',
+            text: '<textarea>',
             code: true
           }
         ]
