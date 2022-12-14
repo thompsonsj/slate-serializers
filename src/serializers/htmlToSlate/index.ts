@@ -167,14 +167,15 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
   return slateContent
 }
 
-const isSlateDeadEnd = (element: { children: [] }) => {
+const isSlateDeadEnd = (element: { children: [] } | string) => {
   const keys = Object.keys(element)
-  if (!('children' in element)) return false
+  if (!keys.includes('children')) return false
   return element.children.length === 0 && keys.length === 1
 }
 
-const addTextNodeToEmptyChildren = (element: { children: any[] }) => {
-  if (!('children' in element)) return element
+const addTextNodeToEmptyChildren = (element: { children: any[] } | string) => {
+  const keys = Object.keys(element)
+  if (!keys.includes('children')) return element
   if (element.children.length === 0) {
     element.children.push({ text: '' })
   }
