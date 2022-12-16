@@ -333,9 +333,6 @@ describe('normalize slate JSON object', () => {
 })
 
 describe('empty content', () => {
-  /**
-   * @see https://docs.slatejs.org/concepts/11-normalizing
-   */
   describe('ensure empty children have an empty text node', () => {
     it('adds an empty text node for an invalid paragraph', () => {
       const html = "<p></p>"
