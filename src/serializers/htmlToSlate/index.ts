@@ -31,8 +31,8 @@ const deserialize = ({
     return null
   }
   const parent = el as Element
-  if (getName(parent) === 'br') {
-    return '\n'
+  if (getName(parent) === 'br' && config.convertBrToLineBreak) {
+    return [jsx('text', { text: '\n' }, [])]
   }
 
   const nodeName = getName(parent)
@@ -174,6 +174,7 @@ const isSlateDeadEnd = (element: { children: [] }) => {
 }
 
 const addTextNodeToEmptyChildren = (element: { children: any[] }) => {
+  const keys = Object.keys(element)
   if (!('children' in element)) return element
   if (element.children.length === 0) {
     element.children.push({ text: '' })

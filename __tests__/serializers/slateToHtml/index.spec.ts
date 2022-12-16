@@ -89,3 +89,33 @@ describe('slateToHtml expected behaviour', () => {
     expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(html)
   })
 })
+
+describe('empty content', () => {
+  describe('ensure empty children have an empty text node', () => {
+    it('adds an empty text node for an invalid paragraph', () => {
+      const html = "<p></p>"
+      const slate: any[] = [
+          {
+            children: [
+              {
+                text: ""
+              }
+            ],
+            type: "p",
+          },
+        ]
+      expect(slateToHtml(slate)).toEqual(html)
+    })
+
+    it('adds an empty text node for an invalid paragraph', () => {
+      const html = ""
+      const slate: any[] = [
+          {
+            children: [],
+            type: "br",
+          },
+        ]
+      expect(slateToHtml(slate)).toEqual(html)
+    })
+  })
+})

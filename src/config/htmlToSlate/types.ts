@@ -16,6 +16,7 @@ export interface Config {
   htmlPreProcessString?: (html: string) => string
   htmlUpdaterMap?: HtmlUpdaterFunctionMap
   filterWhitespaceNodes: boolean
+  convertBrToLineBreak?: boolean
 }
 
 type UpdaterFunction = (el: Element) => Element | string
