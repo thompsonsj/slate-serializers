@@ -315,7 +315,7 @@ describe('normalize slate JSON object', () => {
    * @see https://docs.slatejs.org/concepts/11-normalizing
    */
   describe('ensure empty children have an empty text node', () => {
-    it('adds an empty text node for an invalid paragrapf', () => {
+    it('adds an empty text node for an invalid paragraph', () => {
       const html = "<p>"
       const slate: any[] = [
           {
@@ -328,6 +328,70 @@ describe('normalize slate JSON object', () => {
           },
         ]
       expect(htmlToSlate(html)).toEqual(slate)
+    })
+  })
+})
+
+describe('empty content', () => {
+  /**
+   * @see https://docs.slatejs.org/concepts/11-normalizing
+   */
+  describe('ensure empty children have an empty text node', () => {
+    it('adds an empty text node for an invalid paragraph', () => {
+      const html = "<p></p>"
+      const slate: any[] = [
+          {
+            children: [
+              {
+                text: ""
+              }
+            ],
+            type: "p",
+          },
+        ]
+      expect(htmlToSlate(html)).toEqual(slate)
+    })
+
+    it('converts a br tag to a line break', () => {
+      const html = "<br />"
+      const slate: any[] = [
+          {
+            children:[
+              {
+                text: "\n",
+              },
+            ],
+          },
+        ]
+      expect(htmlToSlate(html)).toEqual(slate)
+    })
+
+    it('does nothing with a br tag if convertBrToLineBreak is false', () => {
+      const html = "<br />"
+      const slate: any[] = []
+      expect(htmlToSlate(html, {...htmlToSlateConfig, convertBrToLineBreak: false})).toEqual(slate)
+    })
+
+    it('converts a br tag to a slate node if defined as an element tag', () => {
+      const html = "<br />"
+      const slate: any[] = [
+          {
+            children:[
+              {
+                text: "",
+              },
+            ],
+            type: "br",
+          },
+        ]
+      expect(htmlToSlate(html, {
+        ...htmlToSlateConfig,
+        convertBrToLineBreak: false,
+        elementTags: {
+          ...htmlToSlateConfig.elementTags,
+          br: () => ({type: 'br'})
+        }
+      })).toEqual(slate)
     })
   })
 })

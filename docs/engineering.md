@@ -98,3 +98,11 @@ Note that in the default configuration, all HTML entities are encoded.
 ### `htmlToslate`
 
 `htmlToSlate` will always encode HTML entities. There is no option to disable this behaviour. This is because in a Slate editor, we do not expect to find any HTML entity codes. As mentioned in the introduction, Slate should be as unaware of HTML as possible.
+
+## Line breaks
+
+### `htmlToSlate`
+
+`br` HTML elements get special treatment. The default configuration sets `convertBrToLineBreak` to `true`, and each `br` HTML element will be converted to a text node in Slate that contains `\n`.
+
+If you have schema rules that process `br` tags (e.g. in `elementTags` in the configuration), you may choose to disable this behaviour by setting `convertBrToLineBreak` to `false`.

@@ -31,4 +31,5 @@ export const config: HtmlToSlateConfig = {
     u: () => ({ underline: true }),
   },
   filterWhitespaceNodes: true, // remove whitespace nodes that do not contribute meaning
+  convertBrToLineBreak: true,
 }
