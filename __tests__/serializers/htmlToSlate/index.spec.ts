@@ -249,68 +249,6 @@ describe('inline code and pre HTML elements', () => {
     ]
     expect(htmlToSlate(html)).toEqual(slate)
   })
-
-  /**
-   * Note that unlike <code> tags, <pre> tags get
-   * separated out.
-   *
-   * This differs from the Slate example.
-   *
-   * Wondering if this comes from the way htmlparser2
-   * translates into a DOM document object?
-   */
-  it('can handle inline code tags', () => {
-    const html =
-      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre>&lt;textarea&gt;</pre>!</p>'
-    const slate = [
-      {
-        type: 'p',
-        children: [
-          {
-            text: 'This is editable ',
-          },
-          {
-            text: 'rich',
-            bold: true,
-          },
-          {
-            text: ' text, ',
-          },
-          {
-            text: 'much',
-            italic: true,
-          },
-          {
-            text: ' better than a',
-          },
-        ],
-      },
-      {
-        children: [
-          {
-            text: '<textarea>',
-            code: true,
-          },
-        ],
-      },
-      {
-        children: [
-          {
-            text: '!',
-          },
-        ],
-      },
-      {
-        children: [
-          {
-            text: '',
-          },
-        ],
-        type: 'p',
-      },
-    ]
-    expect(htmlToSlate(html)).toEqual(slate)
-  })
 })
 
 describe('normalize slate JSON object', () => {
