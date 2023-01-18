@@ -1,9 +1,8 @@
 import { HtmlToSlateConfig } from '../../'
+import { config as defaultConfig } from './default'
 
 export const config: HtmlToSlateConfig = {
-  elementStyleMap: {
-    align: 'textAlign',
-  },
+  ...defaultConfig,
   elementTags: {
     blockquote: () => ({
       type: 'block-quote',
@@ -27,16 +26,4 @@ export const config: HtmlToSlateConfig = {
       type: 'paragraph',
     }),
   },
-  textTags: {
-    code: () => ({ code: true }),
-    pre: () => ({ code: true }),
-    del: () => ({ strikethrough: true }),
-    em: () => ({ italic: true }),
-    i: () => ({ italic: true }),
-    s: () => ({ strikethrough: true }),
-    strong: () => ({ bold: true }),
-    u: () => ({ underline: true }),
-  },
-  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>'),
-  filterWhitespaceNodes: true,
 }
