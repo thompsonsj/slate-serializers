@@ -363,6 +363,30 @@ describe('empty content', () => {
       expect(htmlToSlate(html)).toEqual(slate)
     })
 
+    it('converts a br tag in a paragraph to a line break', () => {
+      const html = "<p>Paragraph with line<br /><br />breaks.</p>"
+      const slate: any[] = [
+          {
+            children:[
+              {
+                text: "Paragraph with line",
+              },
+              {
+                text: "\n",
+              },
+              {
+                text: "\n",
+              },
+              {
+                text: "breaks.",
+              },
+            ],
+            type: "p",
+          },
+        ]
+      expect(htmlToSlate(html)).toEqual(slate)
+    })
+
     it('does nothing with a br tag if convertBrToLineBreak is false', () => {
       const html = "<br />"
       const slate: any[] = []
