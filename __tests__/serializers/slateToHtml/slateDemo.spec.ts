@@ -1,17 +1,17 @@
-import { slateToHtml, slateDemoSlateToDomConfig } from "../../../src"
+import { slateToHtml, slateDemoSlateToDomConfig } from '../../../src'
 
 describe('slateToHtml expected behaviour', () => {
   it('adds the `text-align:right;` css property/value to style', () => {
     const html = '<p style="text-align:right;">This is a right aligned paragraph.</p>'
     const slate = [
       {
-        align: "right",
+        align: 'right',
         children: [
           {
-            text: "This is a right aligned paragraph.",
+            text: 'This is a right aligned paragraph.',
           },
         ],
-        type: "paragraph",
+        type: 'paragraph',
       },
     ]
     expect(slateToHtml(slate, slateDemoSlateToDomConfig)).toEqual(html)
@@ -23,10 +23,10 @@ describe('slateToHtml expected behaviour', () => {
       {
         children: [
           {
-            text: "This is a right aligned paragraph.",
+            text: 'This is a right aligned paragraph.',
           },
         ],
-        type: "paragraph",
+        type: 'paragraph',
       },
     ]
     expect(slateToHtml(slate, slateDemoSlateToDomConfig)).toEqual(html)

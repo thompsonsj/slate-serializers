@@ -12,7 +12,7 @@ describe('slateToDom expected behaviour', () => {
       {
         children: [
           {
-            text: "Heading 2",
+            text: 'Heading 2',
           },
         ],
         type: 'h2',
@@ -20,7 +20,7 @@ describe('slateToDom expected behaviour', () => {
       {
         children: [
           {
-            text: "Paragraph.",
+            text: 'Paragraph.',
           },
         ],
         type: 'p',
@@ -28,7 +28,7 @@ describe('slateToDom expected behaviour', () => {
       {
         children: [
           {
-            text: "Second Heading 2",
+            text: 'Second Heading 2',
           },
         ],
         type: 'h2',

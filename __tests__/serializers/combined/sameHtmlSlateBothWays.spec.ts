@@ -1,14 +1,14 @@
-import { htmlToSlate, } from '../../../src/serializers/htmlToSlate'
+import { htmlToSlate } from '../../../src/serializers/htmlToSlate'
 import { slateToHtml } from '../../../src/serializers/slatetoHtml'
 import { fixtures as elementFixtures } from './fixtures/elementTags'
 import { fixtures as textFixtures } from './fixtures/textTags'
 
 /**
  * Run tests both ways by using the same fixtures
- * 
+ *
  * * textFixtures
  * * elementFixtures
- * 
+ *
  * Test we get expected results in all fixtures using
  * * htmlToSlate
  * * slateToHtml

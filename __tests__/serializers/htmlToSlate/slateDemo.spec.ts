@@ -18,49 +18,53 @@ describe('inline code and pre HTML elements', () => {
       type: 'paragraph',
       children: [
         {
-          text: 'This is editable '
+          text: 'This is editable ',
         },
         {
           text: 'rich',
-          bold: true
+          bold: true,
         },
         {
-          text: ' text, '
+          text: ' text, ',
         },
         {
           text: 'much',
-          italic: true
+          italic: true,
         },
         {
-          text: ' better than a '
+          text: ' better than a ',
         },
         {
           text: '<textarea>',
-          code: true
+          code: true,
         },
         {
-          text: '!'
-        }
-      ]
-    }
+          text: '!',
+        },
+      ],
+    },
   ]
   it('can handle inline code tags', () => {
-    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p>'
+    const html =
+      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p>'
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
   })
 
   it('can handle duplicate inline code tags', () => {
-    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code><code>&lt;textarea&gt;</code></code>!</p>'
+    const html =
+      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code><code>&lt;textarea&gt;</code></code>!</p>'
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
   })
 
   it('can handle inline code tags', () => {
-    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre>&lt;textarea&gt;</pre>!</p>'
+    const html =
+      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre>&lt;textarea&gt;</pre>!</p>'
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
   })
 
   it('can handle inline code and pre tags', () => {
-    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
+    const html =
+      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
   })
 })
@@ -70,13 +74,13 @@ describe('translates `text-align` style attributes', () => {
     const html = '<p style="text-align: right;">This is a right aligned paragraph.</p>'
     const slate = [
       {
-        align: "right",
+        align: 'right',
         children: [
           {
-            text: "This is a right aligned paragraph.",
+            text: 'This is a right aligned paragraph.',
           },
         ],
-        type: "paragraph",
+        type: 'paragraph',
       },
     ]
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
@@ -86,13 +90,13 @@ describe('translates `text-align` style attributes', () => {
     const html = '<blockquote style="text-align: justify;">This is a justified blockquote.</blockquote>'
     const slate = [
       {
-        align: "justify",
+        align: 'justify',
         children: [
           {
-            text: "This is a justified blockquote.",
+            text: 'This is a justified blockquote.',
           },
         ],
-        type: "block-quote",
+        type: 'block-quote',
       },
     ]
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
@@ -104,16 +108,16 @@ describe('translates `text-align` style attributes', () => {
       {
         children: [
           {
-            align: "justify",
+            align: 'justify',
             children: [
               {
-                text: "This is a left aligned list item."
-              }
+                text: 'This is a left aligned list item.',
+              },
             ],
-            type: "list-item",
+            type: 'list-item',
           },
         ],
-        type: "bulleted-list",
+        type: 'bulleted-list',
       },
     ]
     expect(htmlToSlate(html, slateDemoHtmlToSlateConfig)).toEqual(slate)
