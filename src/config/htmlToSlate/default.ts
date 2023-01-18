@@ -2,9 +2,6 @@ import { getAttributeValue } from 'domutils'
 import { HtmlToSlateConfig } from '../../'
 
 export const config: HtmlToSlateConfig = {
-  elementStyleMap: {
-    align: 'textAlign',
-  },
   elementTags: {
     a: (el) => ({
       type: 'link',
@@ -33,7 +30,6 @@ export const config: HtmlToSlateConfig = {
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
-  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>'),
-  filterWhitespaceNodes: true,
+  filterWhitespaceNodes: true, // remove whitespace nodes that do not contribute meaning
   convertBrToLineBreak: true,
 }
