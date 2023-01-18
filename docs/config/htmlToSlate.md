@@ -103,4 +103,4 @@ Remove any Slate JSON nodes that have no type or content. For example:
 }
 ```
 
-These nodes may appear after [processing whitespace](docs/engineering.md#whitespace).
+These nodes may appear after [processing whitespace](/docs/engineering.md#whitespace).
