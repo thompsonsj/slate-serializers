@@ -1,4 +1,4 @@
-import { slateToHtml, slateToDomConfig } from "../../../src"
+import { slateToHtml, slateToDomConfig } from '../../../src'
 
 describe('slateToHtml expected behaviour', () => {
   it('encodes HTML entities', () => {
@@ -32,37 +32,38 @@ describe('slateToHtml expected behaviour', () => {
   })
 
   it('can handle inline code tags', () => {
-    const html = '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
+    const html =
+      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
     const slate = [
       {
         type: 'p',
         children: [
           {
-            text: 'This is editable '
+            text: 'This is editable ',
           },
           {
             text: 'rich',
-            bold: true
+            bold: true,
           },
           {
-            text: ' text, '
+            text: ' text, ',
           },
           {
             text: 'much',
-            italic: true
+            italic: true,
           },
           {
-            text: ' better than a '
+            text: ' better than a ',
           },
           {
             text: '<textarea>',
-            code: true
+            code: true,
           },
           {
-            text: '!'
-          }
-        ]
-      }
+            text: '!',
+          },
+        ],
+      },
     ]
     expect(slateToHtml(slate)).toEqual(html)
   })
@@ -74,47 +75,49 @@ describe('slateToHtml expected behaviour', () => {
         type: 'p',
         children: [
           {
-            text: 'Regular text & '
+            text: 'Regular text & ',
           },
           {
             text: '<textarea>',
-            code: true
+            code: true,
           },
           {
-            text: '.'
-          }
-        ]
-      }
+            text: '.',
+          },
+        ],
+      },
     ]
-    expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(
+      html,
+    )
   })
 })
 
 describe('empty content', () => {
   describe('ensure empty children have an empty text node', () => {
     it('adds an empty text node for an invalid paragraph', () => {
-      const html = "<p></p>"
+      const html = '<p></p>'
       const slate: any[] = [
-          {
-            children: [
-              {
-                text: ""
-              }
-            ],
-            type: "p",
-          },
-        ]
+        {
+          children: [
+            {
+              text: '',
+            },
+          ],
+          type: 'p',
+        },
+      ]
       expect(slateToHtml(slate)).toEqual(html)
     })
 
     it('adds an empty text node for an invalid paragraph', () => {
-      const html = ""
+      const html = ''
       const slate: any[] = [
-          {
-            children: [],
-            type: "br",
-          },
-        ]
+        {
+          children: [],
+          type: 'br',
+        },
+      ]
       expect(slateToHtml(slate)).toEqual(html)
     })
   })

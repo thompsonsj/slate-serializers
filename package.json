@@ -1,12 +1,12 @@
 {
   "name": "slate-serializers",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Serialize Slate JSON objects to HTML and vice versa. Define rules to modify the end result.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "release": "standard-version",
     "prepare": "npm run build",
