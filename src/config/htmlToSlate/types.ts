@@ -5,6 +5,7 @@ interface ItagMap {
 }
 
 /**
+ * For details on configuration options:
  * @see /docs/config/htmlToSlate.md
  */
 export interface Config {
