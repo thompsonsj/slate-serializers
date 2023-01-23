@@ -106,3 +106,7 @@ Note that in the default configuration, all HTML entities are encoded.
 `br` HTML elements get special treatment. The default configuration sets `convertBrToLineBreak` to `true`, and each `br` HTML element will be converted to a text node in Slate that contains `\n`.
 
 If you have schema rules that process `br` tags (e.g. in `elementTags` in the configuration), you may choose to disable this behaviour by setting `convertBrToLineBreak` to `false`.
+
+### `slateToHtml`
+
+Line breaks get special treatment. When `convertLineBreakToBr` is set to `true`, each text node in Slate that contains `\n` line break will be converted to an HTML `<br>` element.
