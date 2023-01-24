@@ -1,4 +1,4 @@
-import { isBlock } from '../blocks';
+import { isBlock } from '../blocks'
 
 export type Context = 'preserve' | 'block' | 'inline' | ''
 
@@ -65,4 +65,3 @@ export const getContext = (tagName: string): Context => {
 const preserveWhitespace = (tagName: string) => {
   return ['code', 'pre', 'xmp'].includes(tagName)
 }
-

@@ -8,7 +8,7 @@ import { config as defaultConfig } from '../../config/slateToDom/default'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import { getNested, isEmptyObject, styleToString } from '../../utilities'
 import { SlateToDomConfig } from '../..'
-import { isBlock } from '../blocks';
+import { isBlock } from '../blocks'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -30,7 +30,7 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) 
     const str = node.text
 
     // convert line breaks to br tags
-    const strLines = config.convertLineBreakToBr ? str.split('\n') : [str];
+    const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]
     const textChildren: (Element | Text)[] = []
 
     strLines.forEach((line, index) => {
@@ -51,7 +51,7 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) 
       ) {
         textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
       } else {
-        textChildren.push(textElement);
+        textChildren.push(textElement)
       }
 
       if (index < strLines.length - 1) {
@@ -84,7 +84,7 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) 
     }
   }
 
-  let element: Element | null = null;
+  let element: Element | null = null
 
   // more complex transforms
   if (config.elementTransforms[node.type]) {
@@ -103,12 +103,9 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) 
 
   if (element) {
     if (!isBlock(element.name) && config.convertLineBreakToBr && !isLastNode) {
-      return new Document([
-        element,
-        new Element('br', {}),
-      ])
+      return new Document([element, new Element('br', {})])
     }
-    return element;
+    return element
   }
 
   if (config.convertLineBreakToBr && !isLastNode) {
