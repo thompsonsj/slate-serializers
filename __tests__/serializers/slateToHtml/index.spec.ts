@@ -123,7 +123,6 @@ describe('empty content', () => {
   })
 })
 
-
 describe('line breaks', () => {
   it('does nothing with a line break if convertLineBreakToBr is false', () => {
     const slate: any[] = [
@@ -229,4 +228,4 @@ describe('line breaks', () => {
     const html = '<p>Paragraph with <br> line<br><br>breaks.</p>'
     expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
   })
-});
+})
