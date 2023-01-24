@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.25](https://github.com/thompsonsj/slate-serializers/compare/v0.0.23...v0.0.25) (2023-01-24)
+
+
+### Features
+
+* **slatetohtml:** convert line breaks to br tags ([#33](https://github.com/thompsonsj/slate-serializers/issues/33)) ([fe080fb](https://github.com/thompsonsj/slate-serializers/commit/fe080fbde907f01a0e3a389ddc82bbe13cb4581d))
+
 ### [0.0.24](https://github.com/thompsonsj/slate-serializers/compare/v0.0.23...v0.0.24) (2023-01-19)
 
 ### [0.0.23](https://github.com/thompsonsj/slate-serializers/compare/v0.0.22...v0.0.23) (2023-01-18)
