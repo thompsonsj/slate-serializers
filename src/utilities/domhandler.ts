@@ -12,16 +12,15 @@ import { parseStyleCssText } from '.'
  */
 
 export const nestedMarkElementsString = (els: string[], text: string) => {
-  return serializer(nestedMarkElements(els, text))
+  return serializer(nestedMarkElements(els, new Text(text)))
 }
 
-export const nestedMarkElements = (els: string[], text: string) => {
+export const nestedMarkElements = (els: string[], element: Element | Text) => {
   if (els.length === 0) {
-    return new Text(text)
+    return element
   }
-  let element
   const el1 = els.pop()
-  element = new Element(el1 as string, {}, [new Text(text)])
+  element = new Element(el1 as string, {}, [element])
   if (!els || els.length === 0) {
     return element
   }

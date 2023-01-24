@@ -1,12 +1,14 @@
-import { Text } from 'slate'
-import { AnyNode, Document, Element, isTag } from 'domhandler'
-import { nestedMarkElements } from '../../utilities/domhandler'
+import { AnyNode, Document, Element, isTag, Text } from 'domhandler'
 import serializer from 'dom-serializer'
-import { config as defaultConfig } from '../../config/slateToDom/default'
-import { SlateToDomConfig } from '../..'
-import { getNested, isEmptyObject, styleToString } from '../../utilities'
 import { getName } from 'domutils'
 import { encode } from 'html-entities'
+import { Text as SlateText } from 'slate'
+
+import { config as defaultConfig } from '../../config/slateToDom/default'
+import { nestedMarkElements } from '../../utilities/domhandler'
+import { getNested, isEmptyObject, styleToString } from '../../utilities'
+import { SlateToDomConfig } from '../..'
+import { isBlock } from '../blocks';
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -19,31 +21,45 @@ export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) =>
 }
 
 export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
-  const document = node.map((n) => slateNodeToHtml(n, config))
+  const document = node.map((n, index) => slateNodeToHtml(n, config, index === node.length - 1))
   return document
 }
 
-const slateNodeToHtml = (node: any, config = defaultConfig) => {
-  if (Text.isText(node)) {
+const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) => {
+  if (SlateText.isText(node)) {
     const str = node.text
-    const markElements: string[] = []
-    Object.keys(config.markMap).forEach((key) => {
-      if ((node as any)[key]) {
-        markElements.push(...config.markMap[key])
+
+    // convert line breaks to br tags
+    const strLines = config.convertLineBreakToBr ? str.split('\n') : [str];
+    const textChildren: (Element | Text)[] = []
+
+    strLines.forEach((line, index) => {
+      const markElements: string[] = []
+      Object.keys(config.markMap).forEach((key) => {
+        if ((node as any)[key]) {
+          markElements.push(...config.markMap[key])
+        }
+      })
+      // clone markElements (it gets modified)
+      const markElementsClone = [...markElements]
+      const textElement = nestedMarkElements(markElements, new Text(line))
+      if (
+        config.alwaysEncodeCodeEntities &&
+        config.encodeEntities === false &&
+        isTag(textElement) &&
+        getName(textElement) === 'pre'
+      ) {
+        textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
+      } else {
+        textChildren.push(textElement);
+      }
+
+      if (index < strLines.length - 1) {
+        textChildren.push(new Element('br', {}))
       }
     })
-    // clone markElements (it gets modified)
-    const markElementsClone = [...markElements]
-    const element = nestedMarkElements(markElements, str)
-    if (
-      config.alwaysEncodeCodeEntities &&
-      config.encodeEntities === false &&
-      isTag(element) &&
-      getName(element) === 'pre'
-    ) {
-      return nestedMarkElements(markElementsClone, encode(str))
-    }
-    return element
+
+    return new Document(textChildren)
   }
 
   const children: any[] = node.children ? node.children.map((n: any[]) => slateNodeToHtml(n, config)) : []
@@ -68,18 +84,35 @@ const slateNodeToHtml = (node: any, config = defaultConfig) => {
     }
   }
 
+  let element: Element | null = null;
+
   // more complex transforms
   if (config.elementTransforms[node.type]) {
-    return config.elementTransforms[node.type]({ node, attribs, children })
+    element = config.elementTransforms[node.type]({ node, attribs, children })
   }
 
   // straightforward node to element
-  if (config.elementMap[node.type]) {
-    return new Element(config.elementMap[node.type], attribs, children)
+  if (!element && config.elementMap[node.type]) {
+    element = new Element(config.elementMap[node.type], attribs, children)
   }
 
-  if (config.defaultTag && !node.type) {
-    return new Element(config.defaultTag, {}, children)
+  // default tag
+  if (!element && config.defaultTag && !node.type) {
+    element = new Element(config.defaultTag, {}, children)
+  }
+
+  if (element) {
+    if (!isBlock(element.name) && config.convertLineBreakToBr && !isLastNode) {
+      return new Document([
+        element,
+        new Element('br', {}),
+      ])
+    }
+    return element;
+  }
+
+  if (config.convertLineBreakToBr && !isLastNode) {
+    children.push(new Element('br', {}))
   }
   return new Document(children)
 }

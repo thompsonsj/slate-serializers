@@ -52,4 +52,5 @@ export const config: Config = {
   },
   encodeEntities: true,
   alwaysEncodeCodeEntities: false,
+  convertLineBreakToBr: false,
 }

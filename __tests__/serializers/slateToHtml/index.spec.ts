@@ -122,3 +122,111 @@ describe('empty content', () => {
     })
   })
 })
+
+
+describe('line breaks', () => {
+  it('does nothing with a line break if convertLineBreakToBr is false', () => {
+    const slate: any[] = [
+      {
+        children: [
+          {
+            text: 'Paragraph with \n line',
+          },
+          {
+            text: '\n',
+          },
+          {
+            text: '\n',
+          },
+          {
+            text: 'breaks.',
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    const html = '<p>Paragraph with \n line\n\nbreaks.</p>'
+    expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  it('adds br tag between text elements', () => {
+    const slate: any[] = [
+      {
+        children: [
+          {
+            text: 'Paragraph 1',
+          },
+        ],
+      },
+      {
+        children: [
+          {
+            text: 'Paragraph 2',
+          },
+        ],
+      },
+    ]
+    const html = 'Paragraph 1<br>Paragraph 2'
+    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+  })
+
+  it('does not add br tag after a block level element', () => {
+    const slate: any[] = [
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'Paragraph 1',
+          },
+        ],
+      },
+      {
+        children: [
+          {
+            text: 'Paragraph 2',
+          },
+        ],
+      },
+    ]
+    const html = '<p>Paragraph 1</p>Paragraph 2'
+    expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  it('converts a line break to a br tag', () => {
+    const slate: any[] = [
+      {
+        children: [
+          {
+            text: '\n',
+          },
+        ],
+      },
+    ]
+    const html = '<br>'
+    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+  })
+
+  it('converts a line break in a paragraph to a br tag', () => {
+    const slate: any[] = [
+      {
+        children: [
+          {
+            text: 'Paragraph with \n line',
+          },
+          {
+            text: '\n',
+          },
+          {
+            text: '\n',
+          },
+          {
+            text: 'breaks.',
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    const html = '<p>Paragraph with <br> line<br><br>breaks.</p>'
+    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+  })
+});

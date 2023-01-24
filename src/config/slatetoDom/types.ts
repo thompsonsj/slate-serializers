@@ -22,4 +22,5 @@ export interface Config {
   defaultTag?: string
   encodeEntities?: boolean
   alwaysEncodeCodeEntities?: boolean
+  convertLineBreakToBr?: boolean,
 }
