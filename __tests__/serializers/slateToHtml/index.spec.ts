@@ -113,14 +113,10 @@ describe('slateToHtml expected behaviour', () => {
       ...slateToDomConfig,
       elementTransforms: {
         ...slateToDomConfig.elementTransforms,
-        image: ({ node, children }: { node?: any; children?: ChildNode[] }) => {
-          return new Element(
-            'img',
-            {
-              src: node.url,
-            },
-            children,
-          )
+        image: ({ node }: { node?: any }) => {
+          return new Element('img', {
+            src: node.url,
+          })
         },
       },
     }
