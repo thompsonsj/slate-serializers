@@ -106,17 +106,14 @@ describe('slateToHtml expected behaviour', () => {
       },
       {
         type: 'image',
-        url: 'https://picsum.photos/id/237/200/300'
-      }
+        url: 'https://picsum.photos/id/237/200/300',
+      },
     ]
     const config = {
       ...slateToDomConfig,
       elementTransforms: {
         ...slateToDomConfig.elementTransforms,
-        image: ({ node, children }: {
-          node?: any
-          children?: ChildNode[]
-        }) => {
+        image: ({ node, children }: { node?: any; children?: ChildNode[] }) => {
           return new Element(
             'img',
             {
@@ -125,11 +122,9 @@ describe('slateToHtml expected behaviour', () => {
             children,
           )
         },
-      }
+      },
     }
-    expect(slateToHtml(slate, config)).toEqual(
-      html,
-    )
+    expect(slateToHtml(slate, config)).toEqual(html)
   })
 })
 
