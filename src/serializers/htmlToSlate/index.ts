@@ -31,14 +31,16 @@ const deserialize = ({
   if (el.type !== ElementType.Tag && el.type !== ElementType.Text) {
     return null
   }
+
   const parent = el as Element
-  if (getName(parent) === 'br' && config.convertBrToLineBreak) {
-    return [jsx('text', { text: '\n' }, [])]
-  }
-
+  const isLastChild = index === childrenLength - 1
   const nodeName = getName(parent)
-
   const childrenContext = getContext(nodeName) || context
+
+  if (nodeName === 'br' && config.convertBrToLineBreak && context !== 'preserve') {
+    const isWithinTextNodes = parent.prev?.type === ElementType.Text && parent.next?.type === ElementType.Text
+    return [jsx('text', { text: isWithinTextNodes ? '' : '\n' }, [])]
+  }
 
   const children = parent.childNodes
     ? parent.childNodes
@@ -83,7 +85,7 @@ const deserialize = ({
       text: textContent(el as Element),
       context: childrenContext as Context,
       isInlineStart: index === 0,
-      isInlineEnd: Number.isInteger(childrenLength) && index === childrenLength - 1,
+      isInlineEnd: Number.isInteger(childrenLength) && isLastChild,
       isNextSiblingBlock: (el.next && isTag(el.next) && isBlock(el.next.tagName)) || false,
     })
     if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {

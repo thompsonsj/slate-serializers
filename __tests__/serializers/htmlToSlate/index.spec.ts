@@ -291,12 +291,26 @@ describe('empty content', () => {
     })
 
     it('converts a br tag to a line break', () => {
-      const html = '<br />'
+      const html = 'Line 1<br />Line 2'
       const slate: any[] = [
         {
           children: [
             {
-              text: '\n',
+              text: 'Line 1',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: 'Line 2',
             },
           ],
         },
@@ -354,6 +368,39 @@ describe('empty content', () => {
             ...htmlToSlateConfig.elementTags,
             br: () => ({ type: 'br' }),
           },
+        }),
+      ).toEqual(slate)
+    })
+
+    it('adds an empty text element in place of a br tag as a line break', () => {
+      const html = 'Line 1<br>\n<span>Line 2</span>'
+      const slate: any[] = [
+        {
+          children: [
+            {
+              text: 'Line 1',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: 'Line 2',
+            },
+          ],
+        },
+      ]
+      expect(
+        htmlToSlate(html, {
+          ...htmlToSlateConfig,
+          convertBrToLineBreak: true,
         }),
       ).toEqual(slate)
     })
