@@ -2,22 +2,23 @@ import { jsx } from 'slate-hyperscript'
 import { parseDocument, Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element, isTag, Node } from 'domhandler'
 import { getChildren, getName, replaceElement, textContent } from 'domutils'
-import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
+import { selectAll } from 'css-select'
 
 import { Config } from '../../config/htmlToSlate/types'
 import { config as defaultConfig } from '../../config/htmlToSlate/default'
 
-import { selectOne, selectAll } from 'css-select'
-import serializer from 'dom-serializer'
 import { extractCssFromStyle } from '../../utilities/domhandler'
 import { getNested } from '../../utilities'
+import { isBlock } from '../blocks'
+
+import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
 
 interface Ideserialize {
   el: ChildNode
   config?: Config
   index?: number
   childrenLength?: number
-  context?: string
+  context?: Context
 }
 
 const deserialize = ({
@@ -83,6 +84,7 @@ const deserialize = ({
       context: childrenContext as Context,
       isInlineStart: index === 0,
       isInlineEnd: Number.isInteger(childrenLength) && index === childrenLength - 1,
+      isNextSiblingBlock: (el.next && isTag(el.next) && isBlock(el.next.tagName)) || false,
     })
     if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
       return null
