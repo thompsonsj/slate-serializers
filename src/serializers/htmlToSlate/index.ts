@@ -33,24 +33,29 @@ const deserialize = ({
     return null
   }
 
-  const parent = el as Element
-  const isLastChild = index === childrenLength - 1
-  const nodeName = getName(parent)
+  const currentEl = el as Element
+  const nodeName = getName(currentEl)
   const childrenContext = getContext(nodeName) || context
 
+  const isLastChild = index === childrenLength - 1
+  const isWithinTextNodes = (
+    currentEl.prev?.type === ElementType.Text
+    && currentEl.next?.type === ElementType.Text
+  )
+
   if (nodeName === 'br' && config.convertBrToLineBreak && context !== 'preserve') {
-    const isWithinTextNodes = parent.prev?.type === ElementType.Text && parent.next?.type === ElementType.Text
-    return [jsx('text', { text: isWithinTextNodes ? '' : '\n' }, [])]
+    let lineBreak = context ? '\n' : ''
+    return [jsx('text', { text: lineBreak }, [])]
   }
 
-  const children = parent.childNodes
-    ? parent.childNodes
+  const children = currentEl.childNodes
+    ? currentEl.childNodes
         .map((node, i) =>
           deserialize({
             el: node,
             config,
             index: i,
-            childrenLength: parent.childNodes.length,
+            childrenLength: currentEl.childNodes.length,
             context: childrenContext,
           }),
         )
@@ -60,18 +65,18 @@ const deserialize = ({
         .flat()
     : []
 
-  if (getName(parent) === 'body') {
+  if (getName(currentEl) === 'body') {
     return jsx('fragment', {}, children)
   }
 
   if (config.elementTags[nodeName]) {
-    const attrs: any = config.elementTags[nodeName](parent)
+    const attrs: any = config.elementTags[nodeName](currentEl)
     // elementAttributeMap is a convenient config for making changes to all elements
     const style = getNested(config, 'elementStyleMap')
     if (style) {
       Object.keys(style).forEach((slateKey) => {
         const cssProperty = style[slateKey]
-        const cssValue = extractCssFromStyle(parent, cssProperty)
+        const cssValue = extractCssFromStyle(currentEl, cssProperty)
         if (cssValue) {
           attrs[slateKey] = cssValue
         }
@@ -81,17 +86,29 @@ const deserialize = ({
   }
 
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
-    const attrs = gatherTextMarkAttributes({ el: parent })
+    const attrs = gatherTextMarkAttributes({ el: currentEl })
     const text = processTextValue({
       text: textContent(el as Element),
       context: childrenContext as Context,
       isInlineStart: index === 0,
       isInlineEnd: Number.isInteger(childrenLength) && isLastChild,
       isNextSiblingBlock: (el.next && isTag(el.next) && isBlock(el.next.tagName)) || false,
-      isNextSiblingBlock: (el.next && isTag(el.next) && isBlock(el.next.tagName)) || false,
     })
-    if ((config.filterWhitespaceNodes && isAllWhitespace(text) && !childrenContext) || text === '') {
+    if (text === '') {
       return null
+    }
+    if (isAllWhitespace(text)) {
+      if (config.filterWhitespaceNodes && !childrenContext) {
+        return null
+      }
+      if (config.convertBrToLineBreak) {
+        if (currentEl.prev && getName(currentEl.prev as Element) === 'br') {
+          return null
+        }
+        if (currentEl.next && getName(currentEl.next as Element) === 'br') {
+          return null
+        }
+      }
     }
     return [jsx('text', { ...attrs, text }, [])]
   }
@@ -107,9 +124,8 @@ interface IgatherTextMarkAttributes {
 const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMarkAttributes) => {
   let allAttrs = {}
   const children = getChildren(el)
-  // tslint:disable-next-line no-unused-expression
-  if (children.length > 0) {
-    ;[el, ...children.flat()].forEach((child) => {
+  if (children.length) {
+    [el, ...children.flat()].forEach((child) => {
       const name = getName(child as Element)
       const attrs = config.textTags[name] ? config.textTags[name](child as Element) : {}
       allAttrs = {
@@ -117,7 +133,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
         ...attrs,
       }
     })
-    if (children.length === 1 && getChildren(children[0]).length > 0) {
+    if (children.length === 1 && getChildren(children[0]).length) {
       allAttrs = {
         ...allAttrs,
         ...gatherTextMarkAttributes({ el: children[0], config }),
