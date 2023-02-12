@@ -109,6 +109,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
         ...allAttrs,
         ...attrs,
       }
+      console.log([el, ...getChildren(el).flat()], allAttrs)
     })
   } else {
     const name = getName(el)
@@ -116,6 +117,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
     allAttrs = {
       ...attrs,
     }
+    console.log(allAttrs)
   }
   return allAttrs
 }

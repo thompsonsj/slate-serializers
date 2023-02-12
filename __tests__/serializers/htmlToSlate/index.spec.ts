@@ -359,3 +359,11 @@ describe('empty content', () => {
     })
   })
 })
+
+describe('nested text formatting elements', () => {
+  it('converts many nested formatting elements', () =>{
+    const html = "<p><u><em><strong>Our S</strong></em></u><strong>ervi</strong><u><em><strong>ce</strong></em></u><em><strong>s </strong></em><em>A</em><u><em>nd</em></u><u><em><strong> </strong></em></u>Mo<u><em><strong>re</strong></em></u></p>"
+    const slate = {}
+    expect(htmlToSlate(html)).toEqual(slate)
+  })
+})

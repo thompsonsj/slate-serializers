@@ -1,5 +1,5 @@
 import { htmlToSlate } from '../../../src/serializers/htmlToSlate'
-import { slateToHtml } from '../../../src/serializers/slatetoHtml'
+import { slateToHtml } from '../../../src/serializers/slateToHtml'
 import { fixtures as elementFixtures } from './fixtures/elementTags'
 import { fixtures as textFixtures } from './fixtures/textTags'
 
