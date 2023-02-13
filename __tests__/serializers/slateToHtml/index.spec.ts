@@ -228,4 +228,24 @@ describe('line breaks', () => {
     const html = '<p>Paragraph with <br> line<br><br>breaks.</p>'
     expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
   })
+
+  it('does not insert a br tag after an inline element', () => {
+    const slate: any[] = [
+      {
+        type: 'div',
+        style: { padding: '10px' },
+        children: [
+          {
+            type: 'link',
+            children: [{ text: 'Mojo Nomad' }],
+          },
+          {
+            text: ' was born from a desire to create',
+          },
+        ],
+      },
+    ]
+    const html = '<a href>Mojo Nomad</a> was born from a desire to create'
+    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+  })
 })

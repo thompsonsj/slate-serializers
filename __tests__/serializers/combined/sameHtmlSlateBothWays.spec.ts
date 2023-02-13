@@ -38,7 +38,7 @@ describe('Slate JSON to HTML transforms', () => {
     const fixtures = elementFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        expect(slateToHtml(fixture.slate)).toEqual(fixture.html)
+        expect(slateToHtml(fixture.slate)).toEqual(fixture.htmlFromSlate || fixture.html)
       })
     }
   })
