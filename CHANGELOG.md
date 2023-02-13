@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.26](https://github.com/thompsonsj/slate-serializers/compare/v0.0.25...v0.0.26) (2023-02-13)
+
+
+### Bug Fixes
+
+* **html-to-slate:** trim whitespace that precedes a block element ([#38](https://github.com/thompsonsj/slate-serializers/issues/38)) ([74f3d24](https://github.com/thompsonsj/slate-serializers/commit/74f3d24ce7dda16279b349502626dec481bdb21c))
+
 ### [0.0.25](https://github.com/thompsonsj/slate-serializers/compare/v0.0.23...v0.0.25) (2023-01-24)
 
 
