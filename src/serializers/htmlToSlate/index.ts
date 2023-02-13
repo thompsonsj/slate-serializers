@@ -119,7 +119,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
     if (children.length === 1 && getChildren(children[0]).length > 0) {
       allAttrs = {
         ...allAttrs,
-        ...gatherTextMarkAttributes({el: children[0], config})
+        ...gatherTextMarkAttributes({ el: children[0], config }),
       }
     }
   } else {

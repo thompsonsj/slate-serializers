@@ -408,59 +408,60 @@ describe('empty content', () => {
 })
 
 describe('nested text formatting elements', () => {
-  it('converts many nested formatting elements', () =>{
-    const html = "<p><u><em><strong>Our S</strong></em></u><strong>ervi</strong><u><em><strong>ce</strong></em></u><em><strong>s </strong></em><em>A</em><u><em>nd</em></u><u><em><strong> </strong></em></u>Mo<u><em><strong>re</strong></em></u></p>"
+  it('converts many nested formatting elements', () => {
+    const html =
+      '<p><u><em><strong>Our S</strong></em></u><strong>ervi</strong><u><em><strong>ce</strong></em></u><em><strong>s </strong></em><em>A</em><u><em>nd</em></u><u><em><strong> </strong></em></u>Mo<u><em><strong>re</strong></em></u></p>'
     const slate = [
       {
-          "children": [
-              {
-                  "bold": true,
-                  "italic": true,
-                  "text": "Our S",
-                  "underline": true
-              },
-              {
-                  "bold": true,
-                  "text": "ervi"
-              },
-              {
-                  "bold": true,
-                  "italic": true,
-                  "text": "ce",
-                  "underline": true
-              },
-              {
-                  "bold": true,
-                  "italic": true,
-                  "text": "s "
-              },
-              {
-                  "italic": true,
-                  "text": "A"
-              },
-              {
-                  "italic": true,
-                  "text": "nd",
-                  "underline": true
-              },
-              {
-                  "bold": true,
-                  "italic": true,
-                  "text": " ",
-                  "underline": true
-              },
-              {
-                  "text": "Mo"
-              },
-              {
-                  "bold": true,
-                  "italic": true,
-                  "text": "re",
-                  "underline": true
-              }
-          ],
-          "type": "p"
-      }
+        children: [
+          {
+            bold: true,
+            italic: true,
+            text: 'Our S',
+            underline: true,
+          },
+          {
+            bold: true,
+            text: 'ervi',
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 'ce',
+            underline: true,
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 's ',
+          },
+          {
+            italic: true,
+            text: 'A',
+          },
+          {
+            italic: true,
+            text: 'nd',
+            underline: true,
+          },
+          {
+            bold: true,
+            italic: true,
+            text: ' ',
+            underline: true,
+          },
+          {
+            text: 'Mo',
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 're',
+            underline: true,
+          },
+        ],
+        type: 'p',
+      },
     ]
     expect(htmlToSlate(html)).toEqual(slate)
   })
