@@ -7,6 +7,7 @@ interface IprocessTextValue {
   context?: Context
   isInlineStart?: boolean
   isInlineEnd?: boolean
+  isNextSiblingBlock?: boolean
 }
 
 export const processTextValue = ({
@@ -14,6 +15,7 @@ export const processTextValue = ({
   context = '',
   isInlineStart = false,
   isInlineEnd = false,
+  isNextSiblingBlock = false,
 }: IprocessTextValue): string => {
   let parsed = text
   if (context === 'preserve') {
@@ -26,7 +28,7 @@ export const processTextValue = ({
       parsed = parsed.trimStart()
     }
     // is this the end of inline content in a block element?
-    if (isInlineEnd) {
+    if (isInlineEnd || isNextSiblingBlock) {
       parsed = parsed.trimEnd()
     }
   }
