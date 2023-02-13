@@ -98,15 +98,17 @@ const deserialize = ({
 }
 
 interface IgatherTextMarkAttributes {
-  el: Element
+  el: Element | ChildNode
   config?: Config
 }
 
 const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMarkAttributes) => {
   let allAttrs = {}
+  const children = getChildren(el)
   // tslint:disable-next-line no-unused-expression
-  if (el.childNodes) {
-    ;[el, ...getChildren(el).flat()].forEach((child) => {
+  if (children.length > 0) {
+    const children = getChildren(el)
+    ;[el, ...children.flat()].forEach((child) => {
       const name = getName(child as Element)
       const attrs = config.textTags[name] ? config.textTags[name](child as Element) : {}
       allAttrs = {
@@ -114,9 +116,15 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
         ...attrs,
       }
     })
+    if (children.length === 1 && getChildren(children[0]).length > 0) {
+      allAttrs = {
+        ...allAttrs,
+        ...gatherTextMarkAttributes({ el: children[0], config }),
+      }
+    }
   } else {
-    const name = getName(el)
-    const attrs = config.textTags[name] ? config.textTags[name](el) : {}
+    const name = getName(el as Element)
+    const attrs = config.textTags[name] ? config.textTags[name](el as Element) : {}
     allAttrs = {
       ...attrs,
     }
