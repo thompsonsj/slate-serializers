@@ -107,7 +107,6 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
   const children = getChildren(el)
   // tslint:disable-next-line no-unused-expression
   if (children.length > 0) {
-    const children = getChildren(el)
     ;[el, ...children.flat()].forEach((child) => {
       const name = getName(child as Element)
       const attrs = config.textTags[name] ? config.textTags[name](child as Element) : {}
