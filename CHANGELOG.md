@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.27](https://github.com/thompsonsj/slate-serializers/compare/v0.0.26...v0.0.27) (2023-02-13)
+
+
+### Bug Fixes
+
+* **htmltoslate:** shadowed variable ([#42](https://github.com/thompsonsj/slate-serializers/issues/42)) ([aa7ee16](https://github.com/thompsonsj/slate-serializers/commit/aa7ee163ae5099e6f33d69060ff373d581c443ea))
+
 ### [0.0.26](https://github.com/thompsonsj/slate-serializers/compare/v0.0.25...v0.0.26) (2023-02-13)
 
 
