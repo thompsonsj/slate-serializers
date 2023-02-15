@@ -3,6 +3,7 @@ import { parseDocument, Parser, ElementType } from 'htmlparser2'
 import { ChildNode, DomHandler, Element, isTag, Node } from 'domhandler'
 import { getChildren, getName, replaceElement, textContent } from 'domutils'
 import { selectAll } from 'css-select'
+import { Descendant } from 'slate'
 
 import { Config } from '../../config/htmlToSlate/types'
 import { config as defaultConfig } from '../../config/htmlToSlate/default'
@@ -132,7 +133,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
 }
 
 export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
-  let slateContent
+  let slateContent: Descendant[] = []
   const handler = new DomHandler((error, dom) => {
     if (error) {
       // Handle error
