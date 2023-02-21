@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.28](https://github.com/thompsonsj/slate-serializers/compare/v0.0.27...v0.0.28) (2023-02-21)
+
+
+### Bug Fixes
+
+* **htmltoslate:** htmlToSlate function add return type ([#43](https://github.com/thompsonsj/slate-serializers/issues/43)) ([#45](https://github.com/thompsonsj/slate-serializers/issues/45)) ([9ee52a5](https://github.com/thompsonsj/slate-serializers/commit/9ee52a584e3f374b26ea0bb1ba6df3d7b5b25fb4))
+* **src:** folder capitalisation ([#47](https://github.com/thompsonsj/slate-serializers/issues/47)) ([90a61e4](https://github.com/thompsonsj/slate-serializers/commit/90a61e44d1801cd71d45d694885c29339ad32a3f))
+* **src:** remove unused directories ([#48](https://github.com/thompsonsj/slate-serializers/issues/48)) ([4717128](https://github.com/thompsonsj/slate-serializers/commit/4717128bb2e1478e90b25f2592edd6e60a306eb2))
+
 ### [0.0.27](https://github.com/thompsonsj/slate-serializers/compare/v0.0.26...v0.0.27) (2023-02-13)
 
 

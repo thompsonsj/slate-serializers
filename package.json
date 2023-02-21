@@ -1,6 +1,6 @@
 {
   "name": "slate-serializers",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "Serialize Slate JSON objects to HTML and vice versa. Define rules to modify the end result.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
