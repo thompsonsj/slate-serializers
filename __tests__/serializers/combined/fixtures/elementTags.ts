@@ -1,6 +1,7 @@
 interface Ifixture {
   name: string
   html: string
+  htmlFromSlate?: string
   slate: object[]
 }
 
@@ -132,7 +133,16 @@ export const fixtures: Ifixture[] = [
   },
   {
     name: 'nested unordered list',
-    html: '<ul><li>Item 1<ul><li>Nested item 1</li><li>Nested item 2</li></ul></li><li>Item 2</li></ul>',
+    html: `<ul>
+        <li>Item 1
+          <ul>
+            <li>Nested item 1</li>
+            <li>Nested item 2</li>
+          </ul>
+        </li>
+        <li>Item 2</li>
+      </ul>`,
+    htmlFromSlate: `<ul><li>Item 1<ul><li>Nested item 1</li><li>Nested item 2</li></ul></li><li>Item 2</li></ul>`,
     slate: [
       {
         children: [

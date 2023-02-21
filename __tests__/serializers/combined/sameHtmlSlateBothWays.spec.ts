@@ -1,5 +1,5 @@
 import { htmlToSlate } from '../../../src/serializers/htmlToSlate'
-import { slateToHtml } from '../../../src/serializers/slatetoHtml'
+import { slateToHtml } from '../../../src/serializers/slateToHtml'
 import { fixtures as elementFixtures } from './fixtures/elementTags'
 import { fixtures as textFixtures } from './fixtures/textTags'
 
@@ -38,7 +38,7 @@ describe('Slate JSON to HTML transforms', () => {
     const fixtures = elementFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        expect(slateToHtml(fixture.slate)).toEqual(fixture.html)
+        expect(slateToHtml(fixture.slate)).toEqual(fixture.htmlFromSlate || fixture.html)
       })
     }
   })

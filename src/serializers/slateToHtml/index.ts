@@ -25,7 +25,7 @@ export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
   return document
 }
 
-const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) => {
+const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument = false) => {
   if (SlateText.isText(node)) {
     const str = node.text
 
@@ -102,14 +102,13 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNode = false) 
   }
 
   if (element) {
-    if (!isBlock(element.name) && config.convertLineBreakToBr && !isLastNode) {
-      return new Document([element, new Element('br', {})])
-    }
     return element
   }
 
-  if (config.convertLineBreakToBr && !isLastNode) {
+  // add line break between inline nodes
+  if (config.convertLineBreakToBr && !isLastNodeInDocument) {
     children.push(new Element('br', {}))
   }
+
   return new Document(children)
 }

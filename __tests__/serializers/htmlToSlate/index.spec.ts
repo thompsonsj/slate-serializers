@@ -291,12 +291,26 @@ describe('empty content', () => {
     })
 
     it('converts a br tag to a line break', () => {
-      const html = '<br />'
+      const html = 'Line 1<br />Line 2'
       const slate: any[] = [
         {
           children: [
             {
-              text: '\n',
+              text: 'Line 1',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: 'Line 2',
             },
           ],
         },
@@ -357,5 +371,98 @@ describe('empty content', () => {
         }),
       ).toEqual(slate)
     })
+
+    it('adds an empty text element in place of a br tag as a line break', () => {
+      const html = 'Line 1<br>\n<span>Line 2</span>'
+      const slate: any[] = [
+        {
+          children: [
+            {
+              text: 'Line 1',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: '',
+            },
+          ],
+        },
+        {
+          children: [
+            {
+              text: 'Line 2',
+            },
+          ],
+        },
+      ]
+      expect(
+        htmlToSlate(html, {
+          ...htmlToSlateConfig,
+          convertBrToLineBreak: true,
+        }),
+      ).toEqual(slate)
+    })
+  })
+})
+
+describe('nested text formatting elements', () => {
+  it('converts many nested formatting elements', () => {
+    const html =
+      '<p><u><em><strong>Our S</strong></em></u><strong>ervi</strong><u><em><strong>ce</strong></em></u><em><strong>s </strong></em><em>A</em><u><em>nd</em></u><u><em><strong> </strong></em></u>Mo<u><em><strong>re</strong></em></u></p>'
+    const slate = [
+      {
+        children: [
+          {
+            bold: true,
+            italic: true,
+            text: 'Our S',
+            underline: true,
+          },
+          {
+            bold: true,
+            text: 'ervi',
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 'ce',
+            underline: true,
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 's ',
+          },
+          {
+            italic: true,
+            text: 'A',
+          },
+          {
+            italic: true,
+            text: 'nd',
+            underline: true,
+          },
+          {
+            bold: true,
+            italic: true,
+            text: ' ',
+            underline: true,
+          },
+          {
+            text: 'Mo',
+          },
+          {
+            bold: true,
+            italic: true,
+            text: 're',
+            underline: true,
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    expect(htmlToSlate(html)).toEqual(slate)
   })
 })
