@@ -72,7 +72,7 @@ For text nodes inside `<code>` and/or `<pre>` HTML elements, whitespace is prese
 
 The Slate configuration for Payload CMS results in some Slate nodes being stored with an undefined `type`. See https://github.com/payloadcms/payload/discussions/1141#discussioncomment-4255845.
 
-Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](](src/config/slatetoDom/payload.ts)). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
+Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](](src/config/slateToDom/payload.ts)). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
 
 At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload conifguration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
 
@@ -82,7 +82,7 @@ May be able to resolve the above by simply removing `p` tag conversion? Could po
 
 One of the tricker parts of serializing from between Slate and HTML is that Slate doesn't care about HTML entity encoding. This is expected - Slate is unaware of HTML, it offers a serializer friendly format.
 
-Special considerations are made for `htmlToSlate` and `slatetoHtml`.
+Special considerations are made for `htmlToSlate` and `slateToHtml`.
 
 ### `slateToHtml`
 
