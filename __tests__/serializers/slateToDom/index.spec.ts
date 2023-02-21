@@ -2,7 +2,7 @@ import { slateToDom } from '../../../src'
 import { selectAll } from 'css-select'
 import { parseDocument } from 'htmlparser2'
 import { replaceElement } from 'domutils'
-import { Element, Node } from 'domhandler'
+import { AnyNode, Element, Node } from 'domhandler'
 import serializer from 'dom-serializer'
 
 describe('slateToDom expected behaviour', () => {
@@ -41,6 +41,6 @@ describe('slateToDom expected behaviour', () => {
     selectAll<Node, Node>('h2', document as any).forEach((element: any) => {
       replaceElement(element, new Element('h2', { ...element.attribs, class: 'heading-two' }, element.children))
     })
-    expect(serializer(document)).toEqual(html)
+    expect(serializer(document as AnyNode)).toEqual(html)
   })
 })
