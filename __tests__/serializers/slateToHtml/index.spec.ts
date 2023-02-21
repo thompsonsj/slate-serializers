@@ -1,3 +1,4 @@
+import { ChildNode, Element } from 'domhandler'
 import { slateToHtml, slateToDomConfig } from '../../../src'
 
 describe('slateToHtml expected behaviour', () => {
@@ -68,7 +69,7 @@ describe('slateToHtml expected behaviour', () => {
     expect(slateToHtml(slate)).toEqual(html)
   })
 
-  it('can respects the alwaysEncodeCodeEntities option if encodeEntities is false', () => {
+  it('respects the alwaysEncodeCodeEntities option if encodeEntities is false', () => {
     const html = '<p>Regular text & <pre><code>&lt;textarea&gt;</code></pre>.</p>'
     const slate = [
       {
@@ -90,6 +91,36 @@ describe('slateToHtml expected behaviour', () => {
     expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(
       html,
     )
+  })
+
+  it('process a custom element tag map', () => {
+    const html = '<p>Paragraph</p><img src="https://picsum.photos/id/237/200/300">'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'Paragraph',
+          },
+        ],
+      },
+      {
+        type: 'image',
+        url: 'https://picsum.photos/id/237/200/300',
+      },
+    ]
+    const config = {
+      ...slateToDomConfig,
+      elementTransforms: {
+        ...slateToDomConfig.elementTransforms,
+        image: ({ node }: { node?: any }) => {
+          return new Element('img', {
+            src: node.url,
+          })
+        },
+      },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
   })
 })
 
