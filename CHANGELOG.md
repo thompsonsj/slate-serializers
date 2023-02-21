@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.29](https://github.com/thompsonsj/slate-serializers/compare/v0.0.28...v0.0.29) (2023-02-21)
+
+
+### Bug Fixes
+
+* **package.json:** downgrade htmlparser2 for Webpack 4 compatibility ([#49](https://github.com/thompsonsj/slate-serializers/issues/49)) ([47bc3b0](https://github.com/thompsonsj/slate-serializers/commit/47bc3b05d20a0671ac10147f9dab67ac14b9c549))
+
 ### [0.0.28](https://github.com/thompsonsj/slate-serializers/compare/v0.0.27...v0.0.28) (2023-02-21)
 
 
