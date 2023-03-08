@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.30](https://github.com/thompsonsj/slate-serializers/compare/v0.0.29...v0.0.30) (2023-03-08)
+
+
+### Bug Fixes
+
+* **slatetodom:** parseDocument argument type ([#50](https://github.com/thompsonsj/slate-serializers/issues/50)) ([db8d566](https://github.com/thompsonsj/slate-serializers/commit/db8d566a5fe2a3a64dab05f89de0c86b1e65ecd6))
+* **slatetohtml:** return an empty document if no Slate object ([#51](https://github.com/thompsonsj/slate-serializers/issues/51)) ([42a1e7a](https://github.com/thompsonsj/slate-serializers/commit/42a1e7a3646a1cb4d94801d842fbe872d9d356b8))
+
 ### [0.0.29](https://github.com/thompsonsj/slate-serializers/compare/v0.0.28...v0.0.29) (2023-02-21)
 
 
