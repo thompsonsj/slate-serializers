@@ -280,3 +280,11 @@ describe('line breaks', () => {
     expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
   })
 })
+
+describe('edge cases', () => {
+  it('handles null value for slate', () => {
+    const slate: any = null
+    const html = ''
+    expect(slateToHtml(slate)).toEqual(html)
+  })
+})
