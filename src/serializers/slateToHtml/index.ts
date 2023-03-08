@@ -21,6 +21,9 @@ export const slateToHtml: SlateToHtml = (node: any[], config = defaultConfig) =>
 }
 
 export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
+  if (!Array.isArray(node)) {
+    return new Document([])
+  }
   const document = node.map((n, index) => slateNodeToHtml(n, config, index === node.length - 1))
   return document
 }
