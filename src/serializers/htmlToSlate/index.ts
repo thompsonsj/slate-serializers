@@ -44,8 +44,7 @@ const deserialize = ({
   )
 
   if (nodeName === 'br' && config.convertBrToLineBreak && context !== 'preserve') {
-    let lineBreak = context ? '\n' : ''
-    return [jsx('text', { text: lineBreak }, [])]
+    return [jsx('text', { text: context ? '\n' : '' }, [])]
   }
 
   const children = currentEl.childNodes
