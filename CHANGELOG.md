@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.31](https://github.com/thompsonsj/slate-serializers/compare/v0.0.30...v0.0.31) (2023-03-27)
+
 ### [0.0.30](https://github.com/thompsonsj/slate-serializers/compare/v0.0.29...v0.0.30) (2023-03-08)
 
 
