@@ -404,6 +404,32 @@ describe('empty content', () => {
         }),
       ).toEqual(slate)
     })
+
+    it('adds a line break in place of a br tag inside of a block element', () => {
+      const html = '<p>Line 1<br>\n<span>Line 2</span></p>'
+      const slate: any[] = [
+        {
+          type: 'p',
+          children: [
+            {
+              text: 'Line 1',
+            },
+            {
+              text: '\n',
+            },
+            {
+              text: 'Line 2',
+            },
+          ],
+        },
+      ]
+      expect(
+        htmlToSlate(html, {
+          ...htmlToSlateConfig,
+          convertBrToLineBreak: true,
+        }),
+      ).toEqual(slate)
+    })
   })
 })
 
