@@ -12,12 +12,18 @@ interface IconvertSlate {
   node: any,
   config?: Config
   isLastNodeInDocument?: boolean
+  transformText?: (text: Text) => any
+  transformElement?: (element: Element) => any
+  wrapChildren?: (children: any) => any
 }
 
 export const convertSlate = ({
   node,
   config = defaultConfig,
-  isLastNodeInDocument = false
+  isLastNodeInDocument = false,
+  transformText = (text) => text,
+  transformElement = (element) => element,
+  wrapChildren = (children) => new Document(children)
 }: IconvertSlate) => {
   if (SlateText.isText(node)) {
     const str = node.text
@@ -35,24 +41,24 @@ export const convertSlate = ({
       })
       // clone markElements (it gets modified)
       const markElementsClone = [...markElements]
-      const textElement = nestedMarkElements(markElements, new Text(line))
+      const textElement = nestedMarkElements(markElements, transformText(new Text(line)))
       if (
         config.alwaysEncodeCodeEntities &&
         config.encodeEntities === false &&
         isTag(textElement) &&
         getName(textElement) === 'pre'
       ) {
-        textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
+        textChildren.push(nestedMarkElements(markElementsClone, transformText(new Text(encode(line)))))
       } else {
         textChildren.push(textElement)
       }
 
       if (index < strLines.length - 1) {
-        textChildren.push(new Element('br', {}))
+        textChildren.push(transformElement(new Element('br', {})))
       }
     })
 
-    return new Document(textChildren)
+    return wrapChildren(textChildren)
   }
 
   const children: any[] = node.children ? node.children.map((n: any[]) => convertSlate({
@@ -89,12 +95,12 @@ export const convertSlate = ({
 
   // straightforward node to element
   if (!element && config.elementMap[node.type]) {
-    element = new Element(config.elementMap[node.type], attribs, children)
+    element = transformElement(new Element(config.elementMap[node.type], attribs, children))
   }
 
   // default tag
   if (!element && config.defaultTag && !node.type) {
-    element = new Element(config.defaultTag, {}, children)
+    element = transformElement(new Element(config.defaultTag, {}, children))
   }
 
   if (element) {
@@ -103,8 +109,8 @@ export const convertSlate = ({
 
   // add line break between inline nodes
   if (config.convertLineBreakToBr && !isLastNodeInDocument) {
-    children.push(new Element('br', {}))
+    children.push(transformElement(new Element('br', {})))
   }
 
-  return new Document(children)
+  return wrapChildren(children)
 }
