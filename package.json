@@ -54,12 +54,22 @@
     ]
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/react": "^18.0.35",
     "dom-serializer": "^2.0.0",
     "domhandler": "^5.0.3",
     "domutils": "^3.0.1",
     "html-entities": "^2.3.3",
     "htmlparser2": "~7.2.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jsdom": "^21.1.1",
     "slate": "^0.88.1",
     "slate-hyperscript": "^0.77.0"
+  },
+  "peerDependencies": {
+    "@types/react": ">=16",
+    "react": ">=16",
+    "react-dom": ">=16"
   }
 }
