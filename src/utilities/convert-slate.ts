@@ -12,7 +12,7 @@ interface IconvertSlate {
   node: any,
   config?: Config
   isLastNodeInDocument?: boolean
-  transformText?: (text: Text) => any
+  transformText?: (text: Text | Element) => any
   transformElement?: (element: Element) => any
   wrapChildren?: (children: any) => any
 }
@@ -41,14 +41,14 @@ export const convertSlate = ({
       })
       // clone markElements (it gets modified)
       const markElementsClone = [...markElements]
-      const textElement = nestedMarkElements(markElements, transformText(new Text(line)))
+      const textElement = nestedMarkElements(markElements, new Text(line))
       if (
         config.alwaysEncodeCodeEntities &&
         config.encodeEntities === false &&
         isTag(textElement) &&
         getName(textElement) === 'pre'
       ) {
-        textChildren.push(nestedMarkElements(markElementsClone, transformText(new Text(encode(line)))))
+        textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
       } else {
         textChildren.push(textElement)
       }
@@ -58,13 +58,17 @@ export const convertSlate = ({
       }
     })
 
-    return wrapChildren(textChildren)
+    return wrapChildren(textChildren.map((child) => transformText(child)))
   }
 
   const children: any[] = node.children ? node.children.map((n: any[]) => convertSlate({
-    node: n,
-    config
-  })) : []
+      node: n,
+      config,
+      transformText,
+      transformElement,
+      wrapChildren,
+    },
+  )) : []
 
   let attribs: { [key: string]: string } = {}
   const styleAttrs: { [key: string]: string } = {}

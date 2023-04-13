@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'jsdom',
   preset: 'ts-jest',
   testMatch: [
-    '**/__tests__/**/*.spec.ts',
+    '**/__tests__/**/*.spec.(ts|tsx)',
   ],
 }
