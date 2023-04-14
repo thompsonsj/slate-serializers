@@ -1,5 +1,5 @@
 import React, { createElement, FC, ReactElement, ReactNode, JSXElementConstructor } from 'react'
-import { AnyNode, Document, Element } from 'domhandler'
+import { AnyNode, Document, Element, isTag } from 'domhandler'
 import { getChildren, getName, textContent } from 'domutils'
 import serializer from 'dom-serializer'
 
@@ -27,19 +27,22 @@ export const SlateToReact = ({
     node: n,
     config,
     isLastNodeInDocument: index === node.length - 1,
-    transformText: (text) => <>{textContent(text)}</>,
+    transformText: (text) => {
+      if (isTag(text)) {
+        return React.createElement(getName(text), {}, textContent(text))
+      }
+      return <>{textContent(text)}</>
+    },
     transformElement: (element) => domElementToReactElement(element),
     wrapChildren: (children) => children
   }))
-  //console.log(document)
   return document as any
 }
 
 const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {
-  //console.log(getChildren(element))
   return React.createElement(
-  getName(element),
-  { className: 'greeting' },
-  element.children as any
-)
-  }
+    getName(element),
+    { className: 'greeting' },
+    element.children as any
+  )
+}
