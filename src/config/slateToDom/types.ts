@@ -21,6 +21,7 @@ export interface Config {
   elementTransforms: ElementTagTransform
   defaultTag?: string
   encodeEntities?: boolean
+  alwaysEncodeBreakingEntities?: boolean
   alwaysEncodeCodeEntities?: boolean
   convertLineBreakToBr?: boolean
 }
