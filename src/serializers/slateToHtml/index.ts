@@ -6,7 +6,7 @@ import { Text as SlateText } from 'slate'
 
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { nestedMarkElements } from '../../utilities/domhandler'
-import { getNested, isEmptyObject, styleToString } from '../../utilities'
+import { getNested, isEmptyObject, styleToString, encodeBreakingEntities } from '../../utilities'
 import { SlateToDomConfig } from '../..'
 import { isBlock } from '../blocks'
 
@@ -30,7 +30,7 @@ export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
 
 const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument = false) => {
   if (SlateText.isText(node)) {
-    const str = node.text
+    const str = (config.alwaysEncodeBreakingEntities && config.encodeEntities === false) ? encodeBreakingEntities(node.text) : node.text
 
     // convert line breaks to br tags
     const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]

@@ -51,6 +51,7 @@ export const config: Config = {
     },
   },
   encodeEntities: true,
+  alwaysEncodeBreakingEntities: false,
   alwaysEncodeCodeEntities: false,
   convertLineBreakToBr: false,
 }

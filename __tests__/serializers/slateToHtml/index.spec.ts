@@ -1,4 +1,4 @@
-import { ChildNode, Element } from 'domhandler'
+import { Element } from 'domhandler'
 import { slateToHtml, slateToDomConfig } from '../../../src'
 
 describe('slateToHtml expected behaviour', () => {
@@ -15,6 +15,69 @@ describe('slateToHtml expected behaviour', () => {
       },
     ]
     expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  /**
+   * @see https://www.w3.org/International/questions/qa-escapes#use
+   */
+  it('encodes `breaking` HTML entities', () => {
+    const html = `<p>2 &gt; 1 but is &lt; 3 &amp; it can break HTML</p>`
+    const slate = [
+      {
+        children: [
+          {
+            text: "2 > 1 but is < 3 & it can break HTML",
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  it('encodes `non breaking` HTML entities', () => {
+    const html = `<p>The company&#x2019;s priority is &apos;inside sales&apos; and changing the spelling of cafe to caf&#xe9;.</p>`
+    const slate = [
+      {
+        children: [
+          {
+            text: "The company’s priority is 'inside sales' and changing the spelling of cafe to café.",
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  it('encodes `breaking` HTML entities only if option is active', () => {
+    const html = `<p>2 &gt; 1 but is &lt; 3 &amp; it can break HTML</p><p>The company’s priority is 'inside sales' and changing the spelling of cafe to café.</p>`
+    const slate = [
+      {
+        children: [
+          {
+            text: "2 > 1 but is < 3 & it can break HTML",
+          },
+        ],
+        type: 'p',
+      },
+      {
+        children: [
+          {
+            text: "The company’s priority is 'inside sales' and changing the spelling of cafe to café.",
+          },
+        ],
+        type: 'p',
+      },
+    ]
+    expect(slateToHtml(
+      slate,
+      {
+        ...slateToDomConfig,
+        encodeEntities: false,
+        alwaysEncodeBreakingEntities: true,
+      }
+    )).toEqual(html)
   })
 
   it('does not encode HTML entities with the appropriate option', () => {

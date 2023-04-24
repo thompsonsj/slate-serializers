@@ -62,3 +62,23 @@ export const removeEmpty = (obj: {}): {} => {
 export const getNested = (obj: any, ...args: string[]) => {
   return args.reduce((o, level) => o && o[level], obj)
 }
+
+export const encodeBreakingEntities = (str: string) => {
+  const swapChar = (charToSwap: string) => { // that swaps characters to HTML entities
+    switch(charToSwap){
+      case "&":
+        return "&amp;"
+      case "<":
+        return "&lt;"
+      case ">":
+        return "&gt;"
+      default:
+        return charToSwap
+    }
+  }
+  str = str.replace(/[&<>]/g, function(match){
+    return swapChar(match)
+  })
+
+  return str
+}
