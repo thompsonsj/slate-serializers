@@ -26,7 +26,7 @@ describe('slateToHtml expected behaviour', () => {
       {
         children: [
           {
-            text: "2 > 1 but is < 3 & it can break HTML",
+            text: '2 > 1 but is < 3 & it can break HTML',
           },
         ],
         type: 'p',
@@ -56,7 +56,7 @@ describe('slateToHtml expected behaviour', () => {
       {
         children: [
           {
-            text: "2 > 1 but is < 3 & it can break HTML",
+            text: '2 > 1 but is < 3 & it can break HTML',
           },
         ],
         type: 'p',
@@ -70,14 +70,13 @@ describe('slateToHtml expected behaviour', () => {
         type: 'p',
       },
     ]
-    expect(slateToHtml(
-      slate,
-      {
+    expect(
+      slateToHtml(slate, {
         ...slateToDomConfig,
         encodeEntities: false,
         alwaysEncodeBreakingEntities: true,
-      }
-    )).toEqual(html)
+      }),
+    ).toEqual(html)
   })
 
   it('does not encode HTML entities with the appropriate option', () => {
