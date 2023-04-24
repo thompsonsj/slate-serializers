@@ -30,7 +30,10 @@ export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
 
 const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument = false) => {
   if (SlateText.isText(node)) {
-    const str = (config.alwaysEncodeBreakingEntities && config.encodeEntities === false) ? encodeBreakingEntities(node.text) : node.text
+    const str =
+      config.alwaysEncodeBreakingEntities && config.encodeEntities === false
+        ? encodeBreakingEntities(node.text)
+        : node.text
 
     // convert line breaks to br tags
     const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]

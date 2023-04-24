@@ -64,19 +64,20 @@ export const getNested = (obj: any, ...args: string[]) => {
 }
 
 export const encodeBreakingEntities = (str: string) => {
-  const swapChar = (charToSwap: string) => { // that swaps characters to HTML entities
-    switch(charToSwap){
-      case "&":
-        return "&amp;"
-      case "<":
-        return "&lt;"
-      case ">":
-        return "&gt;"
+  const swapChar = (charToSwap: string) => {
+    // that swaps characters to HTML entities
+    switch (charToSwap) {
+      case '&':
+        return '&amp;'
+      case '<':
+        return '&lt;'
+      case '>':
+        return '&gt;'
       default:
         return charToSwap
     }
   }
-  str = str.replace(/[&<>]/g, function(match){
+  str = str.replace(/[&<>]/g, (match) => {
     return swapChar(match)
   })
 
