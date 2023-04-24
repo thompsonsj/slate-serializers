@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.32](https://github.com/thompsonsj/slate-serializers/compare/v0.0.31...v0.0.32) (2023-04-24)
+
+
+### Features
+
+* **slatetodom:** add encodeBreakingEntities option ([#57](https://github.com/thompsonsj/slate-serializers/issues/57)) ([f5c85d7](https://github.com/thompsonsj/slate-serializers/commit/f5c85d7c71ca75d5906f3f924d4fa37610894bb6))
+
+
+### Bug Fixes
+
+* lint and format ([#58](https://github.com/thompsonsj/slate-serializers/issues/58)) ([329a43b](https://github.com/thompsonsj/slate-serializers/commit/329a43bc94a1c3538769003e166955b9f4bee8c2))
+
 ### [0.0.31](https://github.com/thompsonsj/slate-serializers/compare/v0.0.30...v0.0.31) (2023-03-27)
 
 ### [0.0.30](https://github.com/thompsonsj/slate-serializers/compare/v0.0.29...v0.0.30) (2023-03-08)
