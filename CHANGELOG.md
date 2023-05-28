@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.33](https://github.com/thompsonsj/slate-serializers/compare/v0.0.32...v0.0.33) (2023-05-28)
+
+
+### Bug Fixes
+
+* **package.json:** move css-select dependency ([#60](https://github.com/thompsonsj/slate-serializers/issues/60)) ([06ddd57](https://github.com/thompsonsj/slate-serializers/commit/06ddd57dc586aa0b372f85193e863ce9e5209c05))
+
 ### [0.0.32](https://github.com/thompsonsj/slate-serializers/compare/v0.0.31...v0.0.32) (2023-04-24)
 
 
