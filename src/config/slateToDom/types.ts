@@ -18,6 +18,9 @@ export interface Config {
   elementStyleMap?: {
     [key: string]: string
   }
+  markStyleMap?: {
+    [key: string]: string
+  }
   elementTransforms: ElementTagTransform
   defaultTag?: string
   encodeEntities?: boolean

@@ -8,7 +8,6 @@ import { config as defaultConfig } from '../../config/slateToDom/default'
 import { nestedMarkElements } from '../../utilities/domhandler'
 import { getNested, isEmptyObject, styleToString, encodeBreakingEntities } from '../../utilities'
 import { SlateToDomConfig } from '../..'
-import { isBlock } from '../blocks'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
 type SlateToDom = (node: any[], config?: SlateToDomConfig) => AnyNode | ArrayLike<AnyNode>
@@ -40,10 +39,20 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument
     const textChildren: (Element | Text)[] = []
 
     strLines.forEach((line, index) => {
-      const markElements: string[] = []
-      Object.keys(config.markMap).forEach((key) => {
+      const markElements: Element[] = []
+
+/**
+Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
           markElements.push(...config.markMap[key])
+        }
+      })
+ */
+
+      Object.keys(config.markMap).forEach((key) => {
+        if ((node as any)[key]) {
+          const elements = config.markMap[key].map((tagName) => new Element(tagName, {}, []))
+          markElements.push(...elements)
         }
       })
       // clone markElements (it gets modified)
@@ -81,7 +90,6 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument
         styleAttrs[cssProperty] = cssValue
       }
     })
-
     if (!isEmptyObject(styleAttrs)) {
       attribs = {
         ...attribs,

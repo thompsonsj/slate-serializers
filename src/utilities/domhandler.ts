@@ -11,36 +11,59 @@ import { parseStyleCssText } from '.'
  * elements. Really shouldn't be any more than that!
  */
 
-export const nestedMarkElementsString = (els: string[], text: string) => {
+export const nestedMarkElementsString = (els: Element[], text: string) => {
   return serializer(nestedMarkElements(els, new Text(text)))
 }
 
-export const nestedMarkElements = (els: string[], element: Element | Text) => {
+/**
+const el1 = els.pop()
+  element = new Element(el1 as string, {}, [element])
+  if (!els || els.length === 0) {
+    return element
+  } 
+ */
+
+export const nestedMarkElements = (els: Element[], element: Element | Text) => {
   if (els.length === 0) {
     return element
   }
   const el1 = els.pop()
-  element = new Element(el1 as string, {}, [element])
+  if (el1) {
+    el1.children = [element]
+    element = el1
+  }
   if (!els || els.length === 0) {
     return element
   }
   const el2 = els.pop()
-  element = new Element(el2 as string, {}, [element])
+  if (el2) {
+    el2.children = [element]
+    element = el2
+  }
   if (!els || els.length === 0) {
     return element
   }
   const el3 = els.pop()
-  element = new Element(el3 as string, {}, [element])
+  if (el3) {
+    el3.children = [element]
+    element = el3
+  }
   if (!els || els.length === 0) {
     return element
   }
   const el4 = els.pop()
-  element = new Element(el4 as string, {}, [element])
+  if (el4) {
+    el4.children = [element]
+    element = el4
+  }
   if (!els || els.length === 0) {
     return element
   }
   const el5 = els.pop()
-  element = new Element(el5 as string, {}, [element])
+  if (el5) {
+    el5.children = [element]
+    element = el5
+  }
   if (!els || els.length === 0) {
     return element
   }

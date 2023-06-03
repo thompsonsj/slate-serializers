@@ -154,8 +154,10 @@ describe('slateToHtml expected behaviour', () => {
       html,
     )
   })
+})
 
-  it('process a custom element tag map', () => {
+describe('custom config', () => {
+  it('process an element tag map', () => {
     const html = '<p>Paragraph</p><img src="https://picsum.photos/id/237/200/300">'
     const slate = [
       {
@@ -181,6 +183,29 @@ describe('slateToHtml expected behaviour', () => {
           })
         },
       },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
+  })
+
+  it('map Slate attribute to inline style from element style map', () => {
+    const html = '<p style="font-size:96px;"><strong>Paragraph</strong></p>'
+    const slate = [
+      {
+        type: 'p',
+        fontSize: '96px',
+        children: [
+          {
+            bold: true,
+            text: 'Paragraph',
+          },
+        ],
+      }
+    ]
+    const config = {
+      ...slateToDomConfig,
+      elementStyleMap: {
+        fontSize: 'font-size',
+      }
     }
     expect(slateToHtml(slate, config)).toEqual(html)
   })
