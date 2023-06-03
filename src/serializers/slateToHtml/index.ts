@@ -41,17 +41,16 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument
     strLines.forEach((line, index) => {
       const markElements: Element[] = []
 
-/**
-Object.keys(config.markMap).forEach((key) => {
-        if ((node as any)[key]) {
-          markElements.push(...config.markMap[key])
-        }
-      })
- */
-
       Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
-          const elements = config.markMap[key].map((tagName) => new Element(tagName, {}, []))
+          const elements: Element[] = config.markMap[key]
+            .map((tagName) => {
+              // more complex transforms
+              if (config.markTransforms?.[tagName]) {
+                return config.markTransforms[tagName]({ node, attribs: {} })
+              }
+              return new Element(tagName, {}, [])
+            })
           markElements.push(...elements)
         }
       })

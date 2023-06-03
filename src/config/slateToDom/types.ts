@@ -1,5 +1,15 @@
 import { ChildNode, Element } from 'domhandler'
 
+interface MarkTagTransform {
+  [key: string]: ({
+    node,
+    attribs,
+  }: {
+    node?: any
+    attribs?: { [key: string]: string }
+  }) => Element
+}
+
 interface ElementTagTransform {
   [key: string]: ({
     node,
@@ -21,6 +31,7 @@ export interface Config {
   markStyleMap?: {
     [key: string]: string
   }
+  markTransforms?: MarkTagTransform
   elementTransforms: ElementTagTransform
   defaultTag?: string
   encodeEntities?: boolean
