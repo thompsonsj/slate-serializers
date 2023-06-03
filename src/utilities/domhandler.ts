@@ -15,14 +15,6 @@ export const nestedMarkElementsString = (els: Element[], text: string) => {
   return serializer(nestedMarkElements(els, new Text(text)))
 }
 
-/**
-const el1 = els.pop()
-  element = new Element(el1 as string, {}, [element])
-  if (!els || els.length === 0) {
-    return element
-  } 
- */
-
 export const nestedMarkElements = (els: Element[], element: Element | Text) => {
   if (els.length === 0) {
     return element
