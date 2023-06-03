@@ -1,4 +1,4 @@
-import { Element } from 'domhandler'
+import { ChildNode, Element } from 'domhandler'
 import { slateToHtml, slateToDomConfig } from '../../../src'
 
 const postcss = require('postcss')
@@ -283,8 +283,53 @@ describe('custom config', () => {
     }
     expect(slateToHtml(slate, config)).toEqual(html)
   })
+})
 
-  it('more complex mark transforms', () => {
+describe('style attribute css transforms with postcss', () => {
+  const transformStyleObjectToString = (style: {[key: string]: any}) => {
+    const postcssOptions = {
+      parser: postcssJs,
+      from: undefined, 
+    }
+    return postcss().process(style, postcssOptions).css.replace(/(\r\n|\n|\r)/gm, " ").replace(/\s\s+/g, ' ')
+  }
+
+  it('element transforms', () => {
+    const html = '<p style=\"font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }\"><strong>Paragraph</strong></p>'
+    const slate = [
+      {
+        type: 'p',
+        style: {
+          fontSize: '96px',
+          '--text-color': '#DD3A0A',
+          '@media screen': {
+            zIndex: '1',
+            color: 'var(--text-color)'
+          }
+        },
+        children: [
+          {
+            bold: true,
+            text: 'Paragraph',
+          },
+        ],
+      }
+    ]
+    const config = {
+      ...slateToDomConfig,
+      elementTransforms: {
+        ...slateToDomConfig.elementTransforms,
+        p: ({ node, children }: { node?: any, children?: ChildNode[] }) => {
+          return new Element('p', {
+            style: transformStyleObjectToString(node.style),
+          }, children)
+        },
+      },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
+  })
+
+  it('mark transforms', () => {
     const html = '<p><strong style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }">Paragraph</strong></p>'
     const slate = [
       {
@@ -310,13 +355,8 @@ describe('custom config', () => {
       markTransforms: {
         ...slateToDomConfig.markTransforms,
         strong: ({ node }: { node?: any }) => {
-          const postcssOptions = {
-            parser: postcssJs,
-            from: undefined, 
-          }
-          const cssString = postcss().process(node.style, postcssOptions).css.replace(/(\r\n|\n|\r)/gm, " ").replace(/\s\s+/g, ' ')
           return new Element('strong', {
-            style: cssString,
+            style: transformStyleObjectToString(node.style),
           })
         },
       },
@@ -324,7 +364,7 @@ describe('custom config', () => {
     expect(slateToHtml(slate, config)).toEqual(html)
   })
 
-  it('more complex mark transforms on multiple marks', () => {
+  it('mark transforms on multiple marks', () => {
     const html =
       '<p>This is editable <strong style=\"font-size: 20px; font-weight: 600; text-decoration: underline dotted\">rich</strong> text, <i style=\"text-decoration: underline\">much</i> better than a <pre><code style=\"color: red\">&lt;textarea&gt;</code></pre>!</p>'
     const slate = [
@@ -369,13 +409,6 @@ describe('custom config', () => {
         ],
       }
     ]
-    const transformStyleObjectToString = (style: {[key: string]: any}) => {
-      const postcssOptions = {
-        parser: postcssJs,
-        from: undefined, 
-      }
-      return postcss().process(style, postcssOptions).css.replace(/(\r\n|\n|\r)/gm, " ").replace(/\s\s+/g, ' ')
-    }
     const config = {
       ...slateToDomConfig,
       markTransforms: {
