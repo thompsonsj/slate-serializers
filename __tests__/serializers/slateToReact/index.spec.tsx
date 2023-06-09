@@ -1,8 +1,5 @@
-import React, { ReactElement, ReactNode, JSXElementConstructor } from 'react'
-import { Element } from "domhandler"
-import { getName } from 'domutils'
-import {render, screen} from '@testing-library/react'
-import '@testing-library/jest-dom'
+import React from 'react'
+import renderer from 'react-test-renderer';
 import { SlateToReact } from '../../../src/serializers/slateToReact'
 
 describe("React conversion", () => {
@@ -18,9 +15,10 @@ describe("React conversion", () => {
       },
     ]
 
-    render(<SlateToReact node={slate} />)
-
-    expect(screen.getByText('Paragraph').tagName).toBe('P')
+    const tree = renderer
+      .create(<SlateToReact node={slate} />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
   })
 
   it('can handle inline code tags', () => {
@@ -57,8 +55,9 @@ describe("React conversion", () => {
         ],
       },
     ]
-    render(<SlateToReact node={slate} />)
-
-    expect(screen.getByText('much').tagName).toBe('I')
+    const tree = renderer
+      .create(<SlateToReact node={slate} />)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
   })
 })
