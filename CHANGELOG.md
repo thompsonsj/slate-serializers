@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/thompsonsj/slate-serializers/compare/v0.0.33...v0.1.0) (2023-06-03)
+
+
+### Features
+
+* **slatetohtml:** mark transforms ([#63](https://github.com/thompsonsj/slate-serializers/issues/63)) ([c67d785](https://github.com/thompsonsj/slate-serializers/commit/c67d7850f3d2a990be06c75a26fc4512b9bdc6cb))
+
+### [0.0.33](https://github.com/thompsonsj/slate-serializers/compare/v0.0.32...v0.0.33) (2023-05-28)
+
+
+### Bug Fixes
+
+* **package.json:** move css-select dependency ([#60](https://github.com/thompsonsj/slate-serializers/issues/60)) ([06ddd57](https://github.com/thompsonsj/slate-serializers/commit/06ddd57dc586aa0b372f85193e863ce9e5209c05))
+
+### [0.0.32](https://github.com/thompsonsj/slate-serializers/compare/v0.0.31...v0.0.32) (2023-04-24)
+
+
+### Features
+
+* **slatetodom:** add encodeBreakingEntities option ([#57](https://github.com/thompsonsj/slate-serializers/issues/57)) ([f5c85d7](https://github.com/thompsonsj/slate-serializers/commit/f5c85d7c71ca75d5906f3f924d4fa37610894bb6))
+
+
+### Bug Fixes
+
+* lint and format ([#58](https://github.com/thompsonsj/slate-serializers/issues/58)) ([329a43b](https://github.com/thompsonsj/slate-serializers/commit/329a43bc94a1c3538769003e166955b9f4bee8c2))
+
 ### [0.0.31](https://github.com/thompsonsj/slate-serializers/compare/v0.0.30...v0.0.31) (2023-03-27)
 
 ### [0.0.30](https://github.com/thompsonsj/slate-serializers/compare/v0.0.29...v0.0.30) (2023-03-08)

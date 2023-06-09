@@ -6,7 +6,7 @@ import { Text as SlateText } from 'slate'
 import { config as defaultConfig } from '../config/slateToDom/default'
 import { Config } from '../config/slateToDom/types'
 import { nestedMarkElements } from './domhandler'
-import { getNested, isEmptyObject, styleToString } from '.'
+import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '.'
 
 interface IconvertSlate {
   node: any,
@@ -26,17 +26,28 @@ export const convertSlate = ({
   wrapChildren = (children) => new Document(children)
 }: IconvertSlate) => {
   if (SlateText.isText(node)) {
-    const str = node.text
+    const str =
+      config.alwaysEncodeBreakingEntities && config.encodeEntities === false
+        ? encodeBreakingEntities(node.text)
+        : node.text
 
     // convert line breaks to br tags
     const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]
     const textChildren: (Element | Text)[] = []
 
     strLines.forEach((line, index) => {
-      const markElements: string[] = []
+      const markElements: Element[] = []
       Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
-          markElements.push(...config.markMap[key])
+          const elements: Element[] = config.markMap[key]
+            .map((tagName) => {
+              // more complex transforms
+              if (config.markTransforms?.[tagName]) {
+                return config.markTransforms[tagName]({ node, attribs: {} })
+              }
+              return new Element(tagName, {}, [])
+            })
+          markElements.push(...elements)
         }
       })
       // clone markElements (it gets modified)

@@ -38,10 +38,7 @@ const deserialize = ({
   const childrenContext = getContext(nodeName) || context
 
   const isLastChild = index === childrenLength - 1
-  const isWithinTextNodes = (
-    currentEl.prev?.type === ElementType.Text
-    && currentEl.next?.type === ElementType.Text
-  )
+  const isWithinTextNodes = currentEl.prev?.type === ElementType.Text && currentEl.next?.type === ElementType.Text
 
   if (nodeName === 'br' && config.convertBrToLineBreak && context !== 'preserve') {
     return [jsx('text', { text: context ? '\n' : '' }, [])]
@@ -124,7 +121,7 @@ const gatherTextMarkAttributes = ({ el, config = defaultConfig }: IgatherTextMar
   let allAttrs = {}
   const children = getChildren(el)
   if (children.length) {
-    [el, ...children.flat()].forEach((child) => {
+    ;[el, ...children.flat()].forEach((child) => {
       const name = getName(child as Element)
       const attrs = config.textTags[name] ? config.textTags[name](child as Element) : {}
       allAttrs = {
