@@ -1,4 +1,4 @@
-import { Element } from "domhandler"
+import { Element } from 'domhandler'
 import { nestedMarkElementsString } from '../../src/utilities/domhandler'
 
 /**
@@ -13,9 +13,12 @@ describe('nestedMarkElementsString', () => {
   })
 
   it('nests text in 2 mark elements', () => {
-    expect(nestedMarkElementsString([new Element('u', {}), new Element('i', {})], 'Unarticulated Annotation, and Idiomatic Text text')).toEqual(
-      '<u><i>Unarticulated Annotation, and Idiomatic Text text</i></u>',
-    )
+    expect(
+      nestedMarkElementsString(
+        [new Element('u', {}), new Element('i', {})],
+        'Unarticulated Annotation, and Idiomatic Text text',
+      ),
+    ).toEqual('<u><i>Unarticulated Annotation, and Idiomatic Text text</i></u>')
   })
 
   it('nests text in 3 mark elements', () => {

@@ -84,11 +84,14 @@ export const encodeBreakingEntities = (str: string) => {
   return str
 }
 
-export const intersection = (o1: {[key: string]: any}, o2: {[key: string]: any}) => {
-  return Object.keys(o1).concat(Object.keys(o2)).sort().reduce(function (r: string[], a, i, aa) {
+export const intersection = (o1: { [key: string]: any }, o2: { [key: string]: any }) => {
+  return Object.keys(o1)
+    .concat(Object.keys(o2))
+    .sort()
+    .reduce((r: string[], a, i, aa) => {
       if (i && aa[i - 1] === a) {
-          r.push(a);
+        r.push(a)
       }
-      return r;
-  }, []);
+      return r
+    }, [])
 }

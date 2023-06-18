@@ -1,13 +1,7 @@
 import { ChildNode, Element } from 'domhandler'
 
 interface MarkTagTransform {
-  [key: string]: ({
-    node,
-    attribs,
-  }: {
-    node?: any
-    attribs?: { [key: string]: string }
-  }) => Element
+  [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => Element
 }
 
 interface ElementTagTransform {
