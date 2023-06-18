@@ -6,7 +6,7 @@ import { Text as SlateText } from 'slate'
 
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { nestedMarkElements } from '../../utilities/domhandler'
-import { getNested, isEmptyObject, styleToString, encodeBreakingEntities } from '../../utilities'
+import { getNested, isEmptyObject, styleToString, encodeBreakingEntities, intersection } from '../../utilities'
 import { SlateToDomConfig } from '../..'
 
 type SlateToHtml = (node: any[], config?: SlateToDomConfig) => string
@@ -41,16 +41,18 @@ const slateNodeToHtml = (node: any, config = defaultConfig, isLastNodeInDocument
     strLines.forEach((line, index) => {
       const markElements: Element[] = []
 
+      const markTransformKeys = intersection(config.markTransforms || {}, node)
+
+      markTransformKeys.map((key) => {
+        if (config.markTransforms?.[key]) {
+          markElements.push(config.markTransforms[key]({ node, attribs: {} }))
+        }
+      })
+
       Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
           const elements: Element[] = config.markMap[key]
-            .map((tagName) => {
-              // more complex transforms
-              if (config.markTransforms?.[tagName]) {
-                return config.markTransforms[tagName]({ node, attribs: {} })
-              }
-              return new Element(tagName, {}, [])
-            })
+            .map((tagName) => new Element(tagName, {}, []))
           markElements.push(...elements)
         }
       })
