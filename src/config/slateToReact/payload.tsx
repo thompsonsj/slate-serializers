@@ -1,6 +1,6 @@
-import { Element } from 'domhandler'
+import React from "react"
 import { config as defaultConfig } from './default'
-import { SlateToDomConfig } from '../..'
+import { SlateToReactConfig } from '../..'
 
 /**
  * Configuration for Payload CMS
@@ -8,7 +8,7 @@ import { SlateToDomConfig } from '../..'
  * Tested for v1.1.21
  */
 
-export const config: SlateToDomConfig = {
+export const config: SlateToReactConfig = {
   ...defaultConfig,
   elementTransforms: {
     ...defaultConfig.elementTransforms,
@@ -20,14 +20,10 @@ export const config: SlateToDomConfig = {
       if (node.newTab) {
         attrs.target = '_blank'
       }
-      return new Element(
-        'a',
-        {
-          href: node.url,
-          ...attrs,
-        },
-        children,
-      )
+      return <a
+        href={node.url}
+        {...attrs}
+      >{children}</a>
     },
   },
   defaultTag: 'p',

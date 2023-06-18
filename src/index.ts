@@ -10,8 +10,8 @@ export { config as payloadSlateToDomConfig } from './config/slateToDom/payload'
 export { config as slateDemoSlateToDomConfig } from './config/slateToDom/slateDemo'
 
 // slateToReact
-export { Config as SlateToReactConfig } from './config/slateToDom/types'
-export { config as slateToReactConfig } from './config/slateToDom/default'
+export { Config as SlateToReactConfig } from './config/slateToReact/types'
+export { config as slateToReactConfig } from './config/slateToReact/default'
 
 // htmlToSlate
 export { Config as HtmlToSlateConfig } from './config/htmlToSlate/types'
