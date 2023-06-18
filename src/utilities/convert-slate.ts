@@ -5,6 +5,7 @@ import { Text as SlateText } from 'slate'
 
 import { config as defaultConfig } from '../config/slateToDom/default'
 import { Config } from '../config/slateToDom/types'
+import { SlateToReactConfig } from '..'
 import { nestedMarkElements } from './domhandler'
 import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '.'
 

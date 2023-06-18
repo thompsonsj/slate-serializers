@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 interface IButton {
   onClick?: () => void
-  text: string
+  children?: ReactNode
 }
 
 const Button: FC<IButton> = ({
   onClick,
-  text,
+  children,
 }) => {
   return (
-    <button onClick={onClick}>{text}</button>
+    <button onClick={onClick}>{children}</button>
   );
 }
 
