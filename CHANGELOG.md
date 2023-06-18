@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/thompsonsj/slate-serializers/compare/v0.1.0...v0.2.0) (2023-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **slatetodom:** apply markTransforms on Slate JSON properties ([#66](https://github.com/thompsonsj/slate-serializers/issues/66))
+
+### Code Refactoring
+
+* **slatetodom:** apply markTransforms on Slate JSON properties ([#66](https://github.com/thompsonsj/slate-serializers/issues/66)) ([4dd110f](https://github.com/thompsonsj/slate-serializers/commit/4dd110f99e75f0d8a30a8d040481d5fa65ff93f9))
+
+
+### Styles
+
+* lint and format ([#68](https://github.com/thompsonsj/slate-serializers/issues/68)) ([e800aba](https://github.com/thompsonsj/slate-serializers/commit/e800abad1b14c5ced2592cbb2bcd2f4e95aea753))
+
 ## [0.1.0](https://github.com/thompsonsj/slate-serializers/compare/v0.0.33...v0.1.0) (2023-06-03)
 
 

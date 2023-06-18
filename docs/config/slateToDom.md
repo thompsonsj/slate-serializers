@@ -72,8 +72,8 @@ import { Element } from "domhandler"
 const config: SlateToDomConfig = {
   // ...
   markTransforms: {
-    strong: ({ node }: { node?: any }) => {
-      return new Element('strong', {
+    fontSize: ({ node }: { node?: any }) => {
+      return new Element('span', {
         style: `font-size:${node.fontSize};`,
       })
     },
@@ -82,7 +82,7 @@ const config: SlateToDomConfig = {
 }
 ```
 
-**Keys should map to the HTML formatting element tag name**. This is different to `elementTransform` which use the value of the Slate JSON `type` property. Multiple nested formatting elements can be generated from a Slate JSON value, and we want to be able to control which HTML formatting tag elements inherit those attributes.
+**Keys should map keys on the Slate object**. This is different to `elementTransform` which uses the value of the Slate JSON `type` property only.
 
 The Slate JS node is passed into this function. A node of type `Element` from `domhandler` must be returned. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation.
 

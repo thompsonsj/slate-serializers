@@ -175,7 +175,7 @@ describe('custom config', () => {
     const config = {
       ...slateToDomConfig,
       elementMap: {
-        ['heading-one']: 'h1'
+        ['heading-one']: 'h1',
       },
     }
     expect(slateToHtml(slate, config)).toEqual(html)
@@ -223,13 +223,13 @@ describe('custom config', () => {
             text: 'Paragraph',
           },
         ],
-      }
+      },
     ]
     const config = {
       ...slateToDomConfig,
       elementStyleMap: {
         fontSize: 'font-size',
-      }
+      },
     }
     expect(slateToHtml(slate, config)).toEqual(html)
   })
@@ -250,14 +250,14 @@ describe('custom config', () => {
     const config = {
       ...slateToDomConfig,
       markMap: {
-        subScript: ['sub']
+        subScript: ['sub'],
       },
     }
     expect(slateToHtml(slate, config)).toEqual(html)
   })
 
   it('processes a mark transform', () => {
-    const html = '<p><strong style="font-size:96px;">Paragraph</strong></p>'
+    const html = '<p><span style="font-size:96px;"><strong>Paragraph</strong></span></p>'
     const slate = [
       {
         type: 'p',
@@ -268,15 +268,50 @@ describe('custom config', () => {
             text: 'Paragraph',
           },
         ],
-      }
+      },
     ]
     const config = {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        fontSize: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: `font-size:${node.fontSize};`,
+          })
+        },
+      },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
+  })
+
+  it('demo for issue #59', () => {
+    const html = '<p><span style="font-size:20px;"><strong><sub>Paragraph</sub></strong></span></p>'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            bold: true,
+            style: {
+              fontSize: '20px',
+            },
+            subscript: true,
+            text: 'Paragraph',
+          },
+        ],
+      },
+    ]
+    const config = {
+      ...slateToDomConfig,
+      markMap: {
+        ...slateToDomConfig.markMap,
+        subscript: ['sub'],
+      },
+      markTransforms: {
+        ...slateToDomConfig.markTransforms,
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
+            ...(node.style?.fontSize && { style: `font-size:${node.style.fontSize};` }),
           })
         },
       },
@@ -286,16 +321,20 @@ describe('custom config', () => {
 })
 
 describe('style attribute css transforms with postcss', () => {
-  const transformStyleObjectToString = (style: {[key: string]: any}) => {
+  const transformStyleObjectToString = (style: { [key: string]: any }) => {
     const postcssOptions = {
       parser: postcssJs,
-      from: undefined, 
+      from: undefined,
     }
-    return postcss().process(style, postcssOptions).css.replace(/(\r\n|\n|\r)/gm, " ").replace(/\s\s+/g, ' ')
+    return postcss()
+      .process(style, postcssOptions)
+      .css.replace(/(\r\n|\n|\r)/gm, ' ')
+      .replace(/\s\s+/g, ' ')
   }
 
   it('element transforms', () => {
-    const html = '<p style=\"font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }\"><strong>Paragraph</strong></p>'
+    const html =
+      '<p style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }"><strong>Paragraph</strong></p>'
     const slate = [
       {
         type: 'p',
@@ -304,8 +343,8 @@ describe('style attribute css transforms with postcss', () => {
           '--text-color': '#DD3A0A',
           '@media screen': {
             zIndex: '1',
-            color: 'var(--text-color)'
-          }
+            color: 'var(--text-color)',
+          },
         },
         children: [
           {
@@ -313,16 +352,20 @@ describe('style attribute css transforms with postcss', () => {
             text: 'Paragraph',
           },
         ],
-      }
+      },
     ]
     const config = {
       ...slateToDomConfig,
       elementTransforms: {
         ...slateToDomConfig.elementTransforms,
-        p: ({ node, children }: { node?: any, children?: ChildNode[] }) => {
-          return new Element('p', {
-            style: transformStyleObjectToString(node.style),
-          }, children)
+        p: ({ node, children }: { node?: any; children?: ChildNode[] }) => {
+          return new Element(
+            'p',
+            {
+              style: transformStyleObjectToString(node.style),
+            },
+            children,
+          )
         },
       },
     }
@@ -330,7 +373,8 @@ describe('style attribute css transforms with postcss', () => {
   })
 
   it('mark transforms', () => {
-    const html = '<p><strong style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }">Paragraph</strong></p>'
+    const html =
+      '<p><span style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }"><strong>Paragraph</strong></span></p>'
     const slate = [
       {
         type: 'p',
@@ -342,20 +386,20 @@ describe('style attribute css transforms with postcss', () => {
               '--text-color': '#DD3A0A',
               '@media screen': {
                 zIndex: '1',
-                color: 'var(--text-color)'
-              }
+                color: 'var(--text-color)',
+              },
             },
             text: 'Paragraph',
           },
         ],
-      }
+      },
     ]
     const config = {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: transformStyleObjectToString(node.style),
           })
         },
@@ -366,7 +410,7 @@ describe('style attribute css transforms with postcss', () => {
 
   it('mark transforms on multiple marks', () => {
     const html =
-      '<p>This is editable <strong style=\"font-size: 20px; font-weight: 600; text-decoration: underline dotted\">rich</strong> text, <i style=\"text-decoration: underline\">much</i> better than a <pre><code style=\"color: red\">&lt;textarea&gt;</code></pre>!</p>'
+      '<p>This is editable <span style="font-size: 20px; font-weight: 600; text-decoration: underline dotted"><strong>rich</strong></span> text, <span style="text-decoration: underline"><i>much</i></span> better than a <span style="color: red"><pre><code>&lt;textarea&gt;</code></pre></span>!</p>'
     const slate = [
       {
         type: 'p',
@@ -378,10 +422,10 @@ describe('style attribute css transforms with postcss', () => {
             text: 'rich',
             bold: true,
             style: {
-              fontSize: "20px",
+              fontSize: '20px',
               fontWeight: 600,
-              textDecoration: "underline dotted",
-            }
+              textDecoration: 'underline dotted',
+            },
           },
           {
             text: ' text, ',
@@ -390,8 +434,8 @@ describe('style attribute css transforms with postcss', () => {
             text: 'much',
             italic: true,
             style: {
-              textDecoration: "underline",
-            }
+              textDecoration: 'underline',
+            },
           },
           {
             text: ' better than a ',
@@ -400,31 +444,21 @@ describe('style attribute css transforms with postcss', () => {
             text: '<textarea>',
             code: true,
             style: {
-              color: "red",
-            }
+              color: 'red',
+            },
           },
           {
             text: '!',
           },
         ],
-      }
+      },
     ]
     const config = {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        code: ({ node }: { node?: any }) => {
-          return new Element('code', {
-            style: transformStyleObjectToString(node.style),
-          })
-        },
-        i: ({ node }: { node?: any }) => {
-          return new Element('i', {
-            style: transformStyleObjectToString(node.style),
-          })
-        },
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: transformStyleObjectToString(node.style),
           })
         },

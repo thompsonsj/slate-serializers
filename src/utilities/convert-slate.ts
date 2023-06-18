@@ -8,6 +8,7 @@ import { Config } from '../config/slateToDom/types'
 import { SlateToReactConfig } from '..'
 import { nestedMarkElements } from './domhandler'
 import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '.'
+import { intersection } from '.'
 
 interface IconvertSlate {
   node: any,
@@ -38,6 +39,13 @@ export const convertSlate = ({
 
     strLines.forEach((line, index) => {
       const markElements: Element[] = []
+      const markTransformKeys = intersection(config.markTransforms || {}, node)
+
+      markTransformKeys.map((key) => {
+        if (config.markTransforms?.[key]) {
+          markElements.push(config.markTransforms[key]({ node, attribs: {} }))
+        }
+      })
       Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
           const elements: Element[] = config.markMap[key]

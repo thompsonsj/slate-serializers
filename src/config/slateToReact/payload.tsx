@@ -26,5 +26,4 @@ export const config: SlateToReactConfig = {
       >{children}</a>
     },
   },
-  defaultTag: 'p',
 }
