@@ -257,7 +257,7 @@ describe('custom config', () => {
   })
 
   it('processes a mark transform', () => {
-    const html = '<p><strong style="font-size:96px;">Paragraph</strong></p>'
+    const html = '<p><span style=\"font-size:96px;\"><strong>Paragraph</strong></span></p>'
     const slate = [
       {
         type: 'p',
@@ -274,9 +274,44 @@ describe('custom config', () => {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        fontSize: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: `font-size:${node.fontSize};`,
+          })
+        },
+      },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
+  })
+
+  it('demo for issue #59', () => {
+    const html = '<p><span style=\"font-size:20px;\"><strong><sub>Paragraph</sub></strong></span></p>'
+    const slate = [
+      {
+        type: 'p',
+        children: [
+          {
+            bold: true,
+            style: {
+              fontSize: '20px',
+            },
+            subscript: true,
+            text: 'Paragraph',
+          },
+        ],
+      }
+    ]
+    const config = {
+      ...slateToDomConfig,
+      markMap: {
+        ...slateToDomConfig.markMap,
+        subscript: ['sub']
+      },
+      markTransforms: {
+        ...slateToDomConfig.markTransforms,
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
+            ...(node.style?.fontSize && {style: `font-size:${node.style.fontSize};`}),
           })
         },
       },
@@ -330,7 +365,7 @@ describe('style attribute css transforms with postcss', () => {
   })
 
   it('mark transforms', () => {
-    const html = '<p><strong style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }">Paragraph</strong></p>'
+    const html = '<p><span style=\"font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }\"><strong>Paragraph</strong></span></p>'
     const slate = [
       {
         type: 'p',
@@ -354,8 +389,8 @@ describe('style attribute css transforms with postcss', () => {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: transformStyleObjectToString(node.style),
           })
         },
@@ -366,7 +401,7 @@ describe('style attribute css transforms with postcss', () => {
 
   it('mark transforms on multiple marks', () => {
     const html =
-      '<p>This is editable <strong style=\"font-size: 20px; font-weight: 600; text-decoration: underline dotted\">rich</strong> text, <i style=\"text-decoration: underline\">much</i> better than a <pre><code style=\"color: red\">&lt;textarea&gt;</code></pre>!</p>'
+      '<p>This is editable <span style=\"font-size: 20px; font-weight: 600; text-decoration: underline dotted\"><strong>rich</strong></span> text, <span style=\"text-decoration: underline\"><i>much</i></span> better than a <span style=\"color: red\"><pre><code>&lt;textarea&gt;</code></pre></span>!</p>'
     const slate = [
       {
         type: 'p',
@@ -413,18 +448,8 @@ describe('style attribute css transforms with postcss', () => {
       ...slateToDomConfig,
       markTransforms: {
         ...slateToDomConfig.markTransforms,
-        code: ({ node }: { node?: any }) => {
-          return new Element('code', {
-            style: transformStyleObjectToString(node.style),
-          })
-        },
-        i: ({ node }: { node?: any }) => {
-          return new Element('i', {
-            style: transformStyleObjectToString(node.style),
-          })
-        },
-        strong: ({ node }: { node?: any }) => {
-          return new Element('strong', {
+        style: ({ node }: { node?: any }) => {
+          return new Element('span', {
             style: transformStyleObjectToString(node.style),
           })
         },
