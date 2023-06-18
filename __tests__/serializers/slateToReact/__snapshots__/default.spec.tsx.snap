@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`React conversion can handle inline code tags 1`] = `
-<p
-  className="greeting"
->
+<p>
   This is editable 
   <strong>
     rich
@@ -21,9 +19,7 @@ exports[`React conversion can handle inline code tags 1`] = `
 `;
 
 exports[`React conversion convert domhandler element to React element 1`] = `
-<p
-  className="greeting"
->
+<p>
   Paragraph
 </p>
 `;

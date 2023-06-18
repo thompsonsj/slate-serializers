@@ -2,6 +2,7 @@ import React, { createElement, FC, ReactElement, ReactNode, JSXElementConstructo
 import { AnyNode, Document, Element, isTag } from 'domhandler'
 import { getChildren, getName, textContent } from 'domutils'
 import serializer from 'dom-serializer'
+import { nanoid } from 'nanoid'
 
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { Config } from '../../config/slateToDom/types'
@@ -42,7 +43,7 @@ export const SlateToReact = ({
 const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {
   return React.createElement(
     getName(element),
-    { className: 'greeting' },
+    { key: nanoid() },
     element.children as any
   )
 }
