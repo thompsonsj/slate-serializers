@@ -1,5 +1,5 @@
 import { Element } from 'domhandler'
-import { slateToHtml, payloadSlateToDomConfig, SlateToDomConfig, ElementTagTransformFunction } from '../../../src'
+import { slateToHtml, payloadSlateToDomConfig,  ElementTagTransformFunction } from '../../../src'
 
 describe('slateToHtml: Payload CMS config', () => {
   it('renders an upload field as an `img` HTML element if an image', () => {
