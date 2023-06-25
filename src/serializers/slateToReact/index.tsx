@@ -1,7 +1,6 @@
-import React, { createElement, FC, ReactElement, ReactNode, JSXElementConstructor } from 'react'
-import { AnyNode, Document, Element, isTag, Text } from 'domhandler'
-import { getChildren, getName, textContent } from 'domutils'
-import serializer from 'dom-serializer'
+import React, { ReactElement,  JSXElementConstructor } from 'react'
+import { Element, isTag, Text } from 'domhandler'
+import { getName, textContent } from 'domutils'
 import { nanoid } from 'nanoid'
 
 import { config as defaultConfig } from '../../config/slateToDom/default'

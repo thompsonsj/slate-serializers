@@ -51,14 +51,6 @@ describe("slateToReact: map element to button component", () => {
       },
     ]
 
-    const domConfig: SlateToDomConfig = {
-      ...defaultDomConfig,
-      elementMap: {
-        ...defaultDomConfig.elementMap,
-        button: 'button',
-      }
-    }
-
     const reactConfig: SlateToReactConfig = {
       ...defaultReactConfig,
       elementTransforms: {
@@ -69,7 +61,7 @@ describe("slateToReact: map element to button component", () => {
       },
     }
 
-    const { getByText } = render(<SlateToReact node={slate} config={domConfig} reactConfig={reactConfig} />)
+    const { getByText } = render(<SlateToReact node={slate} reactConfig={reactConfig} />)
     fireEvent.click(getByText("Submit"));
     expect(onClick).toHaveBeenCalled();
   })

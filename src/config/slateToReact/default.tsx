@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react"
 import { Config } from './types'
+import { nanoid } from 'nanoid'
 
 const BlockQuote = ({ children }: { children: ReactNode }) =>
   <blockquote>
@@ -11,7 +12,7 @@ const BlockQuote = ({ children }: { children: ReactNode }) =>
 export const config: Config = {
   elementTransforms: {
     quote: ({ children }) => {
-      return <BlockQuote>{children}</BlockQuote>
+      return <BlockQuote key={nanoid()}>{children}</BlockQuote>
     },
     link: ({ node, children = [] }) => {
       const attrs: any = {}
@@ -19,6 +20,7 @@ export const config: Config = {
         attrs.target = '_blank'
       }
       return <a
+        key={nanoid()}
         href={node.url}
         {...attrs}
       >{children}</a>
