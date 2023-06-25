@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/thompsonsj/slate-serializers/compare/v0.3.0...v0.4.0) (2023-06-25)
+
+
+### Features
+
+* **src:** export a type for elementTransform fns ([#71](https://github.com/thompsonsj/slate-serializers/issues/71)) ([033d0b4](https://github.com/thompsonsj/slate-serializers/commit/033d0b4c577adbcd064012b3a762d4e047e90fd7))
+
 ## [0.3.0](https://github.com/thompsonsj/slate-serializers/compare/v0.2.0...v0.3.0) (2023-06-25)
 
 
