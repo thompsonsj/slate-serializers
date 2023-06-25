@@ -4,8 +4,8 @@ interface MarkTagTransform {
   [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => Element
 }
 
-interface ElementTagTransform {
-  [key: string]: ({
+export type ElementTagTransformFunction = 
+  ({
     node,
     attribs,
     children,
@@ -13,7 +13,10 @@ interface ElementTagTransform {
     node?: any
     attribs?: { [key: string]: string }
     children?: ChildNode[]
-  }) => Element
+  }) => Element | undefined
+
+export interface ElementTagTransform {
+  [key: string]: ElementTagTransformFunction
 }
 
 export interface Config {

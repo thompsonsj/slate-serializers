@@ -1,4 +1,4 @@
-import { Element } from 'domhandler'
+import { Element, Text } from 'domhandler'
 import { config as defaultConfig } from './default'
 import { SlateToDomConfig } from '../..'
 
@@ -28,6 +28,27 @@ export const config: SlateToDomConfig = {
         },
         children,
       )
+    },
+    upload: ({ node, children = [] }) => {
+      const attrs: any = {}
+      if (node.value?.mimeType && node.value?.url) {
+        if (node.value?.mimeType.match(/^image/)) {
+          return new Element(
+            'img',
+            {
+              src: node.value?.url,
+            },
+          )
+        } else {
+          return new Element(
+            'a',
+            {
+              href: node.value?.url,
+            },
+            [new Text(node.value?.filename)]
+          )
+        }
+      }
     },
   },
   defaultTag: 'p',
