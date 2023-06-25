@@ -114,7 +114,7 @@ export const convertSlate = ({
 
   // more complex transforms
   if (config.elementTransforms[node.type]) {
-    element = config.elementTransforms[node.type]({ node, attribs, children })
+    element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }))
   }
 
   // straightforward node to element

@@ -8,6 +8,14 @@ import { config as defaultConfig } from '../../config/slateToDom/default'
 import { Config } from '../../config/slateToDom/types'
 import { slateToReactConfig, type SlateToReactConfig } from '../..'
 import { convertSlate } from '../../utilities/convert-slate'
+import { Node } from 'slate'
+
+const BlockQuote = ({ children }: { children: ReactNode }) =>
+  <blockquote>
+    <p>
+      {children}
+    </p>
+  </blockquote>
 
 interface ISlateToReact {
   node: any[]
@@ -25,11 +33,38 @@ export const SlateToReact = ({
   }
   const document = node.map((n, index) => convertSlate({
     node: n,
-    config,
+    ...{
+      config,
+      elementTransforms: {
+        quote: ({ children }: {children: any[]}) => {
+          return <BlockQuote>{children}</BlockQuote>
+        },
+        link: ({ node, children = [] } : { node: any, children: any[] }) => {
+          const attrs: any = {}
+          if (node.newTab) {
+            attrs.target = '_blank'
+          }
+          return <a
+            href={node.url}
+            {...attrs}
+          ></a>
+        },
+      },
+      elementMap: {
+        ...config.elementMap,
+        button: 'button',
+        link: 'link',
+      }
+    },
     isLastNodeInDocument: index === node.length - 1,
     transformText: (text) => transformText(text),
     transformElement: (element) => {
+      if(element.name === 'link') {
+        console.log(element)
+      }
+        
       if (reactConfig.elementTransforms[element.name]) {
+        console.log('transforming', element.name, element, reactConfig.elementTransforms[element.name]({ node: element, children: element.children as any }))
         return reactConfig.elementTransforms[element.name]({ node: element, children: element.children as any })
       }
       return domElementToReactElement(element)
