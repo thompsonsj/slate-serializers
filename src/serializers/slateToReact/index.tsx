@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid'
 
 import { config as defaultConfig } from '../../config/slateToDom/default'
 import { Config } from '../../config/slateToDom/types'
-import { slateToReactConfig, type SlateToReactConfig } from '../..'
+import { slateToReactConfig, type SlateToReactConfig } from '../../react'
 import { convertSlate } from '../../utilities/convert-slate'
 
 interface ISlateToReact {

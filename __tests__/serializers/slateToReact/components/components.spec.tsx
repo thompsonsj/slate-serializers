@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './testComponents/Button';
 import { render, fireEvent, cleanup } from '@testing-library/react';
 import { SlateToReact } from '../../../../src/serializers/slateToReact'
-import { slateToReactConfig as defaultReactConfig, type SlateToReactConfig, slateToDomConfig as defaultDomConfig, type SlateToDomConfig } from '../../../../src';
+import { slateToReactConfig as defaultReactConfig, type SlateToReactConfig } from '../../../../src/react';
 
 afterEach(cleanup);
 
