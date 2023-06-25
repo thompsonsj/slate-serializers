@@ -14,6 +14,7 @@ interface IconvertSlate {
   node: any,
   config?: Config
   isLastNodeInDocument?: boolean
+  customElementTransforms?: any
   transformText?: (text: Text | Element) => any
   transformElement?: (element: Element) => any
   wrapChildren?: (children: any) => any
@@ -23,6 +24,7 @@ export const convertSlate = ({
   node,
   config = defaultConfig,
   isLastNodeInDocument = false,
+  customElementTransforms,
   transformText = (text) => text,
   transformElement = (element) => element,
   wrapChildren = (children) => new Document(children)
@@ -84,6 +86,7 @@ export const convertSlate = ({
   const children: any[] = node.children ? node.children.map((n: any[]) => convertSlate({
       node: n,
       config,
+      customElementTransforms,
       transformText,
       transformElement,
       wrapChildren,
@@ -113,7 +116,10 @@ export const convertSlate = ({
   let element: Element | null = null
 
   // more complex transforms
-  if (config.elementTransforms[node.type]) {
+  if (customElementTransforms && customElementTransforms[node.type]) {
+    element = customElementTransforms[node.type]({ node, attribs, children })
+  }
+  else if (config.elementTransforms[node.type]) {
     element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }))
   }
 

@@ -30,7 +30,9 @@ exports[`Slate JSON to React transforms Element tags headings 1`] = `
 `;
 
 exports[`Slate JSON to React transforms Element tags link 1`] = `
-<a>
+<a
+  href="https://github.com/thompsonsj/slate-serializers"
+>
   Slate Serializers | GitHub
 </a>
 `;

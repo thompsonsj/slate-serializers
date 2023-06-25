@@ -13,7 +13,7 @@ export const config: Config = {
     quote: ({ children }) => {
       return <BlockQuote>{children}</BlockQuote>
     },
-    /*link: ({ node, children = [] }) => {
+    link: ({ node, children = [] }) => {
       const attrs: any = {}
       if (node.newTab) {
         attrs.target = '_blank'
@@ -21,7 +21,7 @@ export const config: Config = {
       return <a
         href={node.url}
         {...attrs}
-      ></a>
-    },*/
+      >{children}</a>
+    },
   },
 }
