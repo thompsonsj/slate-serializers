@@ -1,6 +1,6 @@
 import React from "react"
 import { config as defaultConfig } from './default'
-import { SlateToReactConfig } from '../..'
+import { SlateToReactConfig } from '../../react'
 
 /**
  * Configuration for Payload CMS
