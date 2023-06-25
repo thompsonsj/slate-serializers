@@ -50,7 +50,14 @@ const transformText = (text: Text | Element) => {
 const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {
   return React.createElement(
     getName(element),
-    { key: nanoid() },
+    {
+      /* Ensure all React elements have a unique key - is there a better way to do this? */
+      key: nanoid(),
+      /* Provide all attributes as props */
+      ...element.attribs,
+      /* Convert key names for JSX compatibility */
+      ...(element.attribs?.class && { className: element.attribs?.class }),
+    },
     element.children as any
   )
 }

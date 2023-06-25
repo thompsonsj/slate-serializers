@@ -117,6 +117,7 @@ export const convertSlate = ({
 
   // more complex transforms
   if (customElementTransforms && customElementTransforms[node.type]) {
+    console.log(`Transforming ${node.type}`)
     element = customElementTransforms[node.type]({ node, attribs, children })
   }
   else if (config.elementTransforms[node.type]) {
