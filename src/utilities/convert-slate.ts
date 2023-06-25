@@ -122,7 +122,7 @@ export const convertSlate = ({
   if (customElementTransforms && customElementTransforms[node.type]) {
     element = customElementTransforms[node.type]({ node, attribs, children })
   } else if (config.elementTransforms[node.type]) {
-    element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }))
+    element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }) as Element)
   }
 
   // straightforward node to element

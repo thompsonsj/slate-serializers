@@ -14,3 +14,6 @@ export { Config as HtmlToSlateConfig } from './config/htmlToSlate/types'
 export { config as htmlToSlateConfig } from './config/htmlToSlate/default'
 export { config as payloadHtmlToSlateConfig } from './config/htmlToSlate/payload'
 export { config as slateDemoHtmlToSlateConfig } from './config/htmlToSlate/slateDemo'
+
+// Useful types
+export { ElementTagTransformFunction } from './config/slateToDom/types'
