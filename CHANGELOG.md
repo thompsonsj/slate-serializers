@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/thompsonsj/slate-serializers/compare/v0.2.0...v0.3.0) (2023-06-25)
+
+
+### Features
+
+* **slatetoreact:** add serializer ([#55](https://github.com/thompsonsj/slate-serializers/issues/55)) ([8b59a7e](https://github.com/thompsonsj/slate-serializers/commit/8b59a7ef2382a5f3113476b0017a8244a60e539a))
+
 ## [0.2.0](https://github.com/thompsonsj/slate-serializers/compare/v0.1.0...v0.2.0) (2023-06-18)
 
 
