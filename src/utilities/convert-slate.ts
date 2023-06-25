@@ -10,7 +10,7 @@ import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from 
 import { intersection } from '.'
 
 interface IconvertSlate {
-  node: any,
+  node: any
   config?: Config
   isLastNodeInDocument?: boolean
   customElementTransforms?: any
@@ -24,9 +24,11 @@ export const convertSlate = ({
   config = defaultConfig,
   isLastNodeInDocument = false,
   customElementTransforms,
+  /* tslint:disable:no-shadowed-variable */ 
   transformText = (text) => text,
+  /* tslint:disable:no-shadowed-variable */ 
   transformElement = (element) => element,
-  wrapChildren = (children) => new Document(children)
+  wrapChildren = (children) => new Document(children),
 }: IconvertSlate) => {
   if (SlateText.isText(node)) {
     const str =
@@ -49,14 +51,13 @@ export const convertSlate = ({
       })
       Object.keys(config.markMap).forEach((key) => {
         if ((node as any)[key]) {
-          const elements: Element[] = config.markMap[key]
-            .map((tagName) => {
-              // more complex transforms
-              if (config.markTransforms?.[tagName]) {
-                return config.markTransforms[tagName]({ node, attribs: {} })
-              }
-              return new Element(tagName, {}, [])
-            })
+          const elements: Element[] = config.markMap[key].map((tagName) => {
+            // more complex transforms
+            if (config.markTransforms?.[tagName]) {
+              return config.markTransforms[tagName]({ node, attribs: {} })
+            }
+            return new Element(tagName, {}, [])
+          })
           markElements.push(...elements)
         }
       })
@@ -82,15 +83,18 @@ export const convertSlate = ({
     return wrapChildren(textChildren.map((child) => transformText(child)))
   }
 
-  const children: any[] = node.children ? node.children.map((n: any[]) => convertSlate({
-      node: n,
-      config,
-      customElementTransforms,
-      transformText,
-      transformElement,
-      wrapChildren,
-    },
-  )) : []
+  const children: any[] = node.children
+    ? node.children.map((n: any[]) =>
+        convertSlate({
+          node: n,
+          config,
+          customElementTransforms,
+          transformText,
+          transformElement,
+          wrapChildren,
+        }),
+      )
+    : []
 
   let attribs: { [key: string]: string } = {}
   const styleAttrs: { [key: string]: string } = {}
@@ -116,10 +120,8 @@ export const convertSlate = ({
 
   // more complex transforms
   if (customElementTransforms && customElementTransforms[node.type]) {
-    console.log(`Transforming ${node.type}`)
     element = customElementTransforms[node.type]({ node, attribs, children })
-  }
-  else if (config.elementTransforms[node.type]) {
+  } else if (config.elementTransforms[node.type]) {
     element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }))
   }
 

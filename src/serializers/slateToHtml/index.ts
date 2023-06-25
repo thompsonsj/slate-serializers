@@ -19,10 +19,12 @@ export const slateToDom: SlateToDom = (node: any[], config = defaultConfig) => {
   if (!Array.isArray(node)) {
     return new Document([])
   }
-  const document = node.map((n, index) => convertSlate({
-    node: n,
-    config,
-    isLastNodeInDocument: index === node.length - 1
-  }))
+  const document = node.map((n, index) =>
+    convertSlate({
+      node: n,
+      config,
+      isLastNodeInDocument: index === node.length - 1,
+    }),
+  )
   return document
 }

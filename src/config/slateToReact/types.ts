@@ -1,13 +1,7 @@
 import { ReactNode } from 'react'
 
 interface MarkTagTransform {
-  [key: string]: ({
-    node,
-    attribs,
-  }: {
-    node?: any
-    attribs?: { [key: string]: string }
-  }) => ReactNode
+  [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => ReactNode
 }
 
 interface ElementTagTransform {
