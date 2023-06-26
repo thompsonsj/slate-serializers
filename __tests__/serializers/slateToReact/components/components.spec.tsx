@@ -1,42 +1,42 @@
-import React from 'react';
-import Button from './testComponents/Button';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import React from 'react'
+import Button from './testComponents/Button'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { SlateToReact } from '../../../../src/serializers/slateToReact'
-import { slateToReactConfig as defaultReactConfig, type SlateToReactConfig } from '../../../../src/react';
+import { slateToReactConfig as defaultReactConfig, type SlateToReactConfig } from '../../../../src/react'
 
-afterEach(cleanup);
+afterEach(cleanup)
 
-const defaultProps = { 
+const defaultProps = {
   onClick: jest.fn(),
   children: <>Submit</>,
-};
+}
 
-describe("simple button tests", () => {
+describe('simple button tests', () => {
   test('button renders with correct text', () => {
-    const { queryByText, rerender } = render(<Button {...defaultProps} />);
-    expect(queryByText("Submit")).toBeTruthy(); 
+    const { queryByText, rerender } = render(<Button {...defaultProps} />)
+    expect(queryByText('Submit')).toBeTruthy()
 
     // Change props
-    rerender(<Button {...defaultProps} children={<>Go</>} />);
-    expect(queryByText("Go")).toBeTruthy(); 
-  });
+    rerender(<Button {...defaultProps} children={<>Go</>} />)
+    expect(queryByText('Go')).toBeTruthy()
+  })
 
   test('calls correct function on click', () => {
-    const onClick = jest.fn();
+    const onClick = jest.fn()
     const { getByText } = render(<Button {...defaultProps} onClick={onClick} />)
-    fireEvent.click(getByText("Submit"));
-    expect(onClick).toHaveBeenCalled();
-  });
+    fireEvent.click(getByText('Submit'))
+    expect(onClick).toHaveBeenCalled()
+  })
 })
 
-describe("slateToReact: map element to button component", () => {
-  it("renders a custom button", () => {
-    const onClick = jest.fn();
+describe('slateToReact: map element to button component', () => {
+  it('renders a custom button', () => {
+    const onClick = jest.fn()
     const slate = [
       {
         children: [
           {
-            text: "Paragraph",
+            text: 'Paragraph',
           },
         ],
         type: 'p',
@@ -44,7 +44,7 @@ describe("slateToReact: map element to button component", () => {
       {
         children: [
           {
-            text: "Submit",
+            text: 'Submit',
           },
         ],
         type: 'button',
@@ -62,7 +62,7 @@ describe("slateToReact: map element to button component", () => {
     }
 
     const { getByText } = render(<SlateToReact node={slate} reactConfig={reactConfig} />)
-    fireEvent.click(getByText("Submit"));
-    expect(onClick).toHaveBeenCalled();
+    fireEvent.click(getByText('Submit'))
+    expect(onClick).toHaveBeenCalled()
   })
 })

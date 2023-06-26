@@ -1,24 +1,22 @@
 import React from 'react'
-import renderer from 'react-test-renderer';
+import renderer from 'react-test-renderer'
 import { SlateToReact } from '../../../src/serializers/slateToReact'
 
-describe("React conversion", () => {
-  test("convert domhandler element to React element", async () => {
+describe('React conversion', () => {
+  test('convert domhandler element to React element', async () => {
     const slate = [
       {
         children: [
           {
-            text: "Paragraph",
+            text: 'Paragraph',
           },
         ],
         type: 'p',
       },
     ]
 
-    const tree = renderer
-      .create(<SlateToReact node={slate} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const tree = renderer.create(<SlateToReact node={slate} />).toJSON()
+    expect(tree).toMatchSnapshot()
   })
 
   it('can handle inline code tags', () => {
@@ -55,9 +53,7 @@ describe("React conversion", () => {
         ],
       },
     ]
-    const tree = renderer
-      .create(<SlateToReact node={slate} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
+    const tree = renderer.create(<SlateToReact node={slate} />).toJSON()
+    expect(tree).toMatchSnapshot()
   })
 })

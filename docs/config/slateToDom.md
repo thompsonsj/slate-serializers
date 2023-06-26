@@ -12,8 +12,8 @@ import { SlateToDomConfig } from 'slate-serializers'
 const config: SlateToDomConfig = {
   // ...
   elementMap: {
-    ['heading-one']: 'h1'
-  }
+    ['heading-one']: 'h1',
+  },
   // ...
 }
 ```
@@ -23,7 +23,7 @@ const config: SlateToDomConfig = {
 For more complex transformations, use `elementTransforms`.
 
 ```ts
-import { Element } from "domhandler"
+import { Element } from 'domhandler'
 
 const config: SlateToDomConfig = {
   // ...
@@ -33,7 +33,7 @@ const config: SlateToDomConfig = {
         src: node.url,
       })
     },
-  }
+  },
   // ...
 }
 ```
@@ -54,8 +54,8 @@ import { SlateToDomConfig } from 'slate-serializers'
 const config: SlateToDomConfig = {
   // ...
   markMap: {
-    subScript: ['sub']
-  }
+    subScript: ['sub'],
+  },
   // ...
 }
 ```
@@ -67,7 +67,7 @@ Note that the config value is an array of strings. This allows multiple formatti
 For more complex transformations, use `markTransforms`.
 
 ```ts
-import { Element } from "domhandler"
+import { Element } from 'domhandler'
 
 const config: SlateToDomConfig = {
   // ...
@@ -77,7 +77,7 @@ const config: SlateToDomConfig = {
         style: `font-size:${node.fontSize};`,
       })
     },
-  }
+  },
   // ...
 }
 ```

@@ -1,13 +1,12 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from 'react'
 import { Config } from './types'
 import { nanoid } from 'nanoid'
 
-const BlockQuote = ({ children }: { children: ReactNode }) =>
+const BlockQuote = ({ children }: { children: ReactNode }) => (
   <blockquote>
-    <p>
-      {children}
-    </p>
+    <p>{children}</p>
   </blockquote>
+)
 
 export const config: Config = {
   elementTransforms: {
@@ -19,11 +18,11 @@ export const config: Config = {
       if (node.newTab) {
         attrs.target = '_blank'
       }
-      return <a
-        key={nanoid()}
-        href={node.url}
-        {...attrs}
-      >{children}</a>
+      return (
+        <a key={nanoid()} href={node.url} {...attrs}>
+          {children}
+        </a>
+      )
     },
   },
 }

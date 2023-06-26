@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import { config as defaultConfig } from './default'
 import { SlateToReactConfig } from '../../react'
 
@@ -20,10 +20,11 @@ export const config: SlateToReactConfig = {
       if (node.newTab) {
         attrs.target = '_blank'
       }
-      return <a
-        href={node.url}
-        {...attrs}
-      >{children}</a>
+      return (
+        <a href={node.url} {...attrs}>
+          {children}
+        </a>
+      )
     },
   },
 }

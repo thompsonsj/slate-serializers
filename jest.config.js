@@ -1,4 +1,4 @@
-const esModules = ['nanoid'].join('|');
+const esModules = ['nanoid'].join('|')
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
@@ -6,19 +6,15 @@ module.exports = {
   testEnvironment: 'jsdom',
   preset: 'ts-jest',
   transform: {
-    "^.+\\.[tj]s$": "ts-jest"
+    '^.+\\.[tj]s$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    "<rootDir>/node_modules/(?!nanoid)"
-  ],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!nanoid)'],
   globals: {
-    "ts-jest": {
-      "tsconfig": {
-        "allowJs": true
-      }
-    }
+    'ts-jest': {
+      tsconfig: {
+        allowJs: true,
+      },
+    },
   },
-  testMatch: [
-    '**/__tests__/**/*.spec.(ts|tsx)',
-  ],
+  testMatch: ['**/__tests__/**/*.spec.(ts|tsx)'],
 }

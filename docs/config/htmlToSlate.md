@@ -15,7 +15,7 @@ const config: HtmlToSlateConfig = {
     h1: () => ({
       type: 'heading-one',
     }),
-  }
+  },
   // ...
 }
 ```
@@ -34,7 +34,7 @@ const config: HtmlToSlateConfig = {
       newTab: el && getAttributeValue(el, 'target') === '_blank',
       url: el && getAttributeValue(el, 'href'),
     }),
-  }
+  },
   // ...
 }
 ```
@@ -86,7 +86,7 @@ import { HtmlToSlateConfig } from 'slate-serializers'
 
 const config: HtmlToSlateConfig = {
   // ...
-  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g,'<code>').replace(/<\/pre>/g,'</code>'),
+  htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>'),
   // ...
 }
 ```
