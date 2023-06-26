@@ -33,19 +33,16 @@ export const config: SlateToDomConfig = {
       const attrs: any = {}
       if (node.value?.mimeType && node.value?.url) {
         if (node.value?.mimeType.match(/^image/)) {
-          return new Element(
-            'img',
-            {
-              src: node.value?.url,
-            },
-          )
+          return new Element('img', {
+            src: node.value?.url,
+          })
         } else {
           return new Element(
             'a',
             {
               href: node.value?.url,
             },
-            [new Text(node.value?.filename)]
+            [new Text(node.value?.filename)],
           )
         }
       }

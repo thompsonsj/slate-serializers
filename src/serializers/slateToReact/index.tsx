@@ -1,4 +1,4 @@
-import React, { ReactElement,  JSXElementConstructor } from 'react'
+import React, { ReactElement, JSXElementConstructor } from 'react'
 import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
 import { nanoid } from 'nanoid'
@@ -14,28 +14,26 @@ interface ISlateToReact {
   reactConfig?: SlateToReactConfig
 }
 
-export const SlateToReact = ({
-  node,
-  config = defaultConfig,
-  reactConfig = slateToReactConfig
-}: ISlateToReact) => {
+export const SlateToReact = ({ node, config = defaultConfig, reactConfig = slateToReactConfig }: ISlateToReact) => {
   if (!Array.isArray(node)) {
     return <></>
   }
-  const document = node.map((n, index) => convertSlate({
-    node: n,
-    ...{
-      config,
-      elementTransforms: {},
-    },
-    isLastNodeInDocument: index === node.length - 1,
-    customElementTransforms: reactConfig.elementTransforms,
-    transformText: (text) => transformText(text),
-    transformElement: (element) => {
-      return domElementToReactElement(element)
-    },
-    wrapChildren: (children) => children
-  }))
+  const document = node.map((n, index) =>
+    convertSlate({
+      node: n,
+      ...{
+        config,
+        elementTransforms: {},
+      },
+      isLastNodeInDocument: index === node.length - 1,
+      customElementTransforms: reactConfig.elementTransforms,
+      transformText: (text) => transformText(text),
+      transformElement: (element) => {
+        return domElementToReactElement(element)
+      },
+      wrapChildren: (children) => children,
+    }),
+  )
   return document as any
 }
 
@@ -57,6 +55,6 @@ const domElementToReactElement = (element: Element): ReactElement<any, string | 
       /* Convert key names for JSX compatibility */
       ...(element.attribs?.class && { className: element.attribs?.class }),
     },
-    element.children as any
+    element.children as any,
   )
 }
