@@ -23,7 +23,9 @@ export const convertSlate = ({
   config = defaultConfig,
   isLastNodeInDocument = false,
   customElementTransforms,
+  /* tslint:disable:no-shadowed-variable */
   transformText = (text) => text,
+  /* tslint:disable:no-shadowed-variable */
   transformElement = (element) => element,
   wrapChildren = (children) => new Document(children),
 }: IConvertSlate) => {
@@ -34,6 +36,7 @@ export const convertSlate = ({
     const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]
     const textChildren: (Element | Text)[] = []
 
+    // convert line breaks to br tags
     strLines.forEach((line, index) => {
       const markElements: Element[] = []
       const markTransformKeys = intersection(config.markTransforms || {}, node)
@@ -55,7 +58,7 @@ export const convertSlate = ({
           markElements.push(...elements)
         }
       })
-
+      // clone markElements (it gets modified)
       const markElementsClone = [...markElements]
       const textElement = nestedMarkElements(markElements, new Text(line))
 
@@ -115,16 +118,19 @@ export const convertSlate = ({
 
   let element: Element | null = null
 
+  // more complex transforms
   if (customElementTransforms && customElementTransforms[node.type]) {
     element = customElementTransforms[node.type]({ node, attribs, children })
   } else if (config.elementTransforms[node.type]) {
     element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }) as Element)
   }
 
+  // straightforward node to element mapping
   if (!element && config.elementMap[node.type]) {
     element = transformElement(new Element(config.elementMap[node.type], attribs, children))
   }
 
+  // default tag
   if (!element && config.defaultTag && !node.type) {
     element = transformElement(new Element(config.defaultTag, {}, children))
   }
@@ -133,6 +139,7 @@ export const convertSlate = ({
     return element
   }
 
+  // add line break between inline nodes
   if (config.convertLineBreakToBr && !isLastNodeInDocument) {
     children.push(transformElement(new Element('br', {})))
   }
