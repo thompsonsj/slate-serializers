@@ -82,7 +82,7 @@ const deserialize = ({
   }
 
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
-    const attrs = gatherTextMarkAttributes({ el: currentEl })
+    const attrs = gatherTextMarkAttributes({ el: currentEl,config })
     const text = processTextValue({
       text: textContent(el as Element),
       context: childrenContext as Context,
