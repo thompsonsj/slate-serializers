@@ -1,4 +1,6 @@
-import { ChildNode, Element } from 'domhandler'
+import { ChildNode, Element, Text } from 'domhandler'
+import CSSselect from 'css-select'
+import { find, innerText, removeElement, replaceElement } from 'domutils'
 import { slateToHtml, slateToDomConfig } from '../../../src'
 
 const postcss = require('postcss')
@@ -315,6 +317,54 @@ describe('custom config', () => {
           })
         },
       },
+    }
+    expect(slateToHtml(slate, config)).toEqual(html)
+  })
+
+  it ('demo for issue #75', () => {
+    const html = '<placeholder><strong>${name}</strong></placeholder>'
+    const slate = [
+      {
+        type: "placeholder",
+        value: "name",
+        children: [
+          {
+            text: "name",
+            bold: true
+          }
+        ]
+      }
+    ]
+    const config = {
+      ...slateToDomConfig,
+      elementTransforms: {
+        ...slateToDomConfig.elementTransforms,
+        placeholder: ({ node, children = [] }: { node?: any, children?: ChildNode[] }) => {
+          // find the first text element - limit to 10 levels deep
+          const textElement = find(child => child.type === 'text', children, true, 10)
+          // if there is no text element, return element transform
+          if (textElement.length === 0) { 
+            return new Element( 
+              'placeholder',
+              {},
+              children
+            );
+          }
+          // if there is a text element, replace the text with the value
+          const value = `${'${' + node.value + '}'}`;
+          // note that we can assume textElement[0] is a Text node because we found it above
+          (textElement[0] as Text).data = value
+          return new Element( 
+            'placeholder',
+            {},
+            [
+              ...children,
+            ]
+          )
+        }
+      },
+      encodeEntities: false,
+      alwaysEncodeBreakingEntities: true,
     }
     expect(slateToHtml(slate, config)).toEqual(html)
   })
