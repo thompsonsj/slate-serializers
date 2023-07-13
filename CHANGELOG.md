@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.1](https://github.com/thompsonsj/slate-serializers/compare/v0.4.0...v0.4.1) (2023-07-13)
+
+
+### Bug Fixes
+
+* **htmltoslate:** call to gatherTextMarkAttributes using default config ([#77](https://github.com/thompsonsj/slate-serializers/issues/77)) ([2afc34f](https://github.com/thompsonsj/slate-serializers/commit/2afc34fcbd038793b3d986501c63328e4ae62b9a))
+
 ## [0.4.0](https://github.com/thompsonsj/slate-serializers/compare/v0.3.0...v0.4.0) (2023-06-25)
 
 
