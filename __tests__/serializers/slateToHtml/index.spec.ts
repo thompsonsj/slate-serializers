@@ -347,7 +347,7 @@ describe('custom config', () => {
             // note that we can assume textElement[0] is a Text node because we found it above
             ;(textElement[0] as Text).data = value
           }
-          return new Element('placeholder', {}, [...children])
+          return new Element('placeholder', {}, children)
         },
       },
       encodeEntities: false,
