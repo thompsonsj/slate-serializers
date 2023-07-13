@@ -1,6 +1,5 @@
 import { ChildNode, Element, Text } from 'domhandler'
-import CSSselect from 'css-select'
-import { find, innerText, removeElement, replaceElement } from 'domutils'
+import { find } from 'domutils'
 import { slateToHtml, slateToDomConfig } from '../../../src'
 
 const postcss = require('postcss')
@@ -321,41 +320,35 @@ describe('custom config', () => {
     expect(slateToHtml(slate, config)).toEqual(html)
   })
 
-  it ('demo for issue #75', () => {
+  it('demo for issue #75', () => {
     const html = '<placeholder><strong>${name}</strong></placeholder>'
     const slate = [
       {
-        type: "placeholder",
-        value: "name",
+        type: 'placeholder',
+        value: 'name',
         children: [
           {
-            text: "name",
-            bold: true
-          }
-        ]
-      }
+            text: 'name',
+            bold: true,
+          },
+        ],
+      },
     ]
     const config = {
       ...slateToDomConfig,
       elementTransforms: {
         ...slateToDomConfig.elementTransforms,
-        placeholder: ({ node, children = [] }: { node?: any, children?: ChildNode[] }) => {
+        placeholder: ({ node, children = [] }: { node?: any; children?: ChildNode[] }) => {
           // find the first text element - limit to 10 levels deep
-          const textElement = find(child => child.type === 'text', children, true, 10)
+          const textElement = find((child) => child.type === 'text', children, true, 10)
           // if a text element is found, replace the text with the value
-          if (textElement.length > 0) { 
-            const value = `${'${' + node.value + '}'}`;
+          if (textElement.length > 0) {
+            const value = `${'${' + node.value + '}'}`
             // note that we can assume textElement[0] is a Text node because we found it above
-            (textElement[0] as Text).data = value
+            ;(textElement[0] as Text).data = value
           }
-          return new Element( 
-            'placeholder',
-            {},
-            [
-              ...children,
-            ]
-          )
-        }
+          return new Element('placeholder', {}, [...children])
+        },
       },
       encodeEntities: false,
       alwaysEncodeBreakingEntities: true,
