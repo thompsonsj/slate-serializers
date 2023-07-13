@@ -342,18 +342,12 @@ describe('custom config', () => {
         placeholder: ({ node, children = [] }: { node?: any, children?: ChildNode[] }) => {
           // find the first text element - limit to 10 levels deep
           const textElement = find(child => child.type === 'text', children, true, 10)
-          // if there is no text element, return element transform
-          if (textElement.length === 0) { 
-            return new Element( 
-              'placeholder',
-              {},
-              children
-            );
+          // if a text element is found, replace the text with the value
+          if (textElement.length > 0) { 
+            const value = `${'${' + node.value + '}'}`;
+            // note that we can assume textElement[0] is a Text node because we found it above
+            (textElement[0] as Text).data = value
           }
-          // if there is a text element, replace the text with the value
-          const value = `${'${' + node.value + '}'}`;
-          // note that we can assume textElement[0] is a Text node because we found it above
-          (textElement[0] as Text).data = value
           return new Element( 
             'placeholder',
             {},
