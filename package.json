@@ -2,7 +2,10 @@
   "name": "@slate-serializers/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "test": "nx run-many --all --target=test",
+    "build": "nx run-many --all --target=build"
+  },
   "private": true,
   "dependencies": {
     "css-select": "^5.1.0",
