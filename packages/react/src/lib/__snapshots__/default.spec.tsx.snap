@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`React conversion can handle inline code tags 1`] = `
+<p>
+  This is editable 
+  <strong>
+    rich
+  </strong>
+   text, 
+  <i>
+    much
+  </i>
+   better than a 
+  <pre>
+    &lt;textarea&gt;
+  </pre>
+  !
+</p>
+`;
+
+exports[`React conversion convert domhandler element to React element 1`] = `
+<p>
+  Paragraph
+</p>
+`;
