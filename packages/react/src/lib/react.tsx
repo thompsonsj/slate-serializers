@@ -1,12 +1,6 @@
-/* eslint-disable-next-line */
-export interface ReactProps {}
+// Serializers
+export { SlateToReact } from './serializers'
 
-export function React(props: ReactProps) {
-  return (
-    <div>
-      <h1>Welcome to React!</h1>
-    </div>
-  );
-}
-
-export default React;
+// Configuration objects
+export { Config as SlateToReactConfig } from './config/types'
+export { config as slateToReactConfig } from './config/default'
