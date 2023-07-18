@@ -1,10 +1,11 @@
 {
   "name": "@slate-serializers/source",
-  "version": "0.0.0",
+  "version": "0.4.1",
   "license": "MIT",
   "scripts": {
     "test": "nx run-many --all --target=test",
-    "build": "nx run-many --all --target=build"
+    "build": "nx run-many --all --target=build",
+    "publish": "nx deploy dom && nx deploy html && nx deploy react"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +53,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "jsdom": "~22.1.0",
+    "ngx-deploy-npm": "^6.0.0",
     "nx": "16.5.2",
     "nx-cloud": "latest",
     "postcss": "^8.4.24",

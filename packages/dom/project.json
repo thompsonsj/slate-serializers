@@ -11,7 +11,8 @@
         "outputPath": "dist/packages/dom",
         "main": "packages/dom/src/index.ts",
         "tsConfig": "packages/dom/tsconfig.lib.json",
-        "assets": ["packages/dom/*.md"]
+        "assets": ["packages/dom/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {
@@ -37,6 +38,12 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
       }
     }
   },
