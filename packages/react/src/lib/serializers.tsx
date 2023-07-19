@@ -3,29 +3,29 @@ import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
 import { ulid } from 'ulid'
 
-import { slateToDomConfig, type SlateToDomConfig, convertSlate } from '@slate-serializers/dom'
+import { convertSlate } from '@slate-serializers/dom'
 import { config as slateToReactConfig } from './config/default'
 import type { Config as SlateToReactConfig } from './config/types'
 
 interface ISlateToReact {
   node: any[]
-  config?: SlateToDomConfig
-  reactConfig?: SlateToReactConfig
+  config?: SlateToReactConfig
 }
 
-export const SlateToReact = ({ node, config = slateToDomConfig, reactConfig = slateToReactConfig }: ISlateToReact) => {
+export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReact) => {
   if (!Array.isArray(node)) {
     return <></>
   }
   const document = node.map((n, index) =>
     convertSlate({
       node: n,
-      ...{
-        config,
+      config: {
+        ...config.dom,
         elementTransforms: {},
+        markTransforms: {},
       },
       isLastNodeInDocument: index === node.length - 1,
-      customElementTransforms: reactConfig.elementTransforms,
+      customElementTransforms: config.react.elementTransforms,
       transformText: (text) => transformText(text),
       transformElement: (element) => {
         return domElementToReactElement(element)
@@ -53,6 +53,8 @@ const domElementToReactElement = (element: Element): ReactElement<any, string | 
       ...element.attribs,
       /* Convert key names for JSX compatibility */
       ...(element.attribs?.class && { className: element.attribs?.class }),
+      /* Validate style (can convert to React style object using elementAttributeTransform or other transform functions, but it is still possible that a string will be passed) */
+      ...(element.attribs?.style && typeof element.attribs.style === 'object' && { style: element.attribs?.style }),
     },
     element.children as any,
   )

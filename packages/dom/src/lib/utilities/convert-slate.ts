@@ -5,7 +5,7 @@ import { Text as SlateText } from 'slate'
 import { config as defaultConfig } from '../config/default'
 import { Config } from '../config/types'
 import { nestedMarkElements } from './domhandler'
-import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '@slate-serializers/utilities'
+import { encodeBreakingEntities } from '@slate-serializers/utilities'
 import { intersection } from '@slate-serializers/utilities'
 
 interface IConvertSlate {
@@ -134,6 +134,6 @@ export const convertSlate = ({
   if (config.convertLineBreakToBr && !isLastNodeInDocument) {
     children.push(transformElement(new Element('br', {})))
   }
-
+console.log(config)
   return wrapChildren(children)
 }
