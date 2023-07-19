@@ -1,30 +1,12 @@
 import { ChildNode, Element } from 'domhandler'
 import { slateToDomConfig } from '@slate-serializers/dom'
 import { config as htmlToSlateConfig } from '../htmlToSlate/config/default'
+import { transformStyleObjectToString, transformStyleStringToObject } from '@slate-serializers/utilities'
 
 interface Ifixture {
   name: string
   html: string
   slate: object[]
-}
-
-import postcss = require('postcss')
-import postcssJs = require('postcss-js')
-
-const transformStyleObjectToString = (style: { [key: string]: any }) => {
-  const postcssOptions = {
-    parser: postcssJs,
-    from: undefined,
-  }
-  return postcss()
-    .process(style, postcssOptions as any)
-    .css.replace(/(\r\n|\n|\r)/gm, ' ')
-    .replace(/\s\s+/g, ' ')
-}
-
-const transformStyleStringToObject = (style: string) => {
-  const root = postcss.parse(style)
-  return postcssJs.objectify(root)
 }
 
 export const slateToDomConfigStyleObject = {
