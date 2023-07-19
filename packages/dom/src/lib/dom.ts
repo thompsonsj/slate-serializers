@@ -3,7 +3,7 @@ export { slateToDom } from './serializers'
 
 // Configuration objects
 // slateToDom
-export { Config as SlateToDomConfig } from './config/types'
+export type { Config as SlateToDomConfig } from './config/types'
 export { config as slateToDomConfig } from './config/default'
 export { config as payloadSlateToDomConfig } from './config/payload'
 export { config as slateDemoSlateToDomConfig } from './config/slateDemo'
