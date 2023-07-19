@@ -43,18 +43,22 @@ export const convertSlate = ({
 
       markTransformKeys.forEach((key) => {
         if (config.markTransforms?.[key]) {
-          markElements.push(config.markTransforms[key]({ node, attribs: {} }))
+          const markElement = config.markTransforms[key]({ node, attribs: {} })
+          if (markElement) {
+            markElements.push(markElement)
+          }
         }
       })
 
       Object.keys(config.markMap).forEach((key) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((node as any)[key]) {
           const elements: Element[] = config.markMap[key].map((tagName) => {
             if (config.markTransforms?.[tagName]) {
               return config.markTransforms[tagName]({ node, attribs: {} })
             }
             return new Element(tagName, {}, [])
-          })
+          }).filter((element) => element !== undefined) as Element[]
           markElements.push(...elements)
         }
       })

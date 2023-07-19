@@ -1,21 +1,28 @@
 import { ChildNode, Element } from 'domhandler'
 
-interface MarkTagTransform {
-  [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => Element
+export type MarkTransform = ({ node, attribs }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node?: any;
+  attribs?: { [key: string]: string }
+}) => Element | undefined
+
+interface MarkTransforms {
+  [key: string]: MarkTransform
 }
 
-export type ElementTagTransformFunction = ({
+export type ElementTransform = ({
   node,
   attribs,
   children,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node?: any
   attribs?: { [key: string]: string }
   children?: ChildNode[]
 }) => Element | undefined
 
-export interface ElementTagTransform {
-  [key: string]: ElementTagTransformFunction
+interface ElementTransforms {
+  [key: string]: ElementTransform
 }
 
 export interface Config {
@@ -27,8 +34,8 @@ export interface Config {
   markStyleMap?: {
     [key: string]: string
   }
-  markTransforms?: MarkTagTransform
-  elementTransforms: ElementTagTransform
+  markTransforms?: MarkTransforms
+  elementTransforms: ElementTransforms
   defaultTag?: string
   encodeEntities?: boolean
   alwaysEncodeBreakingEntities?: boolean
