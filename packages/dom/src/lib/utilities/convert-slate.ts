@@ -99,27 +99,6 @@ export const convertSlate = ({
     : []
 
   let attribs: { [key: string]: string } = {}
-  const styleAttrs: { [key: string]: string } = {}
-  const style = getNested(config, 'elementStyleMap')
-
-  if (style) {
-    Object.keys(style).forEach((slateKey) => {
-      const cssProperty = style[slateKey]
-      const cssValue = node[slateKey]
-
-      if (cssValue) {
-        styleAttrs[cssProperty] = cssValue
-      }
-    })
-
-    if (!isEmptyObject(styleAttrs)) {
-      attribs = {
-        ...attribs,
-        style: styleToString(styleAttrs),
-      }
-    }
-  }
-
 
   if (config.elementAttributeTransform) {
     attribs = {

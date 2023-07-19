@@ -25,7 +25,7 @@ export type AttributeTransform = ({
   node,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  node?: any
+  node: any
 }) => { [key: string]: string } | undefined
 
 interface ElementTransforms {
@@ -35,9 +35,6 @@ interface ElementTransforms {
 export interface Config {
   markMap: { [key: string]: string[] }
   elementMap: { [key: string]: string }
-  elementStyleMap?: {
-    [key: string]: string
-  }
   markStyleMap?: {
     [key: string]: string
   }

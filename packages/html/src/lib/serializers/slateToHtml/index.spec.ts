@@ -1,7 +1,8 @@
 import { ChildNode, Element, Text } from 'domhandler'
 import { find } from 'domutils'
 import { slateToHtml } from '.'
-import { slateToDomConfig } from '@slate-serializers/dom'
+import { slateToHtmlConfig } from '@slate-serializers/html'
+import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
 
 describe('slateToHtml expected behaviour', () => {
   it('encodes HTML entities', () => {
@@ -74,7 +75,7 @@ describe('slateToHtml expected behaviour', () => {
     ]
     expect(
       slateToHtml(slate, {
-        ...slateToDomConfig,
+        ...slateToHtmlConfig,
         encodeEntities: false,
         alwaysEncodeBreakingEntities: true,
       }),
@@ -93,7 +94,7 @@ describe('slateToHtml expected behaviour', () => {
         type: 'h1',
       },
     ]
-    expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, encodeEntities: false })).toEqual(html)
   })
 
   it('can handle inline code tags', () => {
@@ -154,7 +155,7 @@ describe('custom config', () => {
         ],
       },
     ]
-    expect(slateToHtml(slate, { ...slateToDomConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, encodeEntities: false, alwaysEncodeCodeEntities: true })).toEqual(
       html,
     )
   })
@@ -172,7 +173,7 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       elementMap: {
         ['heading-one']: 'h1',
       },
@@ -197,9 +198,9 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       elementTransforms: {
-        ...slateToDomConfig.elementTransforms,
+        ...slateToHtmlConfig.elementTransforms,
         image: ({ node }: { node?: any }) => {
           return new Element('img', {
             src: node.url,
@@ -225,9 +226,13 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
-      elementStyleMap: {
-        fontSize: 'font-size',
+      ...slateToHtmlConfig,
+      elementAttributeTransform: ({ node }: { node: any }) => {
+        const elementStyleMap: { [key: string]: string } = {
+          fontSize: 'font-size',
+        }
+        const attribs = styleMapToAttribs({elementStyleMap, node})      
+        return isEmptyObject(attribs) ? {} : attribs
       },
     }
     expect(slateToHtml(slate, config)).toEqual(html)
@@ -247,7 +252,7 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       markMap: {
         subScript: ['sub'],
       },
@@ -270,9 +275,9 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       markTransforms: {
-        ...slateToDomConfig.markTransforms,
+        ...slateToHtmlConfig.markTransforms,
         fontSize: ({ node }: { node?: any }) => {
           return new Element('span', {
             style: `font-size:${node.fontSize};`,
@@ -301,13 +306,13 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       markMap: {
-        ...slateToDomConfig.markMap,
+        ...slateToHtmlConfig.markMap,
         subscript: ['sub'],
       },
       markTransforms: {
-        ...slateToDomConfig.markTransforms,
+        ...slateToHtmlConfig.markTransforms,
         style: ({ node }: { node?: any }) => {
           return new Element('span', {
             ...(node.style?.fontSize && { style: `font-size:${node.style.fontSize};` }),
@@ -333,9 +338,9 @@ describe('custom config', () => {
       },
     ]
     const config = {
-      ...slateToDomConfig,
+      ...slateToHtmlConfig,
       elementTransforms: {
-        ...slateToDomConfig.elementTransforms,
+        ...slateToHtmlConfig.elementTransforms,
         placeholder: ({ node, children = [] }: { node?: any; children?: ChildNode[] }) => {
           // find the first text element - limit to 10 levels deep
           const textElement = find((child) => child.type === 'text', children, true, 10)
@@ -428,7 +433,7 @@ describe('line breaks', () => {
       },
     ]
     const html = 'Paragraph 1<br>Paragraph 2'
-    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, convertLineBreakToBr: true })).toEqual(html)
   })
 
   it('does not add br tag after a block level element', () => {
@@ -464,7 +469,7 @@ describe('line breaks', () => {
       },
     ]
     const html = '<br>'
-    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, convertLineBreakToBr: true })).toEqual(html)
   })
 
   it('converts a line break in a paragraph to a br tag', () => {
@@ -488,7 +493,7 @@ describe('line breaks', () => {
       },
     ]
     const html = '<p>Paragraph with <br> line<br><br>breaks.</p>'
-    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, convertLineBreakToBr: true })).toEqual(html)
   })
 
   it('does not insert a br tag after an inline element', () => {
@@ -508,7 +513,7 @@ describe('line breaks', () => {
       },
     ]
     const html = '<a href>Mojo Nomad</a> was born from a desire to create'
-    expect(slateToHtml(slate, { ...slateToDomConfig, convertLineBreakToBr: true })).toEqual(html)
+    expect(slateToHtml(slate, { ...slateToHtmlConfig, convertLineBreakToBr: true })).toEqual(html)
   })
 })
 
