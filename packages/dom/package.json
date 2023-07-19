@@ -1,6 +1,6 @@
 {
   "name": "@slate-serializers/dom",
-  "version": "0.5.2",
+  "version": "0.1.0",
   "description": "Serialize Slate JSON objects to the DOM. Can be used with `htmlparser2` and associated utilities to modify the DOM and generate HTML. Used by other serializers in this monorepo.",
   "type": "commonjs"
 }
