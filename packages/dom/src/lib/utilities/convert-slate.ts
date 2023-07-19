@@ -5,8 +5,8 @@ import { Text as SlateText } from 'slate'
 import { config as defaultConfig } from '../config/default'
 import { Config } from '../config/types'
 import { nestedMarkElements } from './domhandler'
-import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '.'
-import { intersection } from '.'
+import { encodeBreakingEntities, getNested, isEmptyObject, styleToString } from '@slate-serializers/utilities'
+import { intersection } from '@slate-serializers/utilities'
 
 interface IConvertSlate {
   node: any
@@ -99,24 +99,11 @@ export const convertSlate = ({
     : []
 
   let attribs: { [key: string]: string } = {}
-  const styleAttrs: { [key: string]: string } = {}
-  const style = getNested(config, 'elementStyleMap')
 
-  if (style) {
-    Object.keys(style).forEach((slateKey) => {
-      const cssProperty = style[slateKey]
-      const cssValue = node[slateKey]
-
-      if (cssValue) {
-        styleAttrs[cssProperty] = cssValue
-      }
-    })
-
-    if (!isEmptyObject(styleAttrs)) {
-      attribs = {
-        ...attribs,
-        style: styleToString(styleAttrs),
-      }
+  if (config.elementAttributeTransform) {
+    attribs = {
+      ...attribs,
+      ...config.elementAttributeTransform({ node }),
     }
   }
 

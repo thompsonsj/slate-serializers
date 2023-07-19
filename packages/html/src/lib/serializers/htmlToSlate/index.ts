@@ -65,18 +65,15 @@ const deserialize = ({
   }
 
   if (config.elementTags[nodeName]) {
-    const attrs: any = config.elementTags[nodeName](currentEl)
-    // elementAttributeMap is a convenient config for making changes to all elements
-    const style = getNested(config, 'elementStyleMap')
-    if (style) {
-      Object.keys(style).forEach((slateKey) => {
-        const cssProperty = style[slateKey]
-        const cssValue = extractCssFromStyle(currentEl, cssProperty)
-        if (cssValue) {
-          attrs[slateKey] = cssValue
-        }
-      })
+    let attrs: any = config.elementTags[nodeName](currentEl)
+    
+    if (config.elementAttributeTransform) {
+      attrs = {
+        ...attrs,
+        ...config.elementAttributeTransform({ el: currentEl }),
+      }
     }
+
     return jsx('element', attrs, children)
   }
 

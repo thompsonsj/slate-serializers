@@ -1,4 +1,5 @@
 import { Config } from './types'
+import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
 
 const ELEMENT_NAME_TAG_MAP = {
   ['block-quote']: 'blockquote',
@@ -21,9 +22,13 @@ const MARK_ELEMENT_TAG_MAP = {
 export const config: Config = {
   markMap: MARK_ELEMENT_TAG_MAP,
   elementMap: ELEMENT_NAME_TAG_MAP,
-  elementStyleMap: {
-    align: 'textAlign',
-  },
   elementTransforms: {},
+  elementAttributeTransform: ({ node }) => {
+    const elementStyleMap: { [key: string]: string } = {
+      align: 'textAlign',
+    }
+    const attribs = styleMapToAttribs({elementStyleMap, node})      
+    return isEmptyObject(attribs) ? {} : attribs
+  },
   encodeEntities: true,
 }

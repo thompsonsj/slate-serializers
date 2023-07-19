@@ -95,3 +95,31 @@ export const intersection = (o1: { [key: string]: any }, o2: { [key: string]: an
       return r
     }, [])
 }
+
+export const styleMapToAttribs = ({
+  elementStyleMap,
+  node,
+}: {
+  elementStyleMap: { [key: string]: string },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node: any,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}): { [key: string]: any } => {
+  let attribs: { [key: string]: string } = {}
+  const styleAttrs: { [key: string]: string } = {}
+  Object.keys(elementStyleMap).forEach((slateKey) => {
+    const cssProperty = elementStyleMap[slateKey]
+    const cssValue = node[slateKey]
+
+    if (cssValue) {
+      styleAttrs[cssProperty] = cssValue
+    }
+  })
+  if (!isEmptyObject(styleAttrs)) {
+    attribs = {
+      ...attribs,
+      style: styleToString(styleAttrs),
+    }
+  }
+  return isEmptyObject(attribs) ? {} : attribs
+}
