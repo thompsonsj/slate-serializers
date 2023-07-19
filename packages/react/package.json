@@ -1,6 +1,6 @@
 {
   "name": "@slate-serializers/react",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "main": "./index.js",
   "types": "./index.d.ts",
   "exports": {
