@@ -4,6 +4,13 @@ interface ItagMap {
   [key: string]: (a?: Element) => object
 }
 
+export type AttributeTransform = ({
+  el,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  el: Element
+}) => { [key: string]: string } | undefined
+
 /**
  * For details on configuration options:
  * @see /docs/config/htmlToSlate.md
@@ -13,10 +20,8 @@ export interface Config {
   elementAttributeMap?: {
     style?: { [key: string]: string }
   }
-  /* Shortcut to map CSS attribute/values in an inline HTML style attribute */
-  elementStyleMap?: {
-    [key: string]: string
-  }
+  /* Use a custom function to generate Slate node attributes based on every Element passed through the serializer */
+  elementAttributeTransform?: AttributeTransform
   /* Map HTML element tags to Slate JSON object attributes */
   elementTags: ItagMap
   /* Map HTML text tags to Slate JSON object attributes */

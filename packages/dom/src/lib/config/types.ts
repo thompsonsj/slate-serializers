@@ -35,12 +35,9 @@ interface ElementTransforms {
 export interface Config {
   markMap: { [key: string]: string[] }
   elementMap: { [key: string]: string }
-  markStyleMap?: {
-    [key: string]: string
-  }
   markTransforms?: MarkTransforms
   elementTransforms: ElementTransforms
-  markAttributeTransform?: AttributeTransform
+  // markAttributeTransform?: AttributeTransform
   elementAttributeTransform?: AttributeTransform
   defaultTag?: string
   encodeEntities?: boolean

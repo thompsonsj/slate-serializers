@@ -1,9 +1,21 @@
 import { getAttributeValue } from 'domutils'
 import { Config } from './types'
+import { extractCssFromStyle } from '@slate-serializers/dom'
 
 export const config: Config = {
-  elementStyleMap: {
-    align: 'textAlign',
+  elementAttributeTransform: ({ el }) => {
+    const attrs: { [key: string]: string }  = {}
+    const elementStyleMap: { [key: string]: string } = {
+      align: 'textAlign',
+    }
+    Object.keys(elementStyleMap).forEach((slateKey) => {
+      const cssProperty = elementStyleMap[slateKey]
+      const cssValue = extractCssFromStyle(el, cssProperty)
+      if (cssValue) {
+        attrs[slateKey] = cssValue
+      }
+    })
+    return attrs
   },
   elementTags: {
     a: (el) => ({
