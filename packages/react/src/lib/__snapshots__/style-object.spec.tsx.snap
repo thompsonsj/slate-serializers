@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`style attribute css transforms with postcss mark transform 1`] = `
+<p>
+  <strong>
+    Paragraph
+  </strong>
+</p>
+`;
+
+exports[`style attribute css transforms with postcss mark transforms on multiple marks 1`] = `
+<p>
+  This is editable 
+  <strong>
+    rich
+  </strong>
+   text, 
+  <i>
+    much
+  </i>
+   better than a 
+  <pre>
+    &lt;textarea&gt;
+  </pre>
+  !
+</p>
+`;
+
+exports[`style attribute css transforms with postcss p tag element transform 1`] = `
+<p>
+  <strong>
+    Paragraph
+  </strong>
+</p>
+`;

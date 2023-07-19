@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { BaseConfig } from '@slate-serializers/dom'
 
 interface MarkTagTransform {
   [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => ReactNode
@@ -17,6 +18,9 @@ interface ElementTagTransform {
 }
 
 export interface Config {
-  markTransforms?: MarkTagTransform
-  elementTransforms: ElementTagTransform
+  dom: BaseConfig
+  react: {
+    markTransforms?: MarkTagTransform
+    elementTransforms: ElementTagTransform
+  }
 }

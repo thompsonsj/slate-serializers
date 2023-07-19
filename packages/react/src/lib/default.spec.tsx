@@ -20,8 +20,6 @@ describe('React conversion', () => {
   })
 
   it('can handle inline code tags', () => {
-    const html =
-      '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
     const slate = [
       {
         type: 'p',

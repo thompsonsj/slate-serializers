@@ -3,17 +3,16 @@ import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
 import { ulid } from 'ulid'
 
-import { slateToDomConfig, type SlateToDomConfig, convertSlate } from '@slate-serializers/dom'
+import { convertSlate } from '@slate-serializers/dom'
 import { config as slateToReactConfig } from './config/default'
 import type { Config as SlateToReactConfig } from './config/types'
 
 interface ISlateToReact {
   node: any[]
-  config?: SlateToDomConfig
-  reactConfig?: SlateToReactConfig
+  config?: SlateToReactConfig
 }
 
-export const SlateToReact = ({ node, config = slateToDomConfig, reactConfig = slateToReactConfig }: ISlateToReact) => {
+export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReact) => {
   if (!Array.isArray(node)) {
     return <></>
   }
@@ -21,11 +20,12 @@ export const SlateToReact = ({ node, config = slateToDomConfig, reactConfig = sl
     convertSlate({
       node: n,
       ...{
-        config,
+        ...config.dom,
         elementTransforms: {},
+        markTransforms: {},
       },
       isLastNodeInDocument: index === node.length - 1,
-      customElementTransforms: reactConfig.elementTransforms,
+      customElementTransforms: config.react.elementTransforms,
       transformText: (text) => transformText(text),
       transformElement: (element) => {
         return domElementToReactElement(element)

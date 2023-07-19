@@ -10,21 +10,23 @@ import { Config as SlateToReactConfig } from './types'
 
 export const config: SlateToReactConfig = {
   ...defaultConfig,
-  elementTransforms: {
-    ...defaultConfig.elementTransforms,
-    link: ({ node, children = [] }) => {
-      const attrs: any = {}
-      if (node.linkType) {
-        attrs['data-link-type'] = node.linkType
-      }
-      if (node.newTab) {
-        attrs.target = '_blank'
-      }
-      return (
-        <a href={node.url} {...attrs}>
-          {children}
-        </a>
-      )
+  react: {
+    elementTransforms: {
+      ...defaultConfig.react.elementTransforms,
+      link: ({ node, children = [] }) => {
+        const attrs: any = {}
+        if (node.linkType) {
+          attrs['data-link-type'] = node.linkType
+        }
+        if (node.newTab) {
+          attrs.target = '_blank'
+        }
+        return (
+          <a href={node.url} {...attrs}>
+            {children}
+          </a>
+        )
+      },
     },
   },
 }

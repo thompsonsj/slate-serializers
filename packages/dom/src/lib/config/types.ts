@@ -32,11 +32,9 @@ interface ElementTransforms {
   [key: string]: ElementTransform
 }
 
-export interface Config {
+export interface BaseConfig {
   markMap: { [key: string]: string[] }
   elementMap: { [key: string]: string }
-  markTransforms?: MarkTransforms
-  elementTransforms: ElementTransforms
   // markAttributeTransform?: AttributeTransform
   elementAttributeTransform?: AttributeTransform
   defaultTag?: string
@@ -44,6 +42,11 @@ export interface Config {
   alwaysEncodeBreakingEntities?: boolean
   alwaysEncodeCodeEntities?: boolean
   convertLineBreakToBr?: boolean
+}
+
+export interface Config extends BaseConfig {
+  markTransforms?: MarkTransforms
+  elementTransforms: ElementTransforms
 }
 
 type UpdaterFunction = (el: Element) => Element | string
