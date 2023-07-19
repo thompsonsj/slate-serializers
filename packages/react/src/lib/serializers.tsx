@@ -19,7 +19,7 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
   const document = node.map((n, index) =>
     convertSlate({
       node: n,
-      ...{
+      config: {
         ...config.dom,
         elementTransforms: {},
         markTransforms: {},
@@ -53,6 +53,8 @@ const domElementToReactElement = (element: Element): ReactElement<any, string | 
       ...element.attribs,
       /* Convert key names for JSX compatibility */
       ...(element.attribs?.class && { className: element.attribs?.class }),
+      /* Validate style (can convert to React style object using elementAttributeTransform or other transform functions, but it is still possible that a string will be passed) */
+      ...(element.attribs?.style && typeof element.attribs.style === 'object' && { style: element.attribs?.style }),
     },
     element.children as any,
   )

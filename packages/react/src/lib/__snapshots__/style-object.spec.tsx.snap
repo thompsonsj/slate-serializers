@@ -27,7 +27,9 @@ exports[`style attribute css transforms with postcss mark transforms on multiple
 `;
 
 exports[`style attribute css transforms with postcss p tag element transform 1`] = `
-<p>
+<p
+  style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }"
+>
   <strong>
     Paragraph
   </strong>
