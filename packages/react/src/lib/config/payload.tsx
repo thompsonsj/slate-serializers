@@ -1,4 +1,3 @@
-import React from 'react'
 import { config as defaultConfig } from './default'
 import { Config as SlateToReactConfig } from './types'
 
