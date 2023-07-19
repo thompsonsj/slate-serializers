@@ -9,7 +9,7 @@ export { config as payloadSlateToDomConfig } from './config/payload'
 export { config as slateDemoSlateToDomConfig } from './config/slateDemo'
 
 // Useful types
-export { ElementTagTransformFunction } from './config/types'
+export type { ElementTransform, MarkTransform } from './config/types'
 
 // Slate to DOM utilities
 export { convertSlate } from './utilities/convert-slate'

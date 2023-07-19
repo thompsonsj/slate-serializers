@@ -48,6 +48,12 @@
         "access": "public",
         "buildTarget": "production"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   }
 }

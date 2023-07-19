@@ -1,6 +1,6 @@
 import { Element } from 'domhandler'
 import { slateToHtml } from '.'
-import { payloadSlateToDomConfig, type ElementTagTransformFunction } from '@slate-serializers/dom'
+import { payloadSlateToDomConfig, type ElementTransform } from '@slate-serializers/dom'
 
 describe('slateToHtml: Payload CMS config', () => {
   it('renders an upload field as an `img` HTML element if an image', () => {
@@ -80,7 +80,7 @@ describe('slateToHtml: Payload CMS config', () => {
         relationTo: 'images',
       },
     ]
-    const uploadTransform: ElementTagTransformFunction = ({ node }) => {
+    const uploadTransform: ElementTransform = ({ node }) => {
       if (node.value?.mimeType && node.value?.url) {
         if (node.value?.mimeType.match(/^image/)) {
           return new Element('img', {
