@@ -1,7 +1,7 @@
 import { getAttributeValue } from 'domutils'
 import { Element, Text } from 'domhandler'
 import serializer from 'dom-serializer'
-import { parseStyleCssText } from '.'
+import { parseStyleCssText } from '@slate-serializers/utilities'
 
 /**
  * Generate nested mark elements

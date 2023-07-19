@@ -21,6 +21,13 @@ export type ElementTransform = ({
   children?: ChildNode[]
 }) => Element | undefined
 
+export type AttributeTransform = ({
+  node,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node?: any
+}) => { [key: string]: string } | undefined
+
 interface ElementTransforms {
   [key: string]: ElementTransform
 }
@@ -36,6 +43,8 @@ export interface Config {
   }
   markTransforms?: MarkTransforms
   elementTransforms: ElementTransforms
+  markAttributeTransform?: AttributeTransform
+  elementAttributeTransform?: AttributeTransform
   defaultTag?: string
   encodeEntities?: boolean
   alwaysEncodeBreakingEntities?: boolean
