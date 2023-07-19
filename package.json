@@ -5,7 +5,7 @@
   "scripts": {
     "test": "nx run-many --all --target=test",
     "build": "nx run-many --all --target=build",
-    "publish": "nx deploy dom && nx deploy html && nx deploy react",
+    "publish": "nx deploy dom && nx deploy html && nx deploy react && nx deploy utilities",
     "prepare": "husky install"
   },
   "private": true,

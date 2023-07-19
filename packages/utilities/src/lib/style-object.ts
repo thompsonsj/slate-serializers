@@ -1,9 +1,9 @@
-import postcss = require('postcss')
-import postcssJs = require('postcss-js')
+import postcss from 'postcss'
+import { parse as parser, objectify } from 'postcss-js'
 
 export const transformStyleObjectToString = (style: { [key: string]: any }) => {
   const postcssOptions = {
-    parser: postcssJs,
+    parser,
     from: undefined,
   }
   return postcss()
@@ -14,5 +14,5 @@ export const transformStyleObjectToString = (style: { [key: string]: any }) => {
 
 export const transformStyleStringToObject = (style: string) => {
   const root = postcss.parse(style)
-  return postcssJs.objectify(root)
+  return objectify(root)
 }
