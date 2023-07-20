@@ -1,8 +1,5 @@
-import React from 'react'
 import renderer from 'react-test-renderer'
-import { fixtures as elementFixtures } from './combined/fixtures/elementTags'
-import { fixtures as textFixtures } from './combined/fixtures/textTags'
-import { fixtures as combinedFixtures } from './combined/fixtures/combined'
+import { combinedFixtures, elementFixtures, textFixtures } from '@slate-serializers/tests'
 import { SlateToReact } from './serializers'
 
 describe('Slate JSON to React transforms', () => {
