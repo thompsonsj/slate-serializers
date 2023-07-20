@@ -1,7 +1,6 @@
 import { htmlToSlate } from './htmlToSlate'
 import { slateToHtml } from './slateToHtml'
-import { fixtures as elementFixtures } from './fixtures/elementTags'
-import { fixtures as textFixtures } from './fixtures/textTags'
+import { elementFixtures, textFixtures } from '@slate-serializers/tests'
 
 /**
  * Run tests both ways by using the same fixtures
