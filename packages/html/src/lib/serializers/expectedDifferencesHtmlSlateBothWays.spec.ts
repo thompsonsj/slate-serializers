@@ -1,7 +1,7 @@
 import { htmlToSlate } from './htmlToSlate'
 import { slateToHtml } from './slateToHtml'
 
-import { fixtures as combinedFixtures } from '../../../../tests/src/lib/fixtures/combined'
+import { combinedFixtures } from '@slate-serializers/tests'
 
 import { slateToDomConfig, payloadSlateToDomConfig } from '@slate-serializers/dom'
 import { config as htmlToSlatePayloadConfig } from './htmlToSlate/config/payload'
