@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slate JSON to React transforms Combined larger document 1 1`] = `
+[
+  <h2>
+    Heading 2
+  </h2>,
+  <p>
+    A regular paragraph.
+  </p>,
+  <p>
+    A 
+    <strong>
+      paragraph
+    </strong>
+     with 
+    <strong>
+      various
+    </strong>
+     text 
+    <s>
+      marks
+    </s>
+    .
+  </p>,
+  <h3>
+    Heading 3
+  </h3>,
+  <ul>
+    <li>
+      <strong>
+        Item 1
+      </strong>
+      : From a list
+    </li>
+    <li>
+      <strong>
+        Item 2
+      </strong>
+      : From a list
+    </li>
+  </ul>,
+  <p>
+    <a
+      data-link-type="custom"
+      href="https://docs.slatejs.org/"
+    >
+      Find out more about Slate
+    </a>
+    .
+  </p>,
+  <h4>
+    Heading 4
+  </h4>,
+]
+`;
+
+exports[`Slate JSON to React transforms Combined links nested in an unordered list 1`] = `
+<ul>
+  <li>
+    <a
+      data-link-type="custom"
+      href="https://github.com/thompsonsj/slate-serializers"
+      target="_blank"
+    >
+      slate-serializers | GitHub
+    </a>
+  </li>
+  <li>
+    <a
+      data-link-type="custom"
+      href="https://github.com/thompsonsj/slate-serializers"
+      target="_blank"
+    >
+      slate-serializers | GitHub
+    </a>
+  </li>
+</ul>
+`;
+
+exports[`Slate JSON to React transforms Combined text with inline link 1`] = `
+<p>
+  Some text before an inline link 
+  <a
+    data-link-type="custom"
+    href="https://github.com/thompsonsj/slate-serializers"
+    target="_blank"
+  >
+    slate-serializers | GitHub
+  </a>
+  .
+</p>
+`;
+
+exports[`Slate JSON to React transforms Element tags blockquote 1`] = `
+<blockquote>
+  Blockquote
+</blockquote>
+`;
+
+exports[`Slate JSON to React transforms Element tags headings 1`] = `
+[
+  <h1>
+    Heading 1
+  </h1>,
+  <h2>
+    Heading 2
+  </h2>,
+  <h3>
+    Heading 3
+  </h3>,
+  <h4>
+    Heading 4
+  </h4>,
+  <h5>
+    Heading 5
+  </h5>,
+  <h6>
+    Heading 6
+  </h6>,
+]
+`;
+
+exports[`Slate JSON to React transforms Element tags link 1`] = `
+<a
+  href="https://github.com/thompsonsj/slate-serializers"
+>
+  Slate Serializers | GitHub
+</a>
+`;
+
+exports[`Slate JSON to React transforms Element tags nested unordered list 1`] = `
+<ul>
+  <li>
+    Item 1
+    <ul>
+      <li>
+        Nested item 1
+      </li>
+      <li>
+        Nested item 2
+      </li>
+    </ul>
+  </li>
+  <li>
+    Item 2
+  </li>
+</ul>
+`;
+
+exports[`Slate JSON to React transforms Element tags ordered list 1`] = `
+<ol>
+  <li>
+    Item 1
+  </li>
+  <li>
+    Item 2
+  </li>
+</ol>
+`;
+
+exports[`Slate JSON to React transforms Element tags paragraph 1`] = `
+<p>
+  Paragraph 1
+</p>
+`;
+
+exports[`Slate JSON to React transforms Element tags unordered list 1`] = `
+<ul>
+  <li>
+    Item 1
+  </li>
+  <li>
+    Item 2
+  </li>
+</ul>
+`;
+
+exports[`Slate JSON to React transforms Text tags idiomatic text 1`] = `
+<p>
+  <i>
+    Idiomatic Text
+  </i>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags pre 1`] = `
+<p>
+  <pre>
+    Pre
+  </pre>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strikethrough 1`] = `
+<p>
+  <s>
+    Strikethrough
+  </s>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong 1`] = `
+<p>
+  <strong>
+    Bold
+  </strong>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong and idiomatic text 1`] = `
+<p>
+  <strong>
+    Strong and Idiomatic Text
+  </strong>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong and unarticulated annotation 1`] = `
+<p>
+  <strong>
+    Strong and Unarticulated Annotation
+  </strong>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong in paragraph 1`] = `
+<p>
+  <strong>
+    Bold
+  </strong>
+</p>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong mid-sentence 1`] = `
+[
+  <p>
+    Some 
+  </p>,
+  <p>
+    <strong>
+      bold text
+    </strong>
+  </p>,
+  <p>
+     in a sentence.
+  </p>,
+]
+`;
+
+exports[`Slate JSON to React transforms Text tags unarticulated annotation 1`] = `
+<p>
+  <u>
+    Unarticulated Annotation
+  </u>
+</p>
+`;

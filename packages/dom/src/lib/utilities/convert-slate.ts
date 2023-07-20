@@ -134,6 +134,6 @@ export const convertSlate = ({
   if (config.convertLineBreakToBr && !isLastNodeInDocument) {
     children.push(transformElement(new Element('br', {})))
   }
-console.log(config)
+
   return wrapChildren(children)
 }
