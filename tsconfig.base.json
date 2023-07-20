@@ -18,6 +18,7 @@
       "@slate-serializers/dom": ["packages/dom/src/index.ts"],
       "@slate-serializers/html": ["packages/html/src/index.ts"],
       "@slate-serializers/react": ["packages/react/src/index.ts"],
+      "@slate-serializers/template": ["packages/template/src/index.ts"],
       "@slate-serializers/tests": ["packages/tests/src/index.ts"],
       "@slate-serializers/utilities": ["packages/utilities/src/index.ts"]
     }

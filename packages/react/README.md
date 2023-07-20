@@ -42,7 +42,7 @@ It is likely you will need to customise transformation rules based on your Slate
 The following simple example renders a `<Button>` React component using data from Slate JSON nodes of type `button`.
 
 ```tsx
-import { SlateToReact, type SlateToReactConfig } from '@slate-serializers/react'
+import { SlateToReact, slateToReactConfig, type SlateToReactConfig } from '@slate-serializers/react'
 import Button from './yourComponent/Button'
 
 const slate = [
@@ -64,11 +64,11 @@ const slate = [
   },
 ]
 
-const reactConfig: SlateToReactConfig = {
-  ...defaultReactConfig,
+const config: SlateToReactConfig = {
+  ...slateToReactConfig,
   react: {
     elementTransforms: {
-      ...defaultReactConfig.react.elementTransforms,
+      ...slateToReactConfig.react.elementTransforms,
       button: ({ node, children = [] }) => {
         return <Button onClick={onClick}>{children}</Button>
       },
@@ -76,7 +76,7 @@ const reactConfig: SlateToReactConfig = {
   },
 }
 
-<SlateToReact node={slate} config={reactConfig} />
+<SlateToReact node={slate} config={config} />
 ```
 
 # NX documentation
