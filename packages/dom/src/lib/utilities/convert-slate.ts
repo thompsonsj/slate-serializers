@@ -82,7 +82,7 @@ export const convertSlate = ({
       }
     })
 
-    return wrapChildren(textChildren.map((child) => transformText(child)))
+    return wrapChildren(textChildren.map((child) =>  transformText(child)))
   }
 
   const children: any[] = node.children

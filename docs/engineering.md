@@ -110,3 +110,15 @@ If you have schema rules that process `br` tags (e.g. in `elementTags` in the co
 ### `slateToHtml`
 
 Line breaks get special treatment. When `convertLineBreakToBr` is set to `true`, each text node in Slate that contains `\n` line break will be converted to an HTML `<br>` element.
+
+## TypeScript
+
+Note the use of the `any` type for Slate nodes.
+
+Slate recommends defining custom `Element` or `Text` types, extending the `CustomTypes` interface in the slate module. See [TypeScript | Slate](https://docs.slatejs.org/concepts/12-typescript).
+
+However, `@slate-serializers` does not enforce this requirement, allowing objects of any form to be passed as Slate JSON.
+
+This makes the serializers easier to use and accommodates users who may not have defined all of their `CustomTypes`. Furthermore, it makes it easier to work with implementations of Slate in other projects where such types may not be exported, and reduces the maintenance requirement in those cases.
+
+Each line that uses this type is excluded from linting with `// eslint-disable-next-line @typescript-eslint/no-explicit-any`. The discourages the use of `any` in other cases.
