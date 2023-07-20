@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer'
 import { combinedFixtures, elementFixtures, textFixtures } from '@slate-serializers/tests'
-import { SlateToReact } from './serializers'
+import { SlateToReact } from '../serializers'
 
 describe('Slate JSON to React transforms', () => {
   describe('Element tags', () => {

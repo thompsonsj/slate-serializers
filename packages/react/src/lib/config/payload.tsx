@@ -1,4 +1,5 @@
 import { config as defaultConfig } from './default'
+import { payloadSlateToDomConfig } from '@slate-serializers/dom'
 import { Config as SlateToReactConfig } from './types'
 
 /**
@@ -9,6 +10,7 @@ import { Config as SlateToReactConfig } from './types'
 
 export const config: SlateToReactConfig = {
   ...defaultConfig,
+  dom: payloadSlateToDomConfig,
   react: {
     elementTransforms: {
       ...defaultConfig.react.elementTransforms,
