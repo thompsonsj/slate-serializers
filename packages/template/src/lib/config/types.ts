@@ -1,7 +1,6 @@
-import { ChildNode } from 'domhandler'
 import { SlateToDomConfig } from '@slate-serializers/dom'
 
-type ElementSerializer = 
+export type ElementSerializer = 
   ({
     node,
   }: {
