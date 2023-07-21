@@ -10,7 +10,7 @@ export const slateToTemplate = (node: any[], config: SlateToTemplateConfig = sla
   return node.map((child: any) => {
     const type = child.type
     if (type && config.customElementSerializers?.[type]) {
-      return config.customElementSerializers?.[type]({ node })
+      return config.customElementSerializers?.[type]({ node: child })
     } else {
       return slateToHtml([child], config)
     }
