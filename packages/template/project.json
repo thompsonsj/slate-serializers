@@ -11,7 +11,8 @@
         "outputPath": "dist/packages/template",
         "main": "packages/template/src/index.ts",
         "tsConfig": "packages/template/tsconfig.lib.json",
-        "assets": ["packages/template/*.md"]
+        "assets": ["packages/template/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {
