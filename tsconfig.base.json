@@ -20,7 +20,8 @@
       "@slate-serializers/react": ["packages/react/src/index.ts"],
       "@slate-serializers/template": ["packages/template/src/index.ts"],
       "@slate-serializers/tests": ["packages/tests/src/index.ts"],
-      "@slate-serializers/utilities": ["packages/utilities/src/index.ts"]
+      "@slate-serializers/utilities": ["packages/utilities/src/index.ts"],
+      "slate-serializers": ["packages/slate-serializers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

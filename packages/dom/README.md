@@ -1,11 +1,5 @@
-# dom
+# @slate-serializers/dom
 
-This library was generated with [Nx](https://nx.dev).
+`slateToDom` is used by `slateToHtml` in [`@slate-serializers/html`](packages/html/README.md) before serializing to HTML.
 
-## Building
-
-Run `nx build dom` to build the library.
-
-## Running unit tests
-
-Run `nx test dom` to execute the unit tests via [Jest](https://jestjs.io).
+It is made available as a separate serializer for cases where DOM manipulation is desired before serializing to HTML.

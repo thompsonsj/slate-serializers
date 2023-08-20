@@ -78,11 +78,3 @@ const config: SlateToReactConfig = {
 
 <SlateToReact node={slate} config={config} />
 ```
-
-# NX documentation
-
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test react` to execute the unit tests via [Vitest](https://vitest.dev/).
