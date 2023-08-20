@@ -1,7 +1,7 @@
 import { ChildNode, Element, Text } from 'domhandler'
 import { find } from 'domutils'
 import { slateToHtml } from '.'
-import { slateToHtmlConfig } from '@slate-serializers/html'
+import { slateToHtmlConfig, SlateToHtmlConfig } from '@slate-serializers/html'
 import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
 
 describe('slateToHtml expected behaviour', () => {
@@ -274,11 +274,11 @@ describe('custom config', () => {
         ],
       },
     ]
-    const config = {
+    const config: SlateToHtmlConfig = {
       ...slateToHtmlConfig,
       markTransforms: {
         ...slateToHtmlConfig.markTransforms,
-        fontSize: ({ node }: { node?: any }) => {
+        fontSize: ({ node }) => {
           return new Element('span', {
             style: `font-size:${node.fontSize};`,
           })

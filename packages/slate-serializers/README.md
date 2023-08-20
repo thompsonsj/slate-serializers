@@ -1,11 +1,26 @@
 # slate-serializers
 
-This library was generated with [Nx](https://nx.dev).
+This package has been split into separate packages. As more serializers are introduced, the number of dependencies increase. It makes sense to maintain separate packages to keep the serializers as efficient as possible for their desired use case.
+ 
+There is no need to change - `slate-serializers` will continue to be maintained alongside the new serializers. However, upgrading will keep the dependency tree minimal for your project.
 
-## Building
+Original docs available at [packages/slate-serializers/docs/original.md](packages/slate-serializers/docs/original.md).
 
-Run `nx build slate-serializers` to build the library.
+## New packages
 
-## Running unit tests
+An overview is available at [README.md](README.md).
 
-Run `nx test slate-serializers` to execute the unit tests via [Jest](https://jestjs.io).
+## Upgrade
+
+### HTML serializers
+
+Change import from `slate-serializers` to `@slate-serializers/html`.
+
+If importing configuration objects, change the name as follows.
+  - `slateToDomConfig` to `slateToHtmlConfig`.
+  - `payloadSlateToDomConfig` to `payloadSlateToHtmlConfig`.
+  - `slateDemoSlateToDomConfig` to `slateDemoSlateToHtmlConfig`
+
+### DOM serializer
+
+Change import from `slate-serializers` to `@slate-serializers/dom`.

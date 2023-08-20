@@ -1,3 +1,14 @@
+# Engineering decisions
+
+- [Slate compatibility](#slate-compatibility)
+- [`htmlparser2`](#htmlparser2)
+
+## Slate compatibility
+
+Serializers are only compatible with Slate >=0.50.0. Earlier versions used a different data model.
+
+Note that compatibility has only been tested with Slate v0.72.8. These serializers are still in active development/testing.
+
 ## `htmlparser2`
 
 [htmlparser2](https://www.npmjs.com/package/htmlparser2) and its associated utilities are used to:
