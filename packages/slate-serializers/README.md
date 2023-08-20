@@ -8,7 +8,7 @@ Original docs available at [packages/slate-serializers/docs/original.md](package
 
 ## New packages
 
-An overview is available at [README.md](README.md).
+An overview is available at [README.md](https://github.com/thompsonsj/slate-serializers/blob/main/README.md).
 
 ## Upgrade
 
