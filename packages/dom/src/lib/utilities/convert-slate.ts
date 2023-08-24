@@ -5,7 +5,7 @@ import { Text as SlateText } from 'slate'
 import { config as defaultConfig } from '../config/default'
 import { Config } from '../config/types'
 import { nestedMarkElements } from './domhandler'
-import { encodeBreakingEntities } from '@slate-serializers/utilities'
+import { decodeBreakingEntities, encodeBreakingEntities } from '@slate-serializers/utilities'
 import { intersection } from '@slate-serializers/utilities'
 
 interface IConvertSlate {
@@ -72,6 +72,10 @@ export const convertSlate = ({
         isTag(textElement) &&
         getName(textElement) === 'pre'
       ) {
+        if (config.alwaysEncodeBreakingEntities) {
+          // revert the earlier encoding - encode will re-encode
+          line = decodeBreakingEntities(line)
+        }
         textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
       } else {
         textChildren.push(textElement)

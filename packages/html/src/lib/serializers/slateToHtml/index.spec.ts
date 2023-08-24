@@ -5,8 +5,8 @@ import { slateToHtmlConfig, SlateToHtmlConfig } from '@slate-serializers/html'
 import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
 
 describe('slateToHtml expected behaviour', () => {
-  it('encodes HTML entities', () => {
-    const html = `<h1>What&apos;s Heading 1</h1>`
+  it('does not encode HTML entities', () => {
+    const html = `<h1>What's Heading 1</h1>`
     const slate = [
       {
         children: [
@@ -18,6 +18,24 @@ describe('slateToHtml expected behaviour', () => {
       },
     ]
     expect(slateToHtml(slate)).toEqual(html)
+  })
+
+  it('encodes HTML entities if encodeEntities is true', () => {
+    const html = `<h1>What&apos;s Heading 1</h1>`
+    const slate = [
+      {
+        children: [
+          {
+            text: "What's Heading 1",
+          },
+        ],
+        type: 'h1',
+      },
+    ]
+    expect(slateToHtml(slate, {
+      ...slateToHtmlConfig,
+      encodeEntities: true,
+    })).toEqual(html)
   })
 
   /**
@@ -39,7 +57,7 @@ describe('slateToHtml expected behaviour', () => {
   })
 
   it('encodes `non breaking` HTML entities', () => {
-    const html = `<p>The company&#x2019;s priority is &apos;inside sales&apos; and changing the spelling of cafe to caf&#xe9;.</p>`
+    const html = `<p>The company’s priority is 'inside sales' and changing the spelling of cafe to café.</p>`
     const slate = [
       {
         children: [
@@ -137,7 +155,7 @@ describe('slateToHtml expected behaviour', () => {
 
 describe('custom config', () => {
   it('respects the alwaysEncodeCodeEntities option if encodeEntities is false', () => {
-    const html = '<p>Regular text & <pre><code>&lt;textarea&gt;</code></pre>.</p>'
+    const html = '<p>Regular text &amp; <pre><code>&lt;textarea&gt;</code></pre>.</p>'
     const slate = [
       {
         type: 'p',

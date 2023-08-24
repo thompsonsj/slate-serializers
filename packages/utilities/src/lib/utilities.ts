@@ -84,6 +84,10 @@ export const encodeBreakingEntities = (str: string) => {
   return str
 }
 
+export const decodeBreakingEntities = (str: string) => {
+  return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+
 export const intersection = (o1: { [key: string]: any }, o2: { [key: string]: any }) => {
   return Object.keys(o1)
     .concat(Object.keys(o2))
