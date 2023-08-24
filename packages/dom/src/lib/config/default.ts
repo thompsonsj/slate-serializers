@@ -50,8 +50,8 @@ export const config: Config = {
       )
     },
   },
-  encodeEntities: true,
-  alwaysEncodeBreakingEntities: false,
+  encodeEntities: false,
+  alwaysEncodeBreakingEntities: true,
   alwaysEncodeCodeEntities: false,
   convertLineBreakToBr: false,
 }
