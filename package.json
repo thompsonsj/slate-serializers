@@ -1,6 +1,6 @@
 {
   "name": "@slate-serializers/source",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "scripts": {
     "test": "nx run-many --all --target=test",
@@ -11,7 +11,7 @@
   "private": true,
   "dependencies": {
     "css-select": "^5.1.0",
-    "dom-serializer": "^2.0.0",
+    "dom-serializer": "^2.0.1",
     "domhandler": "^5.0.3",
     "domutils": "^3.1.0",
     "html-entities": "^2.3.3",
