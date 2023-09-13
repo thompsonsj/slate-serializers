@@ -11,7 +11,8 @@
         "outputPath": "dist/packages/slate-serializers",
         "main": "packages/slate-serializers/src/index.ts",
         "tsConfig": "packages/slate-serializers/tsconfig.lib.json",
-        "assets": ["packages/slate-serializers/*.md"]
+        "assets": ["packages/slate-serializers/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "publish": {
