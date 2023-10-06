@@ -34,6 +34,8 @@ export interface Config {
   filterWhitespaceNodes: boolean
   /* Convert br tags to a new line character (\n) */
   convertBrToLineBreak?: boolean
+  /* Replace multiple whitespace characters with a single space. */
+  trimWhiteSpace?: boolean
 }
 
 type UpdaterFunction = (el: Element) => Element | string

@@ -8,6 +8,7 @@ interface IprocessTextValue {
   isInlineStart?: boolean
   isInlineEnd?: boolean
   isNextSiblingBlock?: boolean
+  shouldTrimWhiteSpace?: boolean
 }
 
 export const processTextValue = ({
@@ -16,12 +17,13 @@ export const processTextValue = ({
   isInlineStart = false,
   isInlineEnd = false,
   isNextSiblingBlock = false,
+  shouldTrimWhiteSpace = true
 }: IprocessTextValue): string => {
   let parsed = text
   if (context === 'preserve') {
     return parsed
   }
-  parsed = minifyText(parsed)
+  parsed = minifyText(parsed, shouldTrimWhiteSpace)
   if (context === 'block') {
     // is this the start of inline content after a block element?
     if (isInlineStart) {
@@ -35,8 +37,8 @@ export const processTextValue = ({
   return parsed
 }
 
-export const minifyText = (str: string) => {
-  return reduceToSingleSpaces(replaceNewlines(str))
+export const minifyText = (str: string, shouldTrimWhiteSpace: boolean) => {
+  return shouldTrimWhiteSpace ? reduceToSingleSpaces(replaceNewlines(str)) : replaceNewlines(str)
 }
 
 const replaceNewlines = (str: string) => {
