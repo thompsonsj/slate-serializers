@@ -87,6 +87,39 @@ describe('htmlToSlate whitespace handling', () => {
       expect(htmlToSlate(fixture, config)).toEqual(expected)
     })
 
+    it('preserves white space in the mdn docs hello world example if trimWhitespace is disabled', () => {
+      const fixture = `<h1>   Hello 
+        <span> World!</span>   </h1>`
+      const expected: any[] = [
+        {
+          children: [
+            {
+              text: `Hello          `,
+            },
+            {
+              children: [
+                {
+                  text: ' World!',
+                },
+              ],
+              type: 'span',
+            },
+          ],
+          type: 'h1',
+        },
+      ]
+      // extend the config to handle span tags
+      const config = {
+        ...htmlToSlateConfig,
+        elementTags: {
+          ...htmlToSlateConfig.elementTags,
+          span: () => ({ type: 'span' }),
+        },
+        trimWhiteSpace: false,
+      }
+      expect(htmlToSlate(fixture, config)).toEqual(expected)
+    })
+
     /**
      * @see https://github.com/fb55/htmlparser2/issues/90
      */
