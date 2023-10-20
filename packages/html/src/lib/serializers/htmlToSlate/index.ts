@@ -85,6 +85,7 @@ const deserialize = ({
       isInlineStart: index === 0,
       isInlineEnd: Number.isInteger(childrenLength) && isLastChild,
       isNextSiblingBlock: (el.next && isTag(el.next) && isBlock(el.next.tagName)) || false,
+      shouldTrimWhiteSpace: config.trimWhiteSpace,
     })
     if (text === '') {
       return null
