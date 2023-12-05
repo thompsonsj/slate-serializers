@@ -2,11 +2,5 @@
    "name": "@slate-serializers/react",
    "version": "2.1.2",
    "main": "./index.js",
-   "types": "./index.d.ts",
-   "exports": {
-      ".": {
-         "import": "./index.mjs",
-         "require": "./index.js"
-      }
-   }
+   "types": "./index.d.ts"
 }
