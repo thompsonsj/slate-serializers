@@ -2,6 +2,31 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.5.0](https://github.com/thompsonsj/slate-serializers/compare/v0.4.1...v0.5.0) (2023-12-05)
+
+
+### Features
+
+* **default:** encodeEntities default false ([#109](https://github.com/thompsonsj/slate-serializers/issues/109)) ([1f0517d](https://github.com/thompsonsj/slate-serializers/commit/1f0517dcadfcfb4c611e70faf423ba7b7ad8e366))
+* **slate-serializers:** support legacy package and release version 1 ([#106](https://github.com/thompsonsj/slate-serializers/issues/106)) ([7a2bc47](https://github.com/thompsonsj/slate-serializers/commit/7a2bc478b0785511f5b7774f90a838624c69eb08))
+* **template:** add serializer ([#97](https://github.com/thompsonsj/slate-serializers/issues/97)) ([b96408d](https://github.com/thompsonsj/slate-serializers/commit/b96408dc6e7c8f1bb0770b7f9b17ea090f0978dd))
+* **types:** replace elementStyleMap with elementAttributeTransform ([#86](https://github.com/thompsonsj/slate-serializers/issues/86)) ([e8ae378](https://github.com/thompsonsj/slate-serializers/commit/e8ae378d1a45ac04dfe02727bf7f769aaa6cf123))
+* version management, better exports and types ([#82](https://github.com/thompsonsj/slate-serializers/issues/82)) ([fc3c828](https://github.com/thompsonsj/slate-serializers/commit/fc3c828b13dae411acdb985753986e451d114f1d))
+
+
+### Bug Fixes
+
+* **htmlToSlate:** add option to toggle whitespace trim ([#114](https://github.com/thompsonsj/slate-serializers/issues/114)) ([7bf6e97](https://github.com/thompsonsj/slate-serializers/commit/7bf6e97ee70e7bfcb7907291677eec8c23c30937))
+* **nxignore:** exclude tests library and bump to 0.6.5 ([#100](https://github.com/thompsonsj/slate-serializers/issues/100)) ([401d677](https://github.com/thompsonsj/slate-serializers/commit/401d677be0b816f1bfae39be66cca35f4297ddb2))
+* **package.json:** fix template dependencies and bump 0.6.6 ([#101](https://github.com/thompsonsj/slate-serializers/issues/101)) ([84b1aeb](https://github.com/thompsonsj/slate-serializers/commit/84b1aeb4bf19abf130814abb6cfaca30104a3651))
+* **project.json:** buildableProjectDepsInPackageJsonType ([#112](https://github.com/thompsonsj/slate-serializers/issues/112)) ([5b926ab](https://github.com/thompsonsj/slate-serializers/commit/5b926ab7f2582b30a87a6ca06a7a5a3413a4236a))
+* **react:** complete set of config exports ([#91](https://github.com/thompsonsj/slate-serializers/issues/91)) ([fe616b1](https://github.com/thompsonsj/slate-serializers/commit/fe616b1c04104ac0cf71ee59168e94e915f5cb81))
+* **react:** import and merge dom payload config correctly ([#95](https://github.com/thompsonsj/slate-serializers/issues/95)) ([dafe438](https://github.com/thompsonsj/slate-serializers/commit/dafe438e652369a698c7d6b320834c3b61bf9e38))
+* **style-object:** build errors ([#90](https://github.com/thompsonsj/slate-serializers/issues/90)) ([c790b55](https://github.com/thompsonsj/slate-serializers/commit/c790b551b423c515da6d64ea79defd0947d873a5))
+* **template:** custom serializer receives all nodes ([#103](https://github.com/thompsonsj/slate-serializers/issues/103)) ([6e2ac55](https://github.com/thompsonsj/slate-serializers/commit/6e2ac555be17715ca244e657171d08d6647633d2))
+* type exports ([#84](https://github.com/thompsonsj/slate-serializers/issues/84)) ([f289c82](https://github.com/thompsonsj/slate-serializers/commit/f289c827f844f76b8c48732dbe38d7e0a82067cb))
+* **workflows:** release please ([#121](https://github.com/thompsonsj/slate-serializers/issues/121)) ([ddc3db5](https://github.com/thompsonsj/slate-serializers/commit/ddc3db52a181d45bcea23ac363db79b11191bde2))
+
 ## 1.0.0 (2023-07-19)
 
 
