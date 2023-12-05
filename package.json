@@ -1,10 +1,11 @@
 {
   "name": "@slate-serializers/source",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "license": "MIT",
   "scripts": {
     "test": "nx run-many --all --target=test",
     "build": "nx run-many --all --target=build",
+    "prepublish": "node ./tools/sync-versions.js",
     "publish": "nx deploy dom && nx deploy html && nx deploy react && nx deploy utilities && nx deploy template && nx deploy slate-serializers",
     "prepare": "husky install"
   },
