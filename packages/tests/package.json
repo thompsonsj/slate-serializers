@@ -1,5 +1,5 @@
 {
-   "name": "@slate-serializers/tests",
-   "version": "2.1.1",
-   "type": "commonjs"
+  "name": "@slate-serializers/tests",
+  "version": "2.1.0",
+  "type": "commonjs"
 }
