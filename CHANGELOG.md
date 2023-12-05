@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.5.1](https://github.com/thompsonsj/slate-serializers/compare/v0.5.0...v0.5.1) (2023-12-05)
+
+
+### Bug Fixes
+
+* **react:** remove exports entry ([#128](https://github.com/thompsonsj/slate-serializers/issues/128)) ([9172efe](https://github.com/thompsonsj/slate-serializers/commit/9172efef62951e68e691c2ee3a7cc994a4b89016))
+* sync version script without dependency upgrade ([#126](https://github.com/thompsonsj/slate-serializers/issues/126)) ([1f2158e](https://github.com/thompsonsj/slate-serializers/commit/1f2158e67701d84585305bb6b925fb8a084ae39c))
+
 ## [0.5.0](https://github.com/thompsonsj/slate-serializers/compare/v0.4.1...v0.5.0) (2023-12-05)
 
 
