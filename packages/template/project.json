@@ -12,6 +12,7 @@
         "main": "packages/template/src/index.ts",
         "tsConfig": "packages/template/tsconfig.lib.json",
         "assets": ["packages/template/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true,
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
