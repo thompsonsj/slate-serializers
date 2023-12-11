@@ -9,7 +9,7 @@ export type AttributeTransform = ({
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   el: Element
-}) => { [key: string]: string } | undefined
+}) => { [key: string]: unknown } | undefined
 
 /**
  * For details on configuration options:

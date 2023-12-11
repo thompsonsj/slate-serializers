@@ -1,5 +1,6 @@
 import { Element } from 'domhandler'
 import { Config } from './types'
+import { styleToString } from '@slate-serializers/utilities'
 
 // Map Slate element names to HTML tag names
 // Staightforward transform - no attributes are considered
@@ -30,6 +31,16 @@ const MARK_ELEMENT_TAG_MAP = {
 export const config: Config = {
   markMap: MARK_ELEMENT_TAG_MAP,
   elementMap: ELEMENT_NAME_TAG_MAP,
+  elementAttributeTransform: ({ node }) => {
+    if (node.align) {
+      return {
+        style: styleToString({
+          ['text-align']: node.align,
+        })
+      }
+    }
+    return
+  },
   elementTransforms: {
     quote: ({ children = [] }) => {
       const p = [new Element('p', {}, children)]
