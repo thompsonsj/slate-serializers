@@ -12,6 +12,7 @@
         "main": "packages/slate-serializers/src/index.ts",
         "tsConfig": "packages/slate-serializers/tsconfig.lib.json",
         "assets": ["packages/slate-serializers/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true,
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
