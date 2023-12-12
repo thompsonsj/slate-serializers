@@ -1,23 +1,16 @@
 import { getAttributeValue } from 'domutils';
 import {
   htmlToSlate,
-  htmlToSlateConfig,
-  slateToHtml,
+  payloadHtmlToSlateConfig,
   type HtmlToSlateConfig,
-  SlateToHtmlConfig,
-  slateToHtmlConfig,
 } from '../../html';
-import {
-  transformStyleObjectToString,
-  transformStyleStringToObject,
-} from '@slate-serializers/utilities';
 
 const fixture =
   '<h2 style="text-align: center;"><span style="font-size: 14pt;"><b>Introduce MacBook Air 2017 MQD42</b></span></h2>\n<p><img class="aligncenter wp-image-3372" src="https://example.com/media/macbook-air-2017-mqd42-1.jpg" alt="" width="900" height="577" /></p>\n';
 
 describe('issue #120', () => {
   it('generates expected htmlToSlate output', () => {
-    const slate = htmlToSlate(fixture);
+    const slate = htmlToSlate(fixture, payloadHtmlToSlateConfig);
     expect(slate).toMatchInlineSnapshot(`
       [
         {
@@ -43,9 +36,9 @@ describe('issue #120', () => {
 
   it('generates expected htmlToSlate output with an elementTransform', () => {
     const config: HtmlToSlateConfig = {
-      ...htmlToSlateConfig,
+      ...payloadHtmlToSlateConfig,
       elementTags: {
-        ...htmlToSlateConfig.elementTags,
+        ...payloadHtmlToSlateConfig.elementTags,
         img: (el) => ({
           type: 'image',
           src: el && getAttributeValue(el, 'src'),
