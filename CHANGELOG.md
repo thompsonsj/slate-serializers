@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.1.6](https://github.com/thompsonsj/slate-serializers/compare/v0.5.1...v2.1.6) (2023-12-12)
+
+
+### Bug Fixes
+
+* **react:** workaround non-bundled dependency ([#131](https://github.com/thompsonsj/slate-serializers/issues/131)) ([7250705](https://github.com/thompsonsj/slate-serializers/commit/7250705a1d173c2e6902085f6cbd3a84686c1017))
+* **slatetohtml:** parse align attribute, add style object example ([#133](https://github.com/thompsonsj/slate-serializers/issues/133)) ([75c453f](https://github.com/thompsonsj/slate-serializers/commit/75c453fd023bd9657db0caaf6ae7ff629147e0e4))
+
+
+### Miscellaneous Chores
+
+* **package.json:** bump to 2.1.6 ([#134](https://github.com/thompsonsj/slate-serializers/issues/134)) ([c8a02fa](https://github.com/thompsonsj/slate-serializers/commit/c8a02fa3f3f61b5965dd242e5365e8992c3a630e))
+
 ## [0.5.1](https://github.com/thompsonsj/slate-serializers/compare/v0.5.0...v0.5.1) (2023-12-05)
 
 
