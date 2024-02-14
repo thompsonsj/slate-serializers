@@ -91,7 +91,7 @@ describe('React conversion - Payload CMS fixtures', () => {
               attrs.target = '_blank';
             }
             const doc = node.doc?.value;
-            if (isPost(doc)) {
+            if (isPost(doc) && node.linkType === 'internal') {
               attrs.href = `https://example.com/${doc.id}`;
             }
             return (
