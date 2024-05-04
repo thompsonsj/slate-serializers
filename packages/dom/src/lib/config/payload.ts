@@ -1,6 +1,7 @@
 import { Element, Text } from 'domhandler'
 import { config as defaultConfig } from './default'
 import { SlateToDomConfig } from '../..'
+import { styleToString } from '@slate-serializers/utilities';
 
 /**
  * Configuration for Payload CMS
@@ -10,6 +11,16 @@ import { SlateToDomConfig } from '../..'
 
 export const config: SlateToDomConfig = {
   ...defaultConfig,
+  elementAttributeTransform: ({ node }) => {
+    if (node.align || node.textAlign) {
+      return {
+        style: styleToString({
+          ['text-align']: node.align || node.textAlign,
+        })
+      }
+    }
+    return
+  },
   elementTransforms: {
     ...defaultConfig.elementTransforms,
     link: ({ node, children = [] }) => {
