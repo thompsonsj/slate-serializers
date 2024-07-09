@@ -1,6 +1,6 @@
-import { isBlock } from '@slate-serializers/utilities'
-
 export type Context = 'preserve' | 'block' | 'inline' | ''
+
+import { isBlock } from "./../../utilities/blocks"
 
 interface IprocessTextValue {
   text: string

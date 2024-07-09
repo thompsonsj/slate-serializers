@@ -14,3 +14,4 @@ export type { ElementTransform, MarkTransform } from './config/types'
 // Slate to DOM utilities
 export { convertSlate } from './utilities/convert-slate'
 export { extractCssFromStyle } from './utilities/domhandler'
+export { isEmptyObject, styleMapToAttribs } from './utilities'

@@ -1,10 +1,8 @@
-import { htmlToSlate } from './htmlToSlate'
-import { slateToHtml } from './slateToHtml'
+import { htmlToSlate, slateToHtml, payloadHtmlToSlateConfig } from '@slate-serializers/html'
 
-import { combinedFixtures } from '@slate-serializers/tests'
+import { combinedFixtures } from './../tests'
 
 import { slateToDomConfig, payloadSlateToDomConfig } from '@slate-serializers/dom'
-import { config as htmlToSlatePayloadConfig } from './htmlToSlate/config/payload'
 
 describe('HTML to Slate JSON transforms', () => {
   describe('Combined', () => {
@@ -52,6 +50,6 @@ describe('attribute mapping', () => {
   })
 
   it('htmlToSlate adds a custom data attribute', () => {
-    expect(htmlToSlate(html, htmlToSlatePayloadConfig)).toEqual(slate)
+    expect(htmlToSlate(html, payloadHtmlToSlateConfig)).toEqual(slate)
   })
 })

@@ -5,7 +5,7 @@ import {
   type HtmlToSlateConfig,
   SlateToHtmlConfig,
   slateToHtmlConfig,
-} from '../../html';
+} from '@slate-serializers/html';
 import {
   transformStyleObjectToString,
   transformStyleStringToObject,

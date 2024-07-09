@@ -8,10 +8,9 @@ import { Descendant } from 'slate'
 import { Config } from './config/types'
 import { config as defaultConfig } from './config/default'
 
-import { extractCssFromStyle } from '@slate-serializers/dom'
-import { getNested, isBlock } from '@slate-serializers/utilities'
-
 import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
+
+import { isBlock } from '../../utilities/blocks'
 
 interface Ideserialize {
   el: ChildNode

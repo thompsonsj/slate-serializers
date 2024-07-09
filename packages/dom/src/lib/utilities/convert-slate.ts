@@ -5,8 +5,8 @@ import { Text as SlateText } from 'slate'
 import { config as defaultConfig } from '../config/default'
 import { Config } from '../config/types'
 import { nestedMarkElements } from './domhandler'
-import { decodeBreakingEntities, encodeBreakingEntities } from '@slate-serializers/utilities'
-import { intersection } from '@slate-serializers/utilities'
+import { decodeBreakingEntities, encodeBreakingEntities } from '.'
+import { intersection } from '.'
 
 interface IConvertSlate {
   node: any

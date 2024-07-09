@@ -2,7 +2,7 @@ import { ChildNode, Element, Text } from 'domhandler'
 import { find } from 'domutils'
 import { slateToHtml } from '.'
 import { slateToHtmlConfig, SlateToHtmlConfig } from '@slate-serializers/html'
-import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
+import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/dom'
 
 describe('slateToHtml expected behaviour', () => {
   it('does not encode HTML entities', () => {
