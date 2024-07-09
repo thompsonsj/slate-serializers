@@ -1,5 +1,5 @@
 import { Config } from './types'
-import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/utilities'
+import { isEmptyObject, styleMapToAttribs } from '../utilities'
 
 const ELEMENT_NAME_TAG_MAP = {
   ['block-quote']: 'blockquote',

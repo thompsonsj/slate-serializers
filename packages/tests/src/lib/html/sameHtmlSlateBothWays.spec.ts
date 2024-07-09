@@ -1,6 +1,5 @@
-import { htmlToSlate } from './htmlToSlate'
-import { slateToHtml } from './slateToHtml'
-import { elementFixtures, textFixtures } from '@slate-serializers/tests'
+import { htmlToSlate, slateToHtml } from '@slate-serializers/html'
+import { elementFixtures, textFixtures } from '../tests'
 
 /**
  * Run tests both ways by using the same fixtures

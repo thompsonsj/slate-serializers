@@ -1,6 +1,6 @@
 import { Element } from 'domhandler'
 import { Config } from './types'
-import { styleToString } from '@slate-serializers/utilities'
+import { styleToString } from '../utilities'
 
 // Map Slate element names to HTML tag names
 // Staightforward transform - no attributes are considered

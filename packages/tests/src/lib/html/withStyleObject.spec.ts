@@ -1,10 +1,8 @@
-import { htmlToSlate } from './htmlToSlate'
-import { slateToHtml } from './slateToHtml'
+import { htmlToSlate, slateToHtml, htmlToSlateConfig } from '@slate-serializers/html'
 import { ChildNode, Element } from 'domhandler'
 import { slateToDomConfig } from '@slate-serializers/dom'
-import { config as htmlToSlateConfig } from './htmlToSlate/config/default'
 import { transformStyleObjectToString, transformStyleStringToObject } from '@slate-serializers/utilities'
-import { styleObjectFixtures as fixtures } from '@slate-serializers/tests'
+import { styleObjectFixtures as fixtures } from '../tests'
 
 export const slateToDomConfigStyleObject = {
   ...slateToDomConfig,
