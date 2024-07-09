@@ -1,7 +1,7 @@
 import React, { ReactElement, JSXElementConstructor } from 'react'
 import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
-import { ulid } from 'ulid'
+import { ulid } from 'ulidx'
 
 import { convertSlate } from '@slate-serializers/dom'
 import { config as slateToReactConfig } from './config/default'

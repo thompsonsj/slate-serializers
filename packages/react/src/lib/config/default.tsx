@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Config } from './types'
-import { ulid } from 'ulid'
+import { ulid } from 'ulidx'
 import { slateToDomConfig } from '@slate-serializers/dom'
 
 const BlockQuote = ({ children }: { children: ReactNode }) => (
