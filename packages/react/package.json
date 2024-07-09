@@ -1,7 +1,7 @@
 {
    "name": "@slate-serializers/react",
-   "version": "2.1.6",
+   "version": "2.2.0",
    "dependencies": {
-      "@slate-serializers/dom": "2.1.6"
+      "@slate-serializers/dom": "2.2.0"
    }
 }
