@@ -1,13 +1,14 @@
+import React from 'react'
 import renderer from 'react-test-renderer'
-import { combinedFixtures, elementFixtures, textFixtures } from '@slate-serializers/tests'
-import { SlateToReact } from '../serializers'
+import { combinedFixtures, elementFixtures, textFixtures } from '../tests'
+import { SlateToReact, payloadSlateToReactConfig } from '@slate-serializers/react'
 
 describe('Slate JSON to React transforms', () => {
   describe('Element tags', () => {
     const fixtures = elementFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slate} />).toJSON()
+        const tree = renderer.create(<SlateToReact node={fixture.slate} config={payloadSlateToReactConfig} />).toJSON()
         expect(tree).toMatchSnapshot()
       })
     }
@@ -16,7 +17,7 @@ describe('Slate JSON to React transforms', () => {
     const fixtures = textFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slate} />).toJSON()
+        const tree = renderer.create(<SlateToReact node={fixture.slate} config={payloadSlateToReactConfig} />).toJSON()
         expect(tree).toMatchSnapshot()
       })
     }
@@ -25,7 +26,7 @@ describe('Slate JSON to React transforms', () => {
     const fixtures = combinedFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slateOriginal} />).toJSON()
+        const tree = renderer.create(<SlateToReact node={fixture.slateOriginal} config={payloadSlateToReactConfig} />).toJSON()
         expect(tree).toMatchSnapshot()
       })
     }

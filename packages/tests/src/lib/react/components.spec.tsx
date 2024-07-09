@@ -1,8 +1,6 @@
 import Button from './testComponents/Button'
 import { render, fireEvent, cleanup } from '@testing-library/react'
-import { SlateToReact } from '../../serializers'
-import { config as defaultReactConfig } from '../../config/default'
-import { Config as SlateToReactConfig } from '../../config/types'
+import { SlateToReact, slateToReactConfig as defaultReactConfig, SlateToReactConfig } from '@slate-serializers/react'
 
 afterEach(cleanup)
 
