@@ -64,6 +64,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "jsdom": "~24.0.0",
+    "ngx-deploy-npm": "^8.2.0",
     "nx": "19.4.2",
     "nx-cloud": "19.0.0",
     "prettier": "^2",
