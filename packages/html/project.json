@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/html/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -44,8 +45,10 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
+        "distFolderPath": "dist/packages/html",
         "access": "public"
-      }
+      },
+      "dependsOn": ["build"]
     },
     "version": {
       "executor": "@jscutlery/semver:version",
@@ -53,6 +56,5 @@
         "preset": "conventional"
       }
     }
-  },
-  "tags": []
+  }
 }
