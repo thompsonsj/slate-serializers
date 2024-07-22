@@ -36,6 +36,8 @@
     "@nx/rollup": "19.4.2",
     "@nx/vite": "19.4.2",
     "@nx/workspace": "19.4.2",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-url": "8.0.2",
     "@svgr/rollup": "8.1.0",
     "@swc-node/register": "1.9.2",

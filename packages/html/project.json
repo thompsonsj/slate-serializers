@@ -16,6 +16,12 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "cdn": {
+      "executor": "@nx/vite:build",
+      "options": {
+        "outputPath": "dist/packages/html/cdn"
+      }
+    },
     "publish": {
       "command": "node tools/scripts/publish.mjs html {args.ver} {args.tag}",
       "dependsOn": ["build"]
