@@ -14,7 +14,7 @@ interface ISlateToReact {
 
 export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReact) => {
   if (!Array.isArray(node)) {
-    return <></>
+    return React.createElement(React.Fragment)
   }
   const document = node.map((n, index) =>
     convertSlate({
@@ -37,10 +37,11 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
 }
 
 const transformText = (text: Text | Element) => {
+  console.log(text, 'isTag(text as Element)', isTag(text as Element), 'getName(text as Element)', getName(text as Element), 'textContent(text as Text)', textContent(text as Text))
   if (isTag(text as Element)) {
     return React.createElement(getName(text as Element), {}, textContent(text as Element))
   }
-  return <>{textContent(text as Text)}</>
+  return React.createElement(React.Fragment, {}, textContent(text as Text))
 }
 
 const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {

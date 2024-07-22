@@ -15,6 +15,7 @@ export default {
     alias({
       entries: [
         { find: '@slate-serializers/dom', replacement: 'packages/dom/src/index.ts' },
+        { find: '@slate-serializers/html', replacement: 'packages/html/src/index.ts' },
       ]
     }),
     replace({
