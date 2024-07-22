@@ -8,9 +8,10 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public",
-        "buildTarget": "production"
-      }
+        "distFolderPath": "dist/packages/react",
+        "access": "public"
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nx/eslint:lint",
