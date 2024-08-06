@@ -37,7 +37,6 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
 }
 
 const transformText = (text: Text | Element) => {
-  console.log(text, 'isTag(text as Element)', isTag(text as Element), 'getName(text as Element)', getName(text as Element), 'textContent(text as Text)', textContent(text as Text))
   if (isTag(text as Element)) {
     return React.createElement(getName(text as Element), {}, textContent(text as Element))
   }

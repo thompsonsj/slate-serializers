@@ -24,6 +24,7 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
+        "distFolderPath": "dist/packages/html-cdn",
         "access": "public"
       }
     },
