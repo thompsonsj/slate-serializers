@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.2.1](https://github.com/thompsonsj/slate-serializers/compare/v2.2.0...v2.2.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* **tsconfig:** disable sourceMap ([#158](https://github.com/thompsonsj/slate-serializers/issues/158)) ([1a01dda](https://github.com/thompsonsj/slate-serializers/commit/1a01ddadc78a30b06cf3328dd40258148c77ea94))
+
 ## [2.1.6](https://github.com/thompsonsj/slate-serializers/compare/v0.5.1...v2.1.6) (2023-12-12)
 
 
