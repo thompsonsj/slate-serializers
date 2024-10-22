@@ -12,6 +12,7 @@ const blocks = [
   'col', // Similar to block.
   'colgroup', // Similar to block.
   'dd', // Lists.
+  'details', // Similar to block.
   'dialog', // Flow content.
   'dir', // Lists, legacy.
   'div', // Flow content.
