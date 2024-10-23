@@ -1,7 +1,7 @@
 import { Element, Text } from 'domhandler'
 import { config as defaultConfig } from './default'
 import { SlateToDomConfig } from '../..'
-import { styleToString } from '@slate-serializers/utilities';
+import { styleToString } from '../utilities';
 
 /**
  * Configuration for Payload CMS
