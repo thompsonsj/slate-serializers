@@ -1,6 +1,5 @@
 import { Element } from 'domhandler'
-import { slateToHtml } from '.'
-import { payloadSlateToDomConfig, type ElementTransform } from '@slate-serializers/dom'
+import { slateToHtml, payloadSlateToHtmlConfig, type ElementTransform } from '@slate-serializers/html'
 
 describe('slateToHtml: Payload CMS config', () => {
   it('renders an upload field as an `img` HTML element if an image', () => {
@@ -27,7 +26,7 @@ describe('slateToHtml: Payload CMS config', () => {
         relationTo: 'images',
       },
     ]
-    expect(slateToHtml(slate, payloadSlateToDomConfig)).toEqual(html)
+    expect(slateToHtml(slate, payloadSlateToHtmlConfig)).toEqual(html)
   })
 
   it('renders an upload field as an `a` HTML element if not an image', () => {
@@ -52,7 +51,7 @@ describe('slateToHtml: Payload CMS config', () => {
         relationTo: 'images',
       },
     ]
-    expect(slateToHtml(slate, payloadSlateToDomConfig)).toEqual(html)
+    expect(slateToHtml(slate, payloadSlateToHtmlConfig)).toEqual(html)
   })
 
   it('renders an upload field as an `img` HTML element with a custom transform', () => {
@@ -93,9 +92,9 @@ describe('slateToHtml: Payload CMS config', () => {
     }
 
     const config = {
-      ...payloadSlateToDomConfig,
+      ...payloadSlateToHtmlConfig,
       elementTransforms: {
-        ...payloadSlateToDomConfig.elementTransforms,
+        ...payloadSlateToHtmlConfig.elementTransforms,
         upload: uploadTransform,
       },
     }
