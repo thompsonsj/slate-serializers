@@ -127,7 +127,7 @@ export const convertSlate = ({
 
   // default tag
   if (!element && config.defaultTag && !node.type) {
-    element = transformElement(new Element(config.defaultTag, {}, children))
+    element = transformElement(new Element(config.defaultTag, attribs, children))
   }
 
   if (element) {

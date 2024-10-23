@@ -2,6 +2,37 @@ import { Element } from 'domhandler'
 import { slateToHtml, payloadSlateToHtmlConfig, type ElementTransform } from '@slate-serializers/html'
 
 describe('slateToHtml: Payload CMS config', () => {
+  it('adds text alignment', () => {
+    const html = '<p style="text-align:left;">Left aligned.</p><p style="text-align:center;">Center aligned.</p><p style="text-align:right;">Right aligned.</p>'
+    const slate = [
+      {
+        "children": [
+          {
+            "text": "Left aligned."
+          }
+        ],
+        "textAlign": "left"
+      },
+      {
+        "children": [
+          {
+            "text": "Center aligned."
+          }
+        ],
+        "textAlign": "center"
+      },
+      {
+        "children": [
+          {
+            "text": "Right aligned."
+          }
+        ],
+        "textAlign": "right"
+      },
+    ]
+    expect(slateToHtml(slate, payloadSlateToHtmlConfig)).toEqual(html)
+  })
+
   it('renders an upload field as an `img` HTML element if an image', () => {
     const html = '<img src="/images/pink-hour-au-cafe-bataclan-paris.jpg">'
     const slate = [
