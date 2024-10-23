@@ -4,23 +4,23 @@ A collection of serializers to convert [Slate](https://www.npmjs.com/package/sla
 
 ## Convert Slate to DOM
 
-- Convert Slate to a DOM object with [`slateToDom`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/dom).
+- Convert Slate to a DOM object with [`slateToDom`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/dom/README.md).
 - Use the suite of DOM manipulation tools for [`htmlparser2`](https://github.com/fb55/htmlparser2) before serializing to HTML.
 - NPM: [https://www.npmjs.com/package/@slate-serializers/dom](https://www.npmjs.com/package/@slate-serializers/dom).
 
 ## Convert Slate to HTML and vice versa
 
-- Convert Slate to HTML and vice versa with [`htmlToSlate` and `slateToHtml`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/html).
+- Convert Slate to HTML and vice versa with [`htmlToSlate` and `slateToHtml`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/html/README.md).
 - NPM: [https://www.npmjs.com/package/@slate-serializers/html](https://www.npmjs.com/package/@slate-serializers/html).
 
 ## Include framework-agnostic components
 
-- Include top-level custom components with [`slateToTemplate`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/template). Framework agnostic - e.g. return Astro, React or Vue components alongside regular HTML nodes.
+- Include top-level custom components with [`slateToTemplate`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/template/README.md). Framework agnostic - e.g. return Astro, React or Vue components alongside regular HTML nodes.
 - NPM: [https://www.npmjs.com/package/@slate-serializers/template](https://www.npmjs.com/package/@slate-serializers/template)
 
 ## Convert Slate to React
 
-- Convert Slate to React with [`slateToReact`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/react).
+- Convert Slate to React with [`slateToReact`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/react/README.md).
 - NPM: [https://www.npmjs.com/package/@slate-serializers/react](https://www.npmjs.com/package/@slate-serializers/react)
 
 ## More information
