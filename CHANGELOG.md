@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.2.2](https://github.com/thompsonsj/slate-serializers/compare/v2.2.1...v2.2.2) (2024-10-23)
+
+
+### Bug Fixes
+
+* **convertslate:** pass attribs to defaultTag ([#170](https://github.com/thompsonsj/slate-serializers/issues/170)) ([42aa314](https://github.com/thompsonsj/slate-serializers/commit/42aa314fefa63331ed317896f361ee79c0d93859))
+* **htmltoslate:** support html details tag ([#161](https://github.com/thompsonsj/slate-serializers/issues/161)) ([31b98e2](https://github.com/thompsonsj/slate-serializers/commit/31b98e29b079489863903218e2ebece50cbe7e75))
+
 ## [2.2.1](https://github.com/thompsonsj/slate-serializers/compare/v2.2.0...v2.2.1) (2024-08-06)
 
 
