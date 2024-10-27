@@ -3,6 +3,7 @@ import {
   HtmlToSlateConfig,
   htmlToSlateConfig,
 } from '@slate-serializers/html';
+import { getAttributeValue } from 'domutils';
 
 describe('htmlToSlate configuration: textTags', () => {
   it('converts text tags to Slate node attributes from the default configuration', () => {
@@ -85,8 +86,8 @@ describe('htmlToSlate configuration: textTags', () => {
       textTags: {
         ...htmlToSlateConfig.textTags,
         time: (el) => ({
-          ...(el?.attribs?.['datetime'] && {
-            datetime: el.attribs['datetime'],
+          ...(el && {
+            datetime: getAttributeValue(el, 'datetime'),
           }),
           time: true,
         }),
