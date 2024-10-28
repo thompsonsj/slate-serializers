@@ -16,10 +16,6 @@ export type AttributeTransform = ({
  * @see /docs/config/htmlToSlate.md
  */
 export interface Config {
-  /* Shortcut to map all HTML attribute/values */
-  elementAttributeMap?: {
-    style?: { [key: string]: string }
-  }
   /* Use a custom function to generate Slate node attributes based on every Element passed through the serializer */
   elementAttributeTransform?: AttributeTransform
   /* Map HTML element tags to Slate JSON object attributes */
