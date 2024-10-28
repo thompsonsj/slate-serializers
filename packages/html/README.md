@@ -143,13 +143,18 @@ const html = `<h1>Heading 1</h1><p>Paragraph 1</p>`
 const serializedToSlate = htmlToSlate(html, payloadHtmlToSlateConfig)
 ```
 
-##### Custom configuration
+#### Options
 
-You can create your own configuration file that implements your schema. See [packages/html/src/lib/serializers/htmlToSlate/config/payload.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/payload.ts) for an example of how to extend the default configuration or copy [packages/html/src/lib/serializers/htmlToSlate/config/default.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts) and rewrite it as appropriate.
+Create your own configuration file that implements your schema.
+
+- See [packages/html/src/lib/serializers/htmlToSlate/config/payload.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/payload.ts) for an example of how to extend the default configuration; or
+- copy [packages/html/src/lib/serializers/htmlToSlate/config/default.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts) and rewrite it as appropriate.
+
+For more detailed documentation and examples, see [htmlToSlate | `slate-serializers`](https://thompsonsj.github.io/slate-serializers-demo/html-to-slate/docs).
 
 | Option  | Description | Default |
 | - | - | - |
-| `textTags` | Define transform functions for HTML formatting elements. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Example `{ i: () => ({ italic: true }), /* ... */ }`. |
+| `textTags` | Define transform functions for HTML formatting elements. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Examples: [textTags.spec.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/tests/htmlToSlate/configuration/textTags.spec.ts). |
 | `elementTags` | Define transform functions for HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Example `{ p: () => ({ type: 'p' }), /* ... */ }`. |
 | `htmlPreProcessString` | Perform operations on the HTML string before serialization. | `(html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>')` | /* ... */ }`. |
 | `filterWhitespaceNodes` | Remove whitespace that does not contribute meaning. | `true` |
