@@ -9,7 +9,7 @@ import {
 import { comprehensiveExampleSlate } from './fixtures/payload/comprehensive';
 
 describe('Issue 175', () => {
-  test('convert fixture with Payload config', async () => {
+  test('convert fixture with default config', async () => {
     const tree = renderer
       .create(<SlateToReact node={comprehensiveExampleSlate} />)
       .toJSON();
@@ -102,7 +102,7 @@ describe('Issue 175', () => {
     `);
   });
 
-  it('convert fixture with config based on #175', () => {
+  it('convert fixture with Payload config with customisations based on #175', () => {
     const config: SlateToReactConfig = {
       react: {
         ...payloadSlateToReactConfig.react,
