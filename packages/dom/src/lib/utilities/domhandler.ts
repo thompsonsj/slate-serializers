@@ -16,48 +16,12 @@ export const nestedMarkElementsString = (els: Element[], text: string) => {
 }
 
 export const nestedMarkElements = (els: Element[], element: Element | Text) => {
-  if (els.length === 0) {
-    return element
-  }
-  const el1 = els.pop()
-  if (el1) {
-    el1.children = [element]
-    element = el1
-  }
-  if (!els || els.length === 0) {
-    return element
-  }
-  const el2 = els.pop()
-  if (el2) {
-    el2.children = [element]
-    element = el2
-  }
-  if (!els || els.length === 0) {
-    return element
-  }
-  const el3 = els.pop()
-  if (el3) {
-    el3.children = [element]
-    element = el3
-  }
-  if (!els || els.length === 0) {
-    return element
-  }
-  const el4 = els.pop()
-  if (el4) {
-    el4.children = [element]
-    element = el4
-  }
-  if (!els || els.length === 0) {
-    return element
-  }
-  const el5 = els.pop()
-  if (el5) {
-    el5.children = [element]
-    element = el5
-  }
-  if (!els || els.length === 0) {
-    return element
+  while (els && els.length > 0) {
+    const el = els.pop()
+    if (el) {
+      el.children = [element]
+      element = el
+    }
   }
   return element
 }
