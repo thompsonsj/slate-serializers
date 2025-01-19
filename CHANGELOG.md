@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.2.3](https://github.com/thompsonsj/slate-serializers/compare/v2.2.2...v2.2.3) (2025-01-19)
+
+
+### Bug Fixes
+
+* **domhandler:** remove limit on mark transforms ([#183](https://github.com/thompsonsj/slate-serializers/issues/183)) ([3084324](https://github.com/thompsonsj/slate-serializers/commit/3084324cdf55f12567d35e3f8f6f0e3e9a8193a6))
+
 ## [2.2.2](https://github.com/thompsonsj/slate-serializers/compare/v2.2.1...v2.2.2) (2024-10-23)
 
 
