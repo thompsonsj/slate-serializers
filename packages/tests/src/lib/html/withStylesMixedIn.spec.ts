@@ -1,4 +1,4 @@
-import { slateToHtml, htmlToSlateConfig, HtmlToSlateConfig } from '@slate-serializers/html'
+import { slateToHtml, htmlToSlateConfig, HtmlToSlateConfig, htmlToSlate } from '@slate-serializers/html'
 import { Element } from 'domhandler'
 import { SlateToDomConfig, slateToDomConfig } from '@slate-serializers/dom'
 import { transformStyleStringToObject } from '@slate-serializers/utilities'
@@ -34,13 +34,12 @@ export const slateToDomConfigStyleObject: SlateToDomConfig = {
 
 export const htmlToSlateConfigStyleObject: HtmlToSlateConfig = {
   ...htmlToSlateConfig,
-  elementTags: {
-    ...htmlToSlateConfig.elementTags,
-    p: (el) => {
-      const style = el?.attribs && transformStyleStringToObject(`el?.attribs`)
+  textTags: {
+    ...htmlToSlateConfig.textTags,
+    span: (el) => {
+      const style = el?.attribs && transformStyleStringToObject(el.attribs['style'] || ``)
       return {
-        type: 'p',
-        ...(style && { style })
+        ...(style && style)
       }
     }
   },
@@ -49,9 +48,8 @@ export const htmlToSlateConfigStyleObject: HtmlToSlateConfig = {
 describe('mixed in style attribute css transforms with postcss', () => {
   for (const fixture of fixtures) {
     it(`${fixture.name}`, () => {
-      console.log('alright?')
       expect(slateToHtml(fixture.slate, slateToDomConfigStyleObject )).toEqual(fixture.html)
-      //expect(htmlToSlate(fixture.html, htmlToSlateConfigStyleObject)).toEqual(fixture.slate)
+      expect(htmlToSlate(fixture.html, htmlToSlateConfigStyleObject)).toEqual(fixture.slate)
     })
   }
 })
