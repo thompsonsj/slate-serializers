@@ -45,7 +45,7 @@ export const htmlToSlateConfigStyleObject: HtmlToSlateConfig = {
   },
 }
 
-describe('mixed in style attribute css transforms with postcss', () => {
+describe('styles as attributes on a leaf', () => {
   for (const fixture of fixtures) {
     it(`${fixture.name}`, () => {
       expect(slateToHtml(fixture.slate, slateToDomConfigStyleObject )).toEqual(fixture.html)
