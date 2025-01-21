@@ -1,5 +1,7 @@
 # slate-serializers
 
+Docs/Demo: [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+
 A collection of serializers to convert [Slate](https://www.npmjs.com/package/slate) JSON objects to various formats and vice versa. Designed to work in both Node.js and browser environments.
 
 ## Convert Slate to DOM
