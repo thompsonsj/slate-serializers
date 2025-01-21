@@ -2,7 +2,7 @@
 
 Convert [Slate](https://www.npmjs.com/package/slate) JSON objects to HTML and vice versa.
 
-View the demo at [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+View demos and documentation at [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
 
 ## Table of contents
 
