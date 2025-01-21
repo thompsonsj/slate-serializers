@@ -1,5 +1,7 @@
 # slate-serializers
 
+Docs/Demo: [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+
 A collection of serializers to convert [Slate](https://www.npmjs.com/package/slate) JSON objects to various formats and vice versa. Designed to work in both Node.js and browser environments.
 
 ## Convert Slate to DOM
@@ -28,3 +30,4 @@ A collection of serializers to convert [Slate](https://www.npmjs.com/package/sla
 - For engineering decisions, see [Engineering](https://github.com/thompsonsj/slate-serializers/blob/main/docs/engineering.md).
 - Review generated NX documentation at [NX](https://github.com/thompsonsj/slate-serializers/blob/main/docs/nx.md).
 - This repository is an NX monorepo. Review the docs at [https://nx.dev/](https://nx.dev/).
+- Related repository: https://github.com/thompsonsj/slate-serializers-demo. [Demo/docs site](https://thompsonsj.github.io/slate-serializers-demo). Not included in this monorepo to replicate repositories that use these libraries more effectively.
