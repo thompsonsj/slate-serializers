@@ -40,3 +40,6 @@ Thumbs.db
 
 # Additions
 .nx/*
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
