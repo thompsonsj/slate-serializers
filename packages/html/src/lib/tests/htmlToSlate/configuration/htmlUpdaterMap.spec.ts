@@ -106,8 +106,8 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
     expect(htmlToSlate(html, config)).toMatchInlineSnapshot(`
       [
         {
-          "alt": "An image",
-          "caption": "An image",
+          "alt": "An image alt text",
+          "caption": "An image caption",
           "children": [
             {
               "text": "",
