@@ -152,6 +152,19 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
         },
       },
     };
-    expect(htmlToSlate(html, config)).toMatchInlineSnapshot();
+    expect(htmlToSlate(html, config)).toMatchInlineSnapshot(`
+      [
+        {
+          "children": [
+            {
+              "text": "",
+            },
+          ],
+          "data-alt": "Alt text",
+          "data-src": "https://example.com/image.jpg",
+          "type": "image",
+        },
+      ]
+    `);
   });
 });
