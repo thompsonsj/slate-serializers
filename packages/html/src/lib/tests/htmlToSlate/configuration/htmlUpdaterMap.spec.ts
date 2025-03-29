@@ -63,9 +63,9 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
     `);
   });
 
-  it('converts element tags to Slate nodes from the default configuration', () => {
+  it('extracts data from HTML elements nested in a parent `figure` HTML element and maps to a single Slate node', () => {
     const html =
-      '<figure><img src="https://example.com/image.jpg" alt="An image" /><figcaption>An image</figcaption></figure>';
+      '<figure><img src="https://example.com/image.jpg" alt="An image alt text" /><figcaption>An image caption</figcaption></figure>';
     const config: HtmlToSlateConfig = {
       ...htmlToSlateConfig,
       elementTags: {
