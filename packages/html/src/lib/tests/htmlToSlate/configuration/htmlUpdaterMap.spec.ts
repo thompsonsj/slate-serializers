@@ -119,4 +119,39 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
       ]
     `);
   });
+
+  it('extracts data from HTML elements nested in a parent `figure` HTML element and maps to a single Slate node: simplified', () => {
+    const html =
+      '<figure><img src="https://example.com/image.jpg" alt="Alt text" /></figure>';
+    const config: HtmlToSlateConfig = {
+      ...htmlToSlateConfig,
+      elementTags: {
+        ...htmlToSlateConfig.elementTags,
+        figure: (el) => ({
+          ...(el && el.attribs),
+          type: 'image',
+        }),
+      },
+      htmlUpdaterMap: {
+        figure: (el) => {
+          const img = findOne((node) => node.name === 'img', [el]);
+          if (!img) {
+            return el;
+          }
+          const src = img.attribs['src'];
+          const alt = img.attribs['alt'];
+          return new Element(
+            'figure',
+            {
+              ...el.attribs,
+              'data-src': src,
+              'data-alt': alt,
+            },
+            []
+          );
+        },
+      },
+    };
+    expect(htmlToSlate(html, config)).toMatchInlineSnapshot();
+  });
 });
