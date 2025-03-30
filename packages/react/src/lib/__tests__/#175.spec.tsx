@@ -4,7 +4,7 @@ import {
   SlateToReact,
   payloadSlateToReactConfig,
   SlateToReactConfig,
-} from '@slate-serializers/react';
+} from './../react';
 
 import { comprehensiveExampleSlate } from './fixtures/payload/comprehensive';
 
@@ -104,39 +104,34 @@ describe('Issue 175', () => {
 
   it('convert fixture with Payload config with customisations based on #175', () => {
     const config: SlateToReactConfig = {
-      react: {
-        ...payloadSlateToReactConfig.react,
-        elementTransforms: {
-          ...payloadSlateToReactConfig.react.elementTransforms,
-          upload: ({ node, attribs, children }) => {
-            if (node.value?.mimeType && node.value?.url) {
-              if (node.value?.mimeType.match(/^image/)) {
-                return (
-                  <img
-                    src={node.value.url}
-                    alt={node.value.alt || node.value.filename}
-                    className={'w-full border-2'}
-                  />
-                );
-              }
+      ...payloadSlateToReactConfig,
+      elementTransforms: {
+        ...payloadSlateToReactConfig.elementTransforms,
+        upload: ({ node, attribs, children }) => {
+          if (node.value?.mimeType && node.value?.url) {
+            if (node.value?.mimeType.match(/^image/)) {
+              return (
+                <img
+                  src={node.value.url}
+                  alt={node.value.alt || node.value.filename}
+                  className={'w-full border-2'}
+                />
+              );
             }
-            return;
-          },
+          }
+          return;
         },
       },
-      dom: {
-        ...payloadSlateToReactConfig.dom,
-        defaultTag: 'p',
-        markMap: {
-          ...payloadSlateToReactConfig.dom.markMap,
-          strikethrough: ['s'],
-          bold: ['strong'],
-          underline: ['u'],
-          italic: ['i'],
-          code: ['code'],
-        },
-        alwaysEncodeBreakingEntities: false,
+      defaultTag: 'p',
+      markMap: {
+        ...payloadSlateToReactConfig.markMap,
+        strikethrough: ['s'],
+        bold: ['strong'],
+        underline: ['u'],
+        italic: ['i'],
+        code: ['code'],
       },
+      alwaysEncodeBreakingEntities: false,
     };
 
     const tree = renderer

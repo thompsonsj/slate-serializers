@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import { SlateToReact } from './../serializers';
+import { SlateToReact } from './../react';
 import { config as defaultReactConfig } from './../config/default';
 
 describe('React conversion', () => {
@@ -88,10 +88,7 @@ describe('React conversion', () => {
 
     const config = {
       ...defaultReactConfig,
-      dom: {
-        ...defaultReactConfig.dom,
-        defaultTag: 'p',
-      },
+      defaultTag: 'p',
     };
 
     const tree = renderer

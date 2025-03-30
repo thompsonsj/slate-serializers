@@ -5,12 +5,9 @@ import { transformStyleObjectToString } from '@slate-serializers/utilities'
 
 const reactConfig: SlateToReactConfig = {
   ...defaultReactConfig,
-  dom: {
-    ...defaultReactConfig.dom,
-    elementAttributeTransform: ({ node }) => {
-      const style = transformStyleObjectToString(node.style)
-      return style ? { style } : undefined
-    }
+  elementAttributeTransform: ({ node }) => {
+    const style = transformStyleObjectToString(node.style)
+    return style ? { style } : undefined
   }
 }
 
