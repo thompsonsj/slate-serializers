@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { slateToReactConfig } from '@slate-serializers/react'
+import { config as slateToReactConfig } from './default'
 import { payloadSlateToDomConfig } from '@slate-serializers/dom'
 import { Config as SlateToReactConfig } from './types'
 import { ulid } from 'ulidx'

@@ -2,6 +2,7 @@ import renderer from 'react-test-renderer'
 import { SlateToReact, slateToReactConfig as defaultReactConfig, SlateToReactConfig } from '@slate-serializers/react'
 import { styleObjectFixtures } from './../tests'
 import { transformStyleObjectToString } from '@slate-serializers/utilities'
+import React from 'react'
 
 const reactConfig: SlateToReactConfig = {
   ...defaultReactConfig,
