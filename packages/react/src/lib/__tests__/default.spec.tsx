@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
-import { SlateToReact } from './../react';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SlateToReact } from '@slate-serializers/react';
 import { config as defaultReactConfig } from './../config/default';
 
 describe('React conversion', () => {

@@ -1,9 +1,10 @@
 import renderer from 'react-test-renderer';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   SlateToReact,
   SlateToReactConfig,
   payloadSlateToReactConfig,
-} from '../../react';
+} from '@slate-serializers/react';
 import { Post } from './payload-types';
 
 // Type guard for Post
