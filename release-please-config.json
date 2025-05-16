@@ -27,7 +27,7 @@
     {
       "type": "linked-versions",
       "groupName": "all",
-      "components": ["dom", "html", "react", "slate-serializers", "template"]
+      "components": ["dom", "html", "react", "slate-serializers", "template", "utilities"]
     }
   ]
 }
