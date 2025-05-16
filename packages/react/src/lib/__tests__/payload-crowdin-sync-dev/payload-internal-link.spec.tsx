@@ -1,9 +1,10 @@
 import renderer from 'react-test-renderer';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   SlateToReact,
   SlateToReactConfig,
   payloadSlateToReactConfig,
-} from '../../react';
+} from '@slate-serializers/react';
 import { Post } from './payload-types';
 
 // Type guard for Post
@@ -78,28 +79,25 @@ describe('React conversion - Payload CMS fixtures', () => {
   test('convert internal link with customised config', async () => {
     const config: SlateToReactConfig = {
       ...payloadSlateToReactConfig,
-      react: {
-        ...payloadSlateToReactConfig.react,
-        elementTransforms: {
-          ...payloadSlateToReactConfig.react.elementTransforms,
-          link: ({ node, children = [] }) => {
-            const attrs: any = {};
-            if (node.linkType) {
-              attrs['data-link-type'] = node.linkType;
-            }
-            if (node.newTab) {
-              attrs.target = '_blank';
-            }
-            const doc = node.doc?.value;
-            if (isPost(doc) && node.linkType === 'internal') {
-              attrs.href = `https://example.com/${doc.id}`;
-            }
-            return (
-              <a href={node.url} {...attrs}>
-                {children}
-              </a>
-            );
-          },
+      elementTransforms: {
+        ...payloadSlateToReactConfig.elementTransforms,
+        link: ({ node, children = [] }) => {
+          const attrs: any = {};
+          if (node.linkType) {
+            attrs['data-link-type'] = node.linkType;
+          }
+          if (node.newTab) {
+            attrs.target = '_blank';
+          }
+          const doc = node.doc?.value;
+          if (isPost(doc) && node.linkType === 'internal') {
+            attrs.href = `https://example.com/${doc.id}`;
+          }
+          return (
+            <a href={node.url} {...attrs}>
+              {children}
+            </a>
+          );
         },
       },
     };

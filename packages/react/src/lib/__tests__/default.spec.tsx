@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
-import { SlateToReact } from './../serializers';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SlateToReact } from '@slate-serializers/react';
 import { config as defaultReactConfig } from './../config/default';
 
 describe('React conversion', () => {
@@ -88,10 +89,7 @@ describe('React conversion', () => {
 
     const config = {
       ...defaultReactConfig,
-      dom: {
-        ...defaultReactConfig.dom,
-        defaultTag: 'p',
-      },
+      defaultTag: 'p',
     };
 
     const tree = renderer

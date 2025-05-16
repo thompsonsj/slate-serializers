@@ -51,12 +51,10 @@ describe('slateToReact: map element to button component', () => {
 
     const reactConfig: SlateToReactConfig = {
       ...defaultReactConfig,
-      react: {
-        elementTransforms: {
-          ...defaultReactConfig.react.elementTransforms,
-          button: ({ node, children = [] }) => {
-            return <Button onClick={onClick}>{children}</Button>
-          },
+      elementTransforms: {
+        ...defaultReactConfig.elementTransforms,
+        button: ({ node, children = [] }) => {
+          return <Button onClick={onClick}>{children}</Button>
         },
       },
     }

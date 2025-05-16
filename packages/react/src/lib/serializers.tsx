@@ -20,12 +20,12 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
     convertSlate({
       node: n,
       config: {
-        ...config.dom,
+        ...config,
         elementTransforms: {},
         markTransforms: {},
       },
       isLastNodeInDocument: index === node.length - 1,
-      customElementTransforms: config.react.elementTransforms,
+      customElementTransforms: config.elementTransforms,
       transformText: (text) => transformText(text),
       transformElement: (element) => {
         return domElementToReactElement(element)

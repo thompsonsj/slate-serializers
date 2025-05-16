@@ -17,10 +17,7 @@ interface ElementTagTransform {
   }) => ReactNode
 }
 
-export interface Config {
-  dom: BaseConfig
-  react: {
-    markTransforms?: MarkTagTransform
-    elementTransforms: ElementTagTransform
-  }
+export interface Config extends BaseConfig {
+  markTransforms?: MarkTagTransform
+  elementTransforms: ElementTagTransform
 }

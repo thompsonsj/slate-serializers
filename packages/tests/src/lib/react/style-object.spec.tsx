@@ -2,15 +2,13 @@ import renderer from 'react-test-renderer'
 import { SlateToReact, slateToReactConfig as defaultReactConfig, SlateToReactConfig } from '@slate-serializers/react'
 import { styleObjectFixtures } from './../tests'
 import { transformStyleObjectToString } from '@slate-serializers/utilities'
+import React from 'react'
 
 const reactConfig: SlateToReactConfig = {
   ...defaultReactConfig,
-  dom: {
-    ...defaultReactConfig.dom,
-    elementAttributeTransform: ({ node }) => {
-      const style = transformStyleObjectToString(node.style)
-      return style ? { style } : undefined
-    }
+  elementAttributeTransform: ({ node }) => {
+    const style = transformStyleObjectToString(node.style)
+    return style ? { style } : undefined
   }
 }
 

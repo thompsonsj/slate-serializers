@@ -24,12 +24,12 @@ export const config: SlateToDomConfig = {
   elementTransforms: {
     ...defaultConfig.elementTransforms,
     link: ({ node, children = [] }) => {
-      const attrs: any = {}
+      const attrs: {[key: string]: string} = {}
       if (node.linkType) {
         attrs['data-link-type'] = node.linkType
       }
       if (node.newTab) {
-        attrs.target = '_blank'
+        attrs['target'] = '_blank'
       }
       return new Element(
         'a',
