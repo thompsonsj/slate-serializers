@@ -1,0 +1,33 @@
+{
+  "packages": {
+    ".": {},
+    "packages/dom": {
+      "component": "dom"
+    },
+    "packages/html": {
+      "component": "html"
+    },
+    "packages/react": {
+      "component": "react"
+    },
+    "packages/slate-serializers": {
+      "component": "slate-serializers"
+    },
+    "packages/template": {
+      "component": "template"
+    },
+    "packages/tests": {
+      "component": "tests"
+    },
+    "packages/utilities": {
+      "component": "utilities"
+    }
+  },
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "all",
+      "components": ["dom", "html", "react", "slate-serializers", "template", "tests", "utilities"]
+    }
+  ]
+}
