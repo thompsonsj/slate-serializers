@@ -1,6 +1,6 @@
 {
   "name": "@slate-serializers/source",
-  "version": "2.2.3",
+  "version": "2.1.6",
   "license": "MIT",
   "scripts": {
     "test": "nx run-many --all --target=test",
