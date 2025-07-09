@@ -63,6 +63,5 @@
     "@nx/js": {
       "analyzeSourceFiles": true
     }
-  },
-  "useLegacyCache": true
+  }
 }
