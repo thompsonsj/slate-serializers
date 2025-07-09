@@ -1,4 +1,5 @@
-import renderer from 'react-test-renderer';
+import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   SlateToReact,
@@ -58,21 +59,21 @@ describe('React conversion - Payload CMS fixtures', () => {
   ];
 
   test('convert internal link', async () => {
-    const tree = renderer
-      .create(
-        <SlateToReact node={fixture} config={payloadSlateToReactConfig} />
-      )
-      .toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      <p>
-        Example post content with an 
-        <a
-          data-link-type="internal"
-        >
-          internal link to another post
-        </a>
-        .
-      </p>
+    const tree = render(
+      <SlateToReact node={fixture} config={payloadSlateToReactConfig} />,
+    );
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
+        <p>
+          Example post content with an 
+          <a
+            data-link-type="internal"
+          >
+            internal link to another post
+          </a>
+          .
+        </p>
+      </div>
     `);
   });
 
@@ -102,20 +103,20 @@ describe('React conversion - Payload CMS fixtures', () => {
       },
     };
 
-    const tree = renderer
-      .create(<SlateToReact node={fixture} config={config} />)
-      .toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      <p>
-        Example post content with an 
-        <a
-          data-link-type="internal"
-          href="https://example.com/65cd31a44e1969ec392ec2d9"
-        >
-          internal link to another post
-        </a>
-        .
-      </p>
+    const tree = render(<SlateToReact node={fixture} config={config} />);
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
+        <p>
+          Example post content with an 
+          <a
+            data-link-type="internal"
+            href="https://example.com/65cd31a44e1969ec392ec2d9"
+          >
+            internal link to another post
+          </a>
+          .
+        </p>
+      </div>
     `);
   });
 });

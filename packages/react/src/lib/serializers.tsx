@@ -44,6 +44,7 @@ const transformText = (text: Text | Element) => {
 }
 
 const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {
+  const style = element.attribs?.style && typeof element.attribs.style === 'object' && { style: element.attribs?.style }
   return React.createElement(
     getName(element),
     {
@@ -54,7 +55,7 @@ const domElementToReactElement = (element: Element): ReactElement<any, string | 
       /* Convert key names for JSX compatibility */
       ...(element.attribs?.class && { className: element.attribs?.class }),
       /* Validate style (can convert to React style object using elementAttributeTransform or other transform functions, but it is still possible that a string will be passed) */
-      ...(element.attribs?.style && typeof element.attribs.style === 'object' && { style: element.attribs?.style }),
+      style: style ? style : undefined,
     },
     element.children as any,
   )

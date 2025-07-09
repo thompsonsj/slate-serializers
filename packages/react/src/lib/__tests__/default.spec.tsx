@@ -1,4 +1,5 @@
-import renderer from 'react-test-renderer';
+import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { SlateToReact } from '@slate-serializers/react';
 import { config as defaultReactConfig } from './../config/default';
@@ -16,11 +17,13 @@ describe('React conversion', () => {
       },
     ];
 
-    const tree = renderer.create(<SlateToReact node={slate} />).toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      <p>
-        Paragraph
-      </p>
+    const tree = render(<SlateToReact node={slate} />);
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
+        <p>
+          Paragraph
+        </p>
+      </div>
     `);
   });
 
@@ -56,23 +59,25 @@ describe('React conversion', () => {
         ],
       },
     ];
-    const tree = renderer.create(<SlateToReact node={slate} />).toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      <p>
-        This is editable 
-        <strong>
-          rich
-        </strong>
-         text, 
-        <i>
-          much
-        </i>
-         better than a 
-        <pre>
-          &lt;textarea&gt;
-        </pre>
-        !
-      </p>
+    const tree = render(<SlateToReact node={slate} />);
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
+        <p>
+          This is editable 
+          <strong>
+            rich
+          </strong>
+           text, 
+          <i>
+            much
+          </i>
+           better than a 
+          <pre>
+            &lt;textarea&gt;
+          </pre>
+          !
+        </p>
+      </div>
     `);
   });
 
@@ -92,13 +97,13 @@ describe('React conversion', () => {
       defaultTag: 'p',
     };
 
-    const tree = renderer
-      .create(<SlateToReact node={slate} config={config} />)
-      .toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      <p>
-        Paragraph
-      </p>
+    const tree = render(<SlateToReact node={slate} config={config} />);
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
+        <p>
+          Paragraph
+        </p>
+      </div>
     `);
   });
 });
