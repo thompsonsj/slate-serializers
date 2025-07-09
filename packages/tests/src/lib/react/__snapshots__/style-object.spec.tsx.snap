@@ -1,37 +1,41 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`style attribute css transforms with postcss mark transform 1`] = `
-<p>
-  <strong>
-    Paragraph
-  </strong>
-</p>
+<div>
+  <p>
+    <strong>
+      Paragraph
+    </strong>
+  </p>
+</div>
 `;
 
 exports[`style attribute css transforms with postcss mark transforms on multiple marks 1`] = `
-<p>
-  This is editable 
-  <strong>
-    rich
-  </strong>
-   text, 
-  <i>
-    much
-  </i>
-   better than a 
-  <pre>
-    &lt;textarea&gt;
-  </pre>
-  !
-</p>
+<div>
+  <p>
+    This is editable 
+    <strong>
+      rich
+    </strong>
+     text, 
+    <i>
+      much
+    </i>
+     better than a 
+    <pre>
+      &lt;textarea&gt;
+    </pre>
+    !
+  </p>
+</div>
 `;
 
 exports[`style attribute css transforms with postcss p tag element transform 1`] = `
-<p
-  style="font-size: 96px; --text-color: #DD3A0A; @media screen { z-index: 1; color: var(--text-color) }"
->
-  <strong>
-    Paragraph
-  </strong>
-</p>
+<div>
+  <p>
+    <strong>
+      Paragraph
+    </strong>
+  </p>
+</div>
 `;

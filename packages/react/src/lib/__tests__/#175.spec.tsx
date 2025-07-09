@@ -1,4 +1,5 @@
-import renderer from 'react-test-renderer';
+import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   SlateToReact,
@@ -10,75 +11,73 @@ import { comprehensiveExampleSlate } from './fixtures/payload/comprehensive';
 
 describe('Issue 175', () => {
   test('convert fixture with default config', async () => {
-    const tree = renderer
-      .create(<SlateToReact node={comprehensiveExampleSlate} />)
-      .toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      [
+    const tree = render(<SlateToReact node={comprehensiveExampleSlate} />);
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
         <h1>
           Heading 1: Payload CMS Slate Example Content
-        </h1>,
+        </h1>
         <h2>
           Heading 2: Text formatting
-        </h2>,
-        "Some ",
+        </h2>
+        Some 
         <strong>
           bold text
-        </strong>,
-        " in a sentence.",
+        </strong>
+         in a sentence.
         <u>
           Underlined text
-        </u>,
-        " and ",
+        </u>
+         and 
         <i>
           italic text
-        </i>,
-        ".",
+        </i>
+        .
         <h3>
           Heading 3: Formatting combinations
-        </h3>,
-        "Combine ",
+        </h3>
+        Combine 
         <strong>
           all three
-        </strong>,
-        " of the aforementioned tags. Throw a ",
+        </strong>
+         of the aforementioned tags. Throw a 
         <s>
           strikethrough
-        </s>,
-        " in there too.",
+        </s>
+         in there too.
         <h4>
           Heading 4: Code
-        </h4>,
+        </h4>
         <pre>
           2 &gt; 1 but is &lt; 3 &amp; it can break HTML
-        </pre>,
+        </pre>
         <h5>
           Heading 5: Text indent
-        </h5>,
-        "Indented text.",
-        "Indented text in indented text.",
+        </h5>
+        Indented text.
+        Indented text in indented text.
         <h6>
           Heading 6: More combinations
-        </h6>,
-        <strong />,
+        </h6>
+        <strong />
         <a
           href="https://github.com/thompsonsj"
         >
           <strong>
             A link in bold
           </strong>
-        </a>,
-        ". ",
+        </a>
+        . 
         <a
           href="https://github.com/thompsonsj"
           target="_blank"
         >
           A link with a new tab
-        </a>,
-        ".",
+        </a>
+        .
         <h2>
           Lists
-        </h2>,
+        </h2>
         <ul>
           <li>
             Unordered List Item 1
@@ -86,7 +85,7 @@ describe('Issue 175', () => {
           <li>
             Unordered List Item 2
           </li>
-        </ul>,
+        </ul>
         <ol>
           <li>
             Ordered list item 1
@@ -97,8 +96,8 @@ describe('Issue 175', () => {
           <li>
             Ordered list item 3
           </li>
-        </ol>,
-      ]
+        </ol>
+      </div>
     `);
   });
 
@@ -134,24 +133,24 @@ describe('Issue 175', () => {
       alwaysEncodeBreakingEntities: false,
     };
 
-    const tree = renderer
-      .create(<SlateToReact node={comprehensiveExampleSlate} config={config} />)
-      .toJSON();
-    expect(tree).toMatchInlineSnapshot(`
-      [
+    const tree = render(
+      <SlateToReact node={comprehensiveExampleSlate} config={config} />,
+    );
+    expect(tree.container).toMatchInlineSnapshot(`
+      <div>
         <h1>
           Heading 1: Payload CMS Slate Example Content
-        </h1>,
+        </h1>
         <h2>
           Heading 2: Text formatting
-        </h2>,
+        </h2>
         <p>
           Some 
           <strong>
             bold text
           </strong>
            in a sentence.
-        </p>,
+        </p>
         <p>
           <u>
             Underlined text
@@ -161,10 +160,10 @@ describe('Issue 175', () => {
             italic text
           </i>
           .
-        </p>,
+        </p>
         <h3>
           Heading 3: Formatting combinations
-        </h3>,
+        </h3>
         <p>
           Combine 
           <strong>
@@ -175,27 +174,27 @@ describe('Issue 175', () => {
             strikethrough
           </s>
            in there too.
-        </p>,
+        </p>
         <h4>
           Heading 4: Code
-        </h4>,
+        </h4>
         <p>
           <code>
             2 &gt; 1 but is &lt; 3 & it can break HTML
           </code>
-        </p>,
+        </p>
         <h5>
           Heading 5: Text indent
-        </h5>,
+        </h5>
         <p>
           Indented text.
-        </p>,
+        </p>
         <p>
           Indented text in indented text.
-        </p>,
+        </p>
         <h6>
           Heading 6: More combinations
-        </h6>,
+        </h6>
         <p>
           <strong />
           <a
@@ -215,10 +214,10 @@ describe('Issue 175', () => {
             A link with a new tab
           </a>
           .
-        </p>,
+        </p>
         <h2>
           Lists
-        </h2>,
+        </h2>
         <ul>
           <li>
             Unordered List Item 1
@@ -226,7 +225,7 @@ describe('Issue 175', () => {
           <li>
             Unordered List Item 2
           </li>
-        </ul>,
+        </ul>
         <ol>
           <li>
             Ordered list item 1
@@ -237,13 +236,13 @@ describe('Issue 175', () => {
           <li>
             Ordered list item 3
           </li>
-        </ol>,
+        </ol>
         <img
           alt="31.png"
-          className="w-full border-2"
+          class="w-full border-2"
           src="/images/31.png"
-        />,
-      ]
+        />
+      </div>
     `);
   });
 });

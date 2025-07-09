@@ -1,5 +1,5 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
+import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { combinedFixtures, elementFixtures, textFixtures } from '../tests'
 import { SlateToReact } from '@slate-serializers/react'
 
@@ -8,8 +8,8 @@ describe('Slate JSON to React transforms', () => {
     const fixtures = elementFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slate} />).toJSON()
-        expect(tree).toMatchSnapshot()
+        const tree = render(<SlateToReact node={fixture.slate} />)
+        expect(tree.container).toMatchSnapshot()
       })
     }
   })
@@ -17,8 +17,8 @@ describe('Slate JSON to React transforms', () => {
     const fixtures = textFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slate} />).toJSON()
-        expect(tree).toMatchSnapshot()
+        const tree = render(<SlateToReact node={fixture.slate} />)
+        expect(tree.container).toMatchSnapshot()
       })
     }
   })
@@ -26,8 +26,8 @@ describe('Slate JSON to React transforms', () => {
     const fixtures = combinedFixtures
     for (const fixture of fixtures) {
       it(`${fixture.name}`, () => {
-        const tree = renderer.create(<SlateToReact node={fixture.slateOriginal} />).toJSON()
-        expect(tree).toMatchSnapshot()
+        const tree = render(<SlateToReact node={fixture.slateOriginal} />)
+        expect(tree.container).toMatchSnapshot()
       })
     }
   })

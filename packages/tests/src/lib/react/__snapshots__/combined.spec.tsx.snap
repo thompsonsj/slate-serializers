@@ -1,27 +1,27 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Slate JSON to React transforms Combined larger document 1 1`] = `
-[
+<div>
   <h2>
     Heading 2
-  </h2>,
-  "A regular paragraph.",
-  "A ",
+  </h2>
+  A regular paragraph.
+  A 
   <strong>
     paragraph
-  </strong>,
-  " with ",
+  </strong>
+   with 
   <strong>
     various
-  </strong>,
-  " text ",
+  </strong>
+   text 
   <s>
     marks
-  </s>,
-  ".",
+  </s>
+  .
   <h3>
     Heading 3
-  </h3>,
+  </h3>
   <ul>
     <li>
       <strong>
@@ -35,193 +35,223 @@ exports[`Slate JSON to React transforms Combined larger document 1 1`] = `
       </strong>
       : From a list
     </li>
-  </ul>,
+  </ul>
   <a
     href="https://docs.slatejs.org/"
   >
     Find out more about Slate
-  </a>,
-  ".",
+  </a>
+  .
   <h4>
     Heading 4
-  </h4>,
-]
+  </h4>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Combined links nested in an unordered list 1`] = `
-<ul>
-  <li>
-    <a
-      href="https://github.com/thompsonsj/slate-serializers"
-      target="_blank"
-    >
-      slate-serializers | GitHub
-    </a>
-  </li>
-  <li>
-    <a
-      href="https://github.com/thompsonsj/slate-serializers"
-      target="_blank"
-    >
-      slate-serializers | GitHub
-    </a>
-  </li>
-</ul>
+<div>
+  <ul>
+    <li>
+      <a
+        href="https://github.com/thompsonsj/slate-serializers"
+        target="_blank"
+      >
+        slate-serializers | GitHub
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://github.com/thompsonsj/slate-serializers"
+        target="_blank"
+      >
+        slate-serializers | GitHub
+      </a>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Combined text with inline link 1`] = `
-[
-  "Some text before an inline link ",
+<div>
+  Some text before an inline link 
   <a
     href="https://github.com/thompsonsj/slate-serializers"
     target="_blank"
   >
     slate-serializers | GitHub
-  </a>,
-  ".",
-]
+  </a>
+  .
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags blockquote 1`] = `
-<blockquote>
-  Blockquote
-</blockquote>
+<div>
+  <blockquote>
+    Blockquote
+  </blockquote>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags headings 1`] = `
-[
+<div>
   <h1>
     Heading 1
-  </h1>,
+  </h1>
   <h2>
     Heading 2
-  </h2>,
+  </h2>
   <h3>
     Heading 3
-  </h3>,
+  </h3>
   <h4>
     Heading 4
-  </h4>,
+  </h4>
   <h5>
     Heading 5
-  </h5>,
+  </h5>
   <h6>
     Heading 6
-  </h6>,
-]
+  </h6>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags link 1`] = `
-<a
-  href="https://github.com/thompsonsj/slate-serializers"
->
-  Slate Serializers | GitHub
-</a>
+<div>
+  <a
+    href="https://github.com/thompsonsj/slate-serializers"
+  >
+    Slate Serializers | GitHub
+  </a>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags nested unordered list 1`] = `
-<ul>
-  <li>
-    Item 1
-    <ul>
-      <li>
-        Nested item 1
-      </li>
-      <li>
-        Nested item 2
-      </li>
-    </ul>
-  </li>
-  <li>
-    Item 2
-  </li>
-</ul>
+<div>
+  <ul>
+    <li>
+      Item 1
+      <ul>
+        <li>
+          Nested item 1
+        </li>
+        <li>
+          Nested item 2
+        </li>
+      </ul>
+    </li>
+    <li>
+      Item 2
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags ordered list 1`] = `
-<ol>
-  <li>
-    Item 1
-  </li>
-  <li>
-    Item 2
-  </li>
-</ol>
+<div>
+  <ol>
+    <li>
+      Item 1
+    </li>
+    <li>
+      Item 2
+    </li>
+  </ol>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags paragraph 1`] = `
-<p>
-  Paragraph 1
-</p>
+<div>
+  <p>
+    Paragraph 1
+  </p>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Element tags unordered list 1`] = `
-<ul>
-  <li>
-    Item 1
-  </li>
-  <li>
-    Item 2
-  </li>
-</ul>
+<div>
+  <ul>
+    <li>
+      Item 1
+    </li>
+    <li>
+      Item 2
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags idiomatic text 1`] = `
-<i>
-  Idiomatic Text
-</i>
+<div>
+  <i>
+    Idiomatic Text
+  </i>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags pre 1`] = `
-<pre>
-  Pre
-</pre>
+<div>
+  <pre>
+    Pre
+  </pre>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags strikethrough 1`] = `
-<s>
-  Strikethrough
-</s>
+<div>
+  <s>
+    Strikethrough
+  </s>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags strong 1`] = `
-<strong>
-  Bold
-</strong>
-`;
-
-exports[`Slate JSON to React transforms Text tags strong and idiomatic text 1`] = `
-<strong>
-  Strong and Idiomatic Text
-</strong>
-`;
-
-exports[`Slate JSON to React transforms Text tags strong and unarticulated annotation 1`] = `
-<strong>
-  Strong and Unarticulated Annotation
-</strong>
-`;
-
-exports[`Slate JSON to React transforms Text tags strong in paragraph 1`] = `
-<p>
+<div>
   <strong>
     Bold
   </strong>
-</p>
+</div>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong and idiomatic text 1`] = `
+<div>
+  <strong>
+    Strong and Idiomatic Text
+  </strong>
+</div>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong and unarticulated annotation 1`] = `
+<div>
+  <strong>
+    Strong and Unarticulated Annotation
+  </strong>
+</div>
+`;
+
+exports[`Slate JSON to React transforms Text tags strong in paragraph 1`] = `
+<div>
+  <p>
+    <strong>
+      Bold
+    </strong>
+  </p>
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags strong mid-sentence 1`] = `
-[
-  "Some ",
+<div>
+  Some 
   <strong>
     bold text
-  </strong>,
-  " in a sentence.",
-]
+  </strong>
+   in a sentence.
+</div>
 `;
 
 exports[`Slate JSON to React transforms Text tags unarticulated annotation 1`] = `
-<u>
-  Unarticulated Annotation
-</u>
+<div>
+  <u>
+    Unarticulated Annotation
+  </u>
+</div>
 `;
