@@ -98,7 +98,7 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
               'data-alt': alt,
               'data-type': 'image',
             },
-            []
+            [],
           );
         },
       },
@@ -147,7 +147,7 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
               'data-src': src,
               'data-alt': alt,
             },
-            []
+            [],
           );
         },
       },
@@ -163,6 +163,82 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
           "data-alt": "Alt text",
           "data-src": "https://example.com/image.jpg",
           "type": "image",
+        },
+      ]
+    `);
+  });
+
+  it('can be used to remove a parent node', () => {
+    const html =
+      '<div class="lexical-table-container"><table class="lexical-table" style="border-collapse: collapse;"><tr class="lexical-table-row"><th class="lexical-table-cell lexical-table-cell-header-1">Texte pour la cellule \'en-tête 1</th><th class="lexical-table-cell lexical-table-cell-header-1">Texte pour la cellule d\'en-tête 2</th></tr><tr class="lexical-table-row"><td class="lexical-table-cell lexical-table-cell-header-0">Texte de la cellule du tableau, ligne 1, col 1</td><td class="lexical-table-cell lexical-table-cell-header-0">Texte de la cellule du tableau, ligne 1, col 2</td></tr></table></div>';
+    const config: HtmlToSlateConfig = {
+      ...htmlToSlateConfig,
+      elementTags: {
+        ...htmlToSlateConfig.elementTags,
+        table: () => ({ type: 'table' }),
+        tr: () => ({ type: 'table-row' }),
+        td: () => ({ type: 'table-cell' }),
+        th: () => ({ type: 'table-header-cell' }),
+      },
+      htmlUpdaterMap: {
+        div: (el) => {
+          // is this is a direct parent of a table
+          const table = findOne((node) => node.name === 'table', [el]);
+          if (table) {
+            return table;
+          }
+          return el;
+        },
+      },
+    };
+    expect(htmlToSlate(html, config)).toMatchInlineSnapshot(`
+      [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "Texte pour la cellule 'en-tête 1",
+                    },
+                  ],
+                  "type": "table-header-cell",
+                },
+                {
+                  "children": [
+                    {
+                      "text": "Texte pour la cellule d'en-tête 2",
+                    },
+                  ],
+                  "type": "table-header-cell",
+                },
+              ],
+              "type": "table-row",
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "text": "Texte de la cellule du tableau, ligne 1, col 1",
+                    },
+                  ],
+                  "type": "table-cell",
+                },
+                {
+                  "children": [
+                    {
+                      "text": "Texte de la cellule du tableau, ligne 1, col 2",
+                    },
+                  ],
+                  "type": "table-cell",
+                },
+              ],
+              "type": "table-row",
+            },
+          ],
+          "type": "table",
         },
       ]
     `);
