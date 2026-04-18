@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.4.0](https://github.com/thompsonsj/slate-serializers/compare/source-v2.3.0...source-v2.4.0) (2026-04-18)
+
+
+### Features
+
+* re-export types that are part of the contract ([#215](https://github.com/thompsonsj/slate-serializers/issues/215)) ([d07a833](https://github.com/thompsonsj/slate-serializers/commit/d07a833f3112532b224ef507a9c089b2d809b172))
+* **react:** generate stable keys for React nodes ([#214](https://github.com/thompsonsj/slate-serializers/issues/214)) ([5e0ba90](https://github.com/thompsonsj/slate-serializers/commit/5e0ba901dea6a98920cf6fd1079e59af14152289))
+
+
+### Bug Fixes
+
+* **packagejson:** address vulnerabilities ([#212](https://github.com/thompsonsj/slate-serializers/issues/212)) ([b9bc2dd](https://github.com/thompsonsj/slate-serializers/commit/b9bc2dd0b6bf87b5db323c570d02f95dba67393b))
+
 ## [2.3.0](https://github.com/thompsonsj/slate-serializers/compare/source-v2.2.3...source-v2.3.0) (2025-05-16)
 
 
