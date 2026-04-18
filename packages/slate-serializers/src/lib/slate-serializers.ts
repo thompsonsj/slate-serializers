@@ -17,4 +17,5 @@ export { slateDemoHtmlToSlateConfig } from '@slate-serializers/html'
 
 // Useful types
 export { ElementTransform as ElementTagTransformFunction } from '@slate-serializers/dom'
-export type { ChildNode, Element, Text } from '@slate-serializers/dom'
+export { Element, Text } from '@slate-serializers/dom'
+export type { ChildNode } from '@slate-serializers/dom'

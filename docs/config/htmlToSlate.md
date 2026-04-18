@@ -4,14 +4,14 @@
 
 `htmlToSlate` works with nodes from [`domhandler`](https://github.com/fb55/domhandler) (via `htmlparser2`). Callbacks such as `elementTags` receive an `Element` (or related node types) from that stack.
 
-For TypeScript, you can import those types from this library without adding `domhandler` only for types:
+Use **`import type`** for annotations, or import **`Element` / `Text`** as values if you need them explicitly:
 
 ```ts
-import type { Element } from 'slate-serializers'
+import type { ChildNode, Element } from 'slate-serializers'
 // or: from '@slate-serializers/html'
 ```
 
-`ChildNode` and `Text` are also re-exported when you need narrower types. These match `import type { ... } from 'domhandler'`.
+`Element` and `Text` are also available as runtime exports from `@slate-serializers/dom` (re-exported here) if you need the constructors. See [slateToDom: DOM types](./slateToDom.md#dom-types-domhandler).
 
 ## elementTags
 
