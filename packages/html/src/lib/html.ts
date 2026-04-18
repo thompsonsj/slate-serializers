@@ -6,12 +6,15 @@ export { slateToHtml } from './serializers/slateToHtml'
 // slateToDom - renamed to slateToHtml
 // slateToHtml uses the same config as slateToDom but it makes sense to rename the config objects in case we want to add a slateToHtml specific config in the future
 export {
+  type ChildNode,
+  type Element,
   type SlateToDomConfig as SlateToHtmlConfig,
   slateToDomConfig as slateToHtmlConfig,
   payloadSlateToDomConfig as payloadSlateToHtmlConfig,
   slateDemoSlateToDomConfig as slateDemoSlateToHtmlConfig,
   type ElementTransform,
   type MarkTransform,
+  type Text,
 } from '@slate-serializers/dom'
 
 // htmlToSlate
