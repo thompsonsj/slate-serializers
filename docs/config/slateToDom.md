@@ -1,5 +1,20 @@
 # slateToDom configuration
 
+## DOM types (`domhandler`)
+
+`slateToDom` / `slateToHtml` build a DOM using [`domhandler`](https://github.com/fb55/domhandler). Custom `elementTransforms` and `markTransforms` must return `domhandler` nodes (typically `new Element(...)`).
+
+**Type-only re-exports** (`ChildNode`, `Element`, `Text`) are available so you do not need a separate `domhandler` dependency only for TypeScript:
+
+```ts
+import type { ChildNode, Element, Text } from 'slate-serializers'
+// or: from '@slate-serializers/dom'
+```
+
+These match `import type { ... } from 'domhandler'`. If you already depend on `domhandler`, importing types from there is fine.
+
+At runtime, `Element` is a class. Call `new Element(...)` using `import { Element } from 'domhandler'` (this package re-exports the types, not the `Element` constructor).
+
 ## elementMap
 
 Describe how Slate JSON **node types** are mapped to HTML element tags.
@@ -24,6 +39,7 @@ For more complex transformations, use `elementTransforms`.
 
 ```ts
 import { Element } from 'domhandler'
+import type { SlateToDomConfig } from 'slate-serializers'
 
 const config: SlateToDomConfig = {
   // ...
@@ -38,7 +54,7 @@ const config: SlateToDomConfig = {
 }
 ```
 
-The Slate JS node is passed into this function. A node of type `Element` from `domhandler` must be returned. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation.
+The Slate JS node is passed into this function. A node of type `Element` from `domhandler` must be returned. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation. See [DOM types (`domhandler`)](#dom-types-domhandler) for type imports.
 
 In this case, the `src` attribute is set using a `url` value on the Slate JS node.
 
@@ -68,6 +84,7 @@ For more complex transformations, use `markTransforms`.
 
 ```ts
 import { Element } from 'domhandler'
+import type { SlateToDomConfig } from 'slate-serializers'
 
 const config: SlateToDomConfig = {
   // ...
@@ -84,6 +101,6 @@ const config: SlateToDomConfig = {
 
 **Keys should map keys on the Slate object**. This is different to `elementTransform` which uses the value of the Slate JSON `type` property only.
 
-The Slate JS node is passed into this function. A node of type `Element` from `domhandler` must be returned. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation.
+The Slate JS node is passed into this function. A node of type `Element` from `domhandler` must be returned. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation. See [DOM types (`domhandler`)](#dom-types-domhandler) for type imports.
 
 In this case, the `style` attribute is set with a CSS string using a `fontSize` value on the Slate JS node.

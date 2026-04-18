@@ -1,5 +1,18 @@
 # htmlToSlate configuration
 
+## DOM types (`domhandler`)
+
+`htmlToSlate` works with nodes from [`domhandler`](https://github.com/fb55/domhandler) (via `htmlparser2`). Callbacks such as `elementTags` receive an `Element` (or related node types) from that stack.
+
+For TypeScript, you can import those types from this library without adding `domhandler` only for types:
+
+```ts
+import type { Element } from 'slate-serializers'
+// or: from '@slate-serializers/html'
+```
+
+`ChildNode` and `Text` are also re-exported when you need narrower types. These match `import type { ... } from 'domhandler'`.
+
 ## elementTags
 
 Describe how HTML element tags are mapped to Slate JSON nodes.
@@ -20,7 +33,7 @@ const config: HtmlToSlateConfig = {
 }
 ```
 
-The node of type `Element` from `domhandler` is passed into this function. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation.
+The node of type `Element` from `domhandler` is passed into this function. Combine this with [utilities from `domutils`](https://domutils.js.org/) to perform further manipulation. See [DOM types (`domhandler`)](#dom-types-domhandler) above.
 
 ```ts
 import { getAttributeValue } from 'domutils'
