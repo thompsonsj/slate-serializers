@@ -1,5 +1,7 @@
 # Engineering decisions
 
+Configuration write-ups (Markdown in this repo): [slateToDom](config/slateToDom.md), [htmlToSlate](config/htmlToSlate.md), [SlateToReact](config/slateToReact.md). Interactive examples: [slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+
 - [Slate compatibility](#slate-compatibility)
 - [`htmlparser2`](#htmlparser2)
 
