@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.0](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.4.0...dom-v2.5.0) (2026-04-18)
+
+
+### Features
+
+* re-export element and text constructors ([#218](https://github.com/thompsonsj/slate-serializers/issues/218)) ([6984139](https://github.com/thompsonsj/slate-serializers/commit/69841397c795f38c1cfc826f964e6c5f624c7a6c))
+
 ## [2.4.0](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.3.0...dom-v2.4.0) (2026-04-18)
 
 
