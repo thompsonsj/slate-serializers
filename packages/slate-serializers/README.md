@@ -1,10 +1,12 @@
 # slate-serializers
 
 This package has been split into separate packages.
- 
-There is no need to change - `slate-serializers` will continue to be maintained alongside the new serializers. However, upgrading will keep the dependency tree minimal for your project.
 
-Original docs available at [packages/slate-serializers/docs/original.md](https://github.com/thompsonsj/slate-serializers/blob/main/packages/slate-serializers/docs/original.md).
+There is no need to change: `slate-serializers` will continue to be maintained alongside the scoped packages. Prefer upgrading to `@slate-serializers/*` when you want a smaller dependency tree.
+
+- **Demo / interactive docs:** [slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo)
+- **Overview:** [repository README](https://github.com/thompsonsj/slate-serializers/blob/main/README.md)
+- **Legacy overview:** [original.md](https://github.com/thompsonsj/slate-serializers/blob/main/packages/slate-serializers/docs/original.md)
 
 ## New packages
 

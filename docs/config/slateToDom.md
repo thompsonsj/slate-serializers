@@ -1,5 +1,7 @@
 # slateToDom configuration
 
+**Interactive:** [slateToDom on the demo site](https://thompsonsj.github.io/slate-serializers-demo/slate-to-dom/docs). **npm:** [@slate-serializers/dom README](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/README.md).
+
 ## DOM types (`domhandler`)
 
 `slateToDom` / `slateToHtml` build a DOM using [`domhandler`](https://github.com/fb55/domhandler). Custom `elementTransforms` and `markTransforms` must return `domhandler` nodes (typically `new Element(...)`).

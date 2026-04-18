@@ -2,7 +2,7 @@
 
 Convert [Slate](https://www.npmjs.com/package/slate) JSON objects to HTML and vice versa.
 
-View demos and documentation at [https://thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+**Demo site:** [thompsonsj.github.io/slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo) — **[slateToHtml](https://thompsonsj.github.io/slate-serializers-demo/slate-to-html/docs)** · **[htmlToSlate](https://thompsonsj.github.io/slate-serializers-demo/html-to-slate/docs)** (interactive examples and Payload notes).
 
 ## Table of contents
 
@@ -11,6 +11,7 @@ View demos and documentation at [https://thompsonsj.github.io/slate-serializers-
 - [Usage](#usage)
   - [slateToHtml](#slatetohtml)
   - [htmlToSlate](#htmltoslate)
+- [See also](#see-also)
 
 ## Engineering
 
@@ -88,7 +89,7 @@ You can create your own configuration file that implements your schema. See [pac
 | - | - | - |
 | `markMap` | Map Slate JSON properties to HTML formatting element tags. Accepts an array of HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ code: ['pre', 'code'], /* ... */ }` |
 | `elementMap` | Map Slate JSON `type` values to HTML element tags. Use `elementTransforms` for more control over the returned element. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ paragraph: 'p', /* ... */ }` |
-| `markTransforms` | Define transform functions for Slate JSON properties. Overrides and corresponding values in `markMap`. | ``{ fontSize: ({ node }) => { return new Element('span', { style: `font-size:${node.fontSize};` }) } }`` |
+| `markTransforms` | Define transform functions for Slate JSON properties. Overrides and corresponding values in `markMap`. Functions return a [`domhandler` `Element`](https://github.com/fb55/domhandler); use `import { Element } from '@slate-serializers/dom'`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |
 | `elementTransforms` | Define transform functions for Slate JSON node types. Overrides and corresponding values in `elementMap`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |
 | `encodeEntities` | See [cheeriojs/dom-serializer - encodeEntities](https://github.com/cheeriojs/dom-serializer#encodeentities) | `true` |
 | `alwaysEncodeBreakingEntities` | Encode `&`, `<` and `>` regardless of other option settings. | `false` |
@@ -124,7 +125,7 @@ const serializedToSlate = htmlToSlate(html)
     type: 'p',
   },
 ]
-/*
+*/
 ```
 
 #### Configuration
@@ -156,6 +157,11 @@ For more detailed documentation and examples, see [htmlToSlate | `slate-serializ
 | - | - | - |
 | `textTags` | Define transform functions for HTML formatting elements. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Examples: [textTags.spec.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/tests/htmlToSlate/configuration/textTags.spec.ts). |
 | `elementTags` | Define transform functions for HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Example `{ p: () => ({ type: 'p' }), /* ... */ }`. |
-| `htmlPreProcessString` | Perform operations on the HTML string before serialization. | `(html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>')` | /* ... */ }`. |
+| `htmlPreProcessString` | Perform operations on the HTML string before serialization. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts) (replaces `<pre>` with `<code>` for parsing). |
 | `filterWhitespaceNodes` | Remove whitespace that does not contribute meaning. | `true` |
 | `convertBrToLineBreak` | Convert br tags to a new line character (\n). | `true` |
+
+## See also
+
+- [Repository config docs](https://github.com/thompsonsj/slate-serializers/tree/main/docs/config) — Markdown companions to the tables above.
+- [SlateToReact](https://www.npmjs.com/package/@slate-serializers/react) — React output with the same option keys as `slateToHtml`; see [flat config](https://github.com/thompsonsj/slate-serializers/blob/main/docs/config/slateToReact.md).

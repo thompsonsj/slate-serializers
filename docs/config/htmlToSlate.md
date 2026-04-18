@@ -1,5 +1,7 @@
 # htmlToSlate configuration
 
+**Interactive:** [htmlToSlate on the demo site](https://thompsonsj.github.io/slate-serializers-demo/html-to-slate/docs). **npm:** [@slate-serializers/html README](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/README.md).
+
 ## DOM types (`domhandler`)
 
 `htmlToSlate` works with nodes from [`domhandler`](https://github.com/fb55/domhandler) (via `htmlparser2`). Callbacks such as `elementTags` receive an `Element` (or related node types) from that stack.
@@ -116,4 +118,4 @@ Remove any Slate JSON nodes that have no type or content. For example:
 }
 ```
 
-These nodes may appear after [processing whitespace](/docs/engineering.md#whitespace).
+These nodes may appear after [processing whitespace](../engineering.md#whitespace).
