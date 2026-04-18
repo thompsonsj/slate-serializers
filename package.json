@@ -23,8 +23,7 @@
     "react-dom": ">=16",
     "slate": "^0.124.1",
     "slate-hyperscript": "^0.100.0",
-    "tslib": "^2.8.1",
-    "ulidx": "^2.4.1"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

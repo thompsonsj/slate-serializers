@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { Config } from './types'
-import { ulid } from 'ulidx'
 import { slateToDomConfig } from '@slate-serializers/dom'
 
 const BlockQuote = ({ children }: { children: ReactNode }) => (
@@ -20,7 +19,7 @@ export const config: Config = {
   convertLineBreakToBr: slateToDomConfig.convertLineBreakToBr,
   elementTransforms: {
     quote: ({ children }) => {
-      return <BlockQuote key={ulid()}>{children}</BlockQuote>
+      return <BlockQuote>{children}</BlockQuote>
     },
     link: ({ node, children = [] }) => {
       const attrs: {[key: string]: string} = {}
@@ -28,7 +27,7 @@ export const config: Config = {
         attrs.target = '_blank'
       }
       return (
-        <a key={ulid()} href={node.url} {...attrs}>
+        <a href={node.url} {...attrs}>
           {children}
         </a>
       )

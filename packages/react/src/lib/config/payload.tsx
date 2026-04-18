@@ -2,7 +2,6 @@
 import { config as slateToReactConfig } from './default'
 import { payloadSlateToDomConfig } from '@slate-serializers/dom'
 import { Config as SlateToReactConfig } from './types'
-import { ulid } from 'ulidx'
 
 /**
  * Configuration for Payload CMS
@@ -29,7 +28,7 @@ export const config: SlateToReactConfig = {
         attrs.target = '_blank'
       }
       return (
-        <a key={ulid()} href={node.url} {...attrs}>
+        <a href={node.url} {...attrs}>
           {children}
         </a>
       )
