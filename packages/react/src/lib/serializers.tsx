@@ -1,7 +1,6 @@
-import React, { ReactElement, JSXElementConstructor } from 'react'
+import React, { Fragment, ReactElement, JSXElementConstructor } from 'react'
 import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
-import { ulid } from 'ulidx'
 
 import { convertSlate } from '@slate-serializers/dom'
 import { config as slateToReactConfig } from './config/default'
@@ -16,24 +15,32 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
   if (!Array.isArray(node)) {
     return <></>
   }
-  const document = node.map((n, index) =>
-    convertSlate({
-      node: n,
-      config: {
-        ...config,
-        elementTransforms: {},
-        markTransforms: {},
-      },
-      isLastNodeInDocument: index === node.length - 1,
-      customElementTransforms: config.elementTransforms,
-      transformText: (text) => transformText(text),
-      transformElement: (element) => {
-        return domElementToReactElement(element)
-      },
-      wrapChildren: (children) => children,
-    }),
-  )
-  return document as any
+  // Top-level Slate blocks render as an array of siblings; React needs stable keys on that list.
+  // Use index keys here (document order is defined by the Slate value). Do not use random per-render
+  // keys — they force remounts and defeat reconciliation.
+  return (
+    <>
+      {node.map((n, index) => (
+        <Fragment key={index}>
+          {convertSlate({
+            node: n,
+            config: {
+              ...config,
+              elementTransforms: {},
+              markTransforms: {},
+            },
+            isLastNodeInDocument: index === node.length - 1,
+            customElementTransforms: config.elementTransforms,
+            transformText: (text) => transformText(text),
+            transformElement: (element) => {
+              return domElementToReactElement(element)
+            },
+            wrapChildren: (children) => children,
+          })}
+        </Fragment>
+      ))}
+    </>
+  ) as any
 }
 
 const transformText = (text: Text | Element) => {
@@ -48,8 +55,8 @@ const domElementToReactElement = (element: Element): ReactElement<any, string | 
   return React.createElement(
     getName(element),
     {
-      /* Ensure all React elements have a unique key - is there a better way to do this? */
-      key: ulid(),
+      /* Keys are not set here: these nodes are not list items from .map(); random keys would remount
+       * every render. List keys for top-level blocks are on Fragment wrappers in SlateToReact. */
       /* Provide all attributes as props */
       ...element.attribs,
       /* Convert key names for JSX compatibility */
