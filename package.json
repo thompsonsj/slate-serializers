@@ -21,7 +21,7 @@
     "postcss-js": "^4.1.0",
     "react": ">=16",
     "react-dom": ">=16",
-    "slate": "^0.117.2",
+    "slate": "^0.124.1",
     "slate-hyperscript": "^0.100.0",
     "tslib": "^2.8.1",
     "ulidx": "^2.4.1"
