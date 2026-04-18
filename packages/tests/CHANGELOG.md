@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.1...tests-v2.3.2) (2026-04-18)
+
+
+### Bug Fixes
+
+* **docs:** update for accuracy and clarity ([#219](https://github.com/thompsonsj/slate-serializers/issues/219)) ([e48ac6e](https://github.com/thompsonsj/slate-serializers/commit/e48ac6e91541a7141228a2e0f8132df97a5e8788))
+
 ## [2.3.1](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.0...tests-v2.3.1) (2026-04-18)
 
 
