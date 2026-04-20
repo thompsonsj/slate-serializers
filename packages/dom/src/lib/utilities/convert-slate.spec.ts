@@ -536,5 +536,49 @@ describe('convertSlate', () => {
 
     expect(html(out)).toEqual('<span id="wrapped">x</span>')
   })
+
+  it('transformText can be used to traverse and rewrite nested Text nodes (e.g. inside marks)', () => {
+    const config: Config = {
+      markMap: { bold: ['strong'] },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const rewrite = (n: any): any => {
+      if (n instanceof Text) {
+        return new Text(`[${n.data}]`)
+      }
+      if (n instanceof Element) {
+        return new Element(n.name, n.attribs, (n.children || []).map(rewrite))
+      }
+      return n
+    }
+
+    const out = convertSlate({
+      node: { text: 't', bold: true },
+      config,
+      transformText: rewrite,
+    })
+
+    expect(html(out)).toEqual('<strong>[t]</strong>')
+  })
+
+  it('wrapChildren affects the container for marked text (not just plain text)', () => {
+    const config: Config = {
+      markMap: { bold: ['strong'] },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 't', bold: true },
+      config,
+      wrapChildren: (children) => new Element('span', { id: 'wrapped' }, children),
+    })
+
+    expect(html(out)).toEqual('<span id="wrapped"><strong>t</strong></span>')
+  })
 })
 
