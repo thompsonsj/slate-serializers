@@ -2,6 +2,16 @@
    "name": "@slate-serializers/react",
    "version": "2.5.2",
    "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-js",
+      "serializer",
+      "rich-text",
+      "react",
+      "jsx",
+      "slate-to-react",
+      "richtext"
+   ],
    "repository": {
       "type": "git",
       "url": "git+https://github.com/thompsonsj/slate-serializers.git",

@@ -2,6 +2,15 @@
    "name": "slate-serializers",
    "version": "2.5.2",
    "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-js",
+      "serializer",
+      "rich-text",
+      "monorepo",
+      "bundle",
+      "slate-serializers"
+   ],
    "repository": {
       "type": "git",
       "url": "git+https://github.com/thompsonsj/slate-serializers.git",
