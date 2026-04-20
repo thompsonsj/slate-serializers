@@ -2,5 +2,18 @@
    "name": "@slate-serializers/dom",
    "version": "2.5.1",
    "description": "Serialize Slate JSON objects to the DOM. Can be used with `htmlparser2` and associated utilities to modify the DOM and generate HTML. Used by other serializers in this monorepo.",
+   "license": "MIT",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/thompsonsj/slate-serializers.git",
+      "directory": "packages/dom"
+   },
+   "homepage": "https://github.com/thompsonsj/slate-serializers/tree/main/packages/dom#readme",
+   "bugs": {
+      "url": "https://github.com/thompsonsj/slate-serializers/issues"
+   },
+   "publishConfig": {
+      "access": "public"
+   },
    "type": "commonjs"
 }

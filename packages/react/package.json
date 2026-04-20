@@ -1,4 +1,17 @@
 {
    "name": "@slate-serializers/react",
-   "version": "2.5.1"
+   "version": "2.5.1",
+   "license": "MIT",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/thompsonsj/slate-serializers.git",
+      "directory": "packages/react"
+   },
+   "homepage": "https://github.com/thompsonsj/slate-serializers/tree/main/packages/react#readme",
+   "bugs": {
+      "url": "https://github.com/thompsonsj/slate-serializers/issues"
+   },
+   "publishConfig": {
+      "access": "public"
+   }
 }

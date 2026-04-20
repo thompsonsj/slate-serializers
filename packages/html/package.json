@@ -1,5 +1,18 @@
 {
    "name": "@slate-serializers/html",
    "version": "2.5.1",
+   "license": "MIT",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/thompsonsj/slate-serializers.git",
+      "directory": "packages/html"
+   },
+   "homepage": "https://github.com/thompsonsj/slate-serializers/tree/main/packages/html#readme",
+   "bugs": {
+      "url": "https://github.com/thompsonsj/slate-serializers/issues"
+   },
+   "publishConfig": {
+      "access": "public"
+   },
    "type": "commonjs"
 }
