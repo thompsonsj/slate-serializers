@@ -89,5 +89,75 @@ describe('convertSlate', () => {
     expect(html(first)).toEqual('a<br>')
     expect(html(last)).toEqual('b')
   })
+
+  it('applies elementAttributeTransform to mapped elements', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: { p: 'p' },
+      elementTransforms: {},
+      elementAttributeTransform: ({ node }: { node: any }) => {
+        return node.id ? { 'data-id': String(node.id) } : undefined
+      },
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', id: 123, children: [{ text: 'x' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<p data-id="123">x</p>')
+  })
+
+  it('splits text on \\n into <br> when convertLineBreakToBr is enabled', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: true,
+    }
+
+    const out = convertSlate({
+      node: { text: 'a\nb' },
+      config,
+    })
+
+    expect(html(out)).toEqual('a<br>b')
+  })
+
+  it('uses defaultTag for nodes without type', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+      defaultTag: 'p',
+    }
+
+    const out = convertSlate({
+      node: { children: [{ text: 'hi' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<p>hi</p>')
+  })
+
+  it('nests marks in markMap order', () => {
+    const config: Config = {
+      markMap: {
+        bold: ['strong'],
+        italic: ['i'],
+      },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 't', bold: true, italic: true },
+      config,
+    })
+
+    // markMap iteration order is the insertion order of keys: bold then italic.
+    expect(html(out)).toEqual('<strong><i>t</i></strong>')
+  })
 })
 
