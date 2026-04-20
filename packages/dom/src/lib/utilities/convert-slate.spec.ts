@@ -159,5 +159,59 @@ describe('convertSlate', () => {
     // markMap iteration order is the insertion order of keys: bold then italic.
     expect(html(out)).toEqual('<strong><i>t</i></strong>')
   })
+
+  it('when both breaking-entity and code-entity encoding are enabled, pre/code text is encoded once in Text.data', () => {
+    const config: Config = {
+      markMap: {
+        code: ['pre', 'code'],
+      },
+      elementMap: {},
+      elementTransforms: {},
+      encodeEntities: false,
+      alwaysEncodeBreakingEntities: true,
+      alwaysEncodeCodeEntities: true,
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: '2 & 1 < 3 > 0', code: true },
+      config,
+    }) as unknown as Document
+
+    const pre = out.children[0] as Element
+    const code = pre.children[0] as Element
+    const text = code.children[0] as Text
+
+    // We assert on Text.data (DOM content), not on the serialized HTML string, to avoid
+    // double-encoding artifacts when serializing already-escaped entities.
+    expect(text.data).toEqual('2 &amp; 1 &lt; 3 &gt; 0')
+  })
+
+  it('markTransforms can override markMap tag behavior', () => {
+    const config: Config = {
+      markMap: {
+        bold: ['strong'],
+      },
+      markTransforms: {
+        // Override the default <strong> element creation.
+        strong: () => new Element('b', {}, []),
+        // Add a custom mark driven by a Slate leaf prop.
+        fontSize: ({ node }) =>
+          node ? new Element('span', { style: `font-size:${(node as any).fontSize};` }, []) : undefined,
+      },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 't', bold: true, fontSize: '12px' },
+      config,
+    })
+
+    // markTransforms (matching Slate props) are applied first, then markMap tags (which can be
+    // overridden by markTransforms[tagName]).
+    expect(html(out)).toEqual('<span style="font-size:12px;"><b>t</b></span>')
+  })
 })
 
