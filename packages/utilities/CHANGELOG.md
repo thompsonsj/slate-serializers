@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.2](https://github.com/thompsonsj/slate-serializers/compare/utilities-v2.5.1...utilities-v2.5.2) (2026-04-20)
+
+
+### Miscellaneous Chores
+
+* **utilities:** Synchronize all versions
+
 ## [2.5.1](https://github.com/thompsonsj/slate-serializers/compare/utilities-v2.5.0...utilities-v2.5.1) (2026-04-18)
 
 
