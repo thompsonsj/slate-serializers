@@ -9,13 +9,148 @@ import { decodeBreakingEntities, encodeBreakingEntities } from '.'
 import { intersection } from '.'
 
 interface IConvertSlate {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node: any
   config?: Config
   isLastNodeInDocument?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customElementTransforms?: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transformText?: (text: Text | Element) => any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transformElement?: (element: Element) => any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   wrapChildren?: (children: any) => any
+}
+
+type TransformText = NonNullable<IConvertSlate['transformText']>
+type TransformElement = NonNullable<IConvertSlate['transformElement']>
+type WrapChildren = NonNullable<IConvertSlate['wrapChildren']>
+
+const getAttribs = (node: any, config: Config): { [key: string]: string } => {
+  if (!config.elementAttributeTransform) {
+    return {}
+  }
+  return {
+    ...config.elementAttributeTransform({ node }),
+  }
+}
+
+const buildMarkElements = (node: any, config: Config): Element[] => {
+  const markElements: Element[] = []
+  const markTransformKeys = intersection(config.markTransforms || {}, node)
+
+  markTransformKeys.forEach((key) => {
+    if (config.markTransforms?.[key]) {
+      const markElement = config.markTransforms[key]({ node, attribs: {} })
+      if (markElement) {
+        markElements.push(markElement)
+      }
+    }
+  })
+
+  Object.keys(config.markMap).forEach((key) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((node as any)[key]) {
+      const elements: Element[] = config.markMap[key]
+        .map((tagName) => {
+          if (config.markTransforms?.[tagName]) {
+            return config.markTransforms[tagName]({ node, attribs: {} })
+          }
+          return new Element(tagName, {}, [])
+        })
+        .filter((element) => element !== undefined) as Element[]
+      markElements.push(...elements)
+    }
+  })
+
+  return markElements
+}
+
+const convertSlateTextNode = ({
+  node,
+  config,
+  transformText,
+  transformElement,
+  wrapChildren,
+}: {
+  node: any
+  config: Config
+  transformText: TransformText
+  transformElement: TransformElement
+  wrapChildren: WrapChildren
+}) => {
+  const str = config.alwaysEncodeBreakingEntities && !config.encodeEntities ? encodeBreakingEntities(node.text) : node.text
+
+  const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]
+  const textChildren: (Element | Text)[] = []
+
+  // convert line breaks to br tags
+  strLines.forEach((line: string, index: number) => {
+    const markElements = buildMarkElements(node, config)
+
+    // clone markElements (it gets modified)
+    const markElementsClone = [...markElements]
+    const textElement = nestedMarkElements(markElements, new Text(line))
+
+    if (
+      config.alwaysEncodeCodeEntities &&
+      !config.encodeEntities &&
+      isTag(textElement) &&
+      getName(textElement) === 'pre'
+    ) {
+      let encodedLine = line
+      if (config.alwaysEncodeBreakingEntities) {
+        // revert the earlier encoding - encode will re-encode
+        encodedLine = decodeBreakingEntities(encodedLine)
+      }
+      textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(encodedLine))))
+    } else {
+      textChildren.push(textElement)
+    }
+
+    if (index < strLines.length - 1) {
+      textChildren.push(transformElement(new Element('br', {})))
+    }
+  })
+
+  return wrapChildren(textChildren.map((child) => transformText(child)))
+}
+
+const convertSlateElementNode = ({
+  node,
+  children,
+  config,
+  customElementTransforms,
+  transformElement,
+}: {
+  node: any
+  children: any[]
+  config: Config
+  customElementTransforms: any
+  transformElement: TransformElement
+}): Element | null => {
+  const attribs = getAttribs(node, config)
+
+  // more complex transforms
+  if (customElementTransforms && customElementTransforms[node.type]) {
+    return customElementTransforms[node.type]({ node, attribs, children })
+  }
+  if (config.elementTransforms[node.type]) {
+    return transformElement(config.elementTransforms[node.type]({ node, attribs, children }) as Element)
+  }
+
+  // straightforward node to element mapping
+  if (config.elementMap[node.type]) {
+    return transformElement(new Element(config.elementMap[node.type], attribs, children))
+  }
+
+  // default tag
+  if (config.defaultTag && !node.type) {
+    return transformElement(new Element(config.defaultTag, attribs, children))
+  }
+
+  return null
 }
 
 export const convertSlate = ({
@@ -23,70 +158,12 @@ export const convertSlate = ({
   config = defaultConfig,
   isLastNodeInDocument = false,
   customElementTransforms,
-  /* tslint:disable:no-shadowed-variable */
   transformText = (text) => text,
-  /* tslint:disable:no-shadowed-variable */
   transformElement = (element) => element,
   wrapChildren = (children) => new Document(children),
 }: IConvertSlate) => {
   if (SlateText.isText(node)) {
-    const str =
-      config.alwaysEncodeBreakingEntities && !config.encodeEntities ? encodeBreakingEntities(node.text) : node.text
-
-    const strLines = config.convertLineBreakToBr ? str.split('\n') : [str]
-    const textChildren: (Element | Text)[] = []
-
-    // convert line breaks to br tags
-    strLines.forEach((line, index) => {
-      const markElements: Element[] = []
-      const markTransformKeys = intersection(config.markTransforms || {}, node)
-
-      markTransformKeys.forEach((key) => {
-        if (config.markTransforms?.[key]) {
-          const markElement = config.markTransforms[key]({ node, attribs: {} })
-          if (markElement) {
-            markElements.push(markElement)
-          }
-        }
-      })
-
-      Object.keys(config.markMap).forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((node as any)[key]) {
-          const elements: Element[] = config.markMap[key].map((tagName) => {
-            if (config.markTransforms?.[tagName]) {
-              return config.markTransforms[tagName]({ node, attribs: {} })
-            }
-            return new Element(tagName, {}, [])
-          }).filter((element) => element !== undefined) as Element[]
-          markElements.push(...elements)
-        }
-      })
-      // clone markElements (it gets modified)
-      const markElementsClone = [...markElements]
-      const textElement = nestedMarkElements(markElements, new Text(line))
-
-      if (
-        config.alwaysEncodeCodeEntities &&
-        !config.encodeEntities &&
-        isTag(textElement) &&
-        getName(textElement) === 'pre'
-      ) {
-        if (config.alwaysEncodeBreakingEntities) {
-          // revert the earlier encoding - encode will re-encode
-          line = decodeBreakingEntities(line)
-        }
-        textChildren.push(nestedMarkElements(markElementsClone, new Text(encode(line))))
-      } else {
-        textChildren.push(textElement)
-      }
-
-      if (index < strLines.length - 1) {
-        textChildren.push(transformElement(new Element('br', {})))
-      }
-    })
-
-    return wrapChildren(textChildren.map((child) =>  transformText(child)))
+    return convertSlateTextNode({ node, config, transformText, transformElement, wrapChildren })
   }
 
   const children: any[] = node.children
@@ -102,33 +179,13 @@ export const convertSlate = ({
       )
     : []
 
-  let attribs: { [key: string]: string } = {}
-
-  if (config.elementAttributeTransform) {
-    attribs = {
-      ...attribs,
-      ...config.elementAttributeTransform({ node }),
-    }
-  }
-
-  let element: Element | null = null
-
-  // more complex transforms
-  if (customElementTransforms && customElementTransforms[node.type]) {
-    element = customElementTransforms[node.type]({ node, attribs, children })
-  } else if (config.elementTransforms[node.type]) {
-    element = transformElement(config.elementTransforms[node.type]({ node, attribs, children }) as Element)
-  }
-
-  // straightforward node to element mapping
-  if (!element && config.elementMap[node.type]) {
-    element = transformElement(new Element(config.elementMap[node.type], attribs, children))
-  }
-
-  // default tag
-  if (!element && config.defaultTag && !node.type) {
-    element = transformElement(new Element(config.defaultTag, attribs, children))
-  }
+  const element = convertSlateElementNode({
+    node,
+    children,
+    config,
+    customElementTransforms,
+    transformElement,
+  })
 
   if (element) {
     return element
