@@ -56,6 +56,23 @@ const convertSlateChildren = ({
     : []
 }
 
+const appendTrailingBrIfNeeded = ({
+  children,
+  config,
+  isLastNodeInDocument,
+  transformElement,
+}: {
+  children: any[]
+  config: Config
+  isLastNodeInDocument: boolean
+  transformElement: TransformElement
+}) => {
+  // Add a line break between inline nodes when converting a list of siblings (e.g. top-level blocks).
+  if (config.convertLineBreakToBr && !isLastNodeInDocument) {
+    children.push(transformElement(new Element('br', {})))
+  }
+}
+
 const getAttribs = (node: any, config: Config): { [key: string]: string } => {
   if (!config.elementAttributeTransform) {
     return {}
@@ -216,10 +233,7 @@ export const convertSlate = ({
     return element
   }
 
-  // add line break between inline nodes
-  if (config.convertLineBreakToBr && !isLastNodeInDocument) {
-    children.push(transformElement(new Element('br', {})))
-  }
+  appendTrailingBrIfNeeded({ children, config, isLastNodeInDocument, transformElement })
 
   return wrapChildren(children)
 }
