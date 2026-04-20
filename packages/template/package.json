@@ -2,6 +2,15 @@
    "name": "@slate-serializers/template",
    "version": "2.5.2",
    "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-js",
+      "serializer",
+      "rich-text",
+      "template",
+      "cms",
+      "slate-to-template"
+   ],
    "repository": {
       "type": "git",
       "url": "git+https://github.com/thompsonsj/slate-serializers.git",

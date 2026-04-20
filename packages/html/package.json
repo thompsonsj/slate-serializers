@@ -2,6 +2,17 @@
    "name": "@slate-serializers/html",
    "version": "2.5.2",
    "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-js",
+      "serializer",
+      "rich-text",
+      "html",
+      "slate-to-html",
+      "html-to-slate",
+      "htmlparser2",
+      "deserialize"
+   ],
    "repository": {
       "type": "git",
       "url": "git+https://github.com/thompsonsj/slate-serializers.git",

@@ -2,6 +2,13 @@
    "name": "@slate-serializers/utilities",
    "version": "2.5.2",
    "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-serializers",
+      "utilities",
+      "helpers",
+      "rich-text"
+   ],
    "repository": {
       "type": "git",
       "url": "git+https://github.com/thompsonsj/slate-serializers.git",
