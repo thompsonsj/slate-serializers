@@ -3,7 +3,7 @@ import { Config } from './types'
 import { styleToString } from '../utilities'
 
 // Map Slate element names to HTML tag names
-// Staightforward transform - no attributes are considered
+// Straightforward transform - no attributes are considered
 // Use transforms instead for more complex operations
 const ELEMENT_NAME_TAG_MAP = {
   p: 'p',

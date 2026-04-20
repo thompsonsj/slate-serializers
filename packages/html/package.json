@@ -1,6 +1,7 @@
 {
    "name": "@slate-serializers/html",
    "version": "2.5.2",
+   "description": "Convert Slate JSON to HTML and HTML to Slate. Built on htmlparser2 and shared DOM config with @slate-serializers/dom.",
    "license": "MIT",
    "keywords": [
       "slate",

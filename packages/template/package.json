@@ -1,6 +1,7 @@
 {
    "name": "@slate-serializers/template",
    "version": "2.5.2",
+   "description": "Serialize top-level Slate blocks to HTML strings and custom outputs via per-type serializers.",
    "license": "MIT",
    "keywords": [
       "slate",
