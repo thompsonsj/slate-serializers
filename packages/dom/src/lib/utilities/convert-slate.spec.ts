@@ -261,5 +261,123 @@ describe('convertSlate', () => {
     })
     expect(html(outEmpty)).toEqual('<p>x</p>')
   })
+
+  it('markTransforms can be applied both by Slate prop keys and by markMap tagName overrides', () => {
+    const config: Config = {
+      markMap: {
+        // A mark that uses a tagName that also has a transform.
+        code: ['pre', 'code'],
+      },
+      markTransforms: {
+        // Applied because Slate leaf has `code: true` (markTransformKeys).
+        code: () => new Element('kbd', {}, []),
+      },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 'x', code: true },
+      config,
+    })
+
+    // `code` is applied twice:
+    // - once because the Slate leaf has `code: true` (markTransforms.code)
+    // - once because markMap includes tagName `code`, and markTransforms['code'] overrides tag creation
+    expect(html(out)).toEqual('<kbd><pre><kbd>x</kbd></pre></kbd>')
+  })
+
+  it('elementAttributeTransform attribs are passed into elementTransforms and can be overridden by the transform result', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {
+        p: 'p',
+      },
+      elementAttributeTransform: ({ node }: { node: any }) => {
+        return node.id ? { 'data-id': String(node.id), class: 'from-attribute-transform' } : undefined
+      },
+      elementTransforms: {
+        p: ({ attribs, children = [] }) => {
+          // ElementTransform receives attribs with elementAttributeTransform already applied.
+          return new Element(
+            'p',
+            {
+              ...attribs,
+              // Override one attr
+              class: 'from-element-transform',
+            },
+            children,
+          )
+        },
+      },
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', id: 1, children: [{ text: 'x' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<p data-id="1" class="from-element-transform">x</p>')
+  })
+
+  it('customElementTransforms receive attribs and can override elementTransforms and elementMap', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {
+        p: 'p',
+      },
+      elementAttributeTransform: () => ({ class: 'from-attribute-transform' }),
+      elementTransforms: {
+        p: ({ attribs, children = [] }) => new Element('p', { ...attribs, class: 'from-element-transform' }, children),
+      },
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config,
+      customElementTransforms: {
+        p: ({ attribs, children = [] }: { attribs: any; children?: any[] }) =>
+          new Element('p', { ...attribs, class: 'from-custom-transform' }, children),
+      },
+    })
+
+    expect(html(out)).toEqual('<p class="from-custom-transform">x</p>')
+  })
+
+  it('falls back to elementMap when elementTransforms returns undefined', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {
+        p: 'p',
+      },
+      elementTransforms: {
+        p: () => undefined,
+      },
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<p>x</p>')
+  })
+
+  it('falls back to defaultTag when no type and no mapping exists', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+      defaultTag: 'div',
+    }
+
+    const out = convertSlate({
+      node: { children: [{ text: 'x' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<div>x</div>')
+  })
 })
 

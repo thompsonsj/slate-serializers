@@ -180,10 +180,16 @@ const convertSlateElementNode = ({
 
   // more complex transforms
   if (customElementTransforms && customElementTransforms[node.type]) {
-    return customElementTransforms[node.type]({ node, attribs, children })
+    const custom = customElementTransforms[node.type]({ node, attribs, children })
+    if (custom) {
+      return custom
+    }
   }
   if (config.elementTransforms[node.type]) {
-    return transformElement(config.elementTransforms[node.type]({ node, attribs, children }) as Element)
+    const transformed = config.elementTransforms[node.type]({ node, attribs, children }) as Element | undefined
+    if (transformed) {
+      return transformElement(transformed)
+    }
   }
 
   // straightforward node to element mapping
