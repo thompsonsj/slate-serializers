@@ -1,6 +1,7 @@
 {
    "name": "@slate-serializers/react",
    "version": "2.5.2",
+   "description": "Render Slate JSON as React elements using the same configuration shape as slateToHtml.",
    "license": "MIT",
    "keywords": [
       "slate",
