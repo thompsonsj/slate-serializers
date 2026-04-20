@@ -213,5 +213,53 @@ describe('convertSlate', () => {
     // overridden by markTransforms[tagName]).
     expect(html(out)).toEqual('<span style="font-size:12px;"><b>t</b></span>')
   })
+
+  it('markTransforms can override only one tag in a multi-tag markMap entry', () => {
+    const config: Config = {
+      markMap: {
+        codeMark: ['pre', 'code'],
+      },
+      markTransforms: {
+        // Override only the inner <code> tag.
+        code: () => new Element('kbd', {}, []),
+      },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 'x', codeMark: true },
+      config,
+    })
+
+    expect(html(out)).toEqual('<pre><kbd>x</kbd></pre>')
+  })
+
+  it('does not emit attributes when elementAttributeTransform returns empty or undefined', () => {
+    const base: Omit<Config, 'elementAttributeTransform'> = {
+      markMap: {},
+      elementMap: { p: 'p' },
+      elementTransforms: {},
+    }
+
+    const outUndefined = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config: {
+        ...base,
+        elementAttributeTransform: () => undefined,
+      },
+    })
+    expect(html(outUndefined)).toEqual('<p>x</p>')
+
+    const outEmpty = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config: {
+        ...base,
+        elementAttributeTransform: () => ({}),
+      },
+    })
+    expect(html(outEmpty)).toEqual('<p>x</p>')
+  })
 })
 
