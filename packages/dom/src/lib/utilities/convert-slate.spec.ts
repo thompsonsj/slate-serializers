@@ -460,5 +460,81 @@ describe('convertSlate', () => {
     const text = out.children[0] as Text
     expect(text.data).toEqual('2 & 1 < 3 > 0')
   })
+
+  it('preserves style string attributes from elementAttributeTransform', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: { p: 'p' },
+      elementTransforms: {},
+      elementAttributeTransform: () => ({
+        style: 'text-align:right;',
+      }),
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config,
+    })
+
+    expect(html(out)).toEqual('<p style="text-align:right;">x</p>')
+  })
+
+  it('applies transformElement to elements created from elementMap and to inserted <br>', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: { p: 'p' },
+      elementTransforms: {},
+      convertLineBreakToBr: true,
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', children: [{ text: 'a\nb' }] },
+      config,
+      // turn every element into a <div> wrapper for visibility
+      transformElement: (el) => new Element('div', { 'data-tag': (el as any).name }, [el]),
+    })
+
+    // We expect:
+    // - <p> created from elementMap then wrapped => <div data-tag="p"><p>...</p></div>
+    // - <br> inserted between lines then wrapped => <div data-tag="br"><br></div>
+    expect(html(out)).toEqual(
+      '<div data-tag="p"><p>a<div data-tag="br"><br></div>b</p></div>',
+    )
+  })
+
+  it('applies transformText to top-level Text nodes produced by conversion', () => {
+    const config: Config = {
+      markMap: { bold: ['strong'] },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: 't' },
+      config,
+      transformText: (n) => {
+        return n instanceof Text ? new Text(`[${n.data}]`) : n
+      },
+    })
+
+    expect(html(out)).toEqual('[t]')
+  })
+
+  it('wrapChildren controls the container for text-node conversions', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+    }
+
+    const out = convertSlate({
+      node: { text: 'x' },
+      config,
+      wrapChildren: (children) => new Element('span', { id: 'wrapped' }, children),
+    })
+
+    expect(html(out)).toEqual('<span id="wrapped">x</span>')
+  })
 })
 
