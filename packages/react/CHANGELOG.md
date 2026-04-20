@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.3](https://github.com/thompsonsj/slate-serializers/compare/react-v2.5.2...react-v2.5.3) (2026-04-20)
+
+
+### Bug Fixes
+
+* comment typo, description fields, use lts node for ci ([#227](https://github.com/thompsonsj/slate-serializers/issues/227)) ([a86eaae](https://github.com/thompsonsj/slate-serializers/commit/a86eaaebe4330228c06aed0ef1e7b88ae804cb8f))
+
 ## [2.5.2](https://github.com/thompsonsj/slate-serializers/compare/react-v2.5.1...react-v2.5.2) (2026-04-20)
 
 
