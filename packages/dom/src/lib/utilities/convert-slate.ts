@@ -27,6 +27,35 @@ type TransformText = NonNullable<IConvertSlate['transformText']>
 type TransformElement = NonNullable<IConvertSlate['transformElement']>
 type WrapChildren = NonNullable<IConvertSlate['wrapChildren']>
 
+const convertSlateChildren = ({
+  node,
+  config,
+  customElementTransforms,
+  transformText,
+  transformElement,
+  wrapChildren,
+}: {
+  node: any
+  config: Config
+  customElementTransforms: any
+  transformText: TransformText
+  transformElement: TransformElement
+  wrapChildren: WrapChildren
+}): any[] => {
+  return node.children
+    ? node.children.map((n: any[]) =>
+        convertSlate({
+          node: n,
+          config,
+          customElementTransforms,
+          transformText,
+          transformElement,
+          wrapChildren,
+        }),
+      )
+    : []
+}
+
 const getAttribs = (node: any, config: Config): { [key: string]: string } => {
   if (!config.elementAttributeTransform) {
     return {}
@@ -166,18 +195,14 @@ export const convertSlate = ({
     return convertSlateTextNode({ node, config, transformText, transformElement, wrapChildren })
   }
 
-  const children: any[] = node.children
-    ? node.children.map((n: any[]) =>
-        convertSlate({
-          node: n,
-          config,
-          customElementTransforms,
-          transformText,
-          transformElement,
-          wrapChildren,
-        }),
-      )
-    : []
+  const children = convertSlateChildren({
+    node,
+    config,
+    customElementTransforms,
+    transformText,
+    transformElement,
+    wrapChildren,
+  })
 
   const element = convertSlateElementNode({
     node,
