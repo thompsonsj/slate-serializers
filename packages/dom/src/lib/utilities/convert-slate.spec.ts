@@ -379,5 +379,86 @@ describe('convertSlate', () => {
 
     expect(html(out)).toEqual('<div>x</div>')
   })
+
+  it('falls back when customElementTransforms[type] returns undefined', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {
+        p: 'p',
+      },
+      elementTransforms: {
+        p: ({ children = [] }) => new Element('div', {}, children),
+      },
+    }
+
+    const out = convertSlate({
+      node: { type: 'p', children: [{ text: 'x' }] },
+      config,
+      customElementTransforms: {
+        p: () => undefined,
+      },
+    })
+
+    // Falls back to elementTransforms (since custom returned undefined)
+    expect(html(out)).toEqual('<div>x</div>')
+  })
+
+  it('splits multiline marked text into separately wrapped lines with <br> between', () => {
+    const config: Config = {
+      markMap: {
+        bold: ['strong'],
+      },
+      elementMap: {},
+      elementTransforms: {},
+      convertLineBreakToBr: true,
+    }
+
+    const out = convertSlate({
+      node: { text: 'a\nb', bold: true },
+      config,
+    })
+
+    expect(html(out)).toEqual('<strong>a</strong><br><strong>b</strong>')
+  })
+
+  it('alwaysEncodeBreakingEntities encodes Text.data when encodeEntities is false', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+      encodeEntities: false,
+      alwaysEncodeBreakingEntities: true,
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: '2 & 1 < 3 > 0' },
+      config,
+    }) as unknown as Document
+
+    expect(out.children).toHaveLength(1)
+    const text = out.children[0] as Text
+    expect(text.data).toEqual('2 &amp; 1 &lt; 3 &gt; 0')
+  })
+
+  it('does not pre-encode breaking entities when encodeEntities is true', () => {
+    const config: Config = {
+      markMap: {},
+      elementMap: {},
+      elementTransforms: {},
+      encodeEntities: true,
+      alwaysEncodeBreakingEntities: true,
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: '2 & 1 < 3 > 0' },
+      config,
+    }) as unknown as Document
+
+    expect(out.children).toHaveLength(1)
+    const text = out.children[0] as Text
+    expect(text.data).toEqual('2 & 1 < 3 > 0')
+  })
 })
 
