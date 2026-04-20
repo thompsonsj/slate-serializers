@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.2](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.1...source-v2.5.2) (2026-04-20)
+
+
+### Bug Fixes
+
+* **packagejson:** remove sync versions script ([#221](https://github.com/thompsonsj/slate-serializers/issues/221)) ([850a4d6](https://github.com/thompsonsj/slate-serializers/commit/850a4d6992201b62205a56e883f2f3737e0fd954))
+
 ## [2.5.1](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.0...source-v2.5.1) (2026-04-18)
 
 
