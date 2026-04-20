@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/thompsonsj/slate-serializers/compare/react-v2.5.1...react-v2.5.2) (2026-04-20)
+
+
+### Bug Fixes
+
+* **convertslate:** create helpers, increase test converage, fix fallback bug ([#224](https://github.com/thompsonsj/slate-serializers/issues/224)) ([7c34ec9](https://github.com/thompsonsj/slate-serializers/commit/7c34ec9a7aa2abf33b4d8b347a1c570e69eed321))
+
 ## [2.5.1](https://github.com/thompsonsj/slate-serializers/compare/react-v2.5.0...react-v2.5.1) (2026-04-18)
 
 
