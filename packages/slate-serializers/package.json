@@ -1,6 +1,6 @@
 {
    "name": "slate-serializers",
-   "version": "2.5.2",
+   "version": "2.5.3",
    "description": "Meta package re-exporting @slate-serializers/dom and @slate-serializers/html for a single dependency entry point.",
    "license": "MIT",
    "keywords": [
