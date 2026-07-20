@@ -2,3 +2,4 @@
 /dist
 /coverage
 /.nx/workspace-data
+.nx/self-healing

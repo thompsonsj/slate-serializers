@@ -1,7 +1,7 @@
 import { ChildNode, Element, Text } from 'domhandler'
 import { find } from 'domutils'
 import { slateToHtml } from '.'
-import { slateToHtmlConfig } from '@slate-serializers/html'
+import { slateToHtmlConfig } from '../../html'
 import { isEmptyObject, styleMapToAttribs } from '@slate-serializers/dom'
 
 describe('custom config', () => {

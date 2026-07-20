@@ -7,11 +7,11 @@
   "targets": {
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
+      "dependsOn": ["build"],
       "options": {
         "distFolderPath": "dist/packages/react",
         "access": "public"
-      },
-      "dependsOn": ["build"]
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
