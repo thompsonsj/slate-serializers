@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.4](https://github.com/thompsonsj/slate-serializers/compare/slate-serializers-v2.5.3...slate-serializers-v2.5.4) (2026-07-20)
+
+
+### Miscellaneous Chores
+
+* **slate-serializers:** Synchronize all versions
+
 ## [2.5.3](https://github.com/thompsonsj/slate-serializers/compare/slate-serializers-v2.5.2...slate-serializers-v2.5.3) (2026-04-20)
 
 

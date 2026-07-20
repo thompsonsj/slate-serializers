@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.3](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.2...tests-v2.3.3) (2026-07-20)
+
+
+### Bug Fixes
+
+* **react:** slatetoreact wiping css styles ([#233](https://github.com/thompsonsj/slate-serializers/issues/233)) ([32b861e](https://github.com/thompsonsj/slate-serializers/commit/32b861e105ba5bcbf6e50f282c9206d9e62624c0))
+
 ## [2.3.2](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.1...tests-v2.3.2) (2026-04-18)
 
 
