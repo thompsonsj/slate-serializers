@@ -12,16 +12,29 @@ export const parseStyleCssText = (value: string): { [key: string]: string } => {
     return output
   }
 
-  const style = value.split(';')
+  // At-rules (e.g. @media) are not representable as React inline style props.
+  const withoutAtRules = value.replace(/@[^{]+\{[^}]*\}/g, '')
 
-  for (const s of style) {
+  for (const s of withoutAtRules.split(';')) {
     const rule = s.trim()
-
-    if (rule) {
-      const ruleParts = rule.split(':')
-      const key = camelize(ruleParts[0].trim())
-      output[key] = ruleParts[1].trim()
+    if (!rule) {
+      continue
     }
+
+    const separatorIndex = rule.indexOf(':')
+    if (separatorIndex === -1) {
+      continue
+    }
+
+    const rawKey = rule.slice(0, separatorIndex).trim()
+    const rawValue = rule.slice(separatorIndex + 1).trim()
+    if (!rawKey || !rawValue) {
+      continue
+    }
+
+    // Preserve CSS custom properties; camelize would mangle `--text-color`.
+    const key = rawKey.startsWith('--') ? rawKey : camelize(rawKey)
+    output[key] = rawValue
   }
 
   return output

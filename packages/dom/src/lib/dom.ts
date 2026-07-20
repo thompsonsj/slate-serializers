@@ -19,4 +19,4 @@ export { Element, Text } from 'domhandler'
 // Slate to DOM utilities
 export { convertSlate } from './utilities/convert-slate'
 export { extractCssFromStyle } from './utilities/domhandler'
-export { isEmptyObject, styleMapToAttribs } from './utilities'
+export { isEmptyObject, parseStyleCssText, styleMapToAttribs } from './utilities'

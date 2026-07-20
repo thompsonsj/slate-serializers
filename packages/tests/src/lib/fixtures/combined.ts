@@ -17,8 +17,9 @@
  * original Slate object or our 'p' tag version.
  */
 
-// code/pre logic breaks this. Work code/pre into the text tag function in the htmlToSlate file.
-// e.g. cannot handle converting back to `<p>Install <pre><code>slate-serializers</code></pre> via npm to convert between Slate and JSON.</p>`, need to look at the way htmlparser2 handles these elements.
+// Inline `<pre>` is invalid HTML inside `<p>`; htmlparser2 will split the paragraph.
+// Default htmlToSlate config rewrites `<pre>` → `<code>` via htmlPreProcessString so
+// round-trips like `<p>…<pre><code>…</code></pre>…</p>` stay inline.
 
 interface Ifixture {
   name: string

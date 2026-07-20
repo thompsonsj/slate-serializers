@@ -60,12 +60,24 @@ import { SlateToReact, payloadSlateToReactConfig } from '@slate-serializers/reac
 
 ### `markTransforms` vs `markMap`
 
-Internally, `SlateToReact` runs the shared DOM converter with **DOM** `elementTransforms` / `markTransforms` cleared so that **block-level** output is driven only by your **React** `elementTransforms`. **Inline marks** use **`markMap`** (and the default DOM behavior for simple tags), not the DOM serializer’s `markTransforms`.
+`SlateToReact` clears **DOM** `elementTransforms` so **block-level** output is driven by your **React** `elementTransforms` (returning `ReactNode`). **Inline marks** use **`markMap`** for simple tags, and optional **`markTransforms`** that return `domhandler` `Element`s (same shape as `@slate-serializers/html` / `@slate-serializers/dom`). Those elements are then converted to React, including attributes such as `style`.
 
-- For **custom per-mark DOM** logic (returning `new Element(...)`), use **`slateToHtml`** from `@slate-serializers/html`.
-- For **React** output, prefer **`markMap`** and, where needed, custom **`elementTransforms`** for blocks.
+CSS `style` strings on elements (from `elementAttributeTransform` or `markTransforms`) are parsed into React style objects automatically.
 
-See the demo section [“Custom DOM `markTransforms`…”](https://thompsonsj.github.io/slate-serializers-demo/slate-to-react/docs) for a concrete explanation.
+```tsx
+import { Element } from '@slate-serializers/dom'
+import { type SlateToReactConfig, slateToReactConfig } from '@slate-serializers/react'
+
+const config: SlateToReactConfig = {
+  ...slateToReactConfig,
+  markTransforms: {
+    style: ({ node }) =>
+      new Element('span', {
+        style: `color: ${node.style?.color};`,
+      }),
+  },
+}
+```
 
 ### Example: custom block component
 

@@ -1,8 +1,8 @@
-import React, { Fragment, ReactElement, JSXElementConstructor } from 'react'
+import React, { CSSProperties, Fragment, ReactElement, JSXElementConstructor, ReactNode } from 'react'
 import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
 
-import { convertSlate } from '@slate-serializers/dom'
+import { convertSlate, parseStyleCssText } from '@slate-serializers/dom'
 import { config as slateToReactConfig } from './config/default'
 import type { Config as SlateToReactConfig } from './config/types'
 
@@ -25,9 +25,17 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
           {convertSlate({
             node: n,
             config: {
-              ...config,
+              markMap: config.markMap,
+              elementMap: config.elementMap,
+              elementAttributeTransform: config.elementAttributeTransform,
+              defaultTag: config.defaultTag,
+              encodeEntities: config.encodeEntities,
+              alwaysEncodeBreakingEntities: config.alwaysEncodeBreakingEntities,
+              alwaysEncodeCodeEntities: config.alwaysEncodeCodeEntities,
+              convertLineBreakToBr: config.convertLineBreakToBr,
+              markTransforms: config.markTransforms,
+              // elementTransforms receive React children via customElementTransforms instead.
               elementTransforms: {},
-              markTransforms: {},
             },
             isLastNodeInDocument: index === node.length - 1,
             customElementTransforms: config.elementTransforms,
@@ -43,27 +51,47 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
   ) as any
 }
 
-const transformText = (text: Text | Element) => {
-  if (isTag(text as Element)) {
-    return React.createElement(getName(text as Element), {}, textContent(text as Element))
+const transformText = (node: Text | Element): ReactNode => {
+  if (isTag(node as Element)) {
+    const el = node as Element
+    const children = (el.children || []).map((child, index) => (
+      <Fragment key={index}>{transformText(child as Text | Element)}</Fragment>
+    ))
+    return domElementToReactElement(el, children)
   }
-  return <>{textContent(text as Text)}</>
+  return <>{textContent(node as Text)}</>
 }
 
-const domElementToReactElement = (element: Element): ReactElement<any, string | JSXElementConstructor<any>> => {
-  const style = element.attribs?.style && typeof element.attribs.style === 'object' && { style: element.attribs?.style }
+const styleAttributeToReactStyle = (styleAttr: unknown): CSSProperties | undefined => {
+  if (!styleAttr) {
+    return undefined
+  }
+  if (typeof styleAttr === 'object' && !Array.isArray(styleAttr)) {
+    return styleAttr as CSSProperties
+  }
+  if (typeof styleAttr === 'string') {
+    const parsed = parseStyleCssText(styleAttr)
+    return Object.keys(parsed).length > 0 ? (parsed as CSSProperties) : undefined
+  }
+  return undefined
+}
+
+const domElementToReactElement = (
+  element: Element,
+  children?: ReactNode,
+): ReactElement<any, string | JSXElementConstructor<any>> => {
+  const { style: styleAttr, class: className, ...restAttribs } = element.attribs || {}
+  const style = styleAttributeToReactStyle(styleAttr)
+
   return React.createElement(
     getName(element),
     {
       /* Keys are not set here: these nodes are not list items from .map(); random keys would remount
        * every render. List keys for top-level blocks are on Fragment wrappers in SlateToReact. */
-      /* Provide all attributes as props */
-      ...element.attribs,
-      /* Convert key names for JSX compatibility */
-      ...(element.attribs?.class && { className: element.attribs?.class }),
-      /* Validate style (can convert to React style object using elementAttributeTransform or other transform functions, but it is still possible that a string will be passed) */
-      style: style ? style : undefined,
+      ...restAttribs,
+      ...(className && { className }),
+      ...(style && { style }),
     },
-    element.children as any,
+    children !== undefined ? children : (element.children as any),
   )
 }
