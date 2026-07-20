@@ -73,7 +73,9 @@ describe('React conversion', () => {
           </i>
            better than a 
           <pre>
-            &lt;textarea&gt;
+            <code>
+              &lt;textarea&gt;
+            </code>
           </pre>
           !
         </p>

@@ -3,9 +3,13 @@
 exports[`style attribute css transforms with postcss mark transform 1`] = `
 <div>
   <p>
-    <strong>
-      Paragraph
-    </strong>
+    <span
+      style="font-size: 96px; --text-color: #DD3A0A;"
+    >
+      <strong>
+        Paragraph
+      </strong>
+    </span>
   </p>
 </div>
 `;
@@ -14,17 +18,31 @@ exports[`style attribute css transforms with postcss mark transforms on multiple
 <div>
   <p>
     This is editable 
-    <strong>
-      rich
-    </strong>
+    <span
+      style="font-size: 20px; font-weight: 600; text-decoration: underline dotted;"
+    >
+      <strong>
+        rich
+      </strong>
+    </span>
      text, 
-    <i>
-      much
-    </i>
+    <span
+      style="text-decoration: underline;"
+    >
+      <i>
+        much
+      </i>
+    </span>
      better than a 
-    <pre>
-      &lt;textarea&gt;
-    </pre>
+    <span
+      style="color: red;"
+    >
+      <pre>
+        <code>
+          &lt;textarea&gt;
+        </code>
+      </pre>
+    </span>
     !
   </p>
 </div>
@@ -32,7 +50,9 @@ exports[`style attribute css transforms with postcss mark transforms on multiple
 
 exports[`style attribute css transforms with postcss p tag element transform 1`] = `
 <div>
-  <p>
+  <p
+    style="font-size: 96px; --text-color: #DD3A0A;"
+  >
     <strong>
       Paragraph
     </strong>

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
-import { BaseConfig } from '@slate-serializers/dom'
+import { BaseConfig, MarkTransform } from '@slate-serializers/dom'
 
-interface MarkTagTransform {
-  [key: string]: ({ node, attribs }: { node?: any; attribs?: { [key: string]: string } }) => ReactNode
+interface MarkTransforms {
+  [key: string]: MarkTransform
 }
 
 interface ElementTagTransform {
@@ -11,6 +11,7 @@ interface ElementTagTransform {
     attribs,
     children,
   }: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     node?: any
     attribs?: { [key: string]: string }
     children?: ReactNode
@@ -18,6 +19,11 @@ interface ElementTagTransform {
 }
 
 export interface Config extends BaseConfig {
-  markTransforms?: MarkTagTransform
+  /**
+   * Mark transforms must return domhandler `Element`s. They are applied during
+   * Slate→DOM conversion, then converted to React elements (including attributes
+   * such as `style`).
+   */
+  markTransforms?: MarkTransforms
   elementTransforms: ElementTagTransform
 }

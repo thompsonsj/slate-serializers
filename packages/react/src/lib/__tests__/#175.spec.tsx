@@ -38,7 +38,11 @@ describe('Issue 175', () => {
         </h3>
         Combine 
         <strong>
-          all three
+          <u>
+            <i>
+              all three
+            </i>
+          </u>
         </strong>
          of the aforementioned tags. Throw a 
         <s>
@@ -49,7 +53,9 @@ describe('Issue 175', () => {
           Heading 4: Code
         </h4>
         <pre>
-          2 &gt; 1 but is &lt; 3 &amp; it can break HTML
+          <code>
+            2 &gt; 1 but is &lt; 3 &amp; it can break HTML
+          </code>
         </pre>
         <h5>
           Heading 5: Text indent
@@ -167,7 +173,11 @@ describe('Issue 175', () => {
         <p>
           Combine 
           <strong>
-            all three
+            <u>
+              <i>
+                all three
+              </i>
+            </u>
           </strong>
            of the aforementioned tags. Throw a 
           <s>
