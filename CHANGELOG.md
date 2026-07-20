@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.5](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.4...source-v2.5.5) (2026-07-20)
+
+
+### Bug Fixes
+
+* **packagejson:** vulnerabilities and automate publish ([#231](https://github.com/thompsonsj/slate-serializers/issues/231)) ([ef3c18c](https://github.com/thompsonsj/slate-serializers/commit/ef3c18cbe2ff2927ab7fb73c8937447cab79ac00))
+* **react:** slatetoreact wiping css styles ([#233](https://github.com/thompsonsj/slate-serializers/issues/233)) ([32b861e](https://github.com/thompsonsj/slate-serializers/commit/32b861e105ba5bcbf6e50f282c9206d9e62624c0))
+
 ## [2.5.4](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.3...source-v2.5.4) (2026-04-20)
 
 

@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.4](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.5.3...dom-v2.5.4) (2026-07-20)
+
+
+### Bug Fixes
+
+* **react:** slatetoreact wiping css styles ([#233](https://github.com/thompsonsj/slate-serializers/issues/233)) ([32b861e](https://github.com/thompsonsj/slate-serializers/commit/32b861e105ba5bcbf6e50f282c9206d9e62624c0))
+
 ## [2.5.3](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.5.2...dom-v2.5.3) (2026-04-20)
 
 
