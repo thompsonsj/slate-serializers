@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "nxCloudAccessToken": "MzFjMDBlNWQtZDQ0YS00NzljLTlhNzEtZDA5NTI4NGUzNjcwfHJlYWQtd3JpdGU=",
+  "nxCloudId": "64b5b5d16076e12694acf45d",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
