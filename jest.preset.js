@@ -22,4 +22,13 @@ module.exports = {
   transformIgnorePatterns: [
     `/node_modules/(?!(${esmDomStackPackages})/)`,
   ],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.spec.{ts,tsx}',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/**/__tests__/**',
+    '!src/**/fixtures/**',
+    '!src/**/__snapshots__/**',
+  ],
+  coverageReporters: ['text', 'text-summary', 'lcov', 'html', 'cobertura'],
 };

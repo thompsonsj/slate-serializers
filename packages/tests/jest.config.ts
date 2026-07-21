@@ -1,11 +1,11 @@
 /* eslint-disable */
 module.exports = {
-  displayName: 'react',
+  displayName: 'tests',
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/react',
+  coverageDirectory: '../../coverage/packages/tests',
 };
