@@ -1,24 +1,22 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "MzFjMDBlNWQtZDQ0YS00NzljLTlhNzEtZDA5NTI4NGUzNjcwfHJlYWQtd3JpdGU="
-      }
-    }
-  },
+  "nxCloudAccessToken": "MzFjMDBlNWQtZDQ0YS00NzljLTlhNzEtZDA5NTI4NGUzNjcwfHJlYWQtd3JpdGU=",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"]
+      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
+      "cache": true
     },
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true
+    },
+    "e2e": {
+      "cache": true
     },
     "@nx/eslint:lint": {
       "inputs": [
