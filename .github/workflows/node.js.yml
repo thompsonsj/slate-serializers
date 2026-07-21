@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# Read-write Nx Cloud CI token (overrides nxCloudId). Keep out of the repo.
+env:
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
 jobs:
   build:
 

@@ -40,6 +40,7 @@ Thumbs.db
 
 # Additions
 .nx/*
+nx-cloud.env
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
