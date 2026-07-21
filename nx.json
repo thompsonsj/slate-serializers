@@ -14,9 +14,7 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"]
-    },
+    "lint": { "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"] },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
@@ -42,24 +40,14 @@
     ],
     "sharedGlobals": []
   },
-  "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "packages", "libsDir": "packages" },
   "generators": {
     "@nx/react": {
-      "application": {
-        "babel": true
-      },
-      "library": {
-        "unitTestRunner": "jest"
-      }
+      "application": { "babel": true },
+      "library": { "unitTestRunner": "jest" }
     }
   },
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": true
-    }
-  },
-  "analytics": true
+  "pluginsConfig": { "@nx/js": { "analyzeSourceFiles": true } },
+  "analytics": true,
+  "nxCloudId": "6a5fbbe6fe8c0de669dd99e1"
 }
