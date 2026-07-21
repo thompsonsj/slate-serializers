@@ -94,6 +94,8 @@
     "undici": "^7.28.0",
     "ws": "^8.21.0",
     "fast-uri": "^3.1.2",
+    "brace-expansion": "5.0.7",
+    "js-yaml": "4.3.0",
     "eslint": {
       "ajv": "^6.12.6"
     },
@@ -107,6 +109,15 @@
     },
     "nx-cloud": {
       "axios": "^1.18.1"
+    },
+    "minimatch@3": {
+      "brace-expansion": "1.1.16"
+    },
+    "minimatch@7": {
+      "brace-expansion": "2.1.2"
+    },
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "3.15.0"
     }
   },
   "nx": {
