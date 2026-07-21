@@ -28,4 +28,25 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - name: Test with coverage
+      run: npm run test:coverage
+    - name: Upload coverage artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-reports
+        path: coverage/**
+        if-no-files-found: warn
+        retention-days: 14
+    - name: Upload coverage to Codecov
+      if: always()
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        # `files` is an explicit path list (no glob expansion). Search under
+        # coverage/ so Codecov auto-discovers per-package lcov/cobertura reports.
+        directory: coverage
+        flags: unittests
+        name: slate-serializers
+        fail_ci_if_error: false
+        verbose: true

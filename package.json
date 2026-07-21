@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "test": "nx run-many --all --target=test",
+    "test:coverage": "nx run-many --all --target=test --configuration=ci",
     "build": "nx run-many --all --target=build",
     "publish": "nx deploy dom && nx deploy html && nx deploy react && nx deploy utilities && nx deploy template && nx deploy slate-serializers"
   },
