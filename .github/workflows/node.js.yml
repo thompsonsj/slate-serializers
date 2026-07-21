@@ -43,7 +43,9 @@ jobs:
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: coverage/**/lcov.info,coverage/**/cobertura-coverage.xml
+        # `files` is an explicit path list (no glob expansion). Search under
+        # coverage/ so Codecov auto-discovers per-package lcov/cobertura reports.
+        directory: coverage
         flags: unittests
         name: slate-serializers
         fail_ci_if_error: false
