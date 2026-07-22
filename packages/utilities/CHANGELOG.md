@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.5.5](https://github.com/thompsonsj/slate-serializers/compare/utilities-v2.5.4...utilities-v2.5.5) (2026-07-22)
+
+
+### Bug Fixes
+
+* test coverage increase and tdd bug fixes ([#237](https://github.com/thompsonsj/slate-serializers/issues/237)) ([023943d](https://github.com/thompsonsj/slate-serializers/commit/023943d6ce96eaee39a34f4be61e06554deec62f))
+
 ## [2.5.4](https://github.com/thompsonsj/slate-serializers/compare/utilities-v2.5.3...utilities-v2.5.4) (2026-07-20)
 
 

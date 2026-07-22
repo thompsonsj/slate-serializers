@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.4](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.3...tests-v2.3.4) (2026-07-22)
+
+
+### Bug Fixes
+
+* test coverage increase and tdd bug fixes ([#237](https://github.com/thompsonsj/slate-serializers/issues/237)) ([023943d](https://github.com/thompsonsj/slate-serializers/commit/023943d6ce96eaee39a34f4be61e06554deec62f))
+
 ## [2.3.3](https://github.com/thompsonsj/slate-serializers/compare/tests-v2.3.2...tests-v2.3.3) (2026-07-20)
 
 
