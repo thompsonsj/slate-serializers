@@ -1,4 +1,4 @@
-import { Document, Element, isTag, Text } from 'domhandler'
+import { ChildNode, Document, Element, isTag, Text } from 'domhandler'
 import { getName } from 'domutils'
 import { encode } from 'html-entities'
 import { Text as SlateText } from 'slate'
@@ -113,6 +113,20 @@ const buildMarkElements = (node: any, config: Config): Element[] => {
   return markElements
 }
 
+/** True when a mark wrapper chain includes <pre> or <code> (not only when the outermost tag is <pre>). */
+const markTreeContainsCodeOrPre = (element: Element | Text): boolean => {
+  let current: Element | Text | ChildNode | undefined = element
+  while (current && isTag(current as Element)) {
+    const el = current as Element
+    const name = getName(el)
+    if (name === 'pre' || name === 'code') {
+      return true
+    }
+    current = el.children?.[0]
+  }
+  return false
+}
+
 const convertSlateTextNode = ({
   node,
   config,
@@ -143,7 +157,7 @@ const convertSlateTextNode = ({
       config.alwaysEncodeCodeEntities &&
       !config.encodeEntities &&
       isTag(textElement) &&
-      getName(textElement) === 'pre'
+      markTreeContainsCodeOrPre(textElement)
     ) {
       let encodedLine = line
       if (config.alwaysEncodeBreakingEntities) {

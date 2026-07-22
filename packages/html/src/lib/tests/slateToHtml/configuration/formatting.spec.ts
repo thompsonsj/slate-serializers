@@ -174,5 +174,23 @@ describe("slateToHtml formatting", () => {
         html,
       )
     })
+
+    it('encodes code entities when markMap uses only <code>', () => {
+      const html = '<p><code>&lt;textarea&gt;</code></p>'
+      const slate = [
+        {
+          type: 'p',
+          children: [{ text: '<textarea>', code: true }],
+        },
+      ]
+      expect(
+        slateToHtml(slate, {
+          ...slateToHtmlConfig,
+          markMap: { ...slateToHtmlConfig.markMap, code: ['code'] },
+          encodeEntities: false,
+          alwaysEncodeCodeEntities: true,
+        }),
+      ).toEqual(html)
+    })
   })
 })

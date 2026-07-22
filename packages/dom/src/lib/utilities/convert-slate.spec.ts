@@ -67,6 +67,63 @@ describe('convertSlate', () => {
     expect(text.data).toEqual('2 &amp; 1 &lt; 3 &gt; 0')
   })
 
+  it('encodes entities when markMap uses only <code> (outermost is not <pre>)', () => {
+    const config: Config = {
+      markMap: {
+        code: ['code'],
+      },
+      elementMap: {},
+      elementTransforms: {},
+      encodeEntities: false,
+      alwaysEncodeBreakingEntities: false,
+      alwaysEncodeCodeEntities: true,
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: '2 & 1 < 3 > 0', code: true },
+      config,
+    }) as unknown as Document
+
+    const code = out.children[0] as Element
+    expect(getName(code)).toEqual('code')
+    const text = code.children[0] as Text
+    expect(text.data).toEqual('2 &amp; 1 &lt; 3 &gt; 0')
+  })
+
+  it('encodes entities when a style mark wraps outside <pre>/<code>', () => {
+    const config: Config = {
+      markMap: {
+        code: ['pre', 'code'],
+      },
+      markTransforms: {
+        style: ({ node }) =>
+          new Element('span', {
+            style: `color:${(node as { style?: { color?: string } }).style?.color};`,
+          }),
+      },
+      elementMap: {},
+      elementTransforms: {},
+      encodeEntities: false,
+      alwaysEncodeBreakingEntities: false,
+      alwaysEncodeCodeEntities: true,
+      convertLineBreakToBr: false,
+    }
+
+    const out = convertSlate({
+      node: { text: '<textarea>', code: true, style: { color: 'red' } },
+      config,
+    }) as unknown as Document
+
+    // Assert on Text.data — serializer would double-escape already-encoded entities.
+    const span = out.children[0] as Element
+    expect(getName(span)).toEqual('span')
+    const pre = span.children[0] as Element
+    const code = pre.children[0] as Element
+    const text = code.children[0] as Text
+    expect(text.data).toEqual('&lt;textarea&gt;')
+  })
+
   it('adds a trailing <br> between sibling inline nodes when enabled', () => {
     const config: Config = {
       markMap: {},

@@ -76,6 +76,18 @@ const deserialize = ({
     return jsx('element', attrs, children)
   }
 
+  // Text marks with nested element children (e.g. <strong><em>a</em><u>b</u></strong>)
+  // must keep sibling runs separate — do not collapse via textContent.
+  if (config.textTags[nodeName]) {
+    const hasElementChild = (currentEl.childNodes || []).some((n) => isTag(n as Element))
+    if (hasElementChild) {
+      const ownAttrs = (config.textTags[nodeName](currentEl) || {}) as Record<string, unknown>
+      return children
+        .map((child: any) => applyMarkAttrs(child, ownAttrs))
+        .filter((element: any) => element)
+    }
+  }
+
   if (config.textTags[nodeName] || el.type === ElementType.Text) {
     const attrs = gatherTextMarkAttributes({ el: currentEl,config })
     const text = processTextValue({
@@ -106,6 +118,22 @@ const deserialize = ({
   }
 
   return children
+}
+
+const applyMarkAttrs = (node: any, attrs: Record<string, unknown>): any => {
+  if (!node || typeof node !== 'object') {
+    return node
+  }
+  if (typeof node.text === 'string') {
+    return { ...attrs, ...node }
+  }
+  if (Array.isArray(node.children)) {
+    return {
+      ...node,
+      children: node.children.map((child: any) => applyMarkAttrs(child, attrs)),
+    }
+  }
+  return node
 }
 
 interface IgatherTextMarkAttributes {
@@ -154,7 +182,11 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
             const updated = updater(element)
             if (updated !== null && updated !== element) {
               if (typeof updated === 'string') {
-                replaceElement(element, parseDocument(updated) as any)
+                const parsed = parseDocument(updated)
+                const replacement = getChildren(parsed).find((child) => isTag(child))
+                if (replacement) {
+                  replaceElement(element, replacement)
+                }
               } else {
                 replaceElement(element, updated)
               }
