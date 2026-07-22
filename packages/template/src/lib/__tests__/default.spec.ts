@@ -1,6 +1,7 @@
 import { slateToTemplate } from './../serializers';
 import { config as defaultTemplateConfig } from './../config/default';
 import { Config as SlateToTemplateConfig } from './../config/types';
+import { payloadSlateToTemplateConfig } from './../template';
 
 describe('Template conversion', () => {
   test('convert domhandler element to Template', async () => {
@@ -125,5 +126,45 @@ describe('Template conversion', () => {
         [Function],
       ]
     `);
+  });
+
+  it('returns undefined when node is not an array', () => {
+    expect(slateToTemplate(null as unknown as any[])).toBeUndefined();
+  });
+
+  it('uses payloadSlateToTemplateConfig for upload nodes', () => {
+    const slate = [
+      {
+        type: 'upload',
+        value: {
+          mimeType: 'image/png',
+          url: 'https://example.com/a.png',
+        },
+        children: [{ text: '' }],
+      },
+    ];
+    const tree = slateToTemplate(slate, payloadSlateToTemplateConfig);
+    expect(tree?.[0]).toContain('img');
+    expect(tree?.[0]).toContain('https://example.com/a.png');
+  });
+
+  it('invokes customElementSerializers and returns their values', () => {
+    const config: SlateToTemplateConfig = {
+      ...defaultTemplateConfig,
+      customElementSerializers: {
+        callout: ({ node }) => `CALLOUT:${node.children?.[0]?.text}`,
+      },
+    };
+    const slate = [
+      {
+        type: 'callout',
+        children: [{ text: 'Hello' }],
+      },
+      {
+        type: 'p',
+        children: [{ text: 'Body' }],
+      },
+    ];
+    expect(slateToTemplate(slate, config)).toEqual(['CALLOUT:Hello', '<p>Body</p>']);
   });
 });

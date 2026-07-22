@@ -243,4 +243,30 @@ describe('htmlToSlate configuration: htmlUpdaterMap', () => {
       ]
     `);
   });
+
+  it('replaces matched elements with a string HTML fragment from the updater', () => {
+    const html = '<p>Paragraph</p>';
+    const config: HtmlToSlateConfig = {
+      ...htmlToSlateConfig,
+      htmlUpdaterMap: {
+        p: () => '<div class="from-string"><span>Replaced</span></div>',
+      },
+      elementTags: {
+        ...htmlToSlateConfig.elementTags,
+        div: () => ({ type: 'div' }),
+        span: () => ({ type: 'span' }),
+      },
+    };
+    expect(htmlToSlate(html, config)).toEqual([
+      {
+        type: 'div',
+        children: [
+          {
+            type: 'span',
+            children: [{ text: 'Replaced' }],
+          },
+        ],
+      },
+    ]);
+  });
 });

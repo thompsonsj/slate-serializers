@@ -176,3 +176,78 @@ describe('nested text formatting elements', () => {
     expect(htmlToSlate(html)).toEqual(slate)
   })
 })
+
+describe('gatherTextMarkAttributes branching', () => {
+  it('applies marks to sibling children under a shared parent', () => {
+    const html = '<p><strong><em>a</em><u>b</u></strong></p>'
+    expect(htmlToSlate(html)).toEqual([
+      {
+        type: 'p',
+        children: [
+          { text: 'a', bold: true, italic: true },
+          { text: 'b', bold: true, underline: true },
+        ],
+      },
+    ])
+  })
+
+  it('applies marks when plain text and nested marks are siblings', () => {
+    const html = '<p><strong>plain <em>nested</em></strong></p>'
+    expect(htmlToSlate(html)).toEqual([
+      {
+        type: 'p',
+        children: [
+          { text: 'plain ', bold: true },
+          { text: 'nested', bold: true, italic: true },
+        ],
+      },
+    ])
+  })
+
+  it('gathers attributes through a deep single-child mark chain', () => {
+    const html = '<p><strong><em><u><s>deep</s></u></em></strong></p>'
+    expect(htmlToSlate(html)).toEqual([
+      {
+        type: 'p',
+        children: [
+          {
+            text: 'deep',
+            bold: true,
+            italic: true,
+            underline: true,
+            strikethrough: true,
+          },
+        ],
+      },
+    ])
+  })
+})
+
+describe('htmlToSlate edge inputs', () => {
+  it('ignores comment nodes', () => {
+    expect(htmlToSlate('<!-- note --><p>Hi</p>')).toEqual([
+      {
+        type: 'p',
+        children: [{ text: 'Hi' }],
+      },
+    ])
+  })
+
+  it('treats body as a fragment wrapper (children stay nested under the fragment)', () => {
+    // htmlparser2 + slate-hyperscript leave body as an untyped fragment node.
+    expect(htmlToSlate('<body><p>One</p><p>Two</p></body>')).toEqual([
+      {
+        children: [
+          {
+            type: 'p',
+            children: [{ text: 'One' }],
+          },
+          {
+            type: 'p',
+            children: [{ text: 'Two' }],
+          },
+        ],
+      },
+    ])
+  })
+})

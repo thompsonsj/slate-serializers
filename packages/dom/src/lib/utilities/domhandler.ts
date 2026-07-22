@@ -4,11 +4,9 @@ import serializer from 'dom-serializer'
 import { parseStyleCssText } from '.'
 
 /**
- * Generate nested mark elements
- *
- * nestedMarkElements should be recursive, but it works
- * so leaving it for now. Can handle a maximum of 5
- * elements. Really shouldn't be any more than that!
+ * Nest mark elements around text (or an inner element) by repeatedly wrapping
+ * the current node as the sole child of the next mark element.
+ * Depth is unbounded — callers may pass more than five marks.
  */
 
 export const nestedMarkElementsString = (els: Element[], text: string) => {
