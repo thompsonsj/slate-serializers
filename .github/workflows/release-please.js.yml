@@ -10,19 +10,14 @@ on:
         default: false
         type: boolean
 
-permissions:
-  contents: write
-  pull-requests: write
-
 name: release-please
-
-# Same Nx Cloud CI token as Node.js CI — required for nx build on this workspace.
-env:
-  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
     steps:
@@ -35,15 +30,36 @@ jobs:
 
   publish:
     needs: release-please
+    # Normal path: release-please just created releases.
+    # Recovery path: manual dispatch from main only (not feature branches).
     if: >-
       needs.release-please.outputs.releases_created == 'true' ||
-      (github.event_name == 'workflow_dispatch' && inputs.force_publish)
+      (github.event_name == 'workflow_dispatch' &&
+       inputs.force_publish &&
+       github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
+    env:
+      # Required for nx build; scoped to publish (not the release-please job).
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify force-publish against existing GitHub release tags
+        if: github.event_name == 'workflow_dispatch' && inputs.force_publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          packages=(dom html react template utilities slate-serializers)
+          for pkg in "${packages[@]}"; do
+            version="$(node -p "require('./packages/${pkg}/package.json').version")"
+            tag="${pkg}-v${version}"
+            echo "Checking release tag ${tag}..."
+            gh release view "${tag}" --repo "${GITHUB_REPOSITORY}" >/dev/null
+          done
+          echo "All package versions have matching GitHub release tags."
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
