@@ -46,6 +46,8 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Verify force-publish against existing GitHub release tags
         if: github.event_name == 'workflow_dispatch' && inputs.force_publish
         env:
