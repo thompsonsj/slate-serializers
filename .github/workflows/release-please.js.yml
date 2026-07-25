@@ -2,12 +2,23 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Force npm publish (use to recover after release tags exist but publish failed)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
   pull-requests: write
 
 name: release-please
+
+# Same Nx Cloud CI token as Node.js CI — required for nx build on this workspace.
+env:
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   release-please:
@@ -24,7 +35,9 @@ jobs:
 
   publish:
     needs: release-please
-    if: needs.release-please.outputs.releases_created == 'true'
+    if: >-
+      needs.release-please.outputs.releases_created == 'true' ||
+      (github.event_name == 'workflow_dispatch' && inputs.force_publish)
     runs-on: ubuntu-latest
     permissions:
       contents: read
