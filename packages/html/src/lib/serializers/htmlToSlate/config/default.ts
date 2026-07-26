@@ -48,5 +48,6 @@ export const config: Config = {
   htmlPreProcessString: (html) => html.replace(/<pre[^>]*>/g, '<code>').replace(/<\/pre>/g, '</code>'),
   filterWhitespaceNodes: true,
   convertBrToLineBreak: true,
+  brStrategy: 'block',
   trimWhiteSpace: true,
 }

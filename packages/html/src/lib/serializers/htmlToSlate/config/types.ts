@@ -12,6 +12,16 @@ export type AttributeTransform = ({
 }) => { [key: string]: unknown } | undefined
 
 /**
+ * How `<br>` tags are represented in Slate when `convertBrToLineBreak` is true.
+ *
+ * - `block` (default): preserve historical behavior — empty text (`''`) outside a
+ *   block context (often becoming its own block), `\n` inside one.
+ * - `newline`: always emit `\n` text; coalesce adjacent plain-text leaves; collapse
+ *   a run of `<br>` before a following block element to a single `\n`.
+ */
+export type BrStrategy = 'block' | 'newline'
+
+/**
  * For details on configuration options:
  * @see /docs/config/htmlToSlate.md
  */
@@ -30,6 +40,11 @@ export interface Config {
   filterWhitespaceNodes: boolean
   /* Convert br tags to a new line character (\n) */
   convertBrToLineBreak?: boolean
+  /**
+   * Strategy for converting `<br>` when `convertBrToLineBreak` is true.
+   * @default 'block'
+   */
+  brStrategy?: BrStrategy
   /* Replace multiple whitespace characters with a single space. */
   trimWhiteSpace?: boolean
 }

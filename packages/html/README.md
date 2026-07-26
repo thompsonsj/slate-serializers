@@ -159,7 +159,8 @@ For more detailed documentation and examples, see [htmlToSlate | `slate-serializ
 | `elementTags` | Define transform functions for HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts). Example `{ p: () => ({ type: 'p' }), /* ... */ }`. |
 | `htmlPreProcessString` | Perform operations on the HTML string before serialization. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/serializers/htmlToSlate/config/default.ts) (replaces `<pre>` with `<code>` for parsing). |
 | `filterWhitespaceNodes` | Remove whitespace that does not contribute meaning. | `true` |
-| `convertBrToLineBreak` | Convert br tags to a new line character (\n). | `true` |
+| `convertBrToLineBreak` | Convert br tags to line breaks in Slate. | `true` |
+| `brStrategy` | How converted `<br>` tags are represented: `block` (default, historical empty-block / context `\n` behavior) or `newline` (always `\n`, coalesce plain text, collapse breaks before a following block). | `'block'` |
 
 ## See also
 

@@ -119,3 +119,31 @@ Remove any Slate JSON nodes that have no type or content. For example:
 ```
 
 These nodes may appear after [processing whitespace](../engineering.md#whitespace).
+
+### convertBrToLineBreak
+
+Default: `true`.
+
+When `true`, `<br>` tags are converted according to [`brStrategy`](#brstrategy). Set to `false` to leave `<br>` for `elementTags` (or drop them if unmapped).
+
+### brStrategy
+
+Default: `'block'`.
+
+Only applies when `convertBrToLineBreak` is `true`.
+
+| Value | Behaviour |
+| - | - |
+| `'block'` | Historical default: empty text (`''`) outside a block context; `\n` inside one. Top-level `Line 1<br>Line 2` becomes three default blocks. |
+| `'newline'` | Always `\n`; merge adjacent plain-text leaves; collapse `<br><br>` before a following block to a single `\n`. Top-level `Line 1<br>Line 2` becomes one default block with `Line 1\nLine 2`. |
+
+```ts
+import { htmlToSlate, htmlToSlateConfig } from '@slate-serializers/html'
+
+htmlToSlate('Line 1<br />Line 2', {
+  ...htmlToSlateConfig,
+  brStrategy: 'newline',
+})
+```
+
+Side-by-side fixtures: [brStrategy.spec.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/tests/htmlToSlate/configuration/brStrategy.spec.ts).
