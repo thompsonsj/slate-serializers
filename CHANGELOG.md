@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.6.0](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.6...source-v2.6.0) (2026-07-26)
+
+
+### Features
+
+* **html:** add opt-in brStrategy for &lt;br&gt; conversion ([#244](https://github.com/thompsonsj/slate-serializers/issues/244)) ([0e493db](https://github.com/thompsonsj/slate-serializers/commit/0e493dbc669b5897bc2e20773b6e08d2fc6bca09))
+
+
+### Bug Fixes
+
+* **ci:** authorize Nx Cloud in release-please publish ([#240](https://github.com/thompsonsj/slate-serializers/issues/240)) ([f5b45e8](https://github.com/thompsonsj/slate-serializers/commit/f5b45e87111d742be070df250a1b36f2e0585c6e))
+
 ## [2.5.6](https://github.com/thompsonsj/slate-serializers/compare/source-v2.5.5...source-v2.5.6) (2026-07-22)
 
 
