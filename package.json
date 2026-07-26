@@ -17,7 +17,7 @@
     "domutils": "^4.0.0",
     "html-entities": "^2.6.0",
     "htmlparser2": "^12.0.0",
-    "postcss": "8.5.10",
+    "postcss": "8.5.23",
     "postcss-js": "^5.1.0",
     "react": ">=16",
     "react-dom": ">=16",
@@ -94,6 +94,7 @@
     "brace-expansion": "5.0.7",
     "js-yaml": "4.3.0",
     "qs": "^6.15.3",
+    "svgo": "^3.3.4",
     "eslint": {
       "ajv": "^6.12.6"
     },
