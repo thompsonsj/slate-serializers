@@ -9,6 +9,11 @@ import { Config } from './config/types'
 import { config as defaultConfig } from './config/default'
 
 import { Context, getContext, isAllWhitespace, processTextValue } from './whitespace'
+import {
+  coalesceDefaultBlocks,
+  coalescePlainTextLeaves,
+  resolveBrText,
+} from './brStrategy'
 
 import { isBlock } from '../../utilities/blocks'
 
@@ -36,10 +41,17 @@ const deserialize = ({
   const childrenContext = getContext(nodeName) || context
 
   const isLastChild = index === childrenLength - 1
-  const isWithinTextNodes = currentEl.prev?.type === ElementType.Text && currentEl.next?.type === ElementType.Text
 
   if (nodeName === 'br' && config.convertBrToLineBreak && context !== 'preserve') {
-    return [jsx('text', { text: context ? '\n' : '' }, [])]
+    const brText = resolveBrText({
+      el: currentEl,
+      context,
+      brStrategy: config.brStrategy,
+    })
+    if (brText === null) {
+      return null
+    }
+    return [jsx('text', { text: brText }, [])]
   }
 
   const children = currentEl.childNodes
@@ -59,8 +71,11 @@ const deserialize = ({
         .flat()
     : []
 
+  const maybeCoalescedChildren =
+    config.brStrategy === 'newline' ? coalescePlainTextLeaves(children) : children
+
   if (getName(currentEl) === 'body') {
-    return jsx('fragment', {}, children)
+    return jsx('fragment', {}, maybeCoalescedChildren)
   }
 
   if (config.elementTags[nodeName]) {
@@ -73,7 +88,7 @@ const deserialize = ({
       }
     }
 
-    return jsx('element', attrs, children)
+    return jsx('element', attrs, maybeCoalescedChildren)
   }
 
   // Text marks with nested element children (e.g. <strong><em>a</em><u>b</u></strong>)
@@ -82,7 +97,7 @@ const deserialize = ({
     const hasElementChild = (currentEl.childNodes || []).some((n) => isTag(n as Element))
     if (hasElementChild) {
       const ownAttrs = (config.textTags[nodeName](currentEl) || {}) as Record<string, unknown>
-      return children
+      return maybeCoalescedChildren
         .map((child: any) => applyMarkAttrs(child, ownAttrs))
         .filter((element: any) => element)
     }
@@ -117,7 +132,7 @@ const deserialize = ({
     return [jsx('text', { ...attrs, text }, [])]
   }
 
-  return children
+  return maybeCoalescedChildren
 }
 
 const applyMarkAttrs = (node: any, attrs: Record<string, unknown>): any => {
@@ -208,6 +223,10 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         })
         .filter((element) => !isSlateDeadEnd(element))
         .map((element) => addTextNodeToEmptyChildren(element))
+
+      if (config.brStrategy === 'newline') {
+        slateContent = coalesceDefaultBlocks(slateContent) as Descendant[]
+      }
     }
   })
   const parser = new Parser(handler, { decodeEntities: true })

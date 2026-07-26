@@ -116,7 +116,10 @@ Note that in the default configuration, all HTML entities are encoded.
 
 ### `htmlToSlate`
 
-`br` HTML elements get special treatment. The default configuration sets `convertBrToLineBreak` to `true`, and each `br` HTML element will be converted to a text node in Slate that contains `\n`.
+`br` HTML elements get special treatment. The default configuration sets `convertBrToLineBreak` to `true`. How those breaks are represented is controlled by `brStrategy`:
+
+- **`block`** (default): historical behaviour from [#38](https://github.com/thompsonsj/slate-serializers/pull/38) — outside a block context a `<br>` becomes an empty text node (`''`, often its own block); inside a block context it becomes a `\n` text leaf.
+- **`newline`**: always emit `\n`, coalesce adjacent plain-text leaves, and collapse a run of `<br>` tags immediately before a following block element to a single `\n`. Opt in when you prefer linebreak characters over empty blocks; see [#41](https://github.com/thompsonsj/slate-serializers/issues/41).
 
 If you have schema rules that process `br` tags (e.g. in `elementTags` in the configuration), you may choose to disable this behaviour by setting `convertBrToLineBreak` to `false`.
 

@@ -18,7 +18,10 @@ export {
 } from '@slate-serializers/dom'
 
 // htmlToSlate
-export type { Config as HtmlToSlateConfig } from './serializers/htmlToSlate/config/types'
+export type {
+  Config as HtmlToSlateConfig,
+  BrStrategy,
+} from './serializers/htmlToSlate/config/types'
 export { config as htmlToSlateConfig } from './serializers/htmlToSlate/config/default'
 export { config as payloadHtmlToSlateConfig } from './serializers/htmlToSlate/config/payload'
 export { config as slateDemoHtmlToSlateConfig } from './serializers/htmlToSlate/config/slateDemo'
