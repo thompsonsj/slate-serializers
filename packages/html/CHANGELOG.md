@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.6.0](https://github.com/thompsonsj/slate-serializers/compare/html-v2.5.5...html-v2.6.0) (2026-07-26)
+
+
+### Features
+
+* **html:** add opt-in brStrategy for &lt;br&gt; conversion ([#244](https://github.com/thompsonsj/slate-serializers/issues/244)) ([0e493db](https://github.com/thompsonsj/slate-serializers/commit/0e493dbc669b5897bc2e20773b6e08d2fc6bca09))
+
 ## [2.5.5](https://github.com/thompsonsj/slate-serializers/compare/html-v2.5.4...html-v2.5.5) (2026-07-22)
 
 
