@@ -2,10 +2,18 @@
 module.exports = {
   displayName: 'react',
   preset: '../../jest.preset.js',
+  testEnvironment: 'jsdom',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
+    '^.+\\.[tj]sx?$': [
+      'babel-jest',
+      {
+        presets: [
+          '@nx/js/babel',
+          ['@babel/preset-react', { runtime: 'automatic' }],
+        ],
+      },
+    ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/react',
-};
+}
