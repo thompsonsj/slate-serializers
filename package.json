@@ -22,8 +22,8 @@
     "react": ">=16",
     "react-dom": ">=16",
     "rollup": "4.63.3",
-    "slate": "^0.124.1",
-    "slate-hyperscript": "^0.100.0",
+    "slate": "^0.126.2",
+    "slate-hyperscript": "^0.125.0",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
