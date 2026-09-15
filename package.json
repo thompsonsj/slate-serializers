@@ -33,7 +33,6 @@
     "@nx/eslint-plugin": "23.2.1",
     "@nx/jest": "23.2.1",
     "@nx/js": "23.2.1",
-    "@nx/react": "23.2.1",
     "@nx/rollup": "23.2.1",
     "@nx/workspace": "23.2.1",
     "@swc-node/register": "1.11.1",
@@ -75,26 +74,7 @@
     "react-dom": ">=16"
   },
   "overrides": {
-    "@nx/devkit": "23.2.1",
-    "brace-expansion": "5.0.12",
-    "js-yaml": "4.3.2",
-    "smol-toml": "^1.8.0",
-    "typescript": "~6.0.3",
-    "eslint": {
-      "ajv": "^6.12.6"
-    },
-    "@eslint/eslintrc": {
-      "ajv": "^6.12.6"
-    },
-    "minimatch@3": {
-      "brace-expansion": "1.1.21"
-    },
-    "minimatch@7": {
-      "brace-expansion": "2.1.2"
-    },
-    "@istanbuljs/load-nyc-config": {
-      "js-yaml": "3.15.2"
-    }
+    "smol-toml": "^1.8.0"
   },
   "nx": {
     "includedScripts": []

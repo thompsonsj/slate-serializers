@@ -44,16 +44,6 @@
     "appsDir": "packages",
     "libsDir": "packages"
   },
-  "generators": {
-    "@nx/react": {
-      "application": {
-        "babel": true
-      },
-      "library": {
-        "unitTestRunner": "jest"
-      }
-    }
-  },
   "pluginsConfig": {
     "@nx/js": {
       "analyzeSourceFiles": true
