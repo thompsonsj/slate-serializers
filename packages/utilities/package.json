@@ -1,6 +1,6 @@
 {
    "name": "@slate-serializers/utilities",
-   "version": "2.5.5",
+   "version": "2.6.0",
    "description": "Shared helpers used by slate-serializers packages (styles, objects, and small utilities).",
    "license": "MIT",
    "keywords": [
