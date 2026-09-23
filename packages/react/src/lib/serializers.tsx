@@ -1,4 +1,4 @@
-import React, { CSSProperties, Fragment, isValidElement, ReactElement, JSXElementConstructor, ReactNode } from 'react'
+import React, { cloneElement, CSSProperties, Fragment, isValidElement, ReactElement, JSXElementConstructor, ReactNode } from 'react'
 import { Element, isTag, Text } from 'domhandler'
 import { getName, textContent } from 'domutils'
 
@@ -55,13 +55,46 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
  * Sibling lists built from the Slate tree are static and ordered, so positional keys are stable.
  * `Children.toArray` is not enough: React 19 still warns for elements that were created without a key.
  */
+const FALLBACK_KEY_PREFIX = 'slate-serializers-'
+
+const isKeyedElement = (child: ReactNode): child is ReactElement => isValidElement(child) && child.key != null
+
+const isFallbackWrapper = (child: ReactNode): child is ReactElement =>
+  isKeyedElement(child) && child.type === Fragment && String(child.key).startsWith(FALLBACK_KEY_PREFIX)
+
+/**
+ * Keys supplied by custom element transforms are kept so React can track those elements across reorders.
+ * Everything else gets a positional key; nested lists are flattened, so earlier fallback keys are reassigned.
+ */
 const toKeyedChildren = (children: ReactNode): ReactNode => {
   if (!Array.isArray(children)) {
     return children
   }
   const flat = children.flat(Infinity) as ReactNode[]
   // Void elements such as <br> reject an (empty) children array.
-  return flat.length ? flat.map((child, index) => <Fragment key={index}>{child}</Fragment>) : undefined
+  if (!flat.length) {
+    return undefined
+  }
+  const suppliedKeys = new Set(
+    flat.filter((child) => isKeyedElement(child) && !isFallbackWrapper(child)).map((child) => String((child as ReactElement).key)),
+  )
+  let fallbackIndex = 0
+  const nextFallbackKey = () => {
+    let key: string
+    do {
+      key = `${FALLBACK_KEY_PREFIX}${fallbackIndex++}`
+    } while (suppliedKeys.has(key))
+    return key
+  }
+  return flat.map((child) => {
+    if (isFallbackWrapper(child)) {
+      return cloneElement(child, { key: nextFallbackKey() })
+    }
+    if (isKeyedElement(child)) {
+      return child
+    }
+    return <Fragment key={nextFallbackKey()}>{child}</Fragment>
+  })
 }
 
 const withKeyedChildren = (transforms: SlateToReactConfig['elementTransforms']) =>
@@ -75,6 +108,9 @@ const withKeyedChildren = (transforms: SlateToReactConfig['elementTransforms']) 
 /** HTML attribute names whose React prop name differs by more than `class` → `className`. */
 const HTML_ATTRIBUTE_TO_REACT_PROP: Record<string, string> = {
   for: 'htmlFor',
+  'accept-charset': 'acceptCharset',
+  'http-equiv': 'httpEquiv',
+  charset: 'charSet',
   accesskey: 'accessKey',
   allowfullscreen: 'allowFullScreen',
   autocomplete: 'autoComplete',
@@ -113,9 +149,7 @@ const transformText = (node: Text | Element | ReactElement): ReactNode => {
   }
   if (isTag(node as Element)) {
     const el = node as Element
-    const children = (el.children || []).map((child, index) => (
-      <Fragment key={index}>{transformText(child as Text | Element)}</Fragment>
-    ))
+    const children = (el.children || []).map((child) => transformText(child as Text | Element))
     return domElementToReactElement(el, children)
   }
   return <>{textContent(node as Text)}</>

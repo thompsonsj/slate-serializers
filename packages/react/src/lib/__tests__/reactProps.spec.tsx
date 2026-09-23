@@ -57,6 +57,54 @@ describe('SlateToReact list keys', () => {
   })
 })
 
+describe('SlateToReact keys from custom element transforms', () => {
+  const config: SlateToReactConfig = {
+    ...defaultReactConfig,
+    elementTransforms: {
+      ...defaultReactConfig.elementTransforms,
+      card: ({ node, children }) => (
+        <li key={node.id} data-id={node.id}>
+          {children}
+        </li>
+      ),
+    },
+  }
+  const list = (ids: string[]) => [
+    {
+      type: 'ul',
+      children: ids.map((id) => ({ type: 'card', id, children: [{ text: id }, { text: '!', bold: true }] })),
+    },
+  ]
+
+  it('keeps supplied keys so reordered elements keep their DOM nodes', () => {
+    const { container, rerender } = render(<SlateToReact node={list(['a', 'b'])} config={config} />)
+    const a = container.querySelector('[data-id="a"]')
+    const b = container.querySelector('[data-id="b"]')
+    rerender(<SlateToReact node={list(['b', 'a'])} config={config} />)
+    expect(container.querySelector('[data-id="a"]')).toBe(a)
+    expect(container.querySelector('[data-id="b"]')).toBe(b)
+    expect(container.innerHTML).toEqual(
+      '<ul><li data-id="b">b<strong>!</strong></li><li data-id="a">a<strong>!</strong></li></ul>',
+    )
+  })
+
+  it('does not collide supplied keys with fallback keys', () => {
+    const colliding: SlateToReactConfig = {
+      ...config,
+      elementTransforms: {
+        ...config.elementTransforms,
+        card: ({ node, children }) => <li key={`slate-serializers-${node.id}`}>{children}</li>,
+      },
+    }
+    const node = [
+      { type: 'ul', children: [{ type: 'card', id: '0', children: [{ text: 'a' }] }, { type: 'li', children: [{ text: 'b' }] }] },
+    ]
+    const { container, errors } = renderCapturingErrors(<SlateToReact node={node} config={colliding} />)
+    expect(errors.filter((e) => e.includes('same key') || e.includes('"key" prop'))).toEqual([])
+    expect(container.innerHTML).toEqual('<ul><li>a</li><li>b</li></ul>')
+  })
+})
+
 describe('SlateToReact convertLineBreakToBr', () => {
   const config: SlateToReactConfig = { ...defaultReactConfig, convertLineBreakToBr: true }
 
@@ -118,5 +166,30 @@ describe('SlateToReact attribute names', () => {
     expect(label).toHaveAttribute('data-id', 'x')
     expect(label).toHaveAttribute('aria-label', 'L')
     expect(label).toHaveClass('c')
+  })
+
+  it('maps hyphenated and other aliased attribute names', () => {
+    const aliasConfig: SlateToReactConfig = {
+      ...defaultReactConfig,
+      elementMap: { ...defaultReactConfig.elementMap, form: 'form', span: 'span' },
+      elementAttributeTransform: ({ node }) => {
+        if (node.type === 'form') return { 'accept-charset': 'utf-8' }
+        if (node.type === 'span') return { charset: 'utf-8', 'http-equiv': 'refresh' }
+        return undefined
+      },
+    }
+    const { container, errors } = renderCapturingErrors(
+      <SlateToReact
+        node={[
+          { type: 'form', children: [{ text: 'f' }] },
+          { type: 'span', children: [{ text: 's' }] },
+        ]}
+        config={aliasConfig}
+      />,
+    )
+    expect(errors.filter((e) => e.includes('Invalid DOM property'))).toEqual([])
+    expect(container.querySelector('form')).toHaveAttribute('accept-charset', 'utf-8')
+    expect(container.querySelector('span')).toHaveAttribute('charset', 'utf-8')
+    expect(container.querySelector('span')).toHaveAttribute('http-equiv', 'refresh')
   })
 })
