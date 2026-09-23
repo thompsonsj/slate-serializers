@@ -38,6 +38,10 @@ const deserialize = ({
 
   const currentEl = el as Element
   const nodeName = getName(currentEl)
+  // Document metadata (e.g. <title>) is not content.
+  if (nodeName === 'head') {
+    return null
+  }
   const childrenContext = getContext(nodeName) || context
 
   const isLastChild = index === childrenLength - 1
@@ -212,6 +216,8 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
       slateContent = dom
         .map((node) => deserialize({ el: node, config })) // run the deserializer
         .filter((element) => element) // filter out null elements
+        // Unmapped wrappers (e.g. <div>, <section>, Google Docs' <b>) around blocks: lift the blocks to the top level.
+        .flatMap((element) => (isArrayOfElementNodes(element) ? element : [element]))
         .map((element) => {
           // ensure all top level elements have a children property
           if (!element.children) {
@@ -238,6 +244,11 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
   parser.end()
   return slateContent
 }
+
+const isArrayOfElementNodes = (value: unknown): value is any[] =>
+  Array.isArray(value) &&
+  value.length > 0 &&
+  value.every((node) => node && typeof node === 'object' && Array.isArray(node.children) && !('text' in node))
 
 const isSlateDeadEnd = (element: { children: [] }) => {
   const keys = Object.keys(element)
