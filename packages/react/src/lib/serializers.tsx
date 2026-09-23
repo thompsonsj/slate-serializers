@@ -59,8 +59,15 @@ const FALLBACK_KEY_PREFIX = 'slate-serializers-'
 
 const isKeyedElement = (child: ReactNode): child is ReactElement => isValidElement(child) && child.key != null
 
-const isFallbackWrapper = (child: ReactNode): child is ReactElement =>
-  isKeyedElement(child) && child.type === Fragment && String(child.key).startsWith(FALLBACK_KEY_PREFIX)
+/** Wrappers created here, so user-supplied elements are never mistaken for them whatever their key. */
+const fallbackWrappers = new WeakSet<object>()
+
+const createFallbackWrapper = (element: ReactElement) => {
+  fallbackWrappers.add(element)
+  return element
+}
+
+const isFallbackWrapper = (child: ReactNode): child is ReactElement => isValidElement(child) && fallbackWrappers.has(child)
 
 /**
  * Keys supplied by custom element transforms are kept so React can track those elements across reorders.
@@ -88,12 +95,12 @@ const toKeyedChildren = (children: ReactNode): ReactNode => {
   }
   return flat.map((child) => {
     if (isFallbackWrapper(child)) {
-      return cloneElement(child, { key: nextFallbackKey() })
+      return createFallbackWrapper(cloneElement(child, { key: nextFallbackKey() }))
     }
     if (isKeyedElement(child)) {
       return child
     }
-    return <Fragment key={nextFallbackKey()}>{child}</Fragment>
+    return createFallbackWrapper(<Fragment key={nextFallbackKey()}>{child}</Fragment>)
   })
 }
 

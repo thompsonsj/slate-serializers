@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import { Fragment } from 'react'
 import { render } from '@testing-library/react'
 import { SlateToReact } from '../react'
 import { config as defaultReactConfig } from '../config/default'
@@ -86,6 +87,24 @@ describe('SlateToReact keys from custom element transforms', () => {
     expect(container.innerHTML).toEqual(
       '<ul><li data-id="b">b<strong>!</strong></li><li data-id="a">a<strong>!</strong></li></ul>',
     )
+  })
+
+  it('keeps a supplied Fragment key that uses the fallback prefix', () => {
+    const prefixed: SlateToReactConfig = {
+      ...config,
+      elementTransforms: {
+        ...config.elementTransforms,
+        card: ({ node, children }) => (
+          <Fragment key={`slate-serializers-card-${node.id}`}>
+            <li data-id={node.id}>{children}</li>
+          </Fragment>
+        ),
+      },
+    }
+    const { container, rerender } = render(<SlateToReact node={list(['a', 'b'])} config={prefixed} />)
+    const a = container.querySelector('[data-id="a"]')
+    rerender(<SlateToReact node={list(['b', 'a'])} config={prefixed} />)
+    expect(container.querySelector('[data-id="a"]')).toBe(a)
   })
 
   it('does not collide supplied keys with fallback keys', () => {
