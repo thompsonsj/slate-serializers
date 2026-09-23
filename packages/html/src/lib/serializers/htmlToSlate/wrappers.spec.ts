@@ -1,4 +1,5 @@
 import { htmlToSlate } from '.'
+import { config as htmlToSlateConfig } from './config/default'
 
 describe('htmlToSlate top-level wrapper elements', () => {
   it('lifts blocks out of an unmapped <div>', () => {
@@ -43,6 +44,22 @@ describe('htmlToSlate top-level wrapper elements', () => {
   it('still wraps inline-only content in a default block', () => {
     expect(htmlToSlate('<div>plain <strong>text</strong></div>')).toEqual([
       { children: [{ text: 'plain ' }, { text: 'text', bold: true }] },
+    ])
+  })
+
+  it('lifts blocks when an unmapped element beside them produces no content', () => {
+    expect(htmlToSlate('<div><img src="a.png"><p>a</p><span></span><script>x()</script><!-- c --></div>')).toEqual([
+      { type: 'p', children: [{ text: 'a' }] },
+    ])
+  })
+
+  it('does not lift when a mapped element beside the blocks is not a block', () => {
+    const config = {
+      ...htmlToSlateConfig,
+      elementTags: { ...htmlToSlateConfig.elementTags, img: () => ({ type: 'image' }) },
+    }
+    expect(htmlToSlate('<div><img src="a.png"><p>a</p></div>', config)).toEqual([
+      { children: [{ type: 'image', children: [{ text: '' }] }, { type: 'p', children: [{ text: 'a' }] }] },
     ])
   })
 
