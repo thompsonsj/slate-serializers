@@ -36,8 +36,7 @@ export const config: Config = {
     ul: () => ({ type: 'ul' }),
   },
   textTags: {
-    // Google Docs wraps pasted content in <b style="font-weight:normal">.
-    b: (el) => (el && /^(normal|[1-4]00)$/.test(extractCssFromStyle(el, 'fontWeight') || '') ? {} : { bold: true }),
+    b: () => ({ bold: true }),
     code: () => ({ code: true }),
     pre: () => ({ code: true }),
     del: () => ({ strikethrough: true }),
