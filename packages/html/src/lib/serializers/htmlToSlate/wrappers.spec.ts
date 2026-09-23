@@ -23,7 +23,7 @@ describe('htmlToSlate top-level wrapper elements', () => {
     ])
   })
 
-  it('ignores <head> content in a full document such as a Word paste', () => {
+  it('ignores <head> content in a full HTML document', () => {
     const html =
       '<html><head><meta charset="utf-8"><title>Doc title</title><style>p { color: red }</style></head>' +
       '<body><!--StartFragment--><p>a</p><p>b</p><!--EndFragment--></body></html>'
