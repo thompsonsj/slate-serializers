@@ -214,10 +214,13 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         })
       }
       slateContent = dom
-        .map((node) => deserialize({ el: node, config })) // run the deserializer
+        .flatMap((node) => {
+          const element = deserialize({ el: node, config })
+          // Unmapped wrappers (e.g. <div>, <section>, Google Docs' <b>) around blocks: lift the blocks to the top level.
+          // Decided from the DOM because inline elements such as links also have `children` in Slate.
+          return containsOnlyBlocks(node) && isArrayOfElementNodes(element) ? element : [element]
+        })
         .filter((element) => element) // filter out null elements
-        // Unmapped wrappers (e.g. <div>, <section>, Google Docs' <b>) around blocks: lift the blocks to the top level.
-        .flatMap((element) => (isArrayOfElementNodes(element) ? element : [element]))
         .map((element) => {
           // ensure all top level elements have a children property
           if (!element.children) {
@@ -243,6 +246,19 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
   parser.write(updatedHtml)
   parser.end()
   return slateContent
+}
+
+const containsOnlyBlocks = (node: ChildNode): boolean => {
+  if (!isTag(node)) {
+    return false
+  }
+  const content = node.childNodes.filter((child) =>
+    isTag(child) ? getName(child) !== 'head' : child.type === ElementType.Text && !isAllWhitespace(textContent(child)),
+  )
+  return (
+    content.length > 0 &&
+    content.every((child) => isTag(child) && (isBlock(getName(child)) || containsOnlyBlocks(child)))
+  )
 }
 
 const isArrayOfElementNodes = (value: unknown): value is any[] =>

@@ -46,6 +46,35 @@ describe('htmlToSlate top-level wrapper elements', () => {
     ])
   })
 
+  it('keeps a wrapped link inside a block', () => {
+    expect(htmlToSlate('<div><a href="/x">x</a></div>')).toEqual([
+      { children: [{ type: 'link', newTab: false, url: '/x', children: [{ text: 'x' }] }] },
+    ])
+  })
+
+  it('keeps several wrapped links inside one block', () => {
+    expect(htmlToSlate('<b><a href="/x">x</a> <a href="/y">y</a></b>')).toEqual([
+      {
+        children: [
+          { type: 'link', newTab: false, url: '/x', children: [{ text: 'x', bold: true }] },
+          { text: ' ', bold: true },
+          { type: 'link', newTab: false, url: '/y', children: [{ text: 'y', bold: true }] },
+        ],
+      },
+    ])
+  })
+
+  it('does not lift when a link sits beside a block', () => {
+    expect(htmlToSlate('<div><p>a</p><a href="/x">x</a></div>')).toEqual([
+      {
+        children: [
+          { type: 'p', children: [{ text: 'a' }] },
+          { type: 'link', newTab: false, url: '/x', children: [{ text: 'x' }] },
+        ],
+      },
+    ])
+  })
+
   it('keeps mixed text and block content in one block', () => {
     expect(htmlToSlate('<div>x<p>a</p></div>')).toEqual([
       { children: [{ text: 'x' }, { type: 'p', children: [{ text: 'a' }] }] },
