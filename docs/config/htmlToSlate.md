@@ -146,4 +146,22 @@ htmlToSlate('Line 1<br />Line 2', {
 })
 ```
 
+### liftWrappedBlocks
+
+Default: `true`.
+
+When a top-level element that is not in `elementTags` (such as `<div>`, `<section>`, `<body>` or a mark like `<strong>`) contains only blocks, those blocks become top-level Slate nodes. Set to `false` to keep them nested inside one untyped block, as in versions before 2.7.
+
+```ts
+import { htmlToSlate, htmlToSlateConfig } from '@slate-serializers/html'
+
+htmlToSlate('<div><p>One</p><p>Two</p></div>')
+// [{ type: 'p', children: [{ text: 'One' }] }, { type: 'p', children: [{ text: 'Two' }] }]
+
+htmlToSlate('<div><p>One</p><p>Two</p></div>', { ...htmlToSlateConfig, liftWrappedBlocks: false })
+// [{ children: [{ type: 'p', children: [{ text: 'One' }] }, { type: 'p', children: [{ text: 'Two' }] }] }]
+```
+
+Wrappers that contain inline content (text or links) are never lifted, and elements mapped in `elementTags` are left as they are.
+
 Side-by-side fixtures: [brStrategy.spec.ts](https://github.com/thompsonsj/slate-serializers/blob/main/packages/html/src/lib/tests/htmlToSlate/configuration/brStrategy.spec.ts).

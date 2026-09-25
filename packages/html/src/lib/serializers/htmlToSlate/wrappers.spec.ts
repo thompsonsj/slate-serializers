@@ -92,6 +92,22 @@ describe('htmlToSlate top-level wrapper elements', () => {
     ])
   })
 
+  it('keeps blocks nested when liftWrappedBlocks is false', () => {
+    const config = { ...htmlToSlateConfig, liftWrappedBlocks: false }
+    expect(htmlToSlate('<div><p>a</p><p>b</p></div>', config)).toEqual([
+      { children: [{ type: 'p', children: [{ text: 'a' }] }, { type: 'p', children: [{ text: 'b' }] }] },
+    ])
+    expect(htmlToSlate('<body><p>One</p></body>', config)).toEqual([
+      { children: [{ type: 'p', children: [{ text: 'One' }] }] },
+    ])
+  })
+
+  it('lifts when liftWrappedBlocks is not set on a custom config', () => {
+    const config = { ...htmlToSlateConfig }
+    delete config.liftWrappedBlocks
+    expect(htmlToSlate('<div><p>a</p></div>', config)).toEqual([{ type: 'p', children: [{ text: 'a' }] }])
+  })
+
   it('keeps mixed text and block content in one block', () => {
     expect(htmlToSlate('<div>x<p>a</p></div>')).toEqual([
       { children: [{ text: 'x' }, { type: 'p', children: [{ text: 'a' }] }] },

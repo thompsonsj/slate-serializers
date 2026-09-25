@@ -47,6 +47,12 @@ export interface Config {
   brStrategy?: BrStrategy
   /* Replace multiple whitespace characters with a single space. */
   trimWhiteSpace?: boolean
+  /**
+   * Lift blocks out of unmapped top-level wrappers (e.g. `<div>`, `<section>`, `<body>`) that contain only blocks.
+   * Set to `false` to keep them nested inside one untyped block.
+   * @default true
+   */
+  liftWrappedBlocks?: boolean
 }
 
 type UpdaterFunction = (el: Element) => Element | string

@@ -218,7 +218,8 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
           const element = deserialize({ el: node, config })
           // Unmapped wrappers (e.g. <div>, <section>, <body>) around blocks: lift the blocks to the top level.
           // Decided from the DOM because inline elements such as links also have `children` in Slate.
-          return containsOnlyBlocks(node, config) && isArrayOfElementNodes(element) ? element : [element]
+          const lift = config.liftWrappedBlocks !== false && containsOnlyBlocks(node, config)
+          return lift && isArrayOfElementNodes(element) ? element : [element]
         })
         .filter((element) => element) // filter out null elements
         .map((element) => {

@@ -52,4 +52,5 @@ export const config: Config = {
   convertBrToLineBreak: true,
   brStrategy: 'block',
   trimWhiteSpace: true,
+  liftWrappedBlocks: true,
 }
