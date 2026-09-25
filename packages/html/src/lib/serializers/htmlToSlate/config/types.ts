@@ -48,8 +48,9 @@ export interface Config {
   /* Replace multiple whitespace characters with a single space. */
   trimWhiteSpace?: boolean
   /**
-   * Lift blocks out of unmapped top-level wrappers (e.g. `<div>`, `<section>`, `<body>`) that contain only blocks.
-   * Set to `false` to keep them nested inside one untyped block.
+   * When an unmapped top-level HTML element (e.g. `<div>`, `<section>`, `<body>`) contains only block-level
+   * HTML elements (e.g. `<p>`, `<h1>`, `<ul>`), place their Slate elements at the top level.
+   * Set to `false` to keep them inside a single Slate element with no `type`.
    * @default true
    */
   liftWrappedBlocks?: boolean

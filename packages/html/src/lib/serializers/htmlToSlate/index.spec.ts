@@ -233,7 +233,7 @@ describe('htmlToSlate edge inputs', () => {
     ])
   })
 
-  it('lifts blocks out of a body wrapper', () => {
+  it('moves block-level children of <body> to the top level', () => {
     expect(htmlToSlate('<body><p>One</p><p>Two</p></body>')).toEqual([
       {
         type: 'p',
@@ -246,7 +246,7 @@ describe('htmlToSlate edge inputs', () => {
     ])
   })
 
-  it('lifts blocks out of a full HTML document', () => {
+  it('moves block-level children of a full HTML document to the top level', () => {
     expect(htmlToSlate('<html><head><title>T</title></head><body><p>One</p><p>Two</p></body></html>')).toEqual([
       {
         type: 'p',

@@ -216,7 +216,7 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
       slateContent = dom
         .flatMap((node) => {
           const element = deserialize({ el: node, config })
-          // Unmapped wrappers (e.g. <div>, <section>, <body>) around blocks: lift the blocks to the top level.
+          // Unmapped HTML elements (e.g. <div>, <section>, <body>) around block-level HTML: move the children's Slate elements to the top level.
           // Decided from the DOM because inline elements such as links also have `children` in Slate.
           const lift = config.liftWrappedBlocks !== false && containsOnlyBlocks(node, config)
           return lift && isArrayOfElementNodes(element) ? element : [element]
