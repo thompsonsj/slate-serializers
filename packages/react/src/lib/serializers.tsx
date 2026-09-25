@@ -51,40 +51,20 @@ export const SlateToReact = ({ node, config = slateToReactConfig }: ISlateToReac
   ) as any
 }
 
-/**
- * Sibling lists built from the Slate tree are static and ordered, so positional keys are stable.
- * `Children.toArray` is not enough: React 19 still warns for elements that were created without a key.
- */
 const FALLBACK_KEY_PREFIX = 'slate-serializers-'
 
 const isKeyedElement = (child: ReactNode): child is ReactElement => isValidElement(child) && child.key != null
 
-/** Wrappers created here, so user-supplied elements are never mistaken for them whatever their key. */
-const fallbackWrappers = new WeakSet<object>()
-
-const createFallbackWrapper = (element: ReactElement) => {
-  fallbackWrappers.add(element)
-  return element
-}
-
-const isFallbackWrapper = (child: ReactNode): child is ReactElement => isValidElement(child) && fallbackWrappers.has(child)
-
 /**
- * Keys supplied by custom element transforms are kept so React can track those elements across reorders.
- * Everything else gets a positional key; nested lists are flattened, so earlier fallback keys are reassigned.
+ * Adds keys in place so the list keeps its shape: nested arrays stay arrays, elements keep their type,
+ * and keys supplied by custom element transforms are kept so React can track those elements across reorders.
+ * Unkeyed elements get a positional key, which is stable because the list follows the Slate value's order.
  */
 const toKeyedChildren = (children: ReactNode): ReactNode => {
   if (!Array.isArray(children)) {
     return children
   }
-  const flat = children.flat(Infinity) as ReactNode[]
-  // Void elements such as <br> reject an (empty) children array.
-  if (!flat.length) {
-    return undefined
-  }
-  const suppliedKeys = new Set(
-    flat.filter((child) => isKeyedElement(child) && !isFallbackWrapper(child)).map((child) => String((child as ReactElement).key)),
-  )
+  const suppliedKeys = new Set(children.filter(isKeyedElement).map((child) => String(child.key)))
   let fallbackIndex = 0
   const nextFallbackKey = () => {
     let key: string
@@ -93,16 +73,19 @@ const toKeyedChildren = (children: ReactNode): ReactNode => {
     } while (suppliedKeys.has(key))
     return key
   }
-  return flat.map((child) => {
-    if (isFallbackWrapper(child)) {
-      return createFallbackWrapper(cloneElement(child, { key: nextFallbackKey() }))
+  return children.map((child) => {
+    if (Array.isArray(child)) {
+      return toKeyedChildren(child)
     }
-    if (isKeyedElement(child)) {
-      return child
+    if (isValidElement(child) && child.key == null) {
+      return cloneElement(child, { key: nextFallbackKey() })
     }
-    return createFallbackWrapper(<Fragment key={nextFallbackKey()}>{child}</Fragment>)
+    return child
   })
 }
+
+const isEmptyList = (children: ReactNode) =>
+  Array.isArray(children) && children.flat(Infinity).length === 0
 
 const withKeyedChildren = (transforms: SlateToReactConfig['elementTransforms']) =>
   Object.fromEntries(
@@ -182,6 +165,7 @@ const domElementToReactElement = (
 ): ReactElement<any, string | JSXElementConstructor<any>> => {
   const { style: styleAttr, class: className, ...restAttribs } = element.attribs || {}
   const style = styleAttributeToReactStyle(styleAttr)
+  const childNodes = toKeyedChildren(children !== undefined ? children : (element.children as any))
 
   return React.createElement(
     getName(element),
@@ -192,6 +176,7 @@ const domElementToReactElement = (
       ...(className && { className }),
       ...(style && { style }),
     },
-    toKeyedChildren(children !== undefined ? children : (element.children as any)),
+    // Void elements such as <br> reject an (empty) children array.
+    ...(isEmptyList(childNodes) ? [] : [childNodes]),
   )
 }

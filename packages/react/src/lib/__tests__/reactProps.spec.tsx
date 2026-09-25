@@ -58,6 +58,38 @@ describe('SlateToReact list keys', () => {
   })
 })
 
+describe('SlateToReact children passed to custom element transforms', () => {
+  const capture = (node: any[]) => {
+    const seen: any[] = []
+    const config: SlateToReactConfig = {
+      ...defaultReactConfig,
+      elementTransforms: {
+        ...defaultReactConfig.elementTransforms,
+        probe: ({ children }) => {
+          seen.push(children)
+          return <div>{children}</div>
+        },
+      },
+    }
+    render(<SlateToReact node={node} config={config} />)
+    return seen[0]
+  }
+
+  it('keeps one entry per Slate child, with element types unchanged', () => {
+    const children = capture([
+      { type: 'probe', children: [{ text: 'a' }, { type: 'link', url: '/', children: [{ text: 'l' }] }, { text: 'b', bold: true }] },
+    ])
+    expect(children).toHaveLength(3)
+    expect(Array.isArray(children[0])).toBe(true)
+    expect(children[1].type).toBe('a')
+    expect(children[2][0].type).toBe('strong')
+  })
+
+  it('passes an empty array when the node has no children', () => {
+    expect(capture([{ type: 'probe', children: [] }])).toEqual([])
+  })
+})
+
 describe('SlateToReact keys from custom element transforms', () => {
   const config: SlateToReactConfig = {
     ...defaultReactConfig,
