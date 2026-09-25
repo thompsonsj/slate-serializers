@@ -36,12 +36,14 @@ export const config: Config = {
     ul: () => ({ type: 'ul' }),
   },
   textTags: {
+    b: () => ({ bold: true }),
     code: () => ({ code: true }),
     pre: () => ({ code: true }),
     del: () => ({ strikethrough: true }),
     em: () => ({ italic: true }),
     i: () => ({ italic: true }),
     s: () => ({ strikethrough: true }),
+    strike: () => ({ strikethrough: true }),
     strong: () => ({ bold: true }),
     u: () => ({ underline: true }),
   },
@@ -50,4 +52,5 @@ export const config: Config = {
   convertBrToLineBreak: true,
   brStrategy: 'block',
   trimWhiteSpace: true,
+  liftWrappedBlocks: true,
 }

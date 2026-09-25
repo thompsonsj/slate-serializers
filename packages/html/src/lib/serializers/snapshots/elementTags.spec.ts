@@ -17,6 +17,7 @@ describe('issue #120', () => {
           "align": "center",
           "children": [
             {
+              "bold": true,
               "text": "Introduce MacBook Air 2017 MQD42",
             },
           ],
@@ -54,6 +55,7 @@ describe('issue #120', () => {
           "align": "center",
           "children": [
             {
+              "bold": true,
               "text": "Introduce MacBook Air 2017 MQD42",
             },
           ],

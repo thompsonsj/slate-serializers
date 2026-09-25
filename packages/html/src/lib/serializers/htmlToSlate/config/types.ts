@@ -47,6 +47,13 @@ export interface Config {
   brStrategy?: BrStrategy
   /* Replace multiple whitespace characters with a single space. */
   trimWhiteSpace?: boolean
+  /**
+   * When an unmapped top-level HTML element (e.g. `<div>`, `<section>`, `<body>`) contains only block-level
+   * HTML elements (e.g. `<p>`, `<h1>`, `<ul>`), place their Slate elements at the top level.
+   * Set to `false` to keep them inside a single Slate element with no `type`.
+   * @default true
+   */
+  liftWrappedBlocks?: boolean
 }
 
 type UpdaterFunction = (el: Element) => Element | string

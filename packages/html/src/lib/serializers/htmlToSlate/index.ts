@@ -38,6 +38,10 @@ const deserialize = ({
 
   const currentEl = el as Element
   const nodeName = getName(currentEl)
+  // Document metadata (e.g. <title>) is not content.
+  if (nodeName === 'head') {
+    return null
+  }
   const childrenContext = getContext(nodeName) || context
 
   const isLastChild = index === childrenLength - 1
@@ -210,7 +214,13 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
         })
       }
       slateContent = dom
-        .map((node) => deserialize({ el: node, config })) // run the deserializer
+        .flatMap((node) => {
+          const element = deserialize({ el: node, config })
+          // Unmapped HTML elements (e.g. <div>, <section>, <body>) around block-level HTML: move the children's Slate elements to the top level.
+          // Decided from the DOM because inline elements such as links also have `children` in Slate.
+          const lift = config.liftWrappedBlocks !== false && containsOnlyBlocks(node, config)
+          return lift && isArrayOfElementNodes(element) ? element : [element]
+        })
         .filter((element) => element) // filter out null elements
         .map((element) => {
           // ensure all top level elements have a children property
@@ -238,6 +248,42 @@ export const htmlToSlate = (html: string, config: Config = defaultConfig) => {
   parser.end()
   return slateContent
 }
+
+/** True for DOM that deserializes to nothing, e.g. whitespace, <head>, or an unmapped <img>. */
+const producesNoContent = (node: ChildNode, config: Config): boolean => {
+  if (node.type === ElementType.Text) {
+    return isAllWhitespace(textContent(node))
+  }
+  // Comments, <script> and <style> are dropped by deserialize.
+  if (node.type !== ElementType.Tag) {
+    return true
+  }
+  const el = node as Element
+  const name = getName(el)
+  if (name === 'head') {
+    return true
+  }
+  if (config.elementTags[name] || (name === 'br' && config.convertBrToLineBreak)) {
+    return false
+  }
+  return el.childNodes.every((child) => producesNoContent(child, config))
+}
+
+const containsOnlyBlocks = (node: ChildNode, config: Config): boolean => {
+  if (!isTag(node)) {
+    return false
+  }
+  const content = node.childNodes.filter((child) => !producesNoContent(child, config))
+  return (
+    content.length > 0 &&
+    content.every((child) => isTag(child) && (isBlock(getName(child)) || containsOnlyBlocks(child, config)))
+  )
+}
+
+const isArrayOfElementNodes = (value: unknown): value is any[] =>
+  Array.isArray(value) &&
+  value.length > 0 &&
+  value.every((node) => node && typeof node === 'object' && Array.isArray(node.children) && !('text' in node))
 
 const isSlateDeadEnd = (element: { children: [] }) => {
   const keys = Object.keys(element)
