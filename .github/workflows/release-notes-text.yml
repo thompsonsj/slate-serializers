@@ -31,4 +31,5 @@ jobs:
       - name: Check PR title and commit messages
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: node .github/scripts/check-release-notes-text.mjs "${RUNNER_TEMP}/commits.json"

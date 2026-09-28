@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { findProblems } from './check-release-notes-text.mjs'
 
-const texts = (title, messages = []) => findProblems(title, messages).map(({ text }) => text)
+const texts = (title, messages = [], prBody = '') => findProblems(title, messages, prBody).map(({ text }) => text)
 
 test('flags tags that break release-please', () => {
   for (const title of [
@@ -40,6 +40,25 @@ test('ignores commit subjects of a multi-commit PR, which become bullets in the 
 test('checks conventional-commit lines in commit bodies, which release-please reads as extra entries', () => {
   const message = 'chore: deps\n\nfix(html): drop <title> text\nBREAKING CHANGE: <div> wrappers are lifted'
   assert.deepEqual(texts('chore: deps', [message]), ['fix(html): drop <title> text', 'BREAKING CHANGE: <div> wrappers are lifted'])
+})
+
+test('checks continuation lines of a breaking-change note', () => {
+  const message = 'feat: x\n\nBREAKING CHANGE: drops legacy support\n<div> migration details\n\nUnrelated <p> prose'
+  assert.deepEqual(texts('feat: x', [message]), ['<div> migration details'])
+})
+
+test('ends a breaking-change note at the next conventional-commit line', () => {
+  const message = 'feat: x\n\nBREAKING CHANGE: drops legacy support\nfix: follow-up\n<div> is not part of the note'
+  assert.deepEqual(texts('feat: x', [message]), [])
+})
+
+test('checks a BEGIN_COMMIT_OVERRIDE block in the PR body', () => {
+  const body = 'Summary with <b> prose.\n\nBEGIN_COMMIT_OVERRIDE\nfeat: add `<widget>`\nfix: plain text\nEND_COMMIT_OVERRIDE'
+  assert.deepEqual(texts('feat: tidy', [], body), ['feat: add `<widget>`'])
+})
+
+test('ignores tags in PR body prose outside an override block', () => {
+  assert.deepEqual(texts('feat: tidy', [], 'Maps <b> and <strike> tags.'), [])
 })
 
 test('ignores prose lines in commit bodies', () => {
