@@ -135,9 +135,11 @@ describe('htmlToSlate whitespace handling', () => {
               text: 'foo',
             },
             {
+              bold: true,
               text: ' ',
             },
             {
+              bold: true,
               italic: true,
               text: 'bar',
             },

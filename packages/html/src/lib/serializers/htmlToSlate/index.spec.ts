@@ -233,20 +233,28 @@ describe('htmlToSlate edge inputs', () => {
     ])
   })
 
-  it('treats body as a fragment wrapper (children stay nested under the fragment)', () => {
-    // htmlparser2 + slate-hyperscript leave body as an untyped fragment node.
+  it('moves block-level children of <body> to the top level', () => {
     expect(htmlToSlate('<body><p>One</p><p>Two</p></body>')).toEqual([
       {
-        children: [
-          {
-            type: 'p',
-            children: [{ text: 'One' }],
-          },
-          {
-            type: 'p',
-            children: [{ text: 'Two' }],
-          },
-        ],
+        type: 'p',
+        children: [{ text: 'One' }],
+      },
+      {
+        type: 'p',
+        children: [{ text: 'Two' }],
+      },
+    ])
+  })
+
+  it('moves block-level children of a full HTML document to the top level', () => {
+    expect(htmlToSlate('<html><head><title>T</title></head><body><p>One</p><p>Two</p></body></html>')).toEqual([
+      {
+        type: 'p',
+        children: [{ text: 'One' }],
+      },
+      {
+        type: 'p',
+        children: [{ text: 'Two' }],
       },
     ])
   })
