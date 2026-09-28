@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.7.0](https://github.com/thompsonsj/slate-serializers/compare/html-v2.6.0...html-v2.7.0) (2026-09-28)
+
+
+### Features
+
+* **html:** map &lt;b&gt; and &lt;strike&gt;; fix wrapper nesting and React rendering gaps ([#253](https://github.com/thompsonsj/slate-serializers/issues/253)) ([d16a239](https://github.com/thompsonsj/slate-serializers/commit/d16a239b962d208510a9375872b5af5a44ebe910))
+
 ## [2.6.0](https://github.com/thompsonsj/slate-serializers/compare/html-v2.5.5...html-v2.6.0) (2026-09-15)
 
 
