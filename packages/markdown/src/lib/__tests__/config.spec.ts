@@ -44,6 +44,23 @@ describe('elementTransforms', () => {
     expect(output).toBe('[[Home]] [y](/y)')
   })
 
+  it('does not serialize children for a transform that does not read them', () => {
+    let serializations = 0
+    const config: Config = {
+      ...defaultConfig,
+      elementTransforms: {
+        counted: () => {
+          serializations++
+          return ''
+        },
+        skip: () => undefined,
+      },
+    }
+    // The fallback serializes the children once; the transform never asked for them.
+    slateToMarkdown([{ type: 'skip', children: [{ type: 'p', children: [{ type: 'counted', children: [{ text: '' }] }] }] }], config)
+    expect(serializations).toBe(1)
+  })
+
   it('can transform list items', () => {
     const config: Config = { ...defaultConfig, elementTransforms: { li: ({ children }) => children.toUpperCase() } }
     expect(slateToMarkdown([{ type: 'ul', children: [{ type: 'li', children: [{ text: 'a' }] }] }], config)).toBe('- A')

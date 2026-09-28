@@ -34,8 +34,19 @@ class Serializer {
     return node ? this.config.elementMap[node.type] : undefined
   }
 
-  private transform(node: SlateNode) {
-    return node ? this.config.elementTransforms?.[node.type] : undefined
+  /** Run the node's custom transform, if any. Children are serialized only if the transform reads them. */
+  private applyTransform(node: SlateNode, serializeChildren: () => string): string | undefined {
+    const transform = node ? this.config.elementTransforms?.[node.type] : undefined
+    if (!transform) {
+      return undefined
+    }
+    let children: string | undefined
+    return transform({
+      node,
+      get children() {
+        return (children ??= serializeChildren())
+      },
+    })
   }
 
   /**
@@ -102,7 +113,7 @@ class Serializer {
   }
 
   private block(node: SlateNode): string {
-    const custom = this.transform(node)?.({ node, children: this.children(node) })
+    const custom = this.applyTransform(node, () => this.children(node))
     if (custom !== undefined) {
       return custom
     }
@@ -184,9 +195,14 @@ class Serializer {
 
   private listItem(marker: string, node: SlateNode): string[] {
     const element = this.element(node)
-    const children = this.blocks(node.children, { inListItem: true })
-    const custom = this.transform(node)?.({ node, children })
-    let content = custom ?? (element && element !== 'li' && element !== 'task' ? this.block(node) : children)
+    let content: string
+    if (element && element !== 'li' && element !== 'task') {
+      content = this.block(node)
+    } else {
+      let children: string | undefined
+      const serializeChildren = () => (children ??= this.blocks(node.children, { inListItem: true }))
+      content = this.applyTransform(node, serializeChildren) ?? serializeChildren()
+    }
     if (element === 'task' || typeof node.checked === 'boolean') {
       content = `[${node.checked ? 'x' : ' '}] ${content}`
     }
@@ -309,7 +325,7 @@ class Serializer {
   }
 
   private inlineElement(node: SlateNode): string {
-    const custom = this.transform(node)?.({ node, children: this.inline(node.children) })
+    const custom = this.applyTransform(node, () => this.inline(node.children))
     if (custom !== undefined) {
       return custom
     }
