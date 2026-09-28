@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.8.0](https://github.com/thompsonsj/slate-serializers/compare/react-v2.7.0...react-v2.8.0) (2026-09-28)
+
+
+### Features
+
+* **html:** map &lt;b&gt; and &lt;strike&gt;; fix wrapper nesting and React rendering gaps ([#253](https://github.com/thompsonsj/slate-serializers/issues/253)) ([d16a239](https://github.com/thompsonsj/slate-serializers/commit/d16a239b962d208510a9375872b5af5a44ebe910))
+* **react:** flatten config ([#191](https://github.com/thompsonsj/slate-serializers/issues/191)) ([761c651](https://github.com/thompsonsj/slate-serializers/commit/761c651ad49fda360b416ab561b9aac72ed7aa8d))
+* **react:** generate stable keys for React nodes ([#214](https://github.com/thompsonsj/slate-serializers/issues/214)) ([5e0ba90](https://github.com/thompsonsj/slate-serializers/commit/5e0ba901dea6a98920cf6fd1079e59af14152289))
+
+
+### Bug Fixes
+
+* comment typo, description fields, use lts node for ci ([#227](https://github.com/thompsonsj/slate-serializers/issues/227)) ([a86eaae](https://github.com/thompsonsj/slate-serializers/commit/a86eaaebe4330228c06aed0ef1e7b88ae804cb8f))
+* **convertslate:** create helpers, increase test converage, fix fallback bug ([#224](https://github.com/thompsonsj/slate-serializers/issues/224)) ([7c34ec9](https://github.com/thompsonsj/slate-serializers/commit/7c34ec9a7aa2abf33b4d8b347a1c570e69eed321))
+* **docs:** update for accuracy and clarity ([#219](https://github.com/thompsonsj/slate-serializers/issues/219)) ([e48ac6e](https://github.com/thompsonsj/slate-serializers/commit/e48ac6e91541a7141228a2e0f8132df97a5e8788))
+* **react:** slatetoreact wiping css styles ([#233](https://github.com/thompsonsj/slate-serializers/issues/233)) ([32b861e](https://github.com/thompsonsj/slate-serializers/commit/32b861e105ba5bcbf6e50f282c9206d9e62624c0))
+* test coverage increase and tdd bug fixes ([#237](https://github.com/thompsonsj/slate-serializers/issues/237)) ([023943d](https://github.com/thompsonsj/slate-serializers/commit/023943d6ce96eaee39a34f4be61e06554deec62f))
+
 ## [2.7.0](https://github.com/thompsonsj/slate-serializers/compare/react-v2.6.0...react-v2.7.0) (2026-09-28)
 
 
