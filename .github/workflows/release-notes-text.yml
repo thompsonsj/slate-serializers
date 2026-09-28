@@ -1,0 +1,35 @@
+name: Release notes text
+
+# The PR title and commit messages become release-please's release notes on merge.
+# HTML tags in them stop release-please creating some GitHub releases, so check before merging.
+on:
+  pull_request:
+    branches: ['main']
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - run: node --test .github/scripts/check-release-notes-text.test.mjs
+      - name: Fetch PR commits
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/commits" --paginate --slurp > "${RUNNER_TEMP}/commits.json"
+      - name: Check PR title and commit messages
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node .github/scripts/check-release-notes-text.mjs "${RUNNER_TEMP}/commits.json"
