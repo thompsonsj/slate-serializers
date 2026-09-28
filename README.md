@@ -31,6 +31,11 @@ A collection of serializers to convert [Slate](https://www.npmjs.com/package/sla
 - Convert Slate to React with [`slateToReact`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/react/README.md).
 - NPM: [https://www.npmjs.com/package/@slate-serializers/react](https://www.npmjs.com/package/@slate-serializers/react)
 
+## Convert Slate to Markdown
+
+- Convert Slate to GitHub Flavored Markdown with [`slateToMarkdown`](https://github.com/thompsonsj/slate-serializers/tree/main/packages/markdown/README.md): headings, lists, task lists, tables, code blocks, links, images and marks.
+- NPM: [https://www.npmjs.com/package/@slate-serializers/markdown](https://www.npmjs.com/package/@slate-serializers/markdown)
+
 ## More information
 
 - For engineering decisions, see [Engineering](https://github.com/thompsonsj/slate-serializers/blob/main/docs/engineering.md).

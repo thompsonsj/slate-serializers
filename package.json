@@ -6,7 +6,7 @@
     "test": "nx run-many --all --target=test",
     "test:coverage": "nx run-many --all --target=test --configuration=ci",
     "build": "nx run-many --all --target=build",
-    "publish": "nx deploy dom && nx deploy html && nx deploy react && nx deploy utilities && nx deploy template && nx deploy slate-serializers"
+    "publish": "nx deploy dom && nx deploy html && nx deploy react && nx deploy utilities && nx deploy template && nx deploy slate-serializers && nx deploy markdown"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +40,7 @@
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/jest": "30.0.0",
+    "@types/markdown-it": "^14.2.0",
     "@types/node": "^25.9.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -60,6 +61,7 @@
     "jest-util": "30.5.1",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
+    "markdown-it": "^15.0.2",
     "ngx-deploy-npm": "^9.2.1",
     "nx": "23.2.1",
     "prettier": "^3.9.6",

@@ -1,0 +1,28 @@
+{
+   "name": "@slate-serializers/markdown",
+   "version": "2.7.0",
+   "description": "Convert Slate JSON to GitHub Flavored Markdown: headings, lists, task lists, tables, code blocks, links, images and marks.",
+   "license": "MIT",
+   "keywords": [
+      "slate",
+      "slate-js",
+      "serializer",
+      "rich-text",
+      "markdown",
+      "gfm",
+      "slate-to-markdown"
+   ],
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/thompsonsj/slate-serializers.git",
+      "directory": "packages/markdown"
+   },
+   "homepage": "https://github.com/thompsonsj/slate-serializers/tree/main/packages/markdown#readme",
+   "bugs": {
+      "url": "https://github.com/thompsonsj/slate-serializers/issues"
+   },
+   "publishConfig": {
+      "access": "public"
+   },
+   "type": "commonjs"
+}
