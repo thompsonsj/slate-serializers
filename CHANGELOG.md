@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.0](https://github.com/thompsonsj/slate-serializers/compare/source-v2.7.0...source-v2.8.0) (2026-10-02)
+
+
+### Features
+
+* **markdown:** add slateToMarkdown for GitHub Flavored Markdown ([#257](https://github.com/thompsonsj/slate-serializers/issues/257)) ([720b529](https://github.com/thompsonsj/slate-serializers/commit/720b52948464fd3d431d42a3cb9b0003781b07f0))
+
 ## [2.7.0](https://github.com/thompsonsj/slate-serializers/compare/source-v2.6.0...source-v2.7.0) (2026-09-28)
 
 
