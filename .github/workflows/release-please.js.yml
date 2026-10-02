@@ -54,7 +54,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          packages=(dom html react template utilities slate-serializers)
+          packages=(dom html react template utilities slate-serializers markdown)
           for pkg in "${packages[@]}"; do
             version="$(node -p "require('./packages/${pkg}/package.json').version")"
             tag="${pkg}-v${version}"

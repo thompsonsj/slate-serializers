@@ -8,6 +8,9 @@
     "packages/html": {
       "component": "html"
     },
+    "packages/markdown": {
+      "component": "markdown"
+    },
     "packages/react": {
       "component": "react"
     },
@@ -28,7 +31,7 @@
     {
       "type": "linked-versions",
       "groupName": "all",
-      "components": ["dom", "html", "react", "slate-serializers", "template", "utilities"]
+      "components": ["dom", "html", "markdown", "react", "slate-serializers", "template", "utilities"]
     }
   ]
 }
