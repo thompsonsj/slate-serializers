@@ -101,3 +101,5 @@ const config: SlateToMarkdownConfig = {
 - The first table row is the header row. Content that tables cannot hold, such as lists, is joined with `<br>`.
 - Elements that are not in `elementMap` are treated as inline when they sit beside text, and as a wrapper around their children otherwise.
 - Link attributes Markdown has no syntax for, such as `newTab`, are ignored. Use `elementTransforms` to output HTML instead.
+- When CommonMark would not parse a `*`, `**` or `~~` pair in its position (for example bold next to italic, or bold code next to letters), the serializer writes the equivalent HTML tag instead.
+- Escaping keeps Markdown syntax in text literal. It is not HTML sanitization: custom transforms, `{ open, close }` marks and URLs are emitted as given. Sanitize the result if you render untrusted documents as HTML.

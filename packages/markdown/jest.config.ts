@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
   displayName: 'markdown',
   preset: '../../jest.preset.js',

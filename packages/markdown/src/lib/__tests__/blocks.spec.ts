@@ -31,6 +31,10 @@ describe('paragraphs and headings', () => {
     expect(slateToMarkdown([{ type: 'h1', children: [text('a\nb')] }])).toBe('# a b')
   })
 
+  it('drops an empty heading', () => {
+    expect(slateToMarkdown([{ type: 'h1', children: [{ text: '' }] }])).toBe('')
+  })
+
   it('escapes a trailing # so it is not read as a closing sequence', () => {
     const output = slateToMarkdown([{ type: 'h1', children: [text('Issue #')] }])
     expect(render(output)).toBe('<h1>Issue #</h1>')
@@ -63,6 +67,10 @@ describe('block quotes', () => {
 
   it('wraps inline children in a paragraph', () => {
     expect(render(slateToMarkdown([{ type: 'quote', children: [text('a')] }]))).toBe('<blockquote><p>a</p></blockquote>')
+  })
+
+  it('drops an empty block quote', () => {
+    expect(slateToMarkdown([{ type: 'blockquote', children: [] }])).toBe('')
   })
 
   it('nests block quotes and lists', () => {
@@ -124,6 +132,22 @@ describe('lists', () => {
     expect(output).toBe('* a')
   })
 
+  it('uses the default bullet marker when the config omits it', () => {
+    const config = { ...defaultConfig }
+    delete config.bulletMarker
+    expect(slateToMarkdown([{ type: 'ul', children: [li(text('a'))] }], config)).toBe('- a')
+  })
+
+  it('keeps text and skips empty children inside a list', () => {
+    expect(slateToMarkdown([{ type: 'ul', children: [null, text('a'), { type: 'p', children: [text('b')] }] }])).toBe(
+      '- a\n- b',
+    )
+  })
+
+  it('serializes an empty list item as a marker', () => {
+    expect(slateToMarkdown([{ type: 'ul', children: [li(text(''))] }])).toBe('-')
+  })
+
   it('maps slate example list names', () => {
     const output = slateToMarkdown([
       { type: 'numbered-list', children: [{ type: 'list-item', children: [text('a')] }] },
@@ -177,6 +201,12 @@ describe('code blocks and thematic breaks', () => {
     expect(slateToMarkdown([{ type: 'code-block', children: [text('a\nb')] }])).toBe('```\na\nb\n```')
   })
 
+  it('reads lang and strips backticks and line breaks from the info string', () => {
+    const output = slateToMarkdown([{ type: 'code-block', lang: 'ts\n```\nhtml', children: [text('a')] }])
+    expect(output).toBe('```ts\na\n```')
+    expect(render(output)).toBe('<pre><code class="language-ts">a\n</code></pre>')
+  })
+
   it('uses a longer fence when the code contains a fence', () => {
     const output = slateToMarkdown([{ type: 'code-block', children: [text('```\nx\n```')] }])
     expect(render(output)).toBe('<pre><code>```\nx\n```\n</code></pre>')
@@ -220,6 +250,19 @@ describe('tables', () => {
     ])
     expect(output.split('\n')[1]).toBe('| :--- | :---: | ---: |')
     expect(render(output)).toContain('<th style="text-align:center">C</th>')
+  })
+
+  it('reads textAlign when align is absent', () => {
+    const output = slateToMarkdown([
+      {
+        type: 'table',
+        children: [
+          { type: 'tr', children: [cell('th', 'A', { textAlign: 'center' })] },
+          { type: 'tr', children: [cell('td', '1')] },
+        ],
+      },
+    ])
+    expect(output.split('\n')[1]).toBe('| :---: |')
   })
 
   it('escapes pipes and converts line breaks in cells', () => {

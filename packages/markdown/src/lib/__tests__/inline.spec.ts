@@ -21,8 +21,8 @@ describe('marks', () => {
 
   it('nests marks on one leaf', () => {
     const output = slateToMarkdown(p({ text: 'a', bold: true, italic: true, strikethrough: true }))
-    expect(output).toBe('***~~a~~***')
-    expect(render(output)).toBe('<p><em><strong><s>a</s></strong></em></p>')
+    expect(output).toBe('**<em>~~a~~</em>**')
+    expect(render(output)).toBe('<p><strong><em><s>a</s></em></strong></p>')
   })
 
   it('keeps a mark open across adjacent leaves', () => {
@@ -33,12 +33,11 @@ describe('marks', () => {
 
   it('closes and reopens marks to keep them nested', () => {
     const output = slateToMarkdown(p({ text: 'a', bold: true, italic: true }, { text: 'b', italic: true }))
-    expect(render(output)).toBe('<p><em><strong>a</strong></em><em>b</em></p>')
+    expect(render(output)).toBe('<p><strong><em>a</em></strong><em>b</em></p>')
   })
 
   it('handles bold followed directly by italic', () => {
     const output = slateToMarkdown(p({ text: 'a', bold: true }, { text: 'b', italic: true }))
-    expect(output).toBe('**a***b*')
     expect(render(output)).toBe('<p><strong>a</strong><em>b</em></p>')
   })
 
@@ -96,6 +95,33 @@ describe('marks', () => {
       emphasisDelimiter: '_',
     })
     expect(output).toBe('_a_')
+  })
+
+  it('uses HTML when Markdown delimiters would not parse next to punctuation', () => {
+    const output = slateToMarkdown(p({ text: 'a' }, { text: 'x', bold: true, code: true }, { text: 'b' }))
+    expect(output).toBe('a<strong>`x`</strong>b')
+    expect(render(output)).toBe('<p>a<strong><code>x</code></strong>b</p>')
+  })
+
+  it('uses HTML for _ emphasis inside a word', () => {
+    const output = slateToMarkdown(p({ text: 'un' }, { text: 'frigging', italic: true }, { text: 'believable' }), {
+      ...defaultConfig,
+      emphasisDelimiter: '_',
+    })
+    expect(output).toBe('un<em>frigging</em>believable')
+    expect(render(output)).toBe('<p>un<em>frigging</em>believable</p>')
+  })
+
+  it('merges adjacent code leaves so their fences do not collide', () => {
+    const output = slateToMarkdown(p({ text: 'a`', code: true }, { text: 'b', code: true }))
+    expect(output).toBe('``a`b``')
+    expect(render(output)).toBe('<p><code>a`b</code></p>')
+  })
+
+  it('uses the default emphasis delimiter when the config omits it', () => {
+    const config = { ...defaultConfig }
+    delete config.emphasisDelimiter
+    expect(slateToMarkdown(p({ text: 'a', italic: true }), config)).toBe('*a*')
   })
 })
 
@@ -191,5 +217,13 @@ describe('links and images', () => {
     const output = slateToMarkdown([{ type: 'image', url: '/a.png', alt: 'An [image]', children: [{ text: '' }] }])
     expect(output).toBe('![An \\[image\\]](/a.png)')
     expect(render(output)).toBe('<p><img src="/a.png" alt="An [image]"></p>')
+  })
+
+  it('reads href, src and caption, and drops an image without a URL', () => {
+    expect(slateToMarkdown(p({ type: 'link', href: '/x', children: [{ text: 'x' }] }))).toBe('[x](/x)')
+    expect(slateToMarkdown(p({ type: 'image', src: '/a.png', caption: 'Cap', children: [{ text: '' }] }))).toBe(
+      '![Cap](/a.png)',
+    )
+    expect(slateToMarkdown(p({ type: 'image', children: [{ text: 'x' }] }))).toBe('')
   })
 })

@@ -28,6 +28,43 @@ export const codeSpan = (text: string): string => {
 export const formatUrl = (url: string): string =>
   url === '' || /[\s()<>]/.test(url) ? `<${url.replace(/[<>\n]/g, (c) => encodeURIComponent(c))}>` : url
 
+/** A Markdown link. `text` is used as is, so escape plain text with `escapeText` first. */
 export const link = (text: string, url: string): string => `[${text}](${formatUrl(url)})`
 
-export const image = (alt: string, url: string): string => `![${alt.replace(/[\\[\]]/g, '\\$&')}](${formatUrl(url)})`
+/** A Markdown image. `alt` is plain text and is escaped. */
+export const image = (alt: string, url: string): string =>
+  `![${escapeText(alt.replace(/\s+/g, ' ').trim())}](${formatUrl(url)})`
+
+const PUNCTUATION = /[\p{P}\p{S}]/u
+// `undefined` is the start or end of the text, which CommonMark treats like whitespace.
+const isWhitespace = (char: string | undefined) => char === undefined || /\s/u.test(char)
+const isPunctuation = (char: string | undefined) => char !== undefined && PUNCTUATION.test(char)
+
+/**
+ * Whether a delimiter run (e.g. `**`) between `before` and `after` can only open or only close emphasis, following the
+ * CommonMark flanking rules. A run that could do both is ambiguous and may pair with the wrong delimiter, so neither is
+ * reported for it. https://spec.commonmark.org/0.31.2/#left-flanking-delimiter-run
+ */
+export const delimiterRole = (
+  before: string | undefined,
+  after: string | undefined,
+  delimiter = '*',
+): { opens: boolean; closes: boolean } => {
+  const leftFlanking = !isWhitespace(after) && (!isPunctuation(after) || isWhitespace(before) || isPunctuation(before))
+  const rightFlanking = !isWhitespace(before) && (!isPunctuation(before) || isWhitespace(after) || isPunctuation(after))
+  // `_` cannot open (or close) when it is also the other kind of flanking run, unless the far side is punctuation.
+  if (delimiter === '_') {
+    return {
+      opens: leftFlanking && (!rightFlanking || isPunctuation(before)),
+      closes: rightFlanking && (!leftFlanking || isPunctuation(after)),
+    }
+  }
+  return { opens: leftFlanking, closes: rightFlanking }
+}
+
+/** A fenced-code info string. Line breaks, backticks and markup would end the opening fence or inject HTML. */
+export const fenceInfo = (value: unknown): string =>
+  String(value ?? '')
+    .split(/\r?\n/)[0]
+    .replace(/[`<>"'\\]/g, '')
+    .trim()

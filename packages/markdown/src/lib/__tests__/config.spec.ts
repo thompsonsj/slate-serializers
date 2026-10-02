@@ -44,6 +44,27 @@ describe('elementTransforms', () => {
     expect(output).toBe('[[Home]] [y](/y)')
   })
 
+  it('serializes children once when a transform reads them and then falls back', () => {
+    let serializations = 0
+    const config: Config = {
+      ...defaultConfig,
+      elementTransforms: {
+        counted: () => {
+          serializations++
+          return 'x'
+        },
+        blockquote: ({ children }) => (children ? undefined : undefined),
+      },
+    }
+    expect(
+      slateToMarkdown(
+        [{ type: 'blockquote', children: [{ type: 'p', children: [{ type: 'counted', children: [{ text: '' }] }] }] }],
+        config,
+      ),
+    ).toBe('> x')
+    expect(serializations).toBe(1)
+  })
+
   it('does not serialize children for a transform that does not read them', () => {
     let serializations = 0
     const config: Config = {
@@ -100,6 +121,29 @@ describe('Payload config', () => {
     )
     expect(output).toBe('[a\\_b.pdf](/media/a_b.pdf)')
     expect(render(output)).toBe('<p><a href="/media/a_b.pdf">a_b.pdf</a></p>')
+  })
+
+  it('falls back when an upload has no URL', () => {
+    expect(slateToMarkdown([{ type: 'upload', children: [{ text: '' }] }], payloadConfig)).toBe('')
+    expect(slateToMarkdown([{ type: 'upload', value: {}, children: [{ text: '' }] }], payloadConfig)).toBe('')
+  })
+
+  it('uses alt text for image uploads and treats a missing mime type as a file', () => {
+    expect(
+      slateToMarkdown(
+        [{ type: 'upload', value: { url: '/hero.png', mimeType: 'image/jpeg', alt: 'Hero' }, children: [{ text: '' }] }],
+        payloadConfig,
+      ),
+    ).toBe('![Hero](/hero.png)')
+    expect(
+      slateToMarkdown(
+        [{ type: 'upload', value: { url: '/a.bin', filename: 'a.bin' }, children: [{ text: '' }] }],
+        payloadConfig,
+      ),
+    ).toBe('[a.bin](/a.bin)')
+    expect(
+      slateToMarkdown([{ type: 'upload', value: { url: '/a.bin' }, children: [{ text: '' }] }], payloadConfig),
+    ).toBe('[/a.bin](/a.bin)')
   })
 
   it('serializes a typical Payload document', () => {

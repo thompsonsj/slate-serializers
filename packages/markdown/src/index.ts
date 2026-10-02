@@ -7,4 +7,4 @@ export type {
   MarkdownElement,
   MarkdownMark,
 } from './lib/config/types'
-export { escapeText, formatUrl, codeSpan } from './lib/utilities'
+export { escapeText, formatUrl, codeSpan, fenceInfo } from './lib/utilities'

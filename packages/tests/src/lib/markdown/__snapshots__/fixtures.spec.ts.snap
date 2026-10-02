@@ -5,7 +5,7 @@ exports[`slateToMarkdown with the Payload config combined fixtures larger docume
 
 A regular paragraph.
 
-A **paragraph** with ***various*** text ~~marks~~.
+A **paragraph** with **<em>various</em>** text ~~marks~~.
 
 ### Heading 3
 
@@ -73,7 +73,7 @@ exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures #180 lea
 
 exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures #180 leaf color with code 1`] = `"\`<code>\`"`;
 
-exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures p tag element transform 1`] = `"***<u>some title!</u>***"`;
+exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures p tag element transform 1`] = `"**<em><u>some title!</u></em>**"`;
 
 exports[`slateToMarkdown with the Payload config text fixtures idiomatic text 1`] = `"*Idiomatic Text*"`;
 
@@ -83,7 +83,7 @@ exports[`slateToMarkdown with the Payload config text fixtures strikethrough 1`]
 
 exports[`slateToMarkdown with the Payload config text fixtures strong 1`] = `"**Bold**"`;
 
-exports[`slateToMarkdown with the Payload config text fixtures strong and idiomatic text 1`] = `"***Strong and Idiomatic Text***"`;
+exports[`slateToMarkdown with the Payload config text fixtures strong and idiomatic text 1`] = `"**<em>Strong and Idiomatic Text</em>**"`;
 
 exports[`slateToMarkdown with the Payload config text fixtures strong and unarticulated annotation 1`] = `"**<u>Strong and Unarticulated Annotation</u>**"`;
 
@@ -104,7 +104,7 @@ exports[`slateToMarkdown with the default config combined fixtures larger docume
 
 A regular paragraph.
 
-A **paragraph** with ***various*** text ~~marks~~.
+A **paragraph** with **<em>various</em>** text ~~marks~~.
 
 ### Heading 3
 
@@ -172,7 +172,7 @@ exports[`slateToMarkdown with the default config stylesMixedIn fixtures #180 lea
 
 exports[`slateToMarkdown with the default config stylesMixedIn fixtures #180 leaf color with code 1`] = `"\`<code>\`"`;
 
-exports[`slateToMarkdown with the default config stylesMixedIn fixtures p tag element transform 1`] = `"***<u>some title!</u>***"`;
+exports[`slateToMarkdown with the default config stylesMixedIn fixtures p tag element transform 1`] = `"**<em><u>some title!</u></em>**"`;
 
 exports[`slateToMarkdown with the default config text fixtures idiomatic text 1`] = `"*Idiomatic Text*"`;
 
@@ -182,7 +182,7 @@ exports[`slateToMarkdown with the default config text fixtures strikethrough 1`]
 
 exports[`slateToMarkdown with the default config text fixtures strong 1`] = `"**Bold**"`;
 
-exports[`slateToMarkdown with the default config text fixtures strong and idiomatic text 1`] = `"***Strong and Idiomatic Text***"`;
+exports[`slateToMarkdown with the default config text fixtures strong and idiomatic text 1`] = `"**<em>Strong and Idiomatic Text</em>**"`;
 
 exports[`slateToMarkdown with the default config text fixtures strong and unarticulated annotation 1`] = `"**<u>Strong and Unarticulated Annotation</u>**"`;
 

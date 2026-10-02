@@ -1,6 +1,6 @@
 import { config as defaultConfig } from './config/default'
 import { Config, MarkdownElement } from './config/types'
-import { codeSpan, escapeLineStarts, escapeText, image, link } from './utilities'
+import { codeSpan, delimiterRole, escapeLineStarts, escapeText, fenceInfo, image, link } from './utilities'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SlateNode = any
@@ -15,6 +15,11 @@ const HARD_BREAKS = /\\\n/g
 const INLINE_ELEMENTS: MarkdownElement[] = ['link', 'image', 'line-break']
 const LISTS: (MarkdownElement | undefined)[] = ['ul', 'ol']
 const BULLETED: (MarkdownElement | undefined)[] = ['ul', 'li', 'task']
+const HTML_TAGS: Record<string, { open: string; close: string }> = {
+  strong: { open: '<strong>', close: '</strong>' },
+  emphasis: { open: '<em>', close: '</em>' },
+  strikethrough: { open: '<del>', close: '</del>' },
+}
 
 const isText = (node: SlateNode): boolean => !!node && typeof node.text === 'string'
 const isElement = (node: SlateNode): boolean => !!node && Array.isArray(node.children)
@@ -27,8 +32,45 @@ const indent = (lines: string[], width: number): string[] => lines.map((line) =>
 const longestBacktickRun = (text: string): number =>
   Math.max(0, ...(text.match(/`+/g) || []).map((run) => run.length))
 
+/** Join adjacent code leaves with the same marks: separate code spans side by side would merge into a broken one. */
+const mergeCodeLeaves = (nodes: SlateNode[], marks: string[], isCode: (node: SlateNode) => boolean): SlateNode[] => {
+  const merged: SlateNode[] = []
+  for (const node of nodes) {
+    const previous = merged[merged.length - 1]
+    if (
+      isText(node) &&
+      isText(previous) &&
+      isCode(node) &&
+      isCode(previous) &&
+      marks.every((mark) => !node[mark] === !previous[mark])
+    ) {
+      merged[merged.length - 1] = { ...previous, text: previous.text + node.text }
+    } else {
+      merged.push(node)
+    }
+  }
+  return merged
+}
+
 class Serializer {
+  private readonly cache = new WeakMap<SlateNode[], Map<string, string>>()
+
   constructor(private readonly config: Config) {}
+
+  /** Serialize each children array once per context, even when a transform reads `children` and then falls back. */
+  private memo(nodes: SlateNode[], key: string, serialize: () => string): string {
+    let entries = this.cache.get(nodes)
+    if (!entries) {
+      entries = new Map()
+      this.cache.set(nodes, entries)
+    }
+    let markdown = entries.get(key)
+    if (markdown === undefined) {
+      markdown = serialize()
+      entries.set(key, markdown)
+    }
+    return markdown
+  }
 
   private element(node: SlateNode): MarkdownElement | undefined {
     return node ? this.config.elementMap[node.type] : undefined
@@ -36,15 +78,11 @@ class Serializer {
 
   /** Run the node's custom transform, if any. Children are serialized only if the transform reads them. */
   private applyTransform(node: SlateNode, serializeChildren: () => string): string | undefined {
-    const transform = node ? this.config.elementTransforms?.[node.type] : undefined
-    if (!transform) {
-      return undefined
-    }
-    let children: string | undefined
-    return transform({
+    const transform = this.config.elementTransforms?.[node.type]
+    return transform?.({
       node,
       get children() {
-        return (children ??= serializeChildren())
+        return serializeChildren()
       },
     })
   }
@@ -63,7 +101,15 @@ class Serializer {
 
   /** Serialize siblings as blocks separated by blank lines. Consecutive inline nodes form one paragraph. */
   blocks(nodes: SlateNode[], { inListItem = false } = {}): string {
-    const besideInline = nodes.some((node) => isText(node) || INLINE_ELEMENTS.includes(this.element(node) as MarkdownElement))
+    return this.memo(nodes, inListItem ? 'list-item' : 'blocks', () => this.serializeBlocks(nodes, inListItem))
+  }
+
+  private hasInline(nodes: SlateNode[]): boolean {
+    return nodes.some((node) => this.isInline(node, false))
+  }
+
+  private serializeBlocks(nodes: SlateNode[], inListItem: boolean): string {
+    const besideInline = this.hasInline(nodes)
     const parts: Block[] = []
     let run: SlateNode[] = []
     const flush = () => {
@@ -108,8 +154,7 @@ class Serializer {
   }
 
   private children(node: SlateNode): string {
-    const besideInline = node.children.some((child: SlateNode) => this.isInline(child, false))
-    return besideInline ? this.inline(node.children) : this.blocks(node.children)
+    return this.hasInline(node.children) ? this.inline(node.children) : this.blocks(node.children)
   }
 
   private block(node: SlateNode): string {
@@ -177,10 +222,12 @@ class Serializer {
     const lines: string[] = []
     let number = start
     let lastWidth = 0
-    for (const item of items) {
-      if (!isElement(item)) {
+    for (const child of items) {
+      if (!isElement(child) && !isText(child)) {
         continue
       }
+      // Text directly inside a list is not valid Slate, but keep it as an item of its own rather than dropping it.
+      const item = isElement(child) ? child : { children: [child] }
       // A list placed directly inside a list belongs to the previous item.
       if (LISTS.includes(this.element(item)) && lines.length) {
         lines.push(...indent(this.block(item).split('\n'), lastWidth))
@@ -199,8 +246,7 @@ class Serializer {
     if (element && element !== 'li' && element !== 'task') {
       content = this.block(node)
     } else {
-      let children: string | undefined
-      const serializeChildren = () => (children ??= this.blocks(node.children, { inListItem: true }))
+      const serializeChildren = () => this.blocks(node.children, { inListItem: true })
       content = this.applyTransform(node, serializeChildren) ?? serializeChildren()
     }
     if (element === 'task' || typeof node.checked === 'boolean') {
@@ -215,8 +261,7 @@ class Serializer {
       ? node.children.map(plainText).join('\n')
       : plainText(node)
     const fence = '`'.repeat(Math.max(3, longestBacktickRun(content) + 1))
-    const language = node.language ?? node.lang ?? ''
-    return `${fence}${language}\n${content}\n${fence}`
+    return `${fence}${fenceInfo(node.language ?? node.lang)}\n${content}\n${fence}`
   }
 
   private tableRows(node: SlateNode): SlateNode[] {
@@ -264,27 +309,56 @@ class Serializer {
 
   /**
    * Serialize inline content. Marks shared by adjacent leaves stay open across them, delimiters are kept next to
-   * non-whitespace (as CommonMark requires), and code is applied per leaf because code spans cannot contain markup.
+   * non-whitespace, and code is applied per leaf because code spans cannot contain markup. A delimiter pair that
+   * CommonMark would not parse in its position (e.g. `a**`code`**b`) is written as HTML instead.
    */
   inline(nodes: SlateNode[]): string {
+    return this.memo(nodes, 'inline', () => this.serializeInline(nodes))
+  }
+
+  private serializeInline(nodes: SlateNode[]): string {
     const marks = Object.keys(this.config.markMap)
-    const codeMarks = marks.filter((mark) => this.config.markMap[mark] === 'code')
+    const isCode = (node: SlateNode) => marks.some((mark) => node[mark] && this.config.markMap[mark] === 'code')
     const wrappingMarks = marks.filter((mark) => this.config.markMap[mark] !== 'code')
-    const open: string[] = []
+    const open: { mark: string; index: number; html?: { open: string; close: string } }[] = []
     let out = ''
 
-    const closeTo = (depth: number) => {
+    /** Close marks above `depth`. `next` is the character that will follow (`undefined` at the end). */
+    const closeTo = (depth: number, next: string | undefined) => {
       while (open.length > depth) {
-        const mark = open.pop() as string
+        const { mark, index, html } = open.pop() as (typeof open)[number]
         const whitespace = out.match(/(?:[^\S\n]|\\\n)+$/)?.[0] ?? ''
-        out = out.slice(0, out.length - whitespace.length) + this.delimiters(mark).close + whitespace
+        let body = out.slice(0, out.length - whitespace.length)
+        const delimiters = this.delimiters(mark)
+        const fallback = HTML_TAGS[this.config.markMap[mark] as string]
+        const kind = delimiters.open[0]
+        const following = whitespace[0] ?? next
+        if (html) {
+          out = body + html.close + whitespace
+          continue
+        }
+        // Adjacent runs of the same character merge (`**` + `*` → `***`) and often parse as the wrong marks.
+        if (
+          fallback &&
+          (kind === following ||
+            !(
+              delimiterRole(body[index - 1], body[index + delimiters.open.length], kind).opens &&
+              delimiterRole(body[body.length - 1], following, kind).closes
+            ))
+        ) {
+          body = body.slice(0, index) + fallback.open + body.slice(index + delimiters.open.length)
+          out = body + fallback.close + whitespace
+        } else {
+          out = body + delimiters.close + whitespace
+        }
       }
     }
 
-    for (const node of nodes) {
+    for (const node of mergeCodeLeaves(nodes, marks, isCode)) {
       if (!isText(node)) {
-        closeTo(0)
-        out += isElement(node) ? this.inlineElement(node) : ''
+        const markdown = isElement(node) ? this.inlineElement(node) : ''
+        closeTo(0, markdown[0])
+        out += markdown
         continue
       }
       if (node.text === '') {
@@ -294,7 +368,7 @@ class Serializer {
       let lead = ''
       let core: string
       let trail = ''
-      if (codeMarks.some((mark) => node[mark])) {
+      if (isCode(node)) {
         core = codeSpan(node.text)
       } else {
         const [, leading, middle, trailing] = node.text.match(/^(\s*)([\s\S]*?)(\s*)$/) as string[]
@@ -307,20 +381,29 @@ class Serializer {
         continue
       }
       let keep = 0
-      while (keep < open.length && active.includes(open[keep])) {
+      while (keep < open.length && active.includes(open[keep].mark)) {
         keep++
       }
-      closeTo(keep)
+      // Delimiters about to open are punctuation, which is all the flanking rules need to know about them.
+      closeTo(keep, lead[0] ?? (keep < active.length ? '*' : core[0]))
       out += lead
       for (const mark of active) {
-        if (!open.includes(mark)) {
-          out += this.delimiters(mark).open
-          open.push(mark)
+        if (!open.some((entry) => entry.mark === mark)) {
+          const delimiters = this.delimiters(mark)
+          const fallback = HTML_TAGS[this.config.markMap[mark] as string]
+          // `**` then `*` is one `***` run; open the inner mark as HTML instead.
+          if (fallback && out[out.length - 1] === delimiters.open[0]) {
+            open.push({ mark, index: out.length, html: fallback })
+            out += fallback.open
+          } else {
+            open.push({ mark, index: out.length })
+            out += delimiters.open
+          }
         }
       }
       out += core + trail
     }
-    closeTo(0)
+    closeTo(0, undefined)
     return out
   }
 

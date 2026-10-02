@@ -14,8 +14,8 @@ export const config: Config = {
       if (!url) {
         return undefined
       }
-      const label: string = node.value?.alt || node.value?.filename || ''
-      return node.value?.mimeType?.match(/^image/) ? image(label, url) : link(escapeText(label || url), url)
+      const label: string = node.value.alt || node.value.filename || ''
+      return node.value.mimeType?.startsWith('image/') ? image(label, url) : link(escapeText(label || url), url)
     },
   },
 }
