@@ -1,6 +1,6 @@
 {
    "name": "@slate-serializers/markdown",
-   "version": "2.8.1",
+   "version": "2.8.2",
    "description": "Convert Slate JSON to GitHub Flavored Markdown: headings, lists, task lists, tables, code blocks, links, images and marks.",
    "license": "MIT",
    "keywords": [

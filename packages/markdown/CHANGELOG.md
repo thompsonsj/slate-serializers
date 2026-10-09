@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.2](https://github.com/thompsonsj/slate-serializers/compare/markdown-v2.8.1...markdown-v2.8.2) (2026-10-09)
+
+
+### Miscellaneous Chores
+
+* **markdown:** Synchronize all versions
+
 ## [2.8.1](https://github.com/thompsonsj/slate-serializers/compare/markdown-v2.8.0...markdown-v2.8.1) (2026-10-09)
 
 
