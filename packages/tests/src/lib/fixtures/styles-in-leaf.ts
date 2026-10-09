@@ -59,7 +59,7 @@ export const fixtures: Ifixture[] = [
   },
   {
     name: '#180 leaf color with code',
-    html: '<p><span style="color:green;"><pre><code>&lt;code&gt;</code></pre></span></p>',
+    html: '<p><span style="color:green;"><code>&lt;code&gt;</code></span></p>',
     slate: [
       {
         type: 'p',

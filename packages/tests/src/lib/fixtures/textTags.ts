@@ -165,8 +165,8 @@ export const fixtures: Ifixture[] = [
     ],
   },
   {
-    name: 'pre',
-    html: '<pre><code>Pre</code></pre>',
+    name: 'code',
+    html: '<code>Pre</code>',
     slate: [
       {
         children: [

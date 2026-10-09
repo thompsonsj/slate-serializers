@@ -75,9 +75,11 @@ exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures #180 lea
 
 exports[`slateToMarkdown with the Payload config stylesMixedIn fixtures p tag element transform 1`] = `"**<em><u>some title!</u></em>**"`;
 
+exports[`slateToMarkdown with the Payload config text fixtures code 1`] = `"\`Pre\`"`;
+
 exports[`slateToMarkdown with the Payload config text fixtures idiomatic text 1`] = `"*Idiomatic Text*"`;
 
-exports[`slateToMarkdown with the Payload config text fixtures pre 1`] = `"\`Pre\`"`;
+exports[`slateToMarkdown with the Payload config text fixtures code 1`] = `"\`Pre\`"`;
 
 exports[`slateToMarkdown with the Payload config text fixtures strikethrough 1`] = `"~~Strikethrough~~"`;
 
@@ -174,9 +176,11 @@ exports[`slateToMarkdown with the default config stylesMixedIn fixtures #180 lea
 
 exports[`slateToMarkdown with the default config stylesMixedIn fixtures p tag element transform 1`] = `"**<em><u>some title!</u></em>**"`;
 
+exports[`slateToMarkdown with the default config text fixtures code 1`] = `"\`Pre\`"`;
+
 exports[`slateToMarkdown with the default config text fixtures idiomatic text 1`] = `"*Idiomatic Text*"`;
 
-exports[`slateToMarkdown with the default config text fixtures pre 1`] = `"\`Pre\`"`;
+exports[`slateToMarkdown with the default config text fixtures code 1`] = `"\`Pre\`"`;
 
 exports[`slateToMarkdown with the default config text fixtures strikethrough 1`] = `"~~Strikethrough~~"`;
 

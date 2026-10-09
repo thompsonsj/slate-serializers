@@ -87,7 +87,7 @@ You can create your own configuration file that implements your schema. See [pac
 
 | Option  | Description | Default |
 | - | - | - |
-| `markMap` | Map Slate JSON properties to HTML formatting element tags. Accepts an array of HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ code: ['pre', 'code'], /* ... */ }` |
+| `markMap` | Map Slate JSON properties to HTML formatting element tags. Accepts an array of HTML element tag names. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ code: ['code'], /* ... */ }` |
 | `elementMap` | Map Slate JSON `type` values to HTML element tags. Use `elementTransforms` for more control over the returned element. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ paragraph: 'p', /* ... */ }` |
 | `markTransforms` | Define transform functions for Slate JSON properties. Overrides and corresponding values in `markMap`. Functions return a [`domhandler` `Element`](https://github.com/fb55/domhandler); use `import { Element } from '@slate-serializers/dom'`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |
 | `elementTransforms` | Define transform functions for Slate JSON node types. Overrides and corresponding values in `elementMap`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |

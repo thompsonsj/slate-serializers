@@ -204,14 +204,12 @@ exports[`Slate JSON to React transforms Text tags idiomatic text 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags pre 1`] = `
+exports[`Slate JSON to React transforms Text tags code 1`] = `
 <div>
   <p>
-    <pre>
-      <code>
-        Pre
-      </code>
-    </pre>
+    <code>
+      Pre
+    </code>
   </p>
 </div>
 `;

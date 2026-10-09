@@ -70,7 +70,7 @@ describe("slateToHtml formatting", () => {
 
     it('can handle inline code tags', () => {
       const html =
-        '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>'
+        '<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p>'
       const slate = [
         {
           type: 'p',
@@ -152,7 +152,7 @@ describe("slateToHtml formatting", () => {
     })
 
     it('respects the alwaysEncodeCodeEntities option if encodeEntities is false', () => {
-      const html = '<p>Regular text &amp; <pre><code>&lt;textarea&gt;</code></pre>.</p>'
+      const html = '<p>Regular text &amp; <code>&lt;textarea&gt;</code>.</p>'
       const slate = [
         {
           type: 'p',

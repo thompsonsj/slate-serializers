@@ -92,7 +92,7 @@ describe('Slate JS example', () => {
 
   it('generates expected slateToHtml output', () => {
     expect(slateToHtml(slate)).toMatchInlineSnapshot(
-      `"<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p><p>Since it's rich text, you can do things like turn a selection of text <strong>bold</strong>, or add a semantically rendered block quote in the middle of the page, like this:</p><blockquote>A wise quote.</blockquote><p style="text-align:center;">Try it out for yourself!</p>"`
+      `"<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p><p>Since it's rich text, you can do things like turn a selection of text <strong>bold</strong>, or add a semantically rendered block quote in the middle of the page, like this:</p><blockquote>A wise quote.</blockquote><p style="text-align:center;">Try it out for yourself!</p>"`
     );
   });
 });
@@ -195,7 +195,7 @@ describe('Slate JS example - with style utilities', () => {
     };
 
     expect(slateToHtml(slate, config)).toMatchInlineSnapshot(
-      `"<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p><p>Since it's rich text, you can do things like turn a selection of text <strong>bold</strong>, or add a semantically rendered block quote in the middle of the page, like this:</p><blockquote>A wise quote.</blockquote><p style="text-align: center">Try it out for yourself!</p>"`
+      `"<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p><p>Since it's rich text, you can do things like turn a selection of text <strong>bold</strong>, or add a semantically rendered block quote in the middle of the page, like this:</p><blockquote>A wise quote.</blockquote><p style="text-align: center">Try it out for yourself!</p>"`
     );
   });
 });

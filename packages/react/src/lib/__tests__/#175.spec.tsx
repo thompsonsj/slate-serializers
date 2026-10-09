@@ -52,11 +52,9 @@ describe('Issue 175', () => {
         <h4>
           Heading 4: Code
         </h4>
-        <pre>
-          <code>
-            2 &gt; 1 but is &lt; 3 &amp; it can break HTML
-          </code>
-        </pre>
+        <code>
+          2 &gt; 1 but is &lt; 3 &amp; it can break HTML
+        </code>
         <h5>
           Heading 5: Text indent
         </h5>

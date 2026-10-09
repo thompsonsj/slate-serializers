@@ -53,7 +53,7 @@ export const fixtures: Ifixture[] = [
   },
   {
     name: 'mark transforms on multiple marks',
-    html: '<p>This is editable <span style="font-size: 20px; font-weight: 600; text-decoration: underline dotted"><strong>rich</strong></span> text, <span style="text-decoration: underline"><i>much</i></span> better than a <span style="color: red"><pre><code>&lt;textarea&gt;</code></pre></span>!</p>',
+    html: '<p>This is editable <span style="font-size: 20px; font-weight: 600; text-decoration: underline dotted"><strong>rich</strong></span> text, <span style="text-decoration: underline"><i>much</i></span> better than a <span style="color: red"><code>&lt;textarea&gt;</code></span>!</p>',
     slate: [
       {
         type: 'p',

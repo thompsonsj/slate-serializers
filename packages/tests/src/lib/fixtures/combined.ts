@@ -17,9 +17,8 @@
  * original Slate object or our 'p' tag version.
  */
 
-// Inline `<pre>` is invalid HTML inside `<p>`; htmlparser2 will split the paragraph.
-// Default htmlToSlate config rewrites `<pre>` → `<code>` via htmlPreProcessString so
-// round-trips like `<p>…<pre><code>…</code></pre>…</p>` stay inline.
+// The `code` mark serializes as inline `<code>`. Default htmlToSlate still rewrites
+// `<pre>` → `<code>` via htmlPreProcessString so older `<pre><code>` HTML stays inline.
 
 interface Ifixture {
   name: string
