@@ -8,7 +8,7 @@ A collection of serializers to convert [Slate](https://www.npmjs.com/package/sla
 | --- | --- |
 | **Interactive** | [slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo) ([source](https://github.com/thompsonsj/slate-serializers-demo)) — live examples for each serializer |
 | **Published on npm** | README in each package (e.g. [@slate-serializers/html](https://www.npmjs.com/package/@slate-serializers/html), [@slate-serializers/react](https://www.npmjs.com/package/@slate-serializers/react)) |
-| **In this repo** | [docs/config/](https://github.com/thompsonsj/slate-serializers/tree/main/docs/config) — [slateToDom](docs/config/slateToDom.md), [htmlToSlate](docs/config/htmlToSlate.md), [SlateToReact](docs/config/slateToReact.md) · [engineering.md](docs/engineering.md) |
+| **In this repo** | [docs/config/](https://github.com/thompsonsj/slate-serializers/tree/main/docs/config) — [slateToDom](docs/config/slateToDom.md), [htmlToSlate](docs/config/htmlToSlate.md), [slateToMarkdown](docs/config/slateToMarkdown.md), [SlateToReact](docs/config/slateToReact.md) · [engineering.md](docs/engineering.md) |
 
 ## Convert Slate to DOM
 
