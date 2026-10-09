@@ -58,7 +58,7 @@ Adds support for Payload `upload` elements: images become `![alt](url)` and othe
 
 ## Configuration
 
-Spread the default configuration and override what you need.
+Repo docs: [slateToMarkdown configuration](../../docs/config/slateToMarkdown.md). Spread the default configuration and override what you need.
 
 ```ts
 import { slateToMarkdown, slateToMarkdownConfig, SlateToMarkdownConfig } from '@slate-serializers/markdown'
