@@ -32,6 +32,8 @@ Map a leaf property to `strong`, `emphasis`, `strikethrough`, `code`, or `{ open
 
 Custom output per element `type`. The function receives the Slate `node` and `children` already serialized to Markdown. Return `undefined` to fall back to `elementMap`.
 
+A new `elementTransforms` object replaces the base map. If you start from `payloadSlateToMarkdownConfig`, spread `payloadSlateToMarkdownConfig.elementTransforms` before adding your own entries, or the `upload` transform is dropped.
+
 ## Other options
 
 | Option | Default | Description |
@@ -40,6 +42,6 @@ Custom output per element `type`. The function receives the Slate `node` and `ch
 | `bulletMarker` | `'-'` | `'-'`, `'*'` or `'+'`. |
 | `escape` | `true` | Escape text that Markdown would treat as syntax. Set to `false` if your text already contains Markdown. |
 
-Payload `upload` nodes are handled by `payloadSlateToMarkdownConfig`: images become `![alt](url)`, other files become links.
+Payload `upload` nodes are handled by `payloadSlateToMarkdownConfig` when the node has a URL: images become `![alt](url)`, other files become links. With no URL the transform returns `undefined` and serialization falls back to `elementMap`.
 
 Escaping keeps Markdown syntax in text literal. It is not HTML sanitization: custom transforms, `{ open, close }` marks, and URLs are emitted as given.

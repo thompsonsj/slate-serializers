@@ -54,7 +54,7 @@ import { slateToMarkdown, payloadSlateToMarkdownConfig } from '@slate-serializer
 slateToMarkdown(slate, payloadSlateToMarkdownConfig)
 ```
 
-Adds support for Payload `upload` elements: images become `![alt](url)` and other files become links.
+Adds support for Payload `upload` elements that have a URL: images become `![alt](url)` and other files become links. With no URL, serialization falls back to `elementMap`.
 
 ## Configuration
 
