@@ -25,7 +25,7 @@ const MARK_ELEMENT_TAG_MAP = {
   bold: ['strong'],
   underline: ['u'],
   italic: ['i'],
-  code: ['pre', 'code'],
+  code: ['code'],
 }
 
 export const config: Config = {

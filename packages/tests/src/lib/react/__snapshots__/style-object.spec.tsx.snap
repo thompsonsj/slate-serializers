@@ -37,11 +37,9 @@ exports[`style attribute css transforms with postcss mark transforms on multiple
     <span
       style="color: red;"
     >
-      <pre>
-        <code>
-          &lt;textarea&gt;
-        </code>
-      </pre>
+      <code>
+        &lt;textarea&gt;
+      </code>
     </span>
     !
   </p>

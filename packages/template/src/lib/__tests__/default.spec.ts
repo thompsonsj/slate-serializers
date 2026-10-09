@@ -1,3 +1,5 @@
+import { Element } from 'domhandler'
+import type { ChildNode } from 'domhandler'
 import { slateToTemplate } from './../serializers';
 import { config as defaultTemplateConfig } from './../config/default';
 import { Config as SlateToTemplateConfig } from './../config/types';
@@ -59,7 +61,7 @@ describe('Template conversion', () => {
     const tree = slateToTemplate(slate);
     expect(tree).toMatchInlineSnapshot(`
       [
-        "<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <pre><code>&lt;textarea&gt;</code></pre>!</p>",
+        "<p>This is editable <strong>rich</strong> text, <i>much</i> better than a <code>&lt;textarea&gt;</code>!</p>",
       ]
     `);
   });
@@ -147,6 +149,45 @@ describe('Template conversion', () => {
     expect(tree?.[0]).toContain('img');
     expect(tree?.[0]).toContain('https://example.com/a.png');
   });
+
+  it('renders the code mark as inline code', () => {
+    const slate = [
+      {
+        type: 'p',
+        children: [{ text: 'Use ' }, { text: 'npm', code: true }, { text: ' here.' }],
+      },
+    ]
+    expect(slateToTemplate(slate)).toEqual(['<p>Use <code>npm</code> here.</p>'])
+    expect(slateToTemplate(slate, payloadSlateToTemplateConfig)).toEqual(['<p>Use <code>npm</code> here.</p>'])
+  })
+
+  it('combines the code mark with other marks', () => {
+    const slate = [
+      {
+        type: 'p',
+        children: [{ text: 'Use ' }, { text: 'npm', bold: true, code: true }, { text: ' here.' }],
+      },
+    ]
+    expect(slateToTemplate(slate)).toEqual(['<p>Use <strong><code>npm</code></strong> here.</p>'])
+  })
+
+  it('still wraps a code-block element in pre and code', () => {
+    const slate = [
+      {
+        type: 'code-block',
+        children: [{ text: 'const a = 1' }],
+      },
+    ]
+    const config: SlateToTemplateConfig = {
+      ...defaultTemplateConfig,
+      elementTransforms: {
+        ...defaultTemplateConfig.elementTransforms,
+        'code-block': ({ children = [] }: { children?: ChildNode[] }) =>
+          new Element('pre', {}, [new Element('code', {}, children)]),
+      },
+    }
+    expect(slateToTemplate(slate, config)).toEqual(['<pre><code>const a = 1</code></pre>'])
+  })
 
   it('invokes customElementSerializers and returns their values', () => {
     const config: SlateToTemplateConfig = {

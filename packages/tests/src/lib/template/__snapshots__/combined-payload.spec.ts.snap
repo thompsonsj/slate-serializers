@@ -77,9 +77,9 @@ exports[`Slate JSON to React transforms Text tags idiomatic text 1`] = `
 ]
 `;
 
-exports[`Slate JSON to React transforms Text tags pre 1`] = `
+exports[`Slate JSON to React transforms Text tags code 1`] = `
 [
-  "<p><pre><code>Pre</code></pre></p>",
+  "<p><code>Pre</code></p>",
 ]
 `;
 

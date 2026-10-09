@@ -72,16 +72,59 @@ describe('React conversion', () => {
             much
           </i>
            better than a 
-          <pre>
-            <code>
-              &lt;textarea&gt;
-            </code>
-          </pre>
+          <code>
+            &lt;textarea&gt;
+          </code>
           !
         </p>
       </div>
     `);
   });
+
+  it('renders the code mark as inline code', () => {
+    const slate = [
+      {
+        type: 'p',
+        children: [{ text: 'Use ' }, { text: 'npm', code: true }, { text: ' here.' }],
+      },
+    ]
+    const { container } = render(<SlateToReact node={slate} />)
+    expect(container.innerHTML).toBe('<p>Use <code>npm</code> here.</p>')
+    expect(container.querySelector('pre')).toBeNull()
+  })
+
+  it('combines the code mark with other marks', () => {
+    const slate = [
+      {
+        type: 'p',
+        children: [{ text: 'Use ' }, { text: 'npm', bold: true, code: true }, { text: ' here.' }],
+      },
+    ]
+    const { container } = render(<SlateToReact node={slate} />)
+    expect(container.innerHTML).toBe('<p>Use <strong><code>npm</code></strong> here.</p>')
+  })
+
+  it('still wraps a code-block element in pre and code', () => {
+    const slate = [
+      {
+        type: 'code-block',
+        children: [{ text: 'const a = 1' }],
+      },
+    ]
+    const config = {
+      ...defaultReactConfig,
+      elementTransforms: {
+        ...defaultReactConfig.elementTransforms,
+        'code-block': ({ children }) => (
+          <pre>
+            <code>{children}</code>
+          </pre>
+        ),
+      },
+    }
+    const { container } = render(<SlateToReact node={slate} config={config} />)
+    expect(container.innerHTML).toBe('<pre><code>const a = 1</code></pre>')
+  })
 
   test('render Slate node as p tag if defaultTag is set', async () => {
     const slate = [

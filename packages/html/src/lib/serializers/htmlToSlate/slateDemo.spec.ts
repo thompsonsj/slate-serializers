@@ -3,8 +3,8 @@ import { config as slateDemoHtmlToSlateConfig } from './config/slateDemo'
 
 describe('inline code and pre HTML elements', () => {
   // all fixtures should give the same Slate result
-  // slate demo is configured to translate `code=true`
-  // to `<pre><code>...</code></pre>
+  // slate demo maps `code=true` to `<code>...</code>`
+  // htmlToSlate still accepts older `<pre>` wrappers via preprocess
 
   // htmlparser2 seems to separate out `pre` into a new
   // block but keeps `code` tags inline. A workaround for
