@@ -4,7 +4,7 @@ Convert [Slate](https://www.npmjs.com/package/slate) JSON to a [`domhandler`](ht
 
 It is used by [`@slate-serializers/html`](https://www.npmjs.com/package/@slate-serializers/html) (`slateToHtml`) before serializing to an HTML string. Use **`slateToDom` directly** when you want to inspect or manipulate the tree (e.g. with [`domutils`](https://github.com/fb55/domutils)) before calling `dom-serializer` yourself.
 
-**Live examples:** [slateToDom on the demo site](https://thompsonsj.github.io/slate-serializers-demo/slate-to-dom/docs).
+**Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo) — [slateToDom](https://thompsonsj.github.io/slate-serializers-demo/slate-to-dom/docs)
 
 ## Install
 

@@ -1,15 +1,15 @@
 # Engineering decisions
 
-Configuration write-ups (Markdown in this repo): [slateToDom](config/slateToDom.md), [htmlToSlate](config/htmlToSlate.md), [SlateToReact](config/slateToReact.md). Interactive examples: [slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
+Configuration write-ups (Markdown in this repo): [slateToDom](config/slateToDom.md), [htmlToSlate](config/htmlToSlate.md), [slateToMarkdown](config/slateToMarkdown.md), [SlateToReact](config/slateToReact.md). Interactive examples: [slate-serializers-demo](https://thompsonsj.github.io/slate-serializers-demo).
 
 - [Slate compatibility](#slate-compatibility)
 - [`htmlparser2`](#htmlparser2)
 
 ## Slate compatibility
 
-Serializers are only compatible with Slate >=0.50.0. Earlier versions used a different data model.
+Serializers expect Slate's modern document model, which arrived in 0.50. Earlier versions will not work.
 
-Note that compatibility has only been tested with Slate v0.72.8. These serializers are still in active development/testing.
+Slate changed significantly in 0.72.8. These packages are meant for apps on **0.72.8 through 0.126.x**. Versions between 0.50 and 0.72.8 share the modern model but are untested here. This repo currently depends on Slate 0.126.x.
 
 ## `htmlparser2`
 
@@ -85,7 +85,7 @@ For text nodes inside `<code>` and/or `<pre>` HTML elements, whitespace is prese
 
 The Slate configuration for Payload CMS results in some Slate nodes being stored with an undefined `type`. See https://github.com/payloadcms/payload/discussions/1141#discussioncomment-4255845.
 
-Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](<](src/config/slateToDom/payload.ts)>). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
+Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/payload.ts). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
 
 At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload conifguration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
 

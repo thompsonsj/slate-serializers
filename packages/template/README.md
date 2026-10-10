@@ -2,7 +2,7 @@
 
 Render Slate JSON as a combination of HTML and custom serializers that you pass to the configuration.
 
-**Demo:** [slateToTemplate](https://thompsonsj.github.io/slate-serializers-demo/slate-to-template/docs) · **npm:** [@slate-serializers/template](https://www.npmjs.com/package/@slate-serializers/template)
+**Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo) — [slateToTemplate](https://thompsonsj.github.io/slate-serializers-demo/slate-to-template/docs)
 
 Returns an array. By default, each array element is the output of `@slate-serializers/html`. If you pass a custom serializers, your serialized output will be included in this array. These serializers match on top-level Slate nodes only using the `type` attribute.
 
