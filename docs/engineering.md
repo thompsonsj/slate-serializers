@@ -7,9 +7,9 @@ Configuration write-ups (Markdown in this repo): [slateToDom](config/slateToDom.
 
 ## Slate compatibility
 
-Serializers are only compatible with Slate >=0.50.0. Earlier versions used a different data model.
+Serializers expect Slate's modern document model, which arrived in 0.50. Earlier versions will not work.
 
-This repo develops against Slate 0.126.x. The demo site may pin a slightly older 0.10x line; both use the same document model.
+Slate changed significantly in 0.72.8. These packages are meant for apps on **0.72.8 through 0.126.x**. Versions between 0.50 and 0.72.8 share the modern model but are untested here. This repo currently depends on Slate 0.126.x.
 
 ## `htmlparser2`
 
