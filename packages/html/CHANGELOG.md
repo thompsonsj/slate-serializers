@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.2](https://github.com/thompsonsj/slate-serializers/compare/html-v2.8.1...html-v2.8.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* **dom:** render the code mark as inline code ([#262](https://github.com/thompsonsj/slate-serializers/issues/262)) ([b1121c0](https://github.com/thompsonsj/slate-serializers/commit/b1121c0a1940e09edf867eae8761ad8d95c224bd))
+
 ## [2.8.1](https://github.com/thompsonsj/slate-serializers/compare/html-v2.8.0...html-v2.8.1) (2026-10-09)
 
 
