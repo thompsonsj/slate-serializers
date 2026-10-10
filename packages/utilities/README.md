@@ -1,11 +1,13 @@
-# utilities
+# @slate-serializers/utilities
 
-This library was generated with [Nx](https://nx.dev).
+Shared helpers used by the other `@slate-serializers` packages. The useful public ones convert a CSS style object to a string and back (`transformStyleObjectToString`, `transformStyleStringToObject`).
 
-## Building
+**Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo)
 
-Run `nx build utilities` to build the library.
+You rarely need this package on its own. Install it if you are extending a serializer and want the same style helpers.
 
-## Running unit tests
+## Install
 
-Run `nx test utilities` to execute the unit tests via [Jest](https://jestjs.io).
+```bash
+npm install @slate-serializers/utilities
+```

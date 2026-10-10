@@ -2,7 +2,7 @@
 
 Convert Slate JSON to [GitHub Flavored Markdown](https://github.github.com/gfm/).
 
-**npm:** [@slate-serializers/markdown](https://www.npmjs.com/package/@slate-serializers/markdown)
+**Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo) — [slateToMarkdown](https://thompsonsj.github.io/slate-serializers-demo/slate-to-markdown/docs)
 
 - Headings, paragraphs, block quotes, bullet and ordered lists (nested), task lists, code blocks, thematic breaks, tables with column alignment, links and images.
 - Bold, italic, strikethrough and inline code. Marks with no Markdown syntax (underline, subscript, superscript) are written as HTML tags, which GFM allows.

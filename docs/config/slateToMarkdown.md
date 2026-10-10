@@ -1,6 +1,6 @@
 # slateToMarkdown configuration
 
-**npm:** [@slate-serializers/markdown README](https://github.com/thompsonsj/slate-serializers/blob/main/packages/markdown/README.md).
+**Interactive:** [slateToMarkdown on the demo site](https://thompsonsj.github.io/slate-serializers-demo/slate-to-markdown/docs). **npm:** [@slate-serializers/markdown README](https://github.com/thompsonsj/slate-serializers/blob/main/packages/markdown/README.md).
 
 `slateToMarkdown` takes a single config object (`SlateToMarkdownConfig`). Spread `slateToMarkdownConfig` or `payloadSlateToMarkdownConfig` and override the keys you need.
 

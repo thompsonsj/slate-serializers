@@ -2,7 +2,7 @@
 
 Render [Slate](https://www.npmjs.com/package/slate) JSON as **React** elements using the same mental model as [`slateToHtml`](https://www.npmjs.com/package/@slate-serializers/html).
 
-**Live examples:** [SlateToReact docs](https://thompsonsj.github.io/slate-serializers-demo/slate-to-react/docs) on the demo site ([source](https://github.com/thompsonsj/slate-serializers-demo)).
+**Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo) — [SlateToReact](https://thompsonsj.github.io/slate-serializers-demo/slate-to-react/docs)
 
 ## Table of contents
 
