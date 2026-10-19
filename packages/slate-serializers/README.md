@@ -1,16 +1,20 @@
 # slate-serializers
 
-This package has been split into separate packages.
+Legacy meta package. It still re-exports `@slate-serializers/html` and `@slate-serializers/dom` (`htmlToSlate`, `slateToHtml`, `slateToDom`, and their configs). You do not need to change existing imports.
 
-There is no need to change: `slate-serializers` will continue to be maintained alongside the scoped packages. Prefer upgrading to `@slate-serializers/*` when you want a smaller dependency tree.
+The serializers were split so you can install only what you use:
+
+- [@slate-serializers/html](https://www.npmjs.com/package/@slate-serializers/html) — `slateToHtml` and `htmlToSlate`
+- [@slate-serializers/dom](https://www.npmjs.com/package/@slate-serializers/dom) — `slateToDom`
+- [@slate-serializers/react](https://www.npmjs.com/package/@slate-serializers/react) — `SlateToReact`
+- [@slate-serializers/template](https://www.npmjs.com/package/@slate-serializers/template) — `slateToTemplate`
+- [@slate-serializers/markdown](https://www.npmjs.com/package/@slate-serializers/markdown) — `slateToMarkdown`
+
+Prefer a scoped package when you want a smaller dependency tree.
 
 **Docs:** [all packages](https://github.com/thompsonsj/slate-serializers/blob/main/README.md) · [demo](https://thompsonsj.github.io/slate-serializers-demo)
 
 - **Legacy overview:** [original.md](https://github.com/thompsonsj/slate-serializers/blob/main/packages/slate-serializers/docs/original.md)
-
-## New packages
-
-An overview is available at [README.md](https://github.com/thompsonsj/slate-serializers/blob/main/README.md).
 
 ## Upgrade
 
