@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.3](https://github.com/thompsonsj/slate-serializers/compare/template-v2.8.2...template-v2.8.3) (2026-10-19)
+
+
+### Miscellaneous Chores
+
+* **template:** Synchronize all versions
+
 ## [2.8.2](https://github.com/thompsonsj/slate-serializers/compare/template-v2.8.1...template-v2.8.2) (2026-10-09)
 
 

@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.3](https://github.com/thompsonsj/slate-serializers/compare/html-v2.8.2...html-v2.8.3) (2026-10-19)
+
+
+### Bug Fixes
+
+* **html:** document the actual slateToHtml encoding defaults ([#266](https://github.com/thompsonsj/slate-serializers/issues/266)) ([032bed0](https://github.com/thompsonsj/slate-serializers/commit/032bed0218f13e52b7d093f6c57d3f2f022c1416))
+
 ## [2.8.2](https://github.com/thompsonsj/slate-serializers/compare/html-v2.8.1...html-v2.8.2) (2026-10-09)
 
 
