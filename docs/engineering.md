@@ -103,12 +103,9 @@ This becomes an issue for `code` and `pre` tags, where you may want to encode HT
 
 To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities`. If this option is`true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
 
-Note that in the default configuration, all HTML entities are encoded.
+Default `slateToHtml` does not set `encodeEntities`. Breaking characters (`&`, `<`, `>`) are still encoded because `alwaysEncodeBreakingEntities` defaults to `true`. `alwaysEncodeCodeEntities` defaults to `false`.
 
-- `alwaysEncodeCodeEntities` defaults to `false`.
-- `encodeEntities` defaults to `true`.
-
-### `htmlToslate`
+### `htmlToSlate`
 
 `htmlToSlate` will always encode HTML entities. There is no option to disable this behaviour. This is because in a Slate editor, we do not expect to find any HTML entity codes. As mentioned in the introduction, Slate should be as unaware of HTML as possible.
 

@@ -91,10 +91,10 @@ You can create your own configuration file that implements your schema. See [pac
 | `elementMap` | Map Slate JSON `type` values to HTML element tags. Use `elementTransforms` for more control over the returned element. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). Example: `{ paragraph: 'p', /* ... */ }` |
 | `markTransforms` | Define transform functions for Slate JSON properties. Overrides and corresponding values in `markMap`. Functions return a [`domhandler` `Element`](https://github.com/fb55/domhandler); use `import { Element } from '@slate-serializers/dom'`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |
 | `elementTransforms` | Define transform functions for Slate JSON node types. Overrides and corresponding values in `elementMap`. | See [default config](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/default.ts). |
-| `encodeEntities` | See [cheeriojs/dom-serializer - encodeEntities](https://github.com/cheeriojs/dom-serializer#encodeentities) | `true` |
-| `alwaysEncodeBreakingEntities` | Encode `&`, `<` and `>` regardless of other option settings. | `false` |
-| `alwaysEncodeCodeEntities` | Encode entities in `<pre>` tags regardless of other option settings. | `true` |
-| `convertLineBreakToBr` | Convert `\n` line breaks in Slate text nodes to an HTML `<br>` element. | `true` |
+| `encodeEntities` | See [cheeriojs/dom-serializer - encodeEntities](https://github.com/cheeriojs/dom-serializer#encodeentities) | `false` |
+| `alwaysEncodeBreakingEntities` | Encode `&`, `<` and `>` regardless of other option settings. | `true` |
+| `alwaysEncodeCodeEntities` | Encode entities in `<code>` and `<pre>` tags regardless of other option settings. | `false` |
+| `convertLineBreakToBr` | Convert `\n` line breaks in Slate text nodes to an HTML `<br>` element. | `false` |
 
 
 ### htmlToSlate
