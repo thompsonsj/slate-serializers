@@ -61,7 +61,7 @@
     "jest-util": "30.5.1",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
-    "markdown-it": "^15.0.2",
+    "markdown-it": "^15.0.3",
     "ngx-deploy-npm": "^9.2.1",
     "nx": "23.2.1",
     "prettier": "^3.9.9",
