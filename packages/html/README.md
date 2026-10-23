@@ -161,6 +161,8 @@ For more detailed documentation and examples, see [htmlToSlate | `slate-serializ
 | `filterWhitespaceNodes` | Remove whitespace that does not contribute meaning. | `true` |
 | `convertBrToLineBreak` | Convert br tags to line breaks in Slate. | `true` |
 | `brStrategy` | How converted `<br>` tags are represented: `block` (default, historical empty-block / context `\n` behavior) or `newline` (always `\n`, coalesce plain text, collapse breaks before a following block). | `'block'` |
+| `trimWhiteSpace` | Collapse runs of whitespace in text to a single space. | `true` |
+| `liftWrappedBlocks` | When an unmapped wrapper (`div`, `section`, `body`, …) contains only blocks, lift those blocks to the top level. | `true` |
 
 ## See also
 
