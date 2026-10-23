@@ -24,10 +24,26 @@
         ]
       }
     ],
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "cache": true
-    },
+    "test": [
+      {
+        "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+        "cache": true
+      },
+      {
+        "filter": {
+          "plugin": "@nx/jest/plugin"
+        },
+        "configurations": {
+          "ci": {
+            "ci": true,
+            "coverage": true
+          }
+        },
+        "options": {
+          "passWithNoTests": true
+        }
+      }
+    ],
     "e2e": {
       "cache": true
     }
@@ -65,6 +81,22 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
+      },
+      "include": [
+        "packages/dom/**/*",
+        "packages/html/**/*",
+        "packages/markdown/**/*",
+        "packages/react/**/*",
+        "packages/slate-serializers/**/*",
+        "packages/template/**/*",
+        "packages/tests/**/*",
+        "packages/utilities/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
       },
       "include": [
         "packages/dom/**/*",
