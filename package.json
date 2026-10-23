@@ -17,11 +17,11 @@
     "domutils": "^4.0.0",
     "html-entities": "^2.6.0",
     "htmlparser2": "^12.0.0",
-    "postcss": "8.5.29",
+    "postcss": "8.5.31",
     "postcss-js": "^5.1.0",
     "react": ">=16",
     "react-dom": ">=16",
-    "rollup": "4.63.6",
+    "rollup": "4.65.0",
     "slate": "^0.126.2",
     "slate-hyperscript": "^0.125.0",
     "tslib": "^2.8.1"
@@ -36,7 +36,7 @@
     "@nx/rollup": "24.0.0",
     "@nx/workspace": "24.0.0",
     "@swc-node/register": "1.12.1",
-    "@swc/core": "^1.16.13",
+    "@swc/core": "^1.16.20",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/jest": "30.0.0",
@@ -63,8 +63,8 @@
     "markdown-it": "^15.0.3",
     "ngx-deploy-npm": "^9.2.1",
     "nx": "24.0.0",
-    "prettier": "^3.9.9",
-    "ts-jest": "29.4.14",
+    "prettier": "^3.9.10",
+    "ts-jest": "29.4.15",
     "ts-node": "10.9.2",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.70.0"
@@ -75,13 +75,7 @@
     "react-dom": ">=16"
   },
   "overrides": {
-    "smol-toml": "1.9.1",
-    "axios": "1.20.0",
-    "source-map-js": "1.2.2",
-    "handlebars": "4.7.10",
-    "nx": {
-      "brace-expansion": "5.0.12"
-    }
+    "smol-toml": "1.9.1"
   },
   "nx": {
     "includedScripts": []
