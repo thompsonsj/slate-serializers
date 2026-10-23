@@ -15,7 +15,7 @@ Slate changed significantly in 0.72.8. These packages are meant for apps on **0.
 
 [htmlparser2](https://www.npmjs.com/package/htmlparser2) and its associated utilities are used to:
 
-- convert Slate JSON objects into a DOM document object (output in `slateToDom` or serialize to a HTML string in `slateToHtml`)
+- convert Slate JSON objects into a DOM document object (output in `slateToDom` or serialize to an HTML string in `slateToHtml`)
 - parse a HTML string into a DOM document object before conversion to Slate JSON.
 
 Rationale for using `htmlparser2` and its associated utilities:
@@ -43,7 +43,7 @@ It may be helpful to minify HTML before passing it to `htmlToSlate`. This might 
 
 Whitespace in text nodes is processed depending on context.
 
-Content for text marks follow an [inline formatting context](https://developer.mozilla.org/en-US/docs/Web/CSS/Inline_formatting_context).
+Content for text marks follows an [inline formatting context](https://developer.mozilla.org/en-US/docs/Web/CSS/Inline_formatting_context).
 
 - reduce line breaks and surrounding space to a single space;
 - replace tabs with spaces;
@@ -62,7 +62,7 @@ Before:
 After:
 
 ```
-<p>foo<b> <i>bar</i></b></p>
+<p><b> <i>bar</i></b></p>
 ```
 
 Block elements follow a [block formatting context](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context).
@@ -87,13 +87,13 @@ The Slate configuration for Payload CMS results in some Slate nodes being stored
 
 Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/payload.ts). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
 
-At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload conifguration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
+At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload configuration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
 
 May be able to resolve the above by simply removing `p` tag conversion? Could possibly specify that.
 
 ## HTML entity encoding/decoding
 
-One of the tricker parts of serializing from between Slate and HTML is that Slate doesn't care about HTML entity encoding. This is expected - Slate is unaware of HTML, it offers a serializer friendly format.
+One of the trickier parts of serializing between Slate and HTML is that Slate doesn't care about HTML entity encoding. This is expected - Slate is unaware of HTML, it offers a serializer friendly format.
 
 Special considerations are made for `htmlToSlate` and `slateToHtml`.
 
@@ -101,13 +101,13 @@ Special considerations are made for `htmlToSlate` and `slateToHtml`.
 
 This becomes an issue for `code` and `pre` tags, where you may want to encode HTML entities in order that they display correctly.
 
-To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities`. If this option is`true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
+To accommodate this, an option is available for `slateToHtml`: `alwaysEncodeCodeEntities`. If this option is `true` and `encodeEntities` is `false`, this latter option will be ignored when dealing with `code` or `pre` tags, and the content within will always be encoded.
 
-Default `slateToHtml` does not set `encodeEntities`. Breaking characters (`&`, `<`, `>`) are still encoded because `alwaysEncodeBreakingEntities` defaults to `true`. `alwaysEncodeCodeEntities` defaults to `false`.
+Default `slateToHtml` sets `encodeEntities` to `false`. Breaking characters (`&`, `<`, `>`) are still encoded because `alwaysEncodeBreakingEntities` defaults to `true`. `alwaysEncodeCodeEntities` defaults to `false`.
 
 ### `htmlToSlate`
 
-`htmlToSlate` will always encode HTML entities. There is no option to disable this behaviour. This is because in a Slate editor, we do not expect to find any HTML entity codes. As mentioned in the introduction, Slate should be as unaware of HTML as possible.
+`htmlToSlate` always decodes HTML entities (`decodeEntities: true` in htmlparser2). There is no option to keep entity codes such as `&amp;` in the Slate tree. In a Slate editor we do not expect to find HTML entity codes. As mentioned in the introduction, Slate should be as unaware of HTML as possible.
 
 ## Line breaks
 
@@ -134,4 +134,4 @@ However, `@slate-serializers` does not enforce this requirement, allowing object
 
 This makes the serializers easier to use and accommodates users who may not have defined all of their `CustomTypes`. Furthermore, it makes it easier to work with implementations of Slate in other projects where such types may not be exported, and reduces the maintenance requirement in those cases.
 
-Each line that uses this type is excluded from linting with `// eslint-disable-next-line @typescript-eslint/no-explicit-any`. The discourages the use of `any` in other cases.
+Each line that uses this type is excluded from linting with `// eslint-disable-next-line @typescript-eslint/no-explicit-any`. This discourages the use of `any` in other cases.
