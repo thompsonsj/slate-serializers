@@ -75,7 +75,8 @@
     "react-dom": ">=16"
   },
   "overrides": {
-    "smol-toml": "1.9.1"
+    "smol-toml": "1.9.1",
+    "undici": "7.30.1"
   },
   "nx": {
     "includedScripts": []
