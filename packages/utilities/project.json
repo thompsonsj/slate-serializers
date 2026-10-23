@@ -17,10 +17,6 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -37,11 +33,11 @@
     },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
+      "dependsOn": ["build"],
       "options": {
         "distFolderPath": "dist/packages/utilities",
         "access": "public"
-      },
-      "dependsOn": ["build"]
+      }
     },
     "version": {
       "executor": "@jscutlery/semver:version",

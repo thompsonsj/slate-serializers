@@ -7,24 +7,28 @@
       "inputs": ["production", "^production"],
       "cache": true
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
-      "cache": true
-    },
+    "lint": [
+      {
+        "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
+        "cache": true
+      },
+      {
+        "filter": {
+          "plugin": "@nx/eslint/plugin"
+        },
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*"
+        ]
+      }
+    ],
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "cache": true
     },
     "e2e": {
-      "cache": true
-    },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ],
       "cache": true
     }
   },
@@ -55,5 +59,23 @@
   },
   "affected": {
     "legacy": true
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "packages/dom/**/*",
+        "packages/html/**/*",
+        "packages/markdown/**/*",
+        "packages/react/**/*",
+        "packages/slate-serializers/**/*",
+        "packages/template/**/*",
+        "packages/tests/**/*",
+        "packages/utilities/**/*"
+      ]
+    }
+  ]
 }

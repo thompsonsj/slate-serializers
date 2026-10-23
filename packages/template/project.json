@@ -21,10 +21,6 @@
       "command": "node tools/scripts/publish.mjs template {args.ver} {args.tag}",
       "dependsOn": ["build"]
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -41,11 +37,11 @@
     },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
+      "dependsOn": ["build"],
       "options": {
         "distFolderPath": "dist/packages/template",
         "access": "public"
-      },
-      "dependsOn": ["build"]
+      }
     }
   }
 }
