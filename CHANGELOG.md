@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.4](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.3...source-v2.8.4) (2026-10-23)
+
+
+### Bug Fixes
+
+* **html:** document trimWhiteSpace and liftWrappedBlocks ([#272](https://github.com/thompsonsj/slate-serializers/issues/272)) ([0890e32](https://github.com/thompsonsj/slate-serializers/commit/0890e32a28e42c08db179c788b167da0f85e7ad4))
+
 ## [2.8.3](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.2...source-v2.8.3) (2026-10-19)
 
 

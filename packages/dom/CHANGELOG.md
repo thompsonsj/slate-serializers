@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.4](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.8.3...dom-v2.8.4) (2026-10-23)
+
+
+### Miscellaneous Chores
+
+* **dom:** Synchronize all versions
+
 ## [2.8.3](https://github.com/thompsonsj/slate-serializers/compare/dom-v2.8.2...dom-v2.8.3) (2026-10-19)
 
 
