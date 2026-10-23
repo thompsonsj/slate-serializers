@@ -7,24 +7,44 @@
       "inputs": ["production", "^production"],
       "cache": true
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
-      "cache": true
-    },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "cache": true
-    },
+    "lint": [
+      {
+        "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"],
+        "cache": true
+      },
+      {
+        "filter": {
+          "plugin": "@nx/eslint/plugin"
+        },
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*"
+        ]
+      }
+    ],
+    "test": [
+      {
+        "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+        "cache": true
+      },
+      {
+        "filter": {
+          "plugin": "@nx/jest/plugin"
+        },
+        "configurations": {
+          "ci": {
+            "ci": true,
+            "coverage": true
+          }
+        },
+        "options": {
+          "passWithNoTests": true
+        }
+      }
+    ],
     "e2e": {
-      "cache": true
-    },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ],
       "cache": true
     }
   },
@@ -49,5 +69,51 @@
       "analyzeSourceFiles": true
     }
   },
-  "analytics": true
+  "analytics": true,
+  "migrate": {
+    "agentic": true
+  },
+  "affected": {
+    "legacy": true
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "packages/dom/**/*",
+        "packages/html/**/*",
+        "packages/markdown/**/*",
+        "packages/react/**/*",
+        "packages/slate-serializers/**/*",
+        "packages/template/**/*",
+        "packages/tests/**/*",
+        "packages/utilities/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": [
+        "packages/dom/**/*",
+        "packages/html/**/*",
+        "packages/markdown/**/*",
+        "packages/react/**/*",
+        "packages/slate-serializers/**/*",
+        "packages/template/**/*",
+        "packages/tests/**/*",
+        "packages/utilities/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/rollup/plugin",
+      "options": {
+        "buildTargetName": "build"
+      }
+    }
+  ]
 }
