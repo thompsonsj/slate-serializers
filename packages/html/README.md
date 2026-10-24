@@ -15,7 +15,7 @@ Convert [Slate](https://www.npmjs.com/package/slate) JSON objects to HTML and vi
 
 ## Engineering
 
-For details on how all serializers work, see [Engineering decisions](https://github.com/thompsonsj/slate-serializers/blob/main/docs/engineering.md).
+For parser choices, whitespace, Payload round-trip limits, and entity encoding, see [Engineering decisions](https://github.com/thompsonsj/slate-serializers/blob/main/docs/engineering.md). `htmlToSlate` decodes entities into text; it does not keep `&amp;` in the Slate tree.
 
 ## Install
 
