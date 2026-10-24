@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.5](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.4...source-v2.8.5) (2026-10-24)
+
+
+### Bug Fixes
+
+* **html:** correct engineering notes on entities and Payload ([#275](https://github.com/thompsonsj/slate-serializers/issues/275)) ([dcb86b9](https://github.com/thompsonsj/slate-serializers/commit/dcb86b9d7df46b925569d0305cb62f84e440ddd9))
+
 ## [2.8.4](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.3...source-v2.8.4) (2026-10-23)
 
 
