@@ -87,7 +87,7 @@ The Slate configuration for Payload CMS results in some Slate nodes being stored
 
 Note the `defaultTag` option that is passed in the [Payload CMS configuration for `slateToHtml`/`slateToDom`](https://github.com/thompsonsj/slate-serializers/blob/main/packages/dom/src/lib/config/payload.ts). This creates a `<p>` HTML element tag whenever a Slate node has an undefined `type`. This is consistent with the approach taken by Payload CMS: In the docs for the rich text field, the serializer example renders the `<p>` HTML element as the default - i.e. if no types are found. See https://github.com/payloadcms/payload/blob/master/docs/fields/rich-text.mdx.
 
-At the moment, we cannot convert from `slateToHtml` to `htmlToSlate` and vice versa and expect consistent results. This is because, with the Payload configuration, `slateToHtml` adds p tags, and then `htmlToSlate` adds these `p` tags into the Slate JSON.
+The Payload configuration does not produce a consistent round trip: `slateToHtml` emits `<p>` for nodes with an undefined `type`, while `htmlToSlate` maps those elements to Slate nodes with `type: 'p'`.
 
 May be able to resolve the above by simply removing `p` tag conversion? Could possibly specify that.
 
