@@ -54,13 +54,13 @@ const slate = [
     type: 'p',
   },
   {
+    type: 'button',
+    buttonType: 'primary',
     children: [
       {
-        buttonType: 'primary',
         text: 'Button',
       },
     ],
-    type: 'button',
   },
 ]
 
