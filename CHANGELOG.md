@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.8.6](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.5...source-v2.8.6) (2026-11-04)
+
+
+### Bug Fixes
+
+* **template:** pass config into the slateToTemplate README example ([#278](https://github.com/thompsonsj/slate-serializers/issues/278)) ([e88bcca](https://github.com/thompsonsj/slate-serializers/commit/e88bccaaed1ecc61c96a4184a50bcbf605e17959))
+
 ## [2.8.5](https://github.com/thompsonsj/slate-serializers/compare/source-v2.8.4...source-v2.8.5) (2026-10-24)
 
 
