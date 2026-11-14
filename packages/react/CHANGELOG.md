@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.6](https://github.com/thompsonsj/slate-serializers/compare/react-v2.8.5...react-v2.8.6) (2026-11-14)
+
+
+### Miscellaneous Chores
+
+* **react:** Synchronize all versions
+
 ## [2.8.5](https://github.com/thompsonsj/slate-serializers/compare/react-v2.8.4...react-v2.8.5) (2026-10-24)
 
 
