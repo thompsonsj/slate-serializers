@@ -1,4 +1,62 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`style attribute css transforms with postcss > mark transform 1`] = `
+<div>
+  <p>
+    <span
+      style="font-size: 96px; --text-color: #DD3A0A;"
+    >
+      <strong>
+        Paragraph
+      </strong>
+    </span>
+  </p>
+</div>
+`;
+
+exports[`style attribute css transforms with postcss > mark transforms on multiple marks 1`] = `
+<div>
+  <p>
+    This is editable 
+    <span
+      style="font-size: 20px; font-weight: 600; text-decoration: underline dotted;"
+    >
+      <strong>
+        rich
+      </strong>
+    </span>
+     text, 
+    <span
+      style="text-decoration: underline;"
+    >
+      <i>
+        much
+      </i>
+    </span>
+     better than a 
+    <span
+      style="color: red;"
+    >
+      <code>
+        &lt;textarea&gt;
+      </code>
+    </span>
+    !
+  </p>
+</div>
+`;
+
+exports[`style attribute css transforms with postcss > p tag element transform 1`] = `
+<div>
+  <p
+    style="font-size: 96px; --text-color: #DD3A0A;"
+  >
+    <strong>
+      Paragraph
+    </strong>
+  </p>
+</div>
+`;
 
 exports[`style attribute css transforms with postcss mark transform 1`] = `
 <div>

@@ -5,7 +5,7 @@ import { SlateToReact, slateToReactConfig as defaultReactConfig, SlateToReactCon
 afterEach(cleanup)
 
 const defaultProps = {
-  onClick: jest.fn(),
+  onClick: vi.fn(),
   children: <>Submit</>,
 }
 
@@ -20,7 +20,7 @@ describe('simple button tests', () => {
   })
 
   test('calls correct function on click', () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const { getByText } = render(<Button {...defaultProps} onClick={onClick} />)
     fireEvent.click(getByText('Submit'))
     expect(onClick).toHaveBeenCalled()
@@ -29,7 +29,7 @@ describe('simple button tests', () => {
 
 describe('slateToReact: map element to button component', () => {
   it('renders a custom button', () => {
-    const onClick = jest.fn()
+    const onClick = vi.fn()
     const slate = [
       {
         children: [

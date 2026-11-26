@@ -8,7 +8,9 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
   },
   "files": [],
   "include": [],

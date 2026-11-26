@@ -26,18 +26,12 @@
     ],
     "test": [
       {
-        "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+        "inputs": ["default", "^production"],
         "cache": true
       },
       {
         "filter": {
-          "plugin": "@nx/jest/plugin"
-        },
-        "configurations": {
-          "ci": {
-            "ci": true,
-            "coverage": true
-          }
+          "plugin": "@nx/vitest"
         },
         "options": {
           "passWithNoTests": true
@@ -55,7 +49,8 @@
       "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/vitest.config.[jt]s",
+      "!{projectRoot}/vitest.config.[jt]mts",
       "!{projectRoot}/src/test-setup.[jt]s"
     ],
     "sharedGlobals": []
@@ -94,9 +89,10 @@
       ]
     },
     {
-      "plugin": "@nx/jest/plugin",
+      "plugin": "@nx/vitest",
       "options": {
-        "targetName": "test"
+        "testTargetName": "test",
+        "testMode": "run"
       },
       "include": [
         "packages/dom/**/*",

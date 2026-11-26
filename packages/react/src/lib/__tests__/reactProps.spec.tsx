@@ -7,7 +7,7 @@ import { config as payloadReactConfig } from '../config/payload'
 import type { Config as SlateToReactConfig } from '../config/types'
 
 const renderCapturingErrors = (ui: React.ReactElement) => {
-  const spy = jest.spyOn(console, 'error').mockImplementation(() => undefined)
+  const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined)
   try {
     const result = render(ui)
     return { ...result, errors: spy.mock.calls.map((args) => args.map(String).join(' ')) }
