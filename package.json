@@ -18,10 +18,10 @@
     "html-entities": "^2.6.0",
     "htmlparser2": "^12.0.0",
     "postcss": "8.5.33",
-    "postcss-js": "^5.1.0",
+    "postcss-js": "^5.1.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "rollup": "4.68.3",
+    "rollup": "4.68.8",
     "slate": "^0.126.2",
     "slate-hyperscript": "^0.125.0",
     "tslib": "^2.9.1"
@@ -29,23 +29,20 @@
   "devDependencies": {
     "@babel/core": "^7.29.13",
     "@babel/preset-react": "^7.29.7",
-    "@nx/eslint": "24.0.6",
-    "@nx/eslint-plugin": "24.0.6",
-    "@nx/jest": "24.0.6",
-    "@nx/js": "24.0.6",
-    "@nx/rollup": "24.0.6",
-    "@nx/workspace": "24.0.6",
+    "@nx/eslint": "24.0.7",
+    "@nx/eslint-plugin": "24.0.7",
+    "@nx/jest": "24.0.7",
+    "@nx/js": "24.0.7",
+    "@nx/rollup": "24.0.7",
+    "@nx/workspace": "24.0.7",
     "@swc-node/register": "1.12.1",
     "@swc/core": "^1.16.22",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/jest": "30.0.0",
-    "@types/node": "^25.9.9",
-    "@types/react": "^19.3.0",
+    "@types/node": "^25.9.12",
+    "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
-    "@typescript-eslint/eslint-plugin": "8.70.0",
-    "@typescript-eslint/parser": "8.70.0",
-    "@typescript-eslint/utils": "8.70.0",
     "babel-jest": "30.5.2",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "10.1.8",
@@ -62,12 +59,12 @@
     "jsdom": "^29.1.1",
     "markdown-it": "^15.0.3",
     "ngx-deploy-npm": "^9.2.1",
-    "nx": "24.0.6",
+    "nx": "24.0.7",
     "prettier": "^3.10.1",
     "ts-jest": "29.4.15",
     "ts-node": "10.9.2",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.70.0"
+    "typescript-eslint": "^8.74.0"
   },
   "peerDependencies": {
     "@types/react": ">=16",
@@ -75,7 +72,12 @@
     "react-dom": ">=16"
   },
   "overrides": {
-    "smol-toml": "1.9.1"
+    "smol-toml": "1.9.1",
+    "minimatch@9": "11.0.9",
+    "minimatch@10": "11.0.9",
+    "test-exclude": {
+      "minimatch": "11.0.9"
+    }
   },
   "nx": {
     "includedScripts": []
