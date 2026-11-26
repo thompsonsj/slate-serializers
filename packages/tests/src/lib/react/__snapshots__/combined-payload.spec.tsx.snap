@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Slate JSON to React transforms Combined larger document 1 1`] = `
+exports[`Slate JSON to React transforms > Combined > larger document 1 1`] = `
 <div>
   <h2>
     Heading 2
@@ -57,7 +57,7 @@ exports[`Slate JSON to React transforms Combined larger document 1 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Combined links nested in an unordered list 1`] = `
+exports[`Slate JSON to React transforms > Combined > links nested in an unordered list 1`] = `
 <div>
   <ul>
     <li>
@@ -82,7 +82,7 @@ exports[`Slate JSON to React transforms Combined links nested in an unordered li
 </div>
 `;
 
-exports[`Slate JSON to React transforms Combined text with inline link 1`] = `
+exports[`Slate JSON to React transforms > Combined > text with inline link 1`] = `
 <div>
   <p>
     Some text before an inline link 
@@ -98,7 +98,7 @@ exports[`Slate JSON to React transforms Combined text with inline link 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags blockquote 1`] = `
+exports[`Slate JSON to React transforms > Element tags > blockquote 1`] = `
 <div>
   <blockquote>
     Blockquote
@@ -106,7 +106,7 @@ exports[`Slate JSON to React transforms Element tags blockquote 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags headings 1`] = `
+exports[`Slate JSON to React transforms > Element tags > headings 1`] = `
 <div>
   <h1>
     Heading 1
@@ -129,7 +129,7 @@ exports[`Slate JSON to React transforms Element tags headings 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags link 1`] = `
+exports[`Slate JSON to React transforms > Element tags > link 1`] = `
 <div>
   <a
     href="https://github.com/thompsonsj/slate-serializers"
@@ -139,7 +139,7 @@ exports[`Slate JSON to React transforms Element tags link 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags nested unordered list 1`] = `
+exports[`Slate JSON to React transforms > Element tags > nested unordered list 1`] = `
 <div>
   <ul>
     <li>
@@ -160,7 +160,7 @@ exports[`Slate JSON to React transforms Element tags nested unordered list 1`] =
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags ordered list 1`] = `
+exports[`Slate JSON to React transforms > Element tags > ordered list 1`] = `
 <div>
   <ol>
     <li>
@@ -173,7 +173,7 @@ exports[`Slate JSON to React transforms Element tags ordered list 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags paragraph 1`] = `
+exports[`Slate JSON to React transforms > Element tags > paragraph 1`] = `
 <div>
   <p>
     Paragraph 1
@@ -181,7 +181,7 @@ exports[`Slate JSON to React transforms Element tags paragraph 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Element tags unordered list 1`] = `
+exports[`Slate JSON to React transforms > Element tags > unordered list 1`] = `
 <div>
   <ul>
     <li>
@@ -194,17 +194,7 @@ exports[`Slate JSON to React transforms Element tags unordered list 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags idiomatic text 1`] = `
-<div>
-  <p>
-    <i>
-      Idiomatic Text
-    </i>
-  </p>
-</div>
-`;
-
-exports[`Slate JSON to React transforms Text tags code 1`] = `
+exports[`Slate JSON to React transforms > Text tags > code 1`] = `
 <div>
   <p>
     <code>
@@ -214,7 +204,17 @@ exports[`Slate JSON to React transforms Text tags code 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strikethrough 1`] = `
+exports[`Slate JSON to React transforms > Text tags > idiomatic text 1`] = `
+<div>
+  <p>
+    <i>
+      Idiomatic Text
+    </i>
+  </p>
+</div>
+`;
+
+exports[`Slate JSON to React transforms > Text tags > strikethrough 1`] = `
 <div>
   <p>
     <s>
@@ -224,7 +224,7 @@ exports[`Slate JSON to React transforms Text tags strikethrough 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strong 1`] = `
+exports[`Slate JSON to React transforms > Text tags > strong 1`] = `
 <div>
   <p>
     <strong>
@@ -234,7 +234,7 @@ exports[`Slate JSON to React transforms Text tags strong 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strong and idiomatic text 1`] = `
+exports[`Slate JSON to React transforms > Text tags > strong and idiomatic text 1`] = `
 <div>
   <p>
     <strong>
@@ -246,7 +246,7 @@ exports[`Slate JSON to React transforms Text tags strong and idiomatic text 1`] 
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strong and unarticulated annotation 1`] = `
+exports[`Slate JSON to React transforms > Text tags > strong and unarticulated annotation 1`] = `
 <div>
   <p>
     <strong>
@@ -258,7 +258,7 @@ exports[`Slate JSON to React transforms Text tags strong and unarticulated annot
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strong in paragraph 1`] = `
+exports[`Slate JSON to React transforms > Text tags > strong in paragraph 1`] = `
 <div>
   <p>
     <strong>
@@ -268,7 +268,7 @@ exports[`Slate JSON to React transforms Text tags strong in paragraph 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags strong mid-sentence 1`] = `
+exports[`Slate JSON to React transforms > Text tags > strong mid-sentence 1`] = `
 <div>
   <p>
     Some 
@@ -284,7 +284,7 @@ exports[`Slate JSON to React transforms Text tags strong mid-sentence 1`] = `
 </div>
 `;
 
-exports[`Slate JSON to React transforms Text tags unarticulated annotation 1`] = `
+exports[`Slate JSON to React transforms > Text tags > unarticulated annotation 1`] = `
 <div>
   <p>
     <u>
